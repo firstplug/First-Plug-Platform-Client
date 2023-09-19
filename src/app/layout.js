@@ -1,6 +1,20 @@
 import "./globals.css";
-import "@radix-ui/themes/styles.css";
-import { Theme } from "@radix-ui/themes";
+
+import { Montserrat, Inter } from "next/font/google";
+
+const montserrat = Montserrat({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-montserrat",
+});
+
+const inter = Inter({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata = {
   title: "First-Plug-Platform",
@@ -10,10 +24,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>
-        <Theme>{children}</Theme>
-      </body>
+    <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

@@ -9,7 +9,7 @@ const Input = ({ title, placeholder, type, className }) => {
 
   return (
     <div className={`relative   ${className || ""}`}>
-      <label className="block text-grey ml-2 font-sans">{title}</label>
+      <label className="block text-dark-grey ml-2 font-sans">{title}</label>
       <input
         type={inputType}
         placeholder={placeholder}

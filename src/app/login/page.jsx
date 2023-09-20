@@ -60,7 +60,7 @@ export default function Login() {
 
           <div className="flex justify-center items-center gap-2">
             <p>Don`t have an account</p>
-            <CustomLink href="/login">Sign Up</CustomLink>
+            <CustomLink href="/register">Sign Up</CustomLink>
           </div>
         </form>
       </article>

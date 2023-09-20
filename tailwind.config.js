@@ -4,16 +4,16 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)"],
-        serif: ["var(--font-montserrat)"],
+        inter: ["var(--font-inter)"],
+        montserrat: ["var(--font-montserrat)"],
       },
       fontSize: {
-        sm: ["12px", "16px"],
-        md: ["14px", "22px"],
-        lg: ["16px", "24px"],
-        xl: ["20px", "28px"],
-        "2xl": ["24px", "32px"],
-        "3xl": ["32px", "40px"],
+        sm: ["0.75rem", "1rem"],
+        md: ["0.875rem", "1.375rem"],
+        lg: ["1rem", "1.5rem"],
+        xl: ["1.25rem", "1.75rem"],
+        "2xl": ["1.5rem", "2rem"],
+        "3xl": ["2rem", "2.5rem"],
       },
       colors: {
         blue: "#18489A",

@@ -17,9 +17,8 @@ module.exports = {
       },
       colors: {
         blue: "#18489A",
-        hoverBlue: "rgba(236, 240, 247, 1)",
-        pressedBlue: "rgba(226, 232, 242, 1)",
-
+        hoverBlue: "#ECF0F7",
+        pressedBlue: "#E2E8F2",
         purple: "#9747FF",
         green: "#4FE8B7",
         white: "#FEFEFF",
@@ -30,8 +29,8 @@ module.exports = {
         black: "#15294A",
         error: "#FA1048",
         success: "#15CC8A",
-        hoverRed: "rgba(250, 16, 72, 0.08)",
-        pressedRed: "rgba(250, 16, 72, 0.12)",
+        hoverRed: "#fa104814",
+        pressedRed: "#fa10481f",
 
         // Gradients
         // bg-gradient-to-r from-blue to-green

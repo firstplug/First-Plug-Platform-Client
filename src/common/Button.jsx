@@ -9,8 +9,8 @@ export default function Button({
 }) {
   const btnStyle = {
     size: {
-      big: "text-lg",
-      small: "text-sm",
+      big: "text-lg py-3 px-6",
+      small: "text-sm  py-2 px-6",
     },
     variant: {
       primary:
@@ -30,25 +30,12 @@ export default function Button({
 
   return (
     <button
-      className={
+      className={`w-full text-center font-bold leading-5 capitalize rounded-md transition-all duration-150 ease-in ${
         disabled
           ? `${btnStyle.size[size]} ${btnStyle.disabled[variant]}`
           : ` ${btnStyle.size[size]} ${btnStyle.variant[variant]}`
-      }
+      }`}
       disabsled={disabled}
-      style={{
-        transition: "all .3s",
-        padding: size === "small" ? "9px 24px" : "12px 24px",
-        borderRadius: "8px",
-        width: "100%",
-        textAlign: "center",
-        display: "flex",
-        justifyContent: "center",
-        gap: "8px",
-        fontWeight: 700,
-        lineHeight: "22px",
-        textTransform: "capitalize",
-      }}
     >
       {icon && <span>{icon}</span>}
       {body}

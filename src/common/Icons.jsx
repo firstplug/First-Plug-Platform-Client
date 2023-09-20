@@ -79,14 +79,13 @@ export function EyeSlashIcon() {
   );
 }
 
-export function AlertCheck() {
+export function AlertCheck({ size = "10" }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className="w-6 h-6"
-      color="green"
+      className={`w-${size} h-${size} text-success`}
     >
       <path
         fillRule="evenodd"

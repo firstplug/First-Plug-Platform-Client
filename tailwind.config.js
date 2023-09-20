@@ -17,16 +17,22 @@ module.exports = {
       },
       colors: {
         blue: "#18489A",
+        hoverBlue: "rgba(236, 240, 247, 1)",
+        pressedBlue: "rgba(226, 232, 242, 1)",
+
         purple: "#9747FF",
         green: "#4FE8B7",
         white: "#FEFEFF",
-        "light-gray": "#F7F7F9",
+        "light-grey": "#F7F7F9",
         boder: "#D9DBDE",
         grey: "#AEB1B7",
         "dark-grey": "#5D6470",
         black: "#15294A",
         error: "#FA1048",
         success: "#15CC8A",
+        hoverRed: "rgba(250, 16, 72, 0.08)",
+        pressedRed: "rgba(250, 16, 72, 0.12)",
+
         // Gradients
         // bg-gradient-to-r from-blue to-green
       },

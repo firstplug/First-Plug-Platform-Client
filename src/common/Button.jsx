@@ -1,24 +1,43 @@
 import React from "react";
 
-export default function Button({ body, size, variant, icon }) {
-  const className = {
-    big: {
-      primary: "bg-blue text-white text-lg",
-      scondary: "bg-white  border-blue  text-blue text-lg",
-      text: "bg-white   text-blue text-lg",
-      alert: "text-error   text-lg",
+export default function Button({
+  body,
+  size,
+  variant,
+  icon,
+  disabled = false,
+}) {
+  const btnStyle = {
+    size: {
+      big: "text-lg",
+      small: "text-sm",
     },
-    small: {
-      primary: "bg-blue text-white text-md",
-      scondary: "bg-white  border-blue  text-blue text-md",
-      text: "bg-white   text-blue text-md",
-      alert: "text-error   text-md",
+    variant: {
+      primary:
+        "bg-blue text-white   hover:bg-gradient-to-r from-blue to-green ",
+      secondary: "bg-white border border-blue hover:bg-hoverBlue  text-blue ",
+      text: "bg-white   text-blue  hover:bg-hoverBlue",
+      alert: "text-error    hover:bg-hoverRed",
+    },
+
+    disabled: {
+      primary: "bg-light-grey    text-grey ",
+      secondary: "bg-white   text-grey ",
+      text: "bg-white    text-grey   ",
+      alert: "bg-white   text-grey ",
     },
   };
+
   return (
     <button
-      className={className[size][variant]}
+      className={
+        disabled
+          ? `${btnStyle.size[size]} ${btnStyle.disabled[variant]}`
+          : ` ${btnStyle.size[size]} ${btnStyle.variant[variant]}`
+      }
+      disabsled={disabled}
       style={{
+        transition: "all .3s",
         padding: size === "small" ? "9px 24px" : "12px 24px",
         borderRadius: "8px",
         width: "100%",
@@ -28,9 +47,10 @@ export default function Button({ body, size, variant, icon }) {
         gap: "8px",
         fontWeight: 700,
         lineHeight: "22px",
+        textTransform: "capitalize",
       }}
     >
-      <span>{icon}</span>
+      {icon && <span>{icon}</span>}
       {body}
     </button>
   );

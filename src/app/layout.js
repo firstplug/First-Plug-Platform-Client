@@ -1,6 +1,4 @@
 import "./globals.css";
-import "@radix-ui/themes/styles.css";
-import { Theme } from "@radix-ui/themes";
 
 export const metadata = {
   title: "First-Plug-Platform",
@@ -11,9 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <Theme>{children}</Theme>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

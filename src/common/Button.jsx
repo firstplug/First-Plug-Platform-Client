@@ -5,6 +5,7 @@ export default function Button({
   size,
   variant,
   icon,
+  className,
   disabled = false,
 }) {
   const btnStyle = {
@@ -34,7 +35,7 @@ export default function Button({
         disabled
           ? `${btnStyle.size[size]} ${btnStyle.disabled[variant]}`
           : ` ${btnStyle.size[size]} ${btnStyle.variant[variant]}`
-      }`}
+      } ${className || ""} `}
       disabsled={disabled}
     >
       {icon && <span>{icon}</span>}

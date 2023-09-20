@@ -11,8 +11,8 @@ const AddStockCard = ({ title, file, currentDate, className }) => {
             <div className="flex gap-2">
               <FileIcon />
               <div className="flex-col">
-                <h2 className="font-bold">{title}</h2>
-                <p className="text-gray-500">{file}</p>
+                <h2 className="font-bold text-black">{title}</h2>
+                <p className="text-grey">{file}</p>
               </div>
             </div>
           </div>
@@ -20,7 +20,7 @@ const AddStockCard = ({ title, file, currentDate, className }) => {
             <button className="bg-transparent border-none cursor-pointer">
               <IconX />
             </button>
-            <p className="text-gray-500">{currentDate} </p>
+            <p className="text-grey">{currentDate} </p>
           </div>
         </header>
       </section>

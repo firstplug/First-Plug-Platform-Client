@@ -7,6 +7,7 @@ export default function Button({
   icon,
   className,
   disabled = false,
+  ...buttonProps
 }) {
   const btnStyle = {
     size: {
@@ -37,6 +38,7 @@ export default function Button({
           : ` ${btnStyle.size[size]} ${btnStyle.variant[variant]}`
       } ${className || ""} `}
       disabsled={disabled}
+      {...buttonProps}
     >
       {icon && <span>{icon}</span>}
       {body}

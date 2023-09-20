@@ -1,5 +1,6 @@
+"use client";
 import React from "react";
-import { CloseIcon, FileIcon } from "./Icons";
+import { IconX, FileIcon } from "./Icons";
 
 const AddStockCard = ({ title, file, currentDate, className }) => {
   return (
@@ -8,7 +9,7 @@ const AddStockCard = ({ title, file, currentDate, className }) => {
         <header className="flex items-center justify-between">
           <div className="flex">
             <div className="flex gap-2">
-              {FileIcon}
+              <FileIcon />
               <div className="flex-col">
                 <h2 className="font-bold">{title}</h2>
                 <p className="text-gray-500">{file}</p>
@@ -17,7 +18,7 @@ const AddStockCard = ({ title, file, currentDate, className }) => {
           </div>
           <div className="flex flex-col items-end">
             <button className="bg-transparent border-none cursor-pointer">
-              {CloseIcon}
+              <IconX />
             </button>
             <p className="text-gray-500">{currentDate} </p>
           </div>

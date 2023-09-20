@@ -8,12 +8,12 @@ module.exports = {
         serif: ["var(--font-montserrat)"],
       },
       fontSize: {
-        sm: "16px",
-        md: "22px",
-        lg: "24px",
-        xl: "28px",
-        "2xl": "32px",
-        "3xl": "40px",
+        sm: ["12px", "16px"],
+        md: ["14px", "22px"],
+        lg: ["16px", "24px"],
+        xl: ["20px", "28px"],
+        "2xl": ["24px", "32px"],
+        "3xl": ["32px", "40px"],
       },
       colors: {
         blue: "#18489A",

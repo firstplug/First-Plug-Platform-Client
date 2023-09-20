@@ -30,7 +30,7 @@ export default function Button({
 
   return (
     <button
-      className={`w-full text-center font-bold leading-5 capitalize rounded-md transition-all duration-150 ease-in ${
+      className={`w-full text-center flex items-center justify-center gap-2 font-bold leading-5 capitalize rounded-md transition-all duration-150 ease-in ${
         disabled
           ? `${btnStyle.size[size]} ${btnStyle.disabled[variant]}`
           : ` ${btnStyle.size[size]} ${btnStyle.variant[variant]}`

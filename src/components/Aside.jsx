@@ -1,15 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import Button from "@/common/Button";
 import { IconX } from "@/common/Icons";
 
-export default function Aside({ children, title, href, onActive = false }) {
-  const [active, setActive] = useState(onActive);
-
-  const handleClick = () => {
-    setActive(false);
-  };
+export default function Aside({ children, title, isActive = false }) {
+  const [active, setActive] = useState(isActive);
 
   return (
     <>
@@ -22,21 +18,25 @@ export default function Aside({ children, title, href, onActive = false }) {
 
       {/* aside */}
       <aside
-        className={`fixed top-0 right-0 h-full w-[40%] min-w-[600px] shadow-md shadow-gray-400 px-14 py-10 bg-white z-20 transform transition-transform duration-300 ${
+        className={`flex flex-col fixed top-0 right-0 h-full w-[35%] min-w-[600px] shadow-md shadow-gray-400 px-14 py-10 bg-white z-20 transform transition-transform duration-300 ${
           active ? "" : "translate-x-full"
         }`}
       >
         {/* header */}
-        <header className="flex justify-between items-center pb-8">
+        <header className="flex justify-between items-center">
           <h2 className="text-2xl font-sans text-black font-semibold">
             {title}
           </h2>
-          <Link href={href} onClick={handleClick}>
+          <button onClick={() => setActive(false)}>
             <IconX className="h-8 w-8" />
-          </Link>
+          </button>
         </header>
 
-        {children}
+        <div className="flex-[1] mt-[40px]">{children}</div>
+
+        <div className="flex-[-1]">
+          <Button body="Attach Files" variant="primary" size="big" />
+        </div>
       </aside>
     </>
   );

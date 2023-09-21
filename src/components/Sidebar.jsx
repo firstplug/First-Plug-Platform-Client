@@ -26,7 +26,7 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`h-full flex flex-col shadow-sm shadow-grey transition-all ${
+      className={`h-[99.83vh] flex flex-col shadow-sm shadow-grey transition-all ${
         isSidebarSmall ? "w-20" : "w-64"
       }`}
     >
@@ -58,12 +58,12 @@ const Sidebar = () => {
         />
       </div>
 
-
       <section className="flex flex-col flex-[2] gap-4">
         <SidebarLink
           isSmall={isSidebarSmall}
           icon={<DashboardIcon />}
           title="Dashboard"
+          href="/home/dashboard"
           isActive
         />
 
@@ -71,24 +71,28 @@ const Sidebar = () => {
           isSmall={isSidebarSmall}
           icon={<ComputerIcon />}
           title="My Stock"
+          href="/home/my-stock"
         />
 
         <SidebarLink
           isSmall={isSidebarSmall}
           icon={<PersonsGroupIcon />}
           title="My Team"
+          href="/home/my-team"
         />
 
         <SidebarLink
           isSmall={isSidebarSmall}
           icon={<NotebookOrdersIcon />}
           title="Orders"
+          href="/home/orders"
         />
 
         <SidebarLink
           isSmall={isSidebarSmall}
           icon={<TruckIcon />}
           title="Shipments"
+          href="/home/shipments"
         />
       </section>
 

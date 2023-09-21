@@ -6,10 +6,11 @@ export default function SidebarLink({
   icon,
   title,
   className = "",
+  href,
 }) {
   return (
     <Link
-      href="/"
+      href={`${href}`}
       className={`flex items-center h-12 ${
         isActive ? "text-blue" : undefined
       } ${className}`}

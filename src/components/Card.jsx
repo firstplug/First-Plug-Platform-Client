@@ -11,16 +11,21 @@ const Card = ({
   paragraph,
   icon,
   altImage,
+  className,
 }) => {
   return (
-    <main className="w-[100%] h-[388px] bg-white rounded-[16px] p-6 border border-grey">
+    <main
+      className={`w-[100%] h-[388px] bg-white rounded-[16px] p-6 border border-grey ${
+        className || ""
+      }`}
+    >
       <div className="flex justify-between items-center text-white">
-        <h1 className="text-[20px] text-black font-montserrat font-bold flex-1">
+        <h1 className="text-[20px] text-black font-montserrat font-bold flex-1 md:text-sm lg:text-xl">
           {Title}
         </h1>
         <Button
           icon={icon}
-          className="w-[140px] h-[40px] text-[14px] whitespace-nowrap"
+          className="p-2 whitespace-nowrap rounded-md"
           body={titleButton}
           size="small"
           variant="secondary"

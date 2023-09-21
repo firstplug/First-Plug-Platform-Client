@@ -7,6 +7,8 @@ export default function Button({
   icon,
   className,
   disabled = false,
+  onClick,
+  ...buttonProps
 }) {
   const btnStyle = {
     size: {
@@ -31,11 +33,16 @@ export default function Button({
 
   return (
     <button
+      onClick={onClick}
       className={`w-full text-center flex items-center justify-center gap-2 font-bold leading-5 capitalize rounded-md transition-all duration-150 ease-in ${
         disabled
           ? `${btnStyle.size[size]} ${btnStyle.disabled[variant]}`
           : ` ${btnStyle.size[size]} ${btnStyle.variant[variant]}`
       } ${className || ""} `}
+
+
+      {...buttonProps}
+
       disabled={disabled}
     >
       {icon && <span>{icon}</span>}

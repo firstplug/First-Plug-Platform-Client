@@ -176,6 +176,7 @@ export function AlertCheck({ className }) {
   );
 }
 
+
 export function ShopBag({ className }) {
   return (
     <svg
@@ -194,6 +195,7 @@ export function ShopBag({ className }) {
     </svg>
   );
 }
+
 export function GoogleIcon({ className = "" }) {
   return (
     <svg
@@ -459,3 +461,4 @@ export function AddIcon({ className }) {
     </svg>
   );
 }
+

@@ -19,9 +19,13 @@ export default function NotFount() {
           <p className="font-xl font-inter text-center text-dark-grey">
             Sorry! Something went wrong. Please try again
           </p>
-          <div className="w-32 h-12">
+          <div>
             <CustomLink href="/">
-              <Button body="Go Home" variant="primary" size="big" />
+              <Button
+                body="Go Home"
+                variant="primary"
+                className="w-32 h-12 text-lg rounded-md"
+              />
             </CustomLink>
           </div>
         </section>

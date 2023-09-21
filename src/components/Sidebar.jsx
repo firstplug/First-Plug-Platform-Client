@@ -25,8 +25,8 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`fixed h-full flex flex-col shadow-sm shadow-grey transition-all  w-${
-        isSidebarSmall ? "20" : "64"
+      className={`fixed h-full flex flex-col shadow-sm shadow-grey transition-all ${
+        isSidebarSmall ? "w-20" : "w-64"
       }`}
     >
       <header className={`py-8 flex flex-[-1] h-[80px] m-auto`}>
@@ -51,22 +51,20 @@ const Sidebar = () => {
         <Button
           icon={isSidebarSmall ? <ArrowRight /> : <ArrowLeft />}
           onClick={toggleSidebarSize}
-          size="small"
-          className={` w-10 h-10 bg-white border border-grey hover:bg-gray-300 rounded-full relative bottom-5 ${
+          className={`w-32 h-10 bg-white border border-grey hover:bg-gray-300 rounded-full relative bottom-5 ${
             isSidebarSmall ? "left-[70%]" : "left-[90%]"
           }`}
         />
       </div>
 
-      <section className="flex flex-col  flex-[2] w-[50%] mx-auto gap-5">
+      <section className="flex flex-col flex-[2] w-[50%] mx-auto gap-5">
         <CustomLink
           href={"#"}
           className={`py-2 w-full flex items-center gap-2 text-dark-grey hover:text-black  ${
             isSidebarSmall ? "justify-center" : "justify-start"
           }`}
         >
-          <DashboardIcon className="w-6 h-6 mr-2" />
-
+          <DashboardIcon />
           <span className={isSidebarSmall && "hidden"}>Dashboard</span>
         </CustomLink>
         <CustomLink

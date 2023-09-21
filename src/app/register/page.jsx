@@ -1,5 +1,4 @@
 import Button from "@/common/Button";
-import CustomLink from "@/common/CustomLink";
 import Input from "@/common/Input";
 import Form from "@/components/Form";
 import Image from "next/image";
@@ -8,7 +7,7 @@ export default function page() {
   return (
     <section className="flex">
       <Image
-        src="/firstpluigthelast.jpg"
+        src="/firstpluig.png"
         alt="img"
         width={540}
         height={960}
@@ -20,7 +19,11 @@ export default function page() {
           <Input title="Full Name" placeholder="Placeholder" />
           <Input title="Email" placeholder="user@mail.com" />
           <Input title="Password" type="password" />
-          <Button body="Log In" variant="primary" size="big" />
+          <Button
+            body="Create Account"
+            variant="primary"
+            className="rounded-md h-12"
+          />
         </Form>
       </article>
     </section>

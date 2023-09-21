@@ -1,6 +1,6 @@
 import React from "react";
 import { SearchIcon } from "./Icons";
-export default function SearchInput({ icon, placeholder, className }) {
+export default function SearchInput({ placeholder, className }) {
   return (
     <div className="flex self-stretch border border-grey gap-2 items-center py-2 px-3  rounded-lg ">
       <SearchIcon className={" text-grey font-bold "} />

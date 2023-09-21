@@ -24,20 +24,17 @@ export default function Form({
         <Button
           variant="secondary"
           icon={<GoogleIcon className="w-7 h-7" />}
-          className="border-none w-1/12 rounded-full"
-          size="small"
+          className="border-none w-10 h-10 rounded-full"
         />
         <Button
           variant="secondary"
           icon={<AppleIcon className="w-7 h-7" />}
-          className="border-none w-1/12 rounded-full"
-          size="small"
+          className="border-none w-10 h-10 rounded-full"
         />
         <Button
           variant="secondary"
           icon={<MicrosoftIcon className="w-7 h-7" />}
-          className="border-none w-1/12 rounded-full"
-          size="small"
+          className="border-none w-10 h-10 rounded-full"
         />
       </div>
 

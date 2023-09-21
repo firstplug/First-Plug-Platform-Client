@@ -5,7 +5,7 @@ import { IconX, FileIcon } from "./Icons";
 const AddStockCard = ({ title, file, currentDate, className }) => {
   return (
     <article className={`flex flex-col ${className || ""}`}>
-      <section className="bg-white p-4 rounded-md shadow-md mx-10">
+      <section className="bg-white p-4 rounded-md shadow-md ">
         <header className="flex items-center justify-between">
           <div className="flex">
             <div className="flex gap-2">

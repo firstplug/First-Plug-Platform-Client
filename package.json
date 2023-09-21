@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
-    "@radix-ui/themes": "^1.1.2",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "heroicons": "^2.0.18",

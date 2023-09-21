@@ -8,7 +8,7 @@ export default function Login() {
   return (
     <section className="flex">
       <Image
-        src="/firstpluigthelast.jpg"
+        src="/firstpluig.png"
         alt="img"
         width={540}
         height={960}
@@ -22,7 +22,7 @@ export default function Login() {
           <CustomLink href="/login" className="text-right">
             Forgot Password ?
           </CustomLink>
-          <Button body="Log In" variant="primary" size="big" />
+          <Button body="Log In" variant="primary" className="rounded-md h-12" />
         </Form>
       </article>
     </section>

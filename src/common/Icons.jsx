@@ -180,7 +180,7 @@ export function NotebookOrdersIcon() {
   );
 }
 
-export function TruckIcon() {
+/*export function TruckIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -194,6 +194,7 @@ export function TruckIcon() {
         strokeLinecap="round"
         strokeLinejoin="round"
         d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
+*/
 
 export function AppleIcon({ className = "" }) {
   return (
@@ -239,12 +240,20 @@ export function ArrowLeft({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
+
       className={`w-6 h-6 ${className}`}
+
     >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M15.75 19.5L8.25 12l7.5-7.5"
+        d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+      />
+    </svg>
+  );
+}
+
+
 
 export function GoogleIcon({ className = "" }) {
   return (
@@ -271,26 +280,37 @@ export function GoogleIcon({ className = "" }) {
       <path
         d="M11.2651 5.09371C13.3648 5.09371 14.7812 6.00769 15.5889 6.77147L18.7447 3.66643C16.8065 1.851 14.2843 0.736694 11.2651 0.736694C6.89158 0.736694 3.11447 3.26577 1.27563 6.94669L4.8912 9.77631C5.79828 7.05942 8.30805 5.09371 11.2651 5.09371Z"
         fill="#EB4335"
+
       />
     </svg>
   );
 }
 
+
 export function ArrowRight({ className }) {
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
+
       strokeWidth={1.5}
+
       stroke="currentColor"
       className={`w-6 h-6 ${className}`}
     >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M8.25 4.5l7.5 7.5-7.5 7.5"
+
+        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
       />
+    </svg>
+  );
+}
+
+
 
 export function MicrosoftIcon({ className = "" }) {
   return (
@@ -312,7 +332,106 @@ export function MicrosoftIcon({ className = "" }) {
       <rect x="2" y="12.9091" width="9.09091" height="9.09091" fill="#05A6F0" />
       <rect x="12.9091" y="2" width="9.09091" height="9.09091" fill="#80BC06" />
       <rect x="2" y="2" width="9.09091" height="9.09091" fill="#F25325" />
+    </svg>
+  );
+}
 
+export function ShopIcon({ className }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+      />
+    </svg>
+  );
+}
+
+export function NotificationIcon({ className, stroke, hasNotification }) {
+  return (
+    <div>
+      {hasNotification && (
+        <div className="w-2 h-2 bg-red-600 rounded-full absolute m-0.5 "></div>
+      )}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={stroke || 1.5}
+        stroke="currentColor"
+        className={`w-6 h-6 ${className} `}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+        />
+      </svg>
+    </div>
+  );
+}
+
+export function DropDownArrow({ className }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+      />
+    </svg>
+  );
+}
+
+export function SearchIcon({ className }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={2}
+      stroke="currentColor"
+      className={`w-6 h-6 ${className}`}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+      />
+    </svg>
+  );
+}
+
+export function UserIcon({ className }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className={`w-10 h-10 m-0 ${className}`}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+      />
     </svg>
   );
 }

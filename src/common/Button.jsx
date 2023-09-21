@@ -39,8 +39,10 @@ export default function Button({
           ? `${btnStyle.size[size]} ${btnStyle.disabled[variant]}`
           : ` ${btnStyle.size[size]} ${btnStyle.variant[variant]}`
       } ${className || ""} `}
-      disabsled={disabled}
+
+
       {...buttonProps}
+
       disabled={disabled}
     >
       {icon && <span>{icon}</span>}

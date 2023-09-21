@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
 import { TrashIcon } from "@/common/Icons";
+import Button from "./Button";
 
 const statusColors = {
-  "missing data": "bg-lightRed",
+  missingData: "bg-lightRed",
   delivered: "bg-lightGreen",
   preparing: "bg-lightYellow",
   available: "bg-lightPurple",
@@ -21,12 +22,7 @@ const TableRow = ({ id, name, status, actions }) => {
       >
         {status.toUpperCase()}
       </span>
-      <button className=" font-montserrat font-semibold text-blue">
-        {actions}
-      </button>
-      <span className="text-black">
-        <TrashIcon strokeColor="red" />
-      </span>
+      <Button icon={<TrashIcon />} className="h-[32px] w-[32px]" />
     </main>
   );
 };

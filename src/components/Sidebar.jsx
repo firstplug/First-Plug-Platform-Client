@@ -13,6 +13,7 @@ import {
   ArrowLeft,
   ArrowRight,
 } from "@/common/Icons";
+import SidebarLink from "@/common/SidebarLink";
 
 const Sidebar = () => {
   const [showLogo, setShowLogo] = useState(true);
@@ -25,11 +26,11 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`fixed h-full flex flex-col shadow-sm shadow-grey transition-all ${
+      className={`h-full flex flex-col shadow-sm shadow-grey transition-all ${
         isSidebarSmall ? "w-20" : "w-64"
       }`}
     >
-      <header className={`py-8 flex flex-[-1] h-[80px] m-auto`}>
+      <header className={`py-8 flex flex-[-1] h-[80px] mx-6`}>
         <div>
           {isSidebarSmall ? (
             <Image
@@ -57,74 +58,48 @@ const Sidebar = () => {
         />
       </div>
 
-      <section className="flex flex-col flex-[2] w-[50%] mx-auto gap-5">
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center gap-2 text-dark-grey hover:text-black  ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <DashboardIcon />
-          <span className={isSidebarSmall ? "hidden" : undefined}>
-            Dashboard
-          </span>
-        </CustomLink>
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center    gap-2 text-dark-grey hover:text-black ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <ComputerIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall ? "hidden" : undefined}>
-            My Stock
-          </span>
-        </CustomLink>
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center gap-2 text-dark-grey hover:text-black ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <PersonsGroupIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall ? "hidden" : undefined}>My Team</span>
-        </CustomLink>
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center  gap-2 text-dark-grey hover:text-black ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <NotebookOrdersIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall ? "hidden" : undefined}>Orders</span>
-        </CustomLink>
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center gap-2 text-dark-grey hover:text-black ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <TruckIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall ? "hidden" : undefined}>
-            Shipments
-          </span>
-        </CustomLink>
+
+      <section className="flex flex-col flex-[2] gap-4">
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<DashboardIcon />}
+          title="Dashboard"
+          isActive
+        />
+
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<ComputerIcon />}
+          title="My Stock"
+        />
+
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<PersonsGroupIcon />}
+          title="My Team"
+        />
+
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<NotebookOrdersIcon />}
+          title="Orders"
+        />
+
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<TruckIcon />}
+          title="Shipments"
+        />
       </section>
 
       <hr className="my-2" />
 
-      <section className="text-center flex flex-col gap-5 py-1 w-[50%] mx-auto  ">
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center gap-2 mb-3 text-dark-grey hover:text-black ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <SettingsIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall ? "hidden" : undefined}>
-            Settings
-          </span>
-        </CustomLink>
+      <section className="flex flex-col flex-[-1] h-12 my-4 gap-4">
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<SettingsIcon />}
+          title="Settings"
+        />
       </section>
     </aside>
   );

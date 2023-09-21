@@ -1,5 +1,6 @@
 import Button from "@/common/Button";
 import Layout from "@/common/Layout";
+import Table from "@/components/Table";
 import React from "react";
 
 export default function MyStock() {
@@ -18,13 +19,21 @@ export default function MyStock() {
             <Button
               body="Load Stock"
               variant={"secondary"}
-              className={"p-3 "}
+              className={"p-3 rounded-md"}
             />
           </div>
           <div>
-            <Button body="Load Stock" variant={"primary"} className={"p-3 "} />
+            <Button
+              body="Load Stock"
+              variant={"primary"}
+              className={"p-3  rounded-md"}
+            />
           </div>
         </div>
+      </div>
+
+      <div className="mt-10">
+        <Table />
       </div>
     </Layout>
   );

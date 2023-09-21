@@ -2,7 +2,7 @@
 import Dropdown from "@/common/Dropdown";
 import React, { useState } from "react";
 
-const Table = () => {
+const Table = ({ className }) => {
   const data = [
     {
       imagen: "/notebook1.png",
@@ -35,7 +35,11 @@ const Table = () => {
   ];
 
   return (
-    <table className=" flex-col w-[50%] rounded-lg overflow-hidden">
+    <table
+      className={` flex-col w-full rounded-lg overflow-hidden ${
+        className || ""
+      }`}
+    >
       <thead>
         <tr className="border-b-2 border-gray-200 bg-light-grey text-black text-left">
           <th className="py-3 px-3">Category</th>

@@ -12,14 +12,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={``}>
       <body>
-        <section className=" flex max-h-[100vh] ">
+        <section className=" flex  ">
           <div>
             <Sidebar />
           </div>
           <div className="w-full">
-            <Navbar title={"hola"} />
+            <Navbar />
 
-            <Layout className="m-10 ">{children}</Layout>
+            <Layout className=" ">{children}</Layout>
           </div>
         </section>
         {/* {children} */}

@@ -51,7 +51,7 @@ const Sidebar = () => {
         <Button
           icon={isSidebarSmall ? <ArrowRight /> : <ArrowLeft />}
           onClick={toggleSidebarSize}
-          className={`w-32 h-10 bg-white border border-grey hover:bg-gray-300 rounded-full relative bottom-5 ${
+          className={`w-10 h-10 bg-white border border-grey hover:bg-gray-300 rounded-full relative bottom-5 ${
             isSidebarSmall ? "left-[70%]" : "left-[90%]"
           }`}
         />
@@ -65,7 +65,9 @@ const Sidebar = () => {
           }`}
         >
           <DashboardIcon />
-          <span className={isSidebarSmall && "hidden"}>Dashboard</span>
+          <span className={isSidebarSmall ? "hidden" : undefined}>
+            Dashboard
+          </span>
         </CustomLink>
         <CustomLink
           href={"#"}
@@ -74,7 +76,9 @@ const Sidebar = () => {
           }`}
         >
           <ComputerIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall && "hidden"}>My Stock</span>
+          <span className={isSidebarSmall ? "hidden" : undefined}>
+            My Stock
+          </span>
         </CustomLink>
         <CustomLink
           href={"#"}
@@ -83,7 +87,7 @@ const Sidebar = () => {
           }`}
         >
           <PersonsGroupIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall && "hidden"}>My Team</span>
+          <span className={isSidebarSmall ? "hidden" : undefined}>My Team</span>
         </CustomLink>
         <CustomLink
           href={"#"}
@@ -92,7 +96,7 @@ const Sidebar = () => {
           }`}
         >
           <NotebookOrdersIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall && "hidden"}>Orders</span>
+          <span className={isSidebarSmall ? "hidden" : undefined}>Orders</span>
         </CustomLink>
         <CustomLink
           href={"#"}
@@ -101,7 +105,9 @@ const Sidebar = () => {
           }`}
         >
           <TruckIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall && "hidden"}>Shipments</span>
+          <span className={isSidebarSmall ? "hidden" : undefined}>
+            Shipments
+          </span>
         </CustomLink>
       </section>
 
@@ -115,7 +121,9 @@ const Sidebar = () => {
           }`}
         >
           <SettingsIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall && "hidden"}>Settings</span>
+          <span className={isSidebarSmall ? "hidden" : undefined}>
+            Settings
+          </span>
         </CustomLink>
       </section>
     </aside>

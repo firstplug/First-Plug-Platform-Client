@@ -52,11 +52,12 @@ const Sidebar = () => {
         <Button
           icon={isSidebarSmall ? <ArrowRight /> : <ArrowLeft />}
           onClick={toggleSidebarSize}
-          className={`w-32 h-10 bg-white border border-grey hover:bg-gray-300 rounded-full relative bottom-5 ${
+          className={`w-10 h-10 bg-white border border-grey hover:bg-gray-300 rounded-full relative bottom-5 ${
             isSidebarSmall ? "left-[70%]" : "left-[90%]"
           }`}
         />
       </div>
+
 
       <section className="flex flex-col flex-[2] gap-4">
         <SidebarLink

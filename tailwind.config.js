@@ -23,7 +23,7 @@ module.exports = {
         green: "#4FE8B7",
         white: "#FEFEFF",
         "light-grey": "#F7F7F9",
-        boder: "#D9DBDE",
+        border: "#D9DBDE",
         grey: "#AEB1B7",
         "dark-grey": "#5D6470",
         black: "#15294A",
@@ -31,7 +31,11 @@ module.exports = {
         success: "#15CC8A",
         hoverRed: "#fa104814",
         pressedRed: "#fa10481f",
-
+        desing: "#FFE8E8",
+        hr: "#D6E1FF",
+        sales: "#F2E8FF",
+        dev: "#D2FAEE",
+        finance: "#FFF2D1",
         // Gradients
         // bg-gradient-to-r from-blue to-green
       },

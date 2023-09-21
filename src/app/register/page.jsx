@@ -4,7 +4,7 @@ import Input from "@/common/Input";
 import Form from "@/components/Form";
 import Image from "next/image";
 
-export default function Login() {
+export default function page() {
   return (
     <section className="flex">
       <Image
@@ -16,12 +16,10 @@ export default function Login() {
       />
 
       <article className="w-[50%] h-screen flex justify-center">
-        <Form title="Welcome Back!" login>
+        <Form title="Welcome Back!" register>
+          <Input title="Full Name" placeholder="Placeholder" />
           <Input title="Email" placeholder="user@mail.com" />
           <Input title="Password" type="password" />
-          <CustomLink href="/login" className="text-right">
-            Forgot Password ?
-          </CustomLink>
           <Button body="Log In" variant="primary" size="big" />
         </Form>
       </article>

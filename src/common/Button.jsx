@@ -41,6 +41,7 @@ export default function Button({
       } ${className || ""} `}
       disabsled={disabled}
       {...buttonProps}
+      disabled={disabled}
     >
       {icon && <span>{icon}</span>}
       {body}

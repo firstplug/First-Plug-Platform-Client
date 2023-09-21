@@ -25,7 +25,7 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`fixed h-full flex flex-col shadow-sm shadow-grey transition-all ${
+      className={` h-full flex flex-col shadow-sm shadow-grey transition-all ${
         isSidebarSmall ? "w-20" : "w-64"
       }`}
     >

@@ -2,11 +2,11 @@ import React from "react";
 import { SearchIcon } from "./Icons";
 export default function SearchInput({ icon, placeholder, className }) {
   return (
-    <div className="flex items-center">
-      <SearchIcon className={"absolute text-grey font-bold"} />
+    <div className="flex self-stretch border border-grey gap-2 items-center py-2 px-3  rounded-lg ">
+      <SearchIcon className={" text-grey font-bold "} />
       <input
         placeholder={placeholder}
-        className={`w-96 px-7 py-2 rounded-xl border text-black  outline-gray-950-none${className}  `}
+        className={`text-md font-normal leading-5 rounded-md  text-dark-grey border-none outline-none ${className} `}
       />
     </div>
   );

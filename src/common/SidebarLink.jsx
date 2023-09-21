@@ -1,10 +1,18 @@
 import Link from "next/link";
 
-export default function SidebarLink({ isSmall, isActive, icon, title }) {
+export default function SidebarLink({
+  isSmall,
+  isActive,
+  icon,
+  title,
+  className = "",
+}) {
   return (
     <Link
       href="/"
-      className={`flex items-center h-12 ${isActive ? "text-blue" : undefined}`}
+      className={`flex items-center h-12 ${
+        isActive ? "text-blue" : undefined
+      } ${className}`}
     >
       {isActive && <div className="h-full w-1 bg-blue rounded-lg"></div>}
 

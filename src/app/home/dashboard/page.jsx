@@ -9,21 +9,24 @@ import { ShopIcon, AddIcon } from "../../../common/Icons";
 export default function page() {
   return (
     <Layout>
-      <div className=" grid gap-2  w-full h-full">
-        <Card
-          Title={"My Team"}
-          titleButton="Add Team Member"
-          imageBottom={girl}
-          icon={<AddIcon />}
-          paragraph={"You haven't loaded any employees yet."}
-        />
-        <div className="grid grid-cols-2   gap-2 ">
+      <div className=" grid gap-2  w-full h-[100%] overflow-y-scroll">
+        <div className="">
+          <Card
+            Title={"My Team"}
+            titleButton="Add Team Member"
+            imageBottom={girl}
+            icon={<AddIcon />}
+            paragraph={"You haven't loaded any employees yet."}
+          />
+        </div>
+        <div className="grid grid-cols-2   gap-2  ">
           <Card
             Title={"My Stock"}
             titleButton="Shop Now"
             imageBottom={office}
             icon={<ShopIcon />}
             paragraph={"You dont't have any items."}
+            className={"h-full"}
           />
           <Card
             Title={"Notifications"}
@@ -31,6 +34,7 @@ export default function page() {
             imageBottom={alert}
             icon={<ShopIcon />}
             paragraph={"You dont't have any orders."}
+            className={"h-full"}
           />
         </div>
       </div>

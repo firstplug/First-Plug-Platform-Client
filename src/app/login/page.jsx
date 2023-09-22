@@ -22,7 +22,12 @@ export default function Login() {
           <CustomLink href="/login" className="text-right">
             Forgot Password ?
           </CustomLink>
-          <Button body="Log In" variant="primary" className="rounded-md h-12" />
+          <Button
+            body="Log In"
+            variant="primary"
+            className="rounded-md "
+            size="big"
+          />
         </Form>
       </article>
     </section>

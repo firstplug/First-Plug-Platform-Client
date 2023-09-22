@@ -13,6 +13,7 @@ import {
   ArrowLeft,
   ArrowRight,
 } from "@/common/Icons";
+import SidebarLink from "@/common/SidebarLink";
 
 const Sidebar = () => {
   const [showLogo, setShowLogo] = useState(true);
@@ -25,11 +26,11 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`fixed h-full flex flex-col shadow-sm shadow-grey transition-all  w-${
-        isSidebarSmall ? "20" : "64"
+      className={`h-[99.83vh] flex flex-col shadow-sm shadow-grey transition-all ${
+        isSidebarSmall ? "w-20" : "w-64"
       }`}
     >
-      <header className={`py-8 flex flex-[-1] h-[80px] m-auto`}>
+      <header className={`py-8 flex flex-[-1] h-[80px] mx-6`}>
         <div>
           {isSidebarSmall ? (
             <Image
@@ -51,74 +52,58 @@ const Sidebar = () => {
         <Button
           icon={isSidebarSmall ? <ArrowRight /> : <ArrowLeft />}
           onClick={toggleSidebarSize}
-          size="small"
-          className={` w-10 h-10 bg-white border border-grey hover:bg-gray-300 rounded-full relative bottom-5 ${
+          className={`w-10 h-10 bg-white border border-grey hover:bg-gray-300 rounded-full relative bottom-5 ${
             isSidebarSmall ? "left-[70%]" : "left-[90%]"
           }`}
         />
       </div>
 
-      <section className="flex flex-col  flex-[2] w-[50%] mx-auto gap-5">
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center gap-2 text-dark-grey hover:text-black  ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <DashboardIcon className="w-6 h-6 mr-2" />
+      <section className="flex flex-col flex-[2] gap-4">
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<DashboardIcon />}
+          title="Dashboard"
+          href="/home/dashboard"
+          isActive
+        />
 
-          <span className={isSidebarSmall && "hidden"}>Dashboard</span>
-        </CustomLink>
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center    gap-2 text-dark-grey hover:text-black ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <ComputerIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall && "hidden"}>My Stock</span>
-        </CustomLink>
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center gap-2 text-dark-grey hover:text-black ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <PersonsGroupIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall && "hidden"}>My Team</span>
-        </CustomLink>
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center  gap-2 text-dark-grey hover:text-black ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <NotebookOrdersIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall && "hidden"}>Orders</span>
-        </CustomLink>
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center gap-2 text-dark-grey hover:text-black ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <TruckIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall && "hidden"}>Shipments</span>
-        </CustomLink>
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<ComputerIcon />}
+          title="My Stock"
+          href="/home/my-stock"
+        />
+
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<PersonsGroupIcon />}
+          title="My Team"
+          href="/home/my-team"
+        />
+
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<NotebookOrdersIcon />}
+          title="Orders"
+          href="/home/orders"
+        />
+
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<TruckIcon />}
+          title="Shipments"
+          href="/home/shipments"
+        />
       </section>
 
       <hr className="my-2" />
 
-      <section className="text-center flex flex-col gap-5 py-1 w-[50%] mx-auto  ">
-        <CustomLink
-          href={"#"}
-          className={`py-2 w-full flex items-center gap-2 mb-3 text-dark-grey hover:text-black ${
-            isSidebarSmall ? "justify-center" : "justify-start"
-          }`}
-        >
-          <SettingsIcon className="w-6 h-6 mr-2" />
-          <span className={isSidebarSmall && "hidden"}>Settings</span>
-        </CustomLink>
+      <section className="flex flex-col flex-[-1] h-12 my-4 gap-4">
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<SettingsIcon />}
+          title="Settings"
+        />
       </section>
     </aside>
   );

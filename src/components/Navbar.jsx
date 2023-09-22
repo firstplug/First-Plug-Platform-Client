@@ -3,6 +3,7 @@ import Button from "@/common/Button";
 import SearchInput from "@/common/SearchInput";
 import userPhoto from "../../public/UserLogo.jpeg";
 import Image from "next/image";
+import Logo from "../../public/logo1.png";
 import { ShopIcon, NotificationIcon, DropDownArrow } from "@/common/Icons";
 export default function Navbar({
   title,
@@ -11,9 +12,14 @@ export default function Navbar({
   hasNotification,
 }) {
   return (
-    <nav className="flex justify-between items-center   border pt-6 px-10 pb-3">
+    <nav className="flex justify-between items-center pt-6 px-10 pb-3">
       <div className="flex gap-6 items-center">
-        <h1 className="font-bold text-2xl text-black">{title || ""}</h1>
+        {title === "logo" ? (
+          <Image src={Logo} alt="Logo" width={140} height="auto" />
+        ) : (
+          <h1 className="font-bold text-2xl text-black">{title || ""}</h1>
+        )}
+
         {searchInput && <SearchInput placeholder={placeholder} />}
       </div>
       <div className="flex items-center  justify-end gap-2 ">

@@ -2,19 +2,15 @@ import React from "react";
 
 export default function Button({
   body,
-  size,
   variant,
   icon,
   className,
   disabled = false,
   onClick,
+  size,
   ...buttonProps
 }) {
   const btnStyle = {
-    size: {
-      big: "text-lg py-3 px-6",
-      small: "text-sm  py-2 px-6",
-    },
     variant: {
       primary:
         "bg-blue text-white   hover:bg-gradient-to-r from-blue to-green ",
@@ -22,7 +18,10 @@ export default function Button({
       text: "bg-white   text-blue  hover:bg-hoverBlue",
       alert: "text-error    hover:bg-hoverRed",
     },
-
+    size: {
+      big: "text-lg py-3 px-6",
+      small: "text-sm  py-2 px-6",
+    },
     disabled: {
       primary: "bg-light-grey    text-grey ",
       secondary: "bg-white   text-grey ",
@@ -34,15 +33,12 @@ export default function Button({
   return (
     <button
       onClick={onClick}
-      className={`w-full text-center flex items-center justify-center gap-2 font-bold leading-5 capitalize rounded-md transition-all duration-150 ease-in ${
+      className={`text-center flex items-center justify-center gap-2 font-bold leading-5 capitalize transition-all duration-150 ease-in ${
         disabled
-          ? `${btnStyle.size[size]} ${btnStyle.disabled[variant]}`
-          : ` ${btnStyle.size[size]} ${btnStyle.variant[variant]}`
+          ? `${btnStyle.disabled[variant]} ${btnStyle.size[size]}`
+          : `${btnStyle.variant[variant]} ${btnStyle.size[size]}`
       } ${className || ""} `}
-
-
       {...buttonProps}
-
       disabled={disabled}
     >
       {icon && <span>{icon}</span>}

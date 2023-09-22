@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={``}>
+    <html lang="en">
       <body>
         <section className=" flex  ">
           <div>
@@ -19,10 +19,9 @@ export default function RootLayout({ children }) {
           <div className="w-full">
             <Navbar />
 
-            <Layout className=" ">{children}</Layout>
+            <Layout>{children}</Layout>
           </div>
         </section>
-        {/* {children} */}
       </body>
     </html>
   );

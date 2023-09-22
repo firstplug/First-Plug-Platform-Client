@@ -22,6 +22,7 @@ const TableRow = ({ id, name, status, actions }) => {
       >
         {status.toUpperCase()}
       </span>
+      <span className="text-black">{actions}</span>
       <Button icon={<TrashIcon />} className="h-[32px] w-[32px]" />
     </main>
   );

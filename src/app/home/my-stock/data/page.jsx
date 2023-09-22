@@ -1,13 +1,8 @@
 import Button from "@/common/Button";
 import Layout from "@/common/Layout";
-import Image from "next/image";
+import Table from "@/components/Table";
 import React from "react";
-import office from "../../../../public/office.svg";
-import Card from "@/components/Card";
-import Link from "next/link";
-
-import { ShopIcon } from "../../../common/Icons";
-
+import { ShopIcon } from "@/common/Icons";
 export function UpLoadIcon({ className }) {
   return (
     <svg
@@ -29,30 +24,36 @@ export function UpLoadIcon({ className }) {
 export default function MyStock() {
   return (
     <Layout>
-      <div className="border-2 shadow-sm border-border rounded-md h-full grid place-items-center w-full ">
-        <div>
-          <Card
-            imageBottom={office}
-            paragraph={"You don't have any items."}
-            className={"border-none p-0 m-0"}
-          />
-        </div>
+      <div className="flex justify-between items-center">
         <div className="flex gap-2">
-          <Link href={"/home/my-stock/data"}>
+          <input type="checkbox" />
+          <label htmlFor="" className="ml-2 text-gray-500">
+            Show only avaliable stock
+          </label>
+        </div>
+
+        <div className="flex  gap-2">
+          <div>
             <Button
               variant={"secondary"}
               body="Load Stock"
               icon={<UpLoadIcon />}
               className={"p-3 rounded-md"}
             />
-          </Link>
-          <Button
-            variant={"primary"}
-            icon={<ShopIcon />}
-            body="Shop Now"
-            className={"p-3 rounded-md"}
-          />
+          </div>
+          <div>
+            <Button
+              variant={"primary"}
+              icon={<ShopIcon />}
+              body="Shop Now"
+              className={"p-3 rounded-md"}
+            />
+          </div>
         </div>
+      </div>
+
+      <div className="mt-10">
+        <Table />
       </div>
     </Layout>
   );

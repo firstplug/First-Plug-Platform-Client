@@ -23,6 +23,7 @@ export default function page() {
             body="Create Account"
             variant="primary"
             className="rounded-md h-12"
+            size={"big"}
           />
         </Form>
       </article>

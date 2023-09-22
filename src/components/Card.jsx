@@ -15,7 +15,7 @@ const Card = ({
 }) => {
   return (
     <main
-      className={`w-[100%] h-[388px] bg-white rounded-[16px] p-6 border border-grey ${
+      className={` bg-white rounded-[16px] p-6 border border-grey ${
         className || ""
       }`}
     >
@@ -23,15 +23,17 @@ const Card = ({
         <h1 className="text-[20px] text-black font-montserrat font-bold flex-1 md:text-sm lg:text-xl">
           {Title}
         </h1>
-        <Button
-          icon={icon}
-          className="p-2 whitespace-nowrap rounded-md"
-          body={titleButton}
-          size="small"
-          variant="secondary"
-        />
+        {titleButton && (
+          <Button
+            icon={icon}
+            className="p-2 whitespace-nowrap rounded-md"
+            body={titleButton}
+            size="small"
+            variant="secondary"
+          />
+        )}
       </div>
-      <div className="w-[100%] h-[50%]  mt-[24px] flex flex-col items-center gap-y-[16px]">
+      <div className="  mt-[24px] flex flex-col items-center gap-y-[16px]">
         <Image src={imageBottom} alt={altImage} />
         <p className="text-dark-grey">{paragraph}</p>
       </div>

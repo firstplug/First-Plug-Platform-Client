@@ -17,7 +17,6 @@ export default function page() {
             imageBottom={girl}
             icon={<AddIcon />}
             paragraph={"You haven't loaded any employees yet."}
-            // className={" h-[50%]"}
           />
         </div>
         <div className="grid grid-cols-2   gap-2  ">

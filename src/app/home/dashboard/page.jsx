@@ -9,17 +9,18 @@ import { ShopIcon, AddIcon } from "../../../common/Icons";
 export default function page() {
   return (
     <Layout>
-      <div className=" grid gap-2  w-full h-[100%] overflow-y-scroll">
-        <div className="">
+      <div className=" flex flex-col gap-2  w-full h-full ">
+        <div className="flex-1 h-full">
           <Card
             Title={"My Team"}
             titleButton="Add Team Member"
             imageBottom={girl}
             icon={<AddIcon />}
             paragraph={"You haven't loaded any employees yet."}
+            className={"h-full"}
           />
         </div>
-        <div className="grid grid-cols-2   gap-2  ">
+        <div className="flex-1 grid grid-cols-2   gap-2  ">
           <Card
             Title={"My Stock"}
             titleButton="Shop Now"

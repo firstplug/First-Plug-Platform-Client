@@ -15,7 +15,6 @@ export function DoughnutChart({ className, data }) {
     ],
   };
 
-  // console.log(data.assigned, data.avaliable);
   const legendOptions = {
     position: "bottom",
     align: "center",

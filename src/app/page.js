@@ -1,4 +1,3 @@
-import Aside from "@/components/Aside";
 import React from "react";
 
 export default function Home() {

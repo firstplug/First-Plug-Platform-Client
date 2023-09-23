@@ -74,7 +74,6 @@ export default function TeamCard({ className }) {
           <Button
             body={"Add Team Member"}
             icon={<AddIcon />}
-            // variant={"secondary"}
             size={"small"}
             className={
               "rounded-md w-full justify-center text-xl py-4  border border-blue text-blue"

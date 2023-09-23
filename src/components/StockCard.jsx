@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DoughnutChart } from "@/common/Graphs";
-import Button from "@/common/Button";
 export function MouseIcon({ className }) {}
 export function MonitorIcon({ className }) {
   return (

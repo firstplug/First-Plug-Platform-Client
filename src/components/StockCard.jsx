@@ -1,5 +1,7 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { DoughnutChart } from "@/common/Graphs";
+import Button from "@/common/Button";
 export function MouseIcon({ className }) {}
 export function MonitorIcon({ className }) {
   return (
@@ -25,29 +27,74 @@ export function ChaiIcon({ className }) {}
 export function AccesoriesIcon({ className }) {}
 
 const data = [
-  { name: "Accesories", count: 2, color: "#1b3c47" },
-  { name: "Monitor", count: 2, color: "#8597ff" },
-  { name: "Headset", count: 6, color: "#e58999" },
-  { name: "Merch", count: 6, color: "#4e4843" },
-  { name: "Laptop", count: 1, color: "#b7af6c" },
-  { name: "Chair", count: 0, color: "#7f4328" },
+  {
+    name: "Accesories",
+    assigned: 15,
+    avaliable: 18,
+    color: "#1b3c47",
+    icon: <MonitorIcon />,
+  },
+  {
+    name: "Monitor",
+    assigned: 15,
+    avaliable: 4,
+    color: "#8597ff",
+    icon: <MonitorIcon />,
+  },
+  {
+    name: "Headset",
+    assigned: 30,
+    avaliable: 40,
+    color: "#e58999",
+    icon: <MonitorIcon />,
+  },
+  {
+    name: "Merch",
+    assigned: 90,
+    avaliable: 20,
+    color: "#4e4843",
+    icon: <MonitorIcon />,
+  },
+  {
+    name: "Laptop",
+    assigned: 70,
+    avaliable: 40,
+    color: "#b7af6c",
+    icon: <MonitorIcon />,
+  },
+  {
+    name: "Chair",
+    assigned: 20,
+    avaliable: 5,
+    color: "#7f4328",
+    icon: <MonitorIcon />,
+  },
 ];
 export default function StockCard({ className }) {
+  const [info, setInfo] = useState(data[0]);
+
+  const handleSetInfo = (e) => {
+    setInfo(e);
+  };
   return (
     <div className={`flex justify-around  ${className || ""} `}>
-      <div className="  h-100 flex flex-col justify-between ">
+      <div className="  h-100 flex flex-col justify-between  w-full">
         {data.map((m) => (
-          <div className="flex  gap-2 items-center">
-            <div
-              className={`h-[1rem] w-[1rem]  rounded-full`}
-              style={{ background: m.color }}
-            ></div>
-            <b className=" text-dark-grey">{m.name}</b>
+          <div
+            className={` w-full flex gap-2  font-medium cursor-pointer p-2 rounded-md hover:bg-light-grey ${
+              info.name === m.name
+                ? "text-blue bg-light-grey"
+                : "text-dark-grey"
+            } `}
+            onClick={() => handleSetInfo(m)}
+          >
+            {m.icon}
+            {m.name}
           </div>
         ))}
       </div>
-      <div>
-        <DoughnutChart data={data} className={" h-[15rem]"} />
+      <div className="w-full">
+        <DoughnutChart data={info} className={" max-h-[15rem]"} />
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import office from "../../../../public/office.svg";
 import alert from "../../../../public/alert.svg";
 
 import { ShopIcon, AddIcon } from "../../../common/Icons";
+import CustomLink from "@/common/CustomLink";
 export default function page() {
   return (
     <Layout>
@@ -15,7 +16,11 @@ export default function page() {
             Title={"My Team"}
             titleButton="Add Team Member"
             imageBottom={girl}
-            icon={<AddIcon />}
+            icon={
+              <CustomLink href={"/home/dashboard/data"}>
+                <AddIcon />{" "}
+              </CustomLink>
+            }
             paragraph={"You haven't loaded any employees yet."}
             className={"h-full"}
           />

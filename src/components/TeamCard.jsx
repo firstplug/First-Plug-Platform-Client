@@ -4,6 +4,12 @@ import { Row } from "@/common/JoinerRow";
 import React from "react";
 import user from "../../public/UserLogo.jpeg";
 
+import team1 from "../../public/employees/Rectangle 459.png";
+import team2 from "../../public/employees/Rectangle 460.png";
+import team3 from "../../public/employees/Rectangle 461.png";
+import team4 from "../../public/employees/Rectangle 462.png";
+import Image from "next/image";
+
 const team = [
   {
     name: "Francisco",
@@ -29,30 +35,31 @@ const team = [
     jobPosition: "design",
     image: user,
   },
-  {
-    name: "Braian",
-    lastname: "Barrientos",
-    jobPosition: "design",
-    image: user,
-  },
-  {
-    name: "Braian",
-    lastname: "Barrientos",
-    jobPosition: "design",
-    image: user,
-  },
 ];
 export default function TeamCard({ className }) {
   return (
     <div className={`flex h-full ${className}`}>
-      <div className=" h-full  flex flex-col justify-between w-1/3 mx-2 p-2 rounded-lg bg-light-grey">
-        <header className="flex justify-between items-center">
+      <div className=" h-full  flex flex-col justify-between w-1/3 mx-2 px-4 py-6 rounded-lg bg-light-grey">
+        <header className="flex justify-between items-center  ">
           <h1 className="text-2xl text-black font-semibold">My Team</h1>
           <div className="flex">
-            <div className="h-[3rem] w-[3rem] grid place-items-center bg-black rounded-full -mx-[.8rem] border-white border "></div>
-            <div className="h-[3rem] w-[3rem] grid place-items-center bg-green  rounded-full -mx-[.8rem] border-white border "></div>
-            <div className="h-[3rem] w-[3rem] grid place-items-center bg-red-300 rounded-full -mx-[.8rem] border-white border "></div>
-            <div className="h-[3rem] w-[3rem] grid place-items-center bg-white rounded-full -mx-[.8rem] border-white border ">
+            <Image
+              src={team1}
+              className="h-[3rem] w-[3rem] rounded-full -ml-[1.75rem]"
+            />
+            <Image
+              src={team2}
+              className="h-[3rem] w-[3rem] rounded-full -ml-[1.75rem]"
+            />{" "}
+            <Image
+              src={team3}
+              className="h-[3rem] w-[3rem] rounded-full -ml-[1.75rem]"
+            />
+            <Image
+              src={team4}
+              className="h-[3rem] w-[3rem] rounded-full -ml-[1.75rem]"
+            />
+            <div className="h-[3rem] w-[3rem] grid place-items-center bg-white rounded-full -ml-[1.75rem] border-white border ">
               <p className="text-black font-medium">+56</p>
             </div>
           </div>
@@ -67,9 +74,11 @@ export default function TeamCard({ className }) {
           <Button
             body={"Add Team Member"}
             icon={<AddIcon />}
-            variant={"secondary"}
+            // variant={"secondary"}
             size={"small"}
-            className={"rounded-md w-full"}
+            className={
+              "rounded-md w-full justify-center text-xl py-4  border border-blue text-blue"
+            }
           />
         </div>
       </div>

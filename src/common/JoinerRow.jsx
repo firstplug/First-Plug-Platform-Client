@@ -1,14 +1,11 @@
 import Image from "next/image";
-import userLogo from "../../public/UserLogo.jpeg";
+import photo from "../../public/employees/Photo-2.png";
 
 export function Row({ joiner }) {
   return (
     <div className="border-b rounded-md border-border flex items-center gap-2 justify-between p-2 ">
       <div className="flex gap-2 ">
-        <Image
-          src={joiner.img || userLogo}
-          className="w-[10%] object-cover rounded-sm"
-        />
+        <Image src={photo} className="w-[3rem] object-cover rounded-md" />
         <div>
           <h2 className="text-black font-bold">
             {joiner.name} {joiner.lastname}

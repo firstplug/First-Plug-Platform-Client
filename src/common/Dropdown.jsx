@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const Dropdown = ({ children }) => {
+const Dropdown = ({ children, body, className }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -14,10 +14,10 @@ const Dropdown = ({ children }) => {
         onClick={toggleDropdown}
         className={`flex items-center px-4 py-2 rounded-full ${
           isOpen ? "bg-light-grey" : "bg-white hover:bg-light-grey"
-        }`}
+        } ${className || ""}`}
       >
         <div className="flex items-center space-x-2">
-          <span className="text-lg font-bold text-black">Detail</span>
+          <span className="text-lg font-bold text-black">{body}</span>
           {/* despues cargar este icono en el archivo icons, y agregar className en un bugfix */}
           <svg
             xmlns="http://www.w3.org/2000/svg"

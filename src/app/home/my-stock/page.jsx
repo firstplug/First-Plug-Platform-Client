@@ -1,12 +1,18 @@
+"use client";
+
 import Button from "@/common/Button";
 import Layout from "@/common/Layout";
 import React from "react";
 import office from "../../../../public/office.svg";
 import Card from "@/components/Card";
 import { ShopIcon, UpLoadIcon } from "../../../common/Icons";
-import CustomLink from "@/common/CustomLink";
+import Aside from "@/components/Aside";
+import useModal from "@/hooks/useModal";
+import AddStockCard from "@/common/AddStockCard";
 
 export default function MyStock() {
+  const { isModalOpen, openModal, closeModal } = useModal();
+
   return (
     <Layout>
       <div className="border-2 shadow-sm border-border rounded-md h-full grid place-items-center w-full ">
@@ -18,14 +24,14 @@ export default function MyStock() {
           />
         </div>
         <div className="flex gap-2">
-          <CustomLink href="/home/my-stock/data">
-            <Button
-              variant={"secondary"}
-              body="Load Stock"
-              icon={<UpLoadIcon />}
-              className={"p-3 rounded-md"}
-            />
-          </CustomLink>
+          <Button
+            variant={"secondary"}
+            body="Load Stock"
+            icon={<UpLoadIcon />}
+            className={"p-3 rounded-md"}
+            onClick={() => openModal()}
+          />
+
           <Button
             variant={"primary"}
             icon={<ShopIcon />}
@@ -34,6 +40,17 @@ export default function MyStock() {
           />
         </div>
       </div>
+      {isModalOpen ? (
+        <Aside title="Load Stock" closeModal={closeModal}>
+          <div className="flex flex-col gap-6">
+            <Card className="border-dashed">dasdsas</Card>
+            <AddStockCard title="Stock_2023.cvs" file="443kb" />
+            <AddStockCard title="Stock_2023.cvs" file="443kb" />
+          </div>
+        </Aside>
+      ) : (
+        ""
+      )}
     </Layout>
   );
 }

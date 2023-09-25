@@ -1,13 +1,6 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-
-import Button from "@/common/Button";
 import { IconX } from "@/common/Icons";
 
 export default function Aside({ children, title, closeModal }) {
-  const router = useRouter();
-
   return (
     <>
       {/* overlay */}
@@ -30,18 +23,6 @@ export default function Aside({ children, title, closeModal }) {
         </header>
 
         <div className="flex-[1] mt-[40px]">{children}</div>
-
-        <div className="flex-[-1]">
-          <Button
-            body="Attach Files"
-            variant="primary"
-            size="big"
-            className="w-full"
-            onClick={() =>
-              router.push("/home/my-stock/data", { scroll: false })
-            }
-          />
-        </div>
       </aside>
     </>
   );

@@ -9,6 +9,7 @@ import { ShopIcon, UpLoadIcon } from "../../../common/Icons";
 import Aside from "@/components/Aside";
 import useModal from "@/hooks/useModal";
 import AddStockCard from "@/common/AddStockCard";
+import CustomLink from "@/common/CustomLink";
 
 export default function MyStock() {
   const { isModalOpen, openModal, closeModal } = useModal();
@@ -40,16 +41,26 @@ export default function MyStock() {
           />
         </div>
       </div>
-      {isModalOpen ? (
+
+      {isModalOpen && (
         <Aside title="Load Stock" closeModal={closeModal}>
           <div className="flex flex-col gap-6">
             <Card className="border-dashed">dasdsas</Card>
             <AddStockCard title="Stock_2023.cvs" file="443kb" />
             <AddStockCard title="Stock_2023.cvs" file="443kb" />
           </div>
+
+          <div className="fixed bottom-5 w-[85%]">
+            <CustomLink href="/home/my-stock/data">
+              <Button
+                body="Attach Files"
+                variant="primary"
+                size="big"
+                className="w-full rounded-md"
+              />
+            </CustomLink>
+          </div>
         </Aside>
-      ) : (
-        ""
       )}
     </Layout>
   );

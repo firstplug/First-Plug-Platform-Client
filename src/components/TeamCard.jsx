@@ -38,7 +38,7 @@ const team = [
 ];
 export default function TeamCard({ className }) {
   return (
-    <div className={`flex h-full ${className}`}>
+    <div className={`flex h-full ${className || ""}`}>
       <div className=" h-full  flex flex-col justify-between w-1/3 mx-2 px-4 py-6 rounded-lg bg-light-grey">
         <header className="flex justify-between items-center  ">
           <h1 className="text-2xl text-black font-semibold">My Team</h1>

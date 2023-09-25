@@ -20,28 +20,27 @@ const Card = ({
         className || ""
       }`}
     >
-      <div className="flex justify-between items-center text-white">
-        <h1 className="text-[20px] text-black font-montserrat font-bold flex-1 md:text-sm lg:text-xl">
-          {Title}
-        </h1>
-        {titleButton && (
-          <Button
-            icon={icon}
-            className="p-2 whitespace-nowrap rounded-md"
-            body={titleButton}
-            size="small"
-            variant="secondary"
-          />
-        )}
-      </div>
-      {!children ? (
-        <div className="  mt-[1rem] flex flex-col items-center gap-y-[.5rem]">
-          <Image src={imageBottom} alt={altImage} />
-          <p className="text-dark-grey">{paragraph}</p>
+      {Title && (
+        <div className="flex justify-between items-center text-white">
+          <h1 className="text-[20px] text-black font-montserrat font-bold flex-1 md:text-sm lg:text-xl">
+            {Title}
+          </h1>
+          {titleButton && (
+            <Button
+              icon={icon}
+              className="p-2 whitespace-nowrap rounded-md"
+              body={titleButton}
+              size="small"
+              variant="secondary"
+            />
+          )}
         </div>
-      ) : (
-        children
       )}
+      <div className="   flex flex-col items-center gap-y-[.5rem] ">
+        <Image src={imageBottom} alt={altImage} />
+        <p className="text-dark-grey">{paragraph}</p>
+        {children && children}
+      </div>
     </main>
   );
 };

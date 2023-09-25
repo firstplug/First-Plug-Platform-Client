@@ -73,10 +73,10 @@ export default function MyTeam() {
           <div className="absolute bg-white w-[20vw] p-4 border-2 rounded-md">
             <SearchInput />
             <div className="p-3">
-              {teams.map((m) => (
+              {teams.map((team) => (
                 <div className="flex items-center gap-2">
                   <input type="checkbox" name="" id="" />
-                  <label htmlFor="">{m}</label>
+                  <label htmlFor="">{team}</label>
                 </div>
               ))}
             </div>
@@ -104,8 +104,8 @@ export default function MyTeam() {
         </div>
       </div>
       <div className="grid w-full grid-cols-3 gap-2  ">
-        {array.map((m) => (
-          <ColaboratorCard {...m} className={"w-full shadow-md"} />
+        {array.map((member) => (
+          <ColaboratorCard {...member} className={"w-full shadow-md"} />
         ))}
       </div>
     </Layout>

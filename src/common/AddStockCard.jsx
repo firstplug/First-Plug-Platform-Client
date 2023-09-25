@@ -1,8 +1,15 @@
 "use client";
-import React from "react";
-import { IconX, FileIcon } from "./Icons";
+import React, { useState } from "react";
+import { IconX, FileIcon, AlertCheck } from "./Icons";
+import ProgressBar from "./ProgressBar";
 
 const AddStockCard = ({ title, file, currentDate, className }) => {
+  const [showProgress, setShowProgress] = useState(true);
+
+  const handleProgressComplete = () => {
+    setShowProgress(false);
+  };
+
   return (
     <article className={`flex flex-col ${className || ""}`}>
       <section className="bg-white p-4 rounded-md shadow-md ">
@@ -16,13 +23,24 @@ const AddStockCard = ({ title, file, currentDate, className }) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-end">
-            <button className="bg-transparent border-none cursor-pointer">
-              <IconX />
-            </button>
-            <p className="text-grey">{currentDate} </p>
-          </div>
+          <button className="bg-transparent border-none cursor-pointer">
+            <IconX />
+          </button>
         </header>
+        <div className="flex flex-col items-end flex-1">
+          {showProgress ? (
+            <div className="w-full relative bottom-0">
+              <ProgressBar onComplete={handleProgressComplete} />
+            </div>
+          ) : (
+            <>
+              <p className="text-grey flex gap-2 items-center">
+                {currentDate}
+                <AlertCheck className="text-green" />
+              </p>
+            </>
+          )}
+        </div>
       </section>
     </article>
   );

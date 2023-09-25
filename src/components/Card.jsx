@@ -5,6 +5,7 @@ import Button from "@/common/Button";
 import Image from "next/image";
 
 const Card = ({
+  children,
   Title,
   titleButton,
   imageBottom,
@@ -33,10 +34,14 @@ const Card = ({
           />
         )}
       </div>
-      <div className="  mt-[24px] flex flex-col items-center gap-y-[16px]">
-        <Image src={imageBottom} alt={altImage} />
-        <p className="text-dark-grey">{paragraph}</p>
-      </div>
+      {!children ? (
+        <div className="  mt-[1rem] flex flex-col items-center gap-y-[.5rem]">
+          <Image src={imageBottom} alt={altImage} />
+          <p className="text-dark-grey">{paragraph}</p>
+        </div>
+      ) : (
+        children
+      )}
     </main>
   );
 };

@@ -78,17 +78,17 @@ export default function StockCard({ className }) {
   return (
     <div className={`flex justify-around  ${className || ""} `}>
       <div className="  h-100 flex flex-col justify-between  w-full">
-        {data.map((m) => (
+        {data.map((equipment) => (
           <div
             className={` w-full flex gap-2  font-medium cursor-pointer p-2 rounded-md hover:bg-light-grey ${
-              info.name === m.name
+              info.name === equipment.name
                 ? "text-blue bg-light-grey"
                 : "text-dark-grey"
             } `}
-            onClick={() => handleSetInfo(m)}
+            onClick={() => handleSetInfo(equipment)}
           >
-            {m.icon}
-            {m.name}
+            {equipment.icon}
+            {equipment.name}
           </div>
         ))}
       </div>

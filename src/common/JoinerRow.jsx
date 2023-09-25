@@ -12,7 +12,7 @@ export function Row({ joiner }) {
           </h2>
           <div className="flex gap-2 justify-start">
             <span className="font-medium text-dark-grey">Joining Date:</span>
-            <span className=" text-dark-grey">05/08/2023</span>
+            <span className=" text-dark-grey">{joiner.date}</span>
           </div>
         </div>
       </div>

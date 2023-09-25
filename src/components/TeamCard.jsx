@@ -86,8 +86,8 @@ export default function TeamCard({ className }) {
           <h1 className="text-2xl text-black font-semibold">New Joiners</h1>
         </div>
         <div className="flex flex-col overflow-y-auto max-h-[20rem] min-h-[20rem] ">
-          {team.map((m) => (
-            <Row joiner={m} />
+          {team.map((member) => (
+            <Row joiner={member} />
           ))}
         </div>
       </div>

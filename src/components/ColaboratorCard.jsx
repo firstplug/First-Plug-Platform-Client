@@ -21,13 +21,12 @@ export default function ColaboratorCard({
     >
       <header className="flex justify-between items-start">
         <div className="flex gap-2">
-          <div>
-            <Image
-              src={img || Photo}
-              alt="colabPhoto"
-              className="h-full object-contain"
-            />
-          </div>
+          <Image
+            src={img || Photo}
+            alt="colabPhoto"
+            className="h-full object-contain"
+          />
+
           <div className="ml-1 flex flex-col  items-start">
             <TeamCard team={team} />
             <h1 className="text-black font-bold">

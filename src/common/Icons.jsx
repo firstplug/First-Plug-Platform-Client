@@ -602,7 +602,7 @@ export function ChevronRight({ className, color }) {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={3}
-      stroke={`currentColor ${color || ""}`}
+      stroke={color || "currentColor"}
       className={`w-6 h-6 ${className || ""}`}
     >
       <path

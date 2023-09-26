@@ -8,6 +8,7 @@ import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
 export default function ColaboratorCard({
   name,
   lastName,
+  id,
   img,
   jobPosition,
   products,
@@ -32,7 +33,7 @@ export default function ColaboratorCard({
             <h1 className="text-black font-bold">
               {name} {lastName}
             </h1>
-            <b className="text-dark-grey">#001</b>
+            <b className="text-dark-grey">{id}</b>
           </div>
         </div>
         <div className="flex gap-1">

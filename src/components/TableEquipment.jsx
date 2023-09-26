@@ -95,7 +95,7 @@ export default function TableEquipment() {
       <tbody className="font-medium text-md divide-y divide-gray-200 ">
         {fakeDataEquipment.map(({ id, name, date, state, price }, index) => (
           <EquipmentRow
-            key={index}
+            key={id}
             id={id}
             name={name}
             date={date}

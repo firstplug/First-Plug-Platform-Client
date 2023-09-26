@@ -43,7 +43,7 @@ export default function MemberDetails({
             <TeamCard team={team} />
 
             <div className="flex gap-2">
-              <Button icon={<PenIcon className={"h-[1.2rem]"} />} />
+              <Button icon={<PenIcon className={"h-[1.2rem]"} stroke={2} />} />
               <Button icon={<TrashIcon className={" h-[1.2rem]"} />} />
             </div>
           </div>
@@ -88,7 +88,7 @@ export default function MemberDetails({
               <input type="checkbox" className="w-5 h-5" />
               <Image
                 src={product.category === "Notebook" ? notebook1 : airpods}
-                className="h-[7rem] w-auto "
+                className="h-[5rem] w-auto "
               />
               <div className="flex flex-col w-full gap-2">
                 <div className="flex gap-2 items-center">

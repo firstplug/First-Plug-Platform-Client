@@ -103,6 +103,7 @@ const Sidebar = () => {
           isSmall={isSidebarSmall}
           icon={<SettingsIcon />}
           title="Settings"
+          href="/home/settings"
         />
       </section>
     </aside>

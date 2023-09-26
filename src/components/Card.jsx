@@ -36,7 +36,7 @@ const Card = ({
           )}
         </div>
       )}
-      <div className="   flex flex-col items-center gap-y-[.5rem] ">
+      <div className="   flex flex-col  gap-y-[.5rem] ">
         <Image src={imageBottom} alt={altImage} />
         <p className="text-dark-grey">{paragraph}</p>
         {children && children}

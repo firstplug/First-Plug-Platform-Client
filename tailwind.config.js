@@ -31,12 +31,16 @@ module.exports = {
         success: "#15CC8A",
         hoverRed: "#fa104814",
         pressedRed: "#fa10481f",
+        desing: "#FFE8E8",
+        hr: "#D6E1FF",
+        sales: "#F2E8FF",
+        dev: "#D2FAEE",
+        finance: "#FFF2D1",
         lightGreen: "#AAF6CD",
         lightRed: "#FFC6D3",
         lightYellow: "#FFE9AF",
         lightPurple: "#ECDEFF",
         lightBlue: "#D8E7FF",
-
         // Gradients
         // bg-gradient-to-r from-blue to-green
       },

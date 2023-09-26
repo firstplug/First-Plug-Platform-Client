@@ -16,6 +16,7 @@ export default function Button({
       primary:
         "bg-blue text-white   hover:bg-gradient-to-r from-blue to-green ",
       secondary: "bg-white border border-blue hover:bg-hoverBlue  text-blue ",
+      delete: "bg-white border border-red-500 hover:bg-hoverRed  text-red-500 ",
       text: "bg-white   text-blue  hover:bg-hoverBlue",
       alert: "text-error    hover:bg-hoverRed",
     },

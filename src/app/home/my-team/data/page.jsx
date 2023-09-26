@@ -64,7 +64,7 @@ const array = [
     team: "desing",
   },
 ];
-export default function MyTeam() {
+export default function MyTeamData() {
   const [display, setDisplay] = useState("grid");
   return (
     <Layout className="flex flex-col gap-4">
@@ -93,13 +93,13 @@ export default function MyTeam() {
         </Dropdown>
         <div className="flex gap-2 items-center">
           <Button
-            body={"Create Team"}
+            body="Create Team"
             variant={"text"}
             icon={<AddIcon className={"w-[1rem]"} />}
             className={"p-1 text-sm"}
           />
           <Button
-            body={"Edit Team"}
+            body="Edit Team"
             variant={"text"}
             icon={<PenIcon className={"w-[1rem]"} />}
             className={"p-1 text-sm"}

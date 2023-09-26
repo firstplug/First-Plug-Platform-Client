@@ -36,7 +36,7 @@ export default function FitlerModal({ array, className }) {
             className="w-5 h-5"
             onClick={handleSelectAll}
           />
-          <label htmlFor="">Select All</label>
+          <label>Select All</label>
         </div>
         {array.map((filter, index) => (
           <div className="flex items-center gap-2 ml-2 ">
@@ -47,7 +47,7 @@ export default function FitlerModal({ array, className }) {
               onChange={() => handleCheckboxChange(index)}
             />
 
-            <label htmlFor="">{filter}</label>
+            <label>{filter}</label>
           </div>
         ))}
       </div>

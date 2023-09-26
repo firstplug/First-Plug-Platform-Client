@@ -126,9 +126,7 @@ export default function MyTeam() {
           ))}
         </div>
       ) : (
-        <div>
-          <TableTeam team={array} />
-        </div>
+        <TableTeam team={array} />
       )}
     </Layout>
   );

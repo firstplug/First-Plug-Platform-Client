@@ -9,7 +9,7 @@ import CustomLink from "@/common/CustomLink";
 export default function MyStock() {
   return (
     <Layout>
-      <div className="border-2 shadow-sm border-border rounded-md h-full grid place-items-center w-full ">
+      <div className="border-2 shadow-sm border-border rounded-md h-full flex flex-col justify-center items-center w-full ">
         <div>
           <Card
             imageBottom={office}

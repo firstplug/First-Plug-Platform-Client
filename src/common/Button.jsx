@@ -10,6 +10,7 @@ export default function Button({
   disabled = false,
   onClick,
   size,
+  children,
   ...buttonProps
 }) {
   const btnStyle = {
@@ -35,7 +36,7 @@ export default function Button({
   return (
     <button
       onClick={onClick}
-      className={`text-center flex items-center justify-center gap-2 font-bold leading-5 capitalize transition-all duration-150 ease-in ${
+      className={`text-center flex items-center justify-center  gap-2 font-bold leading-5 capitalize transition-all duration-150 ease-in ${
         disabled
           ? `${btnStyle.disabled[variant]} ${btnStyle.size[size]}`
           : `${btnStyle.variant[variant]} ${btnStyle.size[size]}`
@@ -43,8 +44,14 @@ export default function Button({
       {...buttonProps}
       disabled={disabled}
     >
-      {icon && <span>{icon}</span>}
-      {body}
+      {children ? (
+        children
+      ) : (
+        <>
+          {icon && <span>{icon}</span>}
+          {body}
+        </>
+      )}
     </button>
   );
 }

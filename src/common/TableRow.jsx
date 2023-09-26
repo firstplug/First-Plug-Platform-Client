@@ -16,7 +16,9 @@ const TableRow = ({ id, name, status, actions, className }) => {
   const statusColorClass = statusColors[status] || "";
   return (
     <table
-      className={`w-full h-10 bg-white flex items-center justify-between p-8 gap-x-40 border-t-2 border-grey ${className} text-center `}
+      className={`w-full h-10 bg-white flex items-center justify-between p-8 gap-x-40 border-t-2 border-grey ${
+        className || ""
+      } text-center `}
     >
       <tr>
         <td className="text-black text-center">{id}</td>

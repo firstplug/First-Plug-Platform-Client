@@ -11,35 +11,45 @@ const HorizontalSection = ({
   icon,
 }) => {
   return (
-    <div
-      className={`w-full h-[48px] bg-light-grey pl-84 pt-[12px] pb-[12px] py-2 flex items-center space-x-4 border border-gray  ${className}`}
-    >
-      <section className="border-r border-gray flex-grow flex justify-center">
-        <p className="font-inter font-semibold">{firstItem}</p>
-      </section>
+    <table className="h-[48px] pl-84 pt-[12px] pb-[12px] py-2 flex items-center space-x-4 border-b border-gray w-full bg-light-grey border border-gray">
+      {firstItem && (
+        <tr className="border-r border-gray flex-grow flex justify-center">
+          <td className="font-inter font-semibold">{firstItem}</td>
+        </tr>
+      )}
 
-      <section className="border-r border-gray flex-grow flex items-center justify-between pr-[20px]">
-        <p className="font-inter font-semibold">{secondItem}</p>
-        {icon}
-      </section>
+      {secondItem && (
+        <tr className="border-r border-gray flex-grow flex items-center justify-between pr-[20px]">
+          <td className="font-inter font-semibold">{secondItem}</td>
+          {icon}
+        </tr>
+      )}
 
-      <section className="border-r border-gray flex-grow flex items-center justify-between pr-[20px]">
-        <p className="font-inter font-semibold">{thirdItem}</p>
-        {icon}
-      </section>
+      {thirdItem && (
+        <tr className="border-r border-gray flex-grow flex items-center justify-between pr-[20px]">
+          <td className="font-inter font-semibold">{thirdItem}</td>
+          {icon}
+        </tr>
+      )}
 
-      <section className="border-r border-gray flex-grow font-semibold">
-        <p className="font-inter">{fourthItem}</p>
-      </section>
+      {fourthItem && (
+        <tr className="border-r border-gray flex-grow font-semibold">
+          <td className="font-inter">{fourthItem}</td>
+        </tr>
+      )}
 
-      <section className="border-r border-gray flex-grow font-semibold">
-        <p className="font-inter">{fifthItem}</p>
-      </section>
+      {fifthItem && (
+        <tr className="border-r border-gray flex-grow font-semibold">
+          <td className="font-inter">{fifthItem}</td>
+        </tr>
+      )}
 
-      <section className="border-r border-gray flex-grow font-semibold">
-        <p className="font-inter">{sixthItem}</p>
-      </section>
-    </div>
+      {sixthItem && (
+        <tr className="border-r border-gray flex-grow font-semibold">
+          <td className="font-inter">{sixthItem}</td>
+        </tr>
+      )}
+    </table>
   );
 };
 

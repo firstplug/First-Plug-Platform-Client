@@ -5,6 +5,7 @@ import Card from "@/components/Card";
 import Image from "next/image";
 import emptyImage from "../../../../public/svg/Group 133544.svg";
 import Button from "@/common/Button";
+import { PencilIcon, VisaIcon } from "@/common/Icons";
 
 export default function page() {
   return (
@@ -79,11 +80,11 @@ export default function page() {
         <Card
           Title="Payment Method"
           className="w-1/2 flex flex-col gap-4 px-8 pb-8"
-          titleButton="adsad"
+          titleButton="edit"
         >
           <div className="flex items-center gap-2">
             <div className="border p-2 border-grey rounded-md">
-              <p>Visa</p>
+              <VisaIcon />
             </div>
             <p>Visa ending in 2376</p>
             <div className="w-[1px] h-6 bg-border"></div>
@@ -96,12 +97,12 @@ export default function page() {
         <Button
           body="Cancel"
           variant="secondary"
-          className="mr-[20px] w-[210px] h-[40px] rounded-lg"
+          className="mr-[20px] w-[200px] h-[40px] rounded-lg"
         />
         <Button
           body="Save"
           variant="primary"
-          className="mr-[39px] w-[210px] h-[40px] rounded-lg"
+          className="mr-[39px] w-[200px] h-[40px] rounded-lg"
         />
       </section>
     </Layout>

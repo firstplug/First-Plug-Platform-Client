@@ -395,7 +395,7 @@ export function DashboardIcon(className) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      class={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -413,7 +413,7 @@ export function ArrowRight({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      class={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -431,7 +431,7 @@ export function ArrowLeft({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      class={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -450,7 +450,7 @@ export function AddIcon({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      class={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -468,7 +468,7 @@ export function TrashIcon({ className, color }) {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth="2"
-      class={`w-6 h-6 ${className}`}
+      class={`w-6 h-6 ${className || ""}`}
     >
       <path
         stroke={color || "currentColor"}
@@ -488,7 +488,7 @@ export function UpLoadIcon({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`w-6 h-6 ${className}`}
+      class={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -513,6 +513,138 @@ export function ChevronDown({ className }) {
         stroke-linecap="round"
         stroke-linejoin="round"
         d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+      />
+    </svg>
+  );
+}
+
+export function ChevronRight({ className, color }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={3}
+      stroke={color || "currentColor"}
+      className={`w-6 h-6 ${className || ""}`}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M8.25 4.5l7.5 7.5-7.5 7.5"
+      />
+    </svg>
+  );
+}
+
+export function TableDisplayIcon({ className }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className={`w-6 h-6 ${className || ""}`}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0112 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5"
+      />
+    </svg>
+  );
+}
+
+export function GridLayoutIcon({ className }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      class={`w-6 h-6 ${className || ""}`}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"
+      />
+    </svg>
+  );
+}
+
+export function VisaIcon() {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M15.8443 10.995L13.7065 20.99H11.1205L13.2586 10.995H15.8443ZM26.723 17.4489L28.0839 13.6956L28.8672 17.4489H26.723ZM29.609 20.99H32L29.9111 10.995H27.7056C27.2086 10.995 26.7895 11.2832 26.6041 11.7277L22.7242 20.99H25.4398L25.9789 19.4973H29.2959L29.609 20.99ZM22.8588 17.727C22.8701 15.0891 19.2123 14.943 19.2368 13.7644C19.2447 13.4063 19.5864 13.0248 20.3332 12.9272C20.7034 12.8796 21.7252 12.8409 22.8833 13.3746L23.3363 11.2542C22.7143 11.0292 21.9138 10.8125 20.9177 10.8125C18.3614 10.8125 16.5632 12.1703 16.5489 14.1162C16.5324 15.5552 17.8334 16.3575 18.8115 16.8368C19.82 17.3266 20.1578 17.6407 20.1529 18.0784C20.1459 18.7489 19.3488 19.0459 18.6065 19.0571C17.3058 19.0774 16.5518 18.7056 15.9509 18.4254L15.4815 20.6166C16.0867 20.8936 17.2017 21.1345 18.3563 21.1469C21.0739 21.1469 22.8508 19.8051 22.8588 17.727ZM12.1495 10.995L7.95982 20.99H5.22689L3.165 13.0133C3.04001 12.5228 2.93098 12.3425 2.55084 12.1352C1.92903 11.7976 0.902583 11.4817 0 11.2853L0.0611471 10.995H4.46099C5.02142 10.995 5.52565 11.368 5.65402 12.0136L6.74318 17.7978L9.43295 10.995H12.1495Z"
+        fill="#1434CB"
+      />
+    </svg>
+  );
+}
+
+export function PenIcon({ className }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className={`w-6 h-6 ${className || ""}`}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+      />
+    </svg>
+  );
+}
+
+export function StatusCircleIcon({ className, status }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="8"
+      height="8"
+      viewBox="0 0 8 8"
+      fill="none"
+      class={`${className || ""}`}
+    >
+      <circle
+        cx="4"
+        cy="4"
+        r="4"
+        fill={status.toLowerCase() === "complete" ? "#15CC8A" : "#FA1048"}
+      />
+    </svg>
+  );
+}
+export function PencilIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12.6935 4.36019L15.6398 7.30647M13.9435 3.11019C14.7571 2.2966 16.0762 2.2966 16.8898 3.11019C17.7034 3.92379 17.7034 5.24288 16.8898 6.05647L5.41667 17.5296H2.5V14.5537L13.9435 3.11019Z"
+        stroke="#5D6470"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

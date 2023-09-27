@@ -41,6 +41,8 @@ module.exports = {
         lightYellow: "#FFE9AF",
         lightPurple: "#ECDEFF",
         lightBlue: "#D8E7FF",
+        lightBackgroundShop: "#FBFBFE",
+        disabled: "#E1E4EA",
         // Gradients
         // bg-gradient-to-r from-blue to-green
       },

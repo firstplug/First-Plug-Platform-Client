@@ -5,7 +5,7 @@ import Card from "@/components/Card";
 import { ShopIcon } from "../../../../common/Icons";
 import Button from "@/common/Button";
 import Layout from "@/common/Layout";
-import Header from "../Header";
+import Header from "../../../../common/Header";
 
 export default function Logistics() {
   const [selectedTab, setSelectedTab] = useState("Logistics");

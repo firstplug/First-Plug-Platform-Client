@@ -1,6 +1,6 @@
 import "./globals.css";
-
 import { Montserrat, Inter } from "next/font/google";
+import Providers from "./Providers";
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
@@ -25,7 +25,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

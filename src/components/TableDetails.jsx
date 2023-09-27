@@ -1,6 +1,7 @@
 import Button from "@/common/Button";
 import CustomLink from "@/common/CustomLink";
 import { TrashIcon } from "@/common/Icons";
+import State from "@/common/State";
 import React from "react";
 
 const TableDetails = ({ details, className }) => {
@@ -24,17 +25,19 @@ const TableDetails = ({ details, className }) => {
       <tbody>
         {details.map((detail) => (
           <tr className="bg-white text-black border-b-2 border-gray-200 text-left">
-            <td className="  py-4 px-3 ">{detail.Serial}</td>
+            <td className="  py-4 px-3 ">{detail.serial}</td>
             <td className="  py-4 px-3">
               <b>
                 {" "}
                 {detail.name} {detail.lastName}{" "}
               </b>
             </td>
-            <td className="  py-4 px-3">{detail.Status}</td>
+            <td className="  py-4 px-3">
+              <State message={detail.status} className="p-1" />
+            </td>
             <td className=" py-4 px-3">
               <CustomLink href="" className="text-right">
-                {detail.Actions}
+                {detail.actions}
               </CustomLink>
             </td>
             <td className=" py-4 px-3 ">

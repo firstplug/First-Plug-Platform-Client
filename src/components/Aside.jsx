@@ -1,3 +1,4 @@
+"use client";
 import { IconX } from "@/common/Icons";
 
 export default function Aside({ children, title, closeModal }) {

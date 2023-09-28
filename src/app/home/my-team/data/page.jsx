@@ -13,9 +13,6 @@ import {
 import Dropdown from "@/common/Dropdown";
 import TableTeam from "@/components/TableTeam";
 import FitlerModal from "@/components/FitlerModal";
-import useModal from "@/hooks/useModal";
-import Aside from "@/components/Aside";
-import MemberAsideDetails from "@/components/MemberAsideDetails";
 
 const teams = ["Finance", "HR", "Dev", "Finance", "Design", "Sales"];
 const array = [

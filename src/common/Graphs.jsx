@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement } from "chart.js";
 Chart.register(ArcElement);
@@ -23,8 +23,9 @@ export function DoughnutChart({ className, data }) {
       usePointStyle: true,
     },
   };
+
   return (
-    <div
+    <figure
       className={`relative mx-auto flex flex-col items-center ${
         className || ""
       } h-full`}
@@ -38,16 +39,16 @@ export function DoughnutChart({ className, data }) {
           </span>
         </div>
       </div>
-      <div className="flex gap-2 w-full justify-center">
+      <figcaption className="flex gap-2 w-full justify-center">
         <div className="flex gap-1 items-center">
-          <div className="h-[1rem] w-[1rem] bg-purple  rounded-full"></div>
+          <div className="h-[1rem] w-[1rem] bg-purple rounded-full"></div>
           <p>Assigned</p>
         </div>
         <div className="flex gap-1 items-center">
-          <div className="h-[1rem] w-[1rem] bg-green  rounded-full"></div>
+          <div className="h-[1rem] w-[1rem] bg-green rounded-full"></div>
           <p>Avaliable</p>
         </div>
-      </div>
-    </div>
+      </figcaption>
+    </figure>
   );
 }

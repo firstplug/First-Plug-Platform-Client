@@ -395,7 +395,7 @@ export function DashboardIcon(className) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      class={`w-6 h-6 ${className || ""}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -413,7 +413,7 @@ export function ArrowRight({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      class={`w-6 h-6 ${className || ""}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -431,7 +431,7 @@ export function ArrowLeft({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      class={`w-6 h-6 ${className || ""}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -450,7 +450,7 @@ export function AddIcon({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      class={`w-6 h-6 ${className || ""}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -468,7 +468,7 @@ export function TrashIcon({ className, color }) {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth="2"
-      class={`w-6 h-6 ${className || ""}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         stroke={color || "currentColor"}
@@ -488,7 +488,7 @@ export function UpLoadIcon({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      class={`w-6 h-6 ${className || ""}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -507,7 +507,7 @@ export function ChevronDown({ className, stroke, color }) {
       viewBox="0 0 24 24"
       stroke-width={` ${stroke || "1.5"}`}
       stroke={`${color || "currentColor"}`}
-      class={`w-6 h-6 ${className || ""}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         stroke-linecap="round"
@@ -564,7 +564,7 @@ export function GridLayoutIcon({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      class={`w-6 h-6 ${className || ""}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -619,7 +619,7 @@ export function StatusCircleIcon({ className, status }) {
       height="8"
       viewBox="0 0 8 8"
       fill="none"
-      class={`${className || ""}`}
+      className={`${className || ""}`}
     >
       <circle
         cx="4"

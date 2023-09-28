@@ -1,11 +1,11 @@
-import CustomLink from "@/common/CustomLink";
+import Image from "next/image";
+import Card from "@/components/Card";
+
 import Input from "@/common/Input";
 import Layout from "@/common/Layout";
-import Card from "@/components/Card";
-import Image from "next/image";
-import emptyImage from "../../../../public/svg/Group 133544.svg";
+import CustomLink from "@/common/CustomLink";
 import Button from "@/common/Button";
-import { PencilIcon, VisaIcon } from "@/common/Icons";
+import { VisaIcon } from "@/common/Icons";
 
 export default function page() {
   return (
@@ -14,7 +14,7 @@ export default function page() {
         <Card Title="User" className="w-1/2 flex flex-col gap-5 px-8">
           <div className="flex gap-8">
             <div className="flex">
-              <Image src={emptyImage} alt="empty image" />
+              <Image src="/Group 133544.svg" alt="empty image" />
             </div>
 
             <div className="w-3/4 flex flex-col gap-4">

@@ -1,6 +1,11 @@
+"use client";
 import React, { useState } from "react";
 import { signOut } from "next-auth/react";
 import { NavButtonIcon } from "./Icons";
+
+
+import { useState } from "react";
+
 
 const DropdownButton = ({ name, email }) => {
   const [isOpen, setIsOpen] = useState(false);

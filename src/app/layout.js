@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Montserrat, Inter } from "next/font/google";
 import Providers from "./Providers";
+import { Provider as ProviderMobx } from "mobx-react-lite";
+import rootStore from "./stores/rootStore";
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
@@ -26,7 +28,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
       <body>
-        <Providers>{children}</Providers>
+        <ProviderMobx store={rootStore}>
+          <Providers>{children}</Providers>
+        </ProviderMobx>
       </body>
     </html>
   );

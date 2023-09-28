@@ -2,7 +2,6 @@
 import React from "react";
 import { TrashIcon } from "@/common/Icons";
 import Button from "./Button";
-import HorizontalSection from "./HorizontalSection";
 
 const statusColors = {
   missingData: "bg-lightRed",

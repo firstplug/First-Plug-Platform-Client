@@ -12,6 +12,7 @@ export default function page() {
         width={540}
         height={960}
         className="w-[50%] h-screen p-15 object-cover"
+        priority
       />
 
       <article className="w-[50%] h-screen flex justify-center">
@@ -23,7 +24,7 @@ export default function page() {
             body="Create Account"
             variant="primary"
             className="rounded-md h-12"
-            size={"big"}
+            size="big"
           />
         </Form>
       </article>

@@ -1,5 +1,9 @@
 export default function Layout({ children, className = "" }) {
   return (
-    <div className={`h-[calc(100vh-140px)] m-4 ${className}`}>{children}</div>
+    <section
+      className={`h-[calc(98vh-100px)] w-[96%] mx-auto py-6 mt-6 ${className}`}
+    >
+      {children}
+    </section>
   );
 }

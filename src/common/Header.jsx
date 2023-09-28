@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 import CustomLink from "@/common/CustomLink";
 import Button from "@/common/Button";
 

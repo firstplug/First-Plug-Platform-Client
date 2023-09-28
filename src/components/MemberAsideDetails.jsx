@@ -6,12 +6,14 @@ import MemberDetail from "@/common/MemberDetail";
 export default function MemberAsideDetails({ member, className }) {
   const data = [
     {
+      id: "asda21312ssd",
       image: "./notebook1.png",
       category: "Notebook",
       model: "MacBook Pro 14",
       description: "CPU: M2 Pro | RAM: 16GB | SSD: 512GB",
     },
     {
+      id: "asd81927312",
       image: "./airpods.png",
       category: "Airpods",
       model: "Airpod",
@@ -36,7 +38,7 @@ export default function MemberAsideDetails({ member, className }) {
 
           <div className="flex flex-col gap-2">
             {data.map((product, index) => (
-              <ProductDetail product={product} key={index} />
+              <ProductDetail product={product} key={product.id} />
             ))}
           </div>
         </div>

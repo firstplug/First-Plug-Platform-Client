@@ -69,14 +69,7 @@ export default function MyTeam() {
           </div>
 
           <div className="fixed bottom-5 w-[85%]">
-            <CustomLink href="/home/my-team/data">
-              <Button
-                body="Attach Files"
-                variant="primary"
-                size="big"
-                className="w-full rounded-md"
-              />
-            </CustomLink>
+            <CustomLink href="/home/my-team/data">Attach File</CustomLink>
           </div>
         </Aside>
       )}

@@ -122,7 +122,7 @@ export default function MyTeamData() {
         <div className="grid w-full grid-cols-3 gap-2  ">
           {array.map((member, index) => (
             <ColaboratorCard
-              key={index}
+              key={member.id}
               {...member}
               className={"w-full shadow-md"}
               member={member}

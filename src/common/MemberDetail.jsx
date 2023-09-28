@@ -41,7 +41,7 @@ export default function MemberDetail({
         <div className="flex justify-between items-center">
           <div className="flex gap-1">
             <span className="font-normal"> Date Of Birth: </span>
-            <span className="font-light"> {dateBirth || "05/09/2023"} </span>
+            <span className="font-light"> {dateBirth} </span>
           </div>
           <span className="text-grey">|</span>
           <div className="flex gap-1">

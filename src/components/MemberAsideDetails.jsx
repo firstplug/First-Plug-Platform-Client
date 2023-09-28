@@ -37,7 +37,7 @@ export default function MemberAsideDetails({ member, className }) {
           </div>
 
           <div className="flex flex-col gap-2">
-            {data.map((product, index) => (
+            {data.map((product) => (
               <ProductDetail product={product} key={product.id} />
             ))}
           </div>

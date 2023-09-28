@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { EyeIcon, EyeSlashIcon } from "@/common/Icons";
 
 const Input = ({ title, placeholder, type, className }) => {
   const [showPassword, setShowPassword] = useState(false);

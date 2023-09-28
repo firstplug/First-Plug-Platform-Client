@@ -19,7 +19,7 @@ export default function MemberDetail({
   className,
 }) {
   return (
-    <div className={`flex gap-2 ${className}`}>
+    <div className={`flex gap-2 ${className || ""}`}>
       <Image
         src={Photo}
         alt="member"

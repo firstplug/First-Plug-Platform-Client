@@ -5,7 +5,11 @@ export function Row({ joiner }) {
   return (
     <div className="border-b rounded-md border-border flex items-center gap-2 justify-between p-2 ">
       <div className="flex gap-2 ">
-        <Image src={photo} className="w-[3rem] object-cover rounded-md" />
+        <Image
+          src={photo}
+          alt=""
+          className="w-[3rem] object-cover rounded-md"
+        />
         <div>
           <h2 className="text-black font-bold">
             {joiner.name} {joiner.lastname}

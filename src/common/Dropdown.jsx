@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const Dropdown = ({ children, body, className }) => {
   const [isOpen, setIsOpen] = useState(false);

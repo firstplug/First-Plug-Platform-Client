@@ -11,7 +11,6 @@ export default function Form({
   register = false,
 }) {
   const { data: session } = useSession();
-  console.log(session);
 
   return (
     <form className="py-40 min-w-[400px] w-[500px] h-screen flex flex-col justify-center gap-6">

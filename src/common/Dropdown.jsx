@@ -3,10 +3,6 @@ import React, { useState } from "react";
 import { signOut } from "next-auth/react";
 import { NavButtonIcon } from "./Icons";
 
-
-import { useState } from "react";
-
-
 const DropdownButton = ({ name, email }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -15,7 +11,7 @@ const DropdownButton = ({ name, email }) => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         type="button"
-        className="px-4 py-2 text-sm font-medium text-gray-700 rounded-md bg-white border active:bg-gray-100 flex items-center" // Agregamos la clase flex y items-center para centrar el icono y el texto
+        className="px-4 py-2 text-sm font-medium text-gray-700 rounded-md bg-white border active:bg-gray-100 flex items-center"
       >
         <NavButtonIcon />
       </button>

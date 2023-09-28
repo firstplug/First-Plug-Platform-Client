@@ -12,6 +12,7 @@ export default function page() {
             Title="My Team"
             titleButton="Add Team Member"
             imageBottom="/girl.svg"
+            altImage="My Team"
             icon={
               <CustomLink href="/home/dashboard/data">
                 <AddIcon />
@@ -26,6 +27,7 @@ export default function page() {
             Title="My Stock"
             titleButton="Shop Now"
             imageBottom="/office.svg"
+            altImage="My Stock"
             icon={<ShopIcon />}
             paragraph="You dont't have any items."
             className="h-full"
@@ -34,6 +36,7 @@ export default function page() {
             Title={"Notifications"}
             titleButton="Shop Now"
             imageBottom="/alert.svg"
+            altImage="Notifications"
             icon={<ShopIcon />}
             paragraph="You dont't have any orders."
             className="h-full"

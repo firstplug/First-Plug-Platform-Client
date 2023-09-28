@@ -40,6 +40,12 @@ export default function Form({
           className="border-none w-10 h-10 rounded-full"
         />
         <Button
+          onClick={(e) => {
+            e.preventDefault();
+            return signIn("azure-ad", {
+              callbackUrl: "http://localhost:3000/home/dashboard",
+            });
+          }}
           variant="secondary"
           icon={<MicrosoftIcon className="w-7 h-7" />}
           className="border-none w-10 h-10 rounded-full"

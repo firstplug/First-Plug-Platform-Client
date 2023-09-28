@@ -19,7 +19,7 @@ export default function Login() {
       <article className="w-[50%] h-screen flex justify-center">
         <Form title="Welcome Back!" login>
           <Input title="Email" placeholder="user@mail.com" />
-          <Input title="Password" type="password" />
+          <Input title="Password" type="password" placeholder="Password" />
           <CustomLink href="/login" className="text-right">
             Forgot Password ?
           </CustomLink>

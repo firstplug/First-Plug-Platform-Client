@@ -46,7 +46,7 @@ export default function MemberDetail({
           <span className="text-grey">|</span>
           <div className="flex gap-1">
             <span className="font-normal">Joining Date:</span>
-            <span className="font-light">{joiningDate || "05/09/2023"}</span>
+            <span className="font-light">{joiningDate}</span>
           </div>
         </div>
         <div className="flex justify-between">

@@ -1,29 +1,24 @@
-import CustomLink from "@/common/CustomLink";
-import Input from "@/common/Input";
 import Image from "next/image";
-import React from "react";
-import LogoFirstPlug from "../../../public/logo1.png";
+
+import CustomLink from "@/common/CustomLink";
 import Button from "@/common/Button";
-import emptyImage from "../../../public/svg/Group 133544.svg";
+import Input from "@/common/Input";
+
 import { IconX } from "../../common/Icons";
 
 const UserRegister = () => {
   return (
     <>
-      <section className="relative h-[84px] pb-[12px] px-[60px] flex justify-start items-center">
-        <Image
-          src={LogoFirstPlug}
-          alt="logoFirstPlug"
-          width={200}
-          height={100}
-        />
+      <header className="relative h-[84px] pb-[12px] px-[60px] flex justify-start items-center">
+        <Image src="/logo1.png" alt="logoFirstPlug" width={200} height={100} />
         <Button
           icon={<IconX />}
           variant="primary"
           className="rounded-3xl w-[30px] h-[30px] absolute mt-[650px] ml-[170px] z-[1] "
         />
-      </section>
-      <main className="h-[100vh] overflow-auto px-[60px]">
+      </header>
+
+      <section className="h-[100vh] overflow-auto px-[60px]">
         <div className="w-[100%] h-auto py-[45px] px-[20px]  rounded-[16px] shadow-lg border border-grey-200 ">
           <section className=" px-[32px] ">
             <h1 className="font-montserrat text-[32px] font-bold text-black ">
@@ -36,11 +31,12 @@ const UserRegister = () => {
           <section className="pt-[16px] px-[32px] gap-[28px] ">
             {/* PRIMER DIV */}
             <div className=" w-[100%] h-[152px] flex items-center gap-6">
-              <span className=" w-[152px] h-[152px] rounded-[30px] ">
+              <span className=" w-[152px] h-[152px] rounded-[30px] relative">
                 <Image
-                  src={emptyImage}
+                  src="/svg/Group 133544.svg"
                   alt="emptyImage"
                   className="object-cover w-full h-full"
+                  fill
                 />
               </span>
               <span className=" h-[148px] w-[100%]  ">
@@ -124,18 +120,17 @@ const UserRegister = () => {
                   placeholder="Password"
                   className="mr-4 font-inter text-[14px] w-[328px]"
                 />
-                <CustomLink
-                  href=""
-                  children="Change Password"
-                  className="mt-[20px]"
-                />
+                <CustomLink href="" className="mt-[20px]">
+                  Change Password
+                </CustomLink>
               </div>
             </div>
             {/* TERCER DIV */}
           </section>
         </div>
-      </main>
-      <section className="fixed bottom-0 left-0 right-0 h-[140px] flex items-center justify-between bg-white shadow-lg">
+      </section>
+
+      <footer className="fixed bottom-0 left-0 right-0 h-[140px] flex items-center justify-between bg-white shadow-lg">
         <p className="text-error font-inter font-semibold ml-[20px]">
           *Required fields
         </p>
@@ -145,7 +140,7 @@ const UserRegister = () => {
           disabled="true"
           className="mr-[20px] w-[210px] h-[48px]"
         />
-      </section>
+      </footer>
     </>
   );
 };

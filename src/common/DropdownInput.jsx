@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "./Button";
 import { ChevronDown } from "./Icons";
 
-const DropdownInput = ({ className, title, placeholder, options }) => {
+const DropdownInput = ({ className, title, placeholder, options = [] }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 

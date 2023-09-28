@@ -1,44 +1,50 @@
 "use client";
 import React, { useState } from "react";
+import { signOut } from "next-auth/react";
+import { NavButtonIcon } from "./Icons";
 
-const Dropdown = ({ children, body, className }) => {
+const DropdownButton = ({ name, email }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <div className="relative">
+    <div className="relative inline-block text-left">
       <button
-        onClick={toggleDropdown}
-        className={`flex items-center px-4 py-2 rounded-full ${
-          isOpen ? "bg-light-grey" : "bg-white hover:bg-light-grey"
-        } ${className || ""}`}
+        onClick={() => setIsOpen(!isOpen)}
+        type="button"
+        className="px-4 py-2 text-sm font-medium text-gray-700 rounded-md bg-white border active:bg-gray-100 flex items-center"
       >
-        <div className="flex items-center space-x-2">
-          <span className="text-lg font-bold text-black">{body}</span>
-          {/* despues cargar este icono en el archivo icons, y agregar className en un bugfix */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className={`w-4 h-4 transition-transform transform ${
-              isOpen ? "rotate-0" : "rotate-180"
-            }`}
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 3a1 1 0 01.7.29l7 7a1 1 0 01-1.4 1.42L10 5.42 3.7 11.71a1 1 0 01-1.4-1.42l7-7A1 1 0 0110 3z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
+        <NavButtonIcon />
       </button>
 
-      {isOpen && children}
+      {isOpen && (
+        <div className="absolute right-0 mt-2  rounded-md shadow-lg bg-white ring-1 ">
+          <div
+            className="py-1"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            <div className="text-sm text-gray-500 pl-4 pb-2 font-inter font-semibold mt-2">
+              {name}
+            </div>
+            <div className="text-sm text-gray-500 pl-4 pb-4 font-inter font-medium mr-4">
+              {email}
+            </div>
+            <button
+              onClick={() =>
+                signOut({ callbackUrl: "http://localhost:3000/login" })
+              }
+              type="button"
+              className="block px-4 py-2 text-sm text-red-500 font-bold"
+              role="menuitem"
+            >
+              Log Out
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Dropdown;
+export default DropdownButton;

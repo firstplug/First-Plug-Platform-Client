@@ -1,8 +1,8 @@
+import Image from "next/image";
 import Button from "@/common/Button";
 import CustomLink from "@/common/CustomLink";
 import Input from "@/common/Input";
 import Form from "@/components/Form";
-import Image from "next/image";
 
 export default function Login() {
   return (
@@ -13,6 +13,7 @@ export default function Login() {
         width={540}
         height={960}
         className="w-[50%] h-screen p-15 object-cover"
+        priority
       />
 
       <article className="w-[50%] h-screen flex justify-center">

@@ -33,7 +33,7 @@ const Shop = () => {
             Coming Soon!
           </h1>
           <p className="font-inter text-[20px] text-dark-grey mb-[24px] mt-[16px]">
-            We're excited to reveal that the Firstplug shop is coming soon! Our
+            We`re excited to reveal that the Firstplug shop is coming soon! Our
             dedicated team is hard at work, handpicking the very best products
             for you.
           </p>

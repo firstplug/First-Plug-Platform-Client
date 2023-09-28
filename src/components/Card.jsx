@@ -15,16 +15,16 @@ const Card = ({
   className,
 }) => {
   return (
-    <main
-      className={` bg-white rounded-[16px] p-6 border border-grey ${
+    <article
+      className={`bg-white rounded-[16px] p-6 border border-grey ${
         className || ""
       }`}
     >
       {Title && (
-        <div className="flex justify-between items-center text-white">
-          <h1 className="text-[20px] text-black font-montserrat font-bold flex-1 md:text-sm lg:text-xl">
+        <header className="flex justify-between items-center text-white">
+          <h2 className="text-[20px] text-black font-montserrat font-bold flex-1 md:text-sm lg:text-xl">
             {Title}
-          </h1>
+          </h2>
           {titleButton && (
             <Button
               icon={icon}
@@ -34,18 +34,22 @@ const Card = ({
               variant="secondary"
             />
           )}
-        </div>
+        </header>
       )}
       <div
-        className={`   flex flex-col ${
+        className={`flex flex-col ${
           !children && "items-center"
         }  gap-y-[.5rem] `}
       >
-        <Image src={imageBottom} alt={altImage} />
+        {imageBottom && (
+          <div className="w-52 h-52 relative">
+            <Image src={imageBottom} alt={altImage} fill />
+          </div>
+        )}
         <p className="text-dark-grey">{paragraph}</p>
         {children && children}
       </div>
-    </main>
+    </article>
   );
 };
 

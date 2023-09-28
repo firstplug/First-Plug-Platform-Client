@@ -11,9 +11,11 @@ import {
   GridLayoutIcon,
 } from "@/common/Icons";
 import Dropdown from "@/common/Dropdown";
-import SearchInput from "@/common/SearchInput";
 import TableTeam from "@/components/TableTeam";
 import FitlerModal from "@/components/FitlerModal";
+import useModal from "@/hooks/useModal";
+import Aside from "@/components/Aside";
+import MemberAsideDetails from "@/components/MemberAsideDetails";
 
 const teams = ["Finance", "HR", "Dev", "Finance", "Design", "Sales"];
 const array = [
@@ -121,8 +123,13 @@ export default function MyTeamData() {
       </div>
       {display === "grid" ? (
         <div className="grid w-full grid-cols-3 gap-2  ">
-          {array.map((member) => (
-            <ColaboratorCard {...member} className={"w-full shadow-md"} />
+          {array.map((member, index) => (
+            <ColaboratorCard
+              key={index}
+              {...member}
+              className={"w-full shadow-md"}
+              member={member}
+            />
           ))}
         </div>
       ) : (

@@ -1,11 +1,16 @@
+"use client";
 import React from "react";
-import Photo from "../../public/Colaborator.png";
+import Photo from "../../public/employees/member.jpg";
 import Image from "next/image";
 import Button from "@/common/Button";
 import TeamCard from "@/common/TeamCard";
 import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
+import useModal from "@/hooks/useModal";
+import Aside from "./Aside";
+import MemberAsideDetails from "./MemberAsideDetails";
 
 export default function ColaboratorCard({
+  member,
   name,
   lastName,
   id,
@@ -16,16 +21,19 @@ export default function ColaboratorCard({
   team,
   className,
 }) {
+  const { closeModal, openModal, isModalOpen } = useModal();
+
   return (
-    <article
+    <div
       className={`flex flex-col gap-2  mx-auto rounded-lg border border-border p-4 font-inter ${className}`}
+      onClick={openModal}
     >
       <header className="flex justify-between items-start">
         <div className="flex gap-2">
           <Image
             src={img || Photo}
             alt="colabPhoto"
-            className="h-full object-contain"
+            className="w-1/3 object-cover rounded-md"
           />
 
           <div className="ml-1 flex flex-col  items-start">
@@ -78,6 +86,12 @@ export default function ColaboratorCard({
           </p>
         </div>
       </section>
-    </article>
+
+      {isModalOpen && (
+        <Aside title={"tt"} closeModal={closeModal}>
+          <MemberAsideDetails member={member} />
+        </Aside>
+      )}
+    </div>
   );
 }

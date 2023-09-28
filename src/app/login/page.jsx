@@ -1,3 +1,4 @@
+"use client";
 import Button from "@/common/Button";
 import CustomLink from "@/common/CustomLink";
 import Input from "@/common/Input";

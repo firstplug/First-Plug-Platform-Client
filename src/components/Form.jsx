@@ -2,7 +2,7 @@
 import Button from "@/common/Button";
 import CustomLink from "@/common/CustomLink";
 import { AppleIcon, GoogleIcon, MicrosoftIcon } from "@/common/Icons";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 export default function Form({
   title,
@@ -10,8 +10,6 @@ export default function Form({
   login = false,
   register = false,
 }) {
-  const { data: session } = useSession();
-
   return (
     <form className="py-40 min-w-[400px] w-[500px] h-screen flex flex-col justify-center gap-6">
       <h2 className="text-black font-bold text-3xl font-montserrat">{title}</h2>
@@ -26,7 +24,12 @@ export default function Form({
 
       <div className="flex justify-center items-center gap-4">
         <Button
-          onClick={() => signIn()}
+          onClick={(e) => {
+            e.preventDefault();
+            return signIn("google", {
+              callbackUrl: "http://localhost:3000/home/dashboard",
+            });
+          }}
           variant="secondary"
           icon={<GoogleIcon className="w-7 h-7" />}
           className="border-none w-10 h-10 rounded-full"

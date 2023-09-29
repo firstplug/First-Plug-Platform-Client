@@ -1,6 +1,4 @@
-
 "use client";
-
 
 import Card from "@/components/Card";
 
@@ -12,17 +10,17 @@ import CustomLink from "@/common/CustomLink";
 import AddStockCard from "@/common/AddStockCard";
 import Image from "next/image";
 import Aside from "@/components/Aside";
+import EmptyCard from "@/common/EmptyCard";
 
 export default function MyTeam() {
   const { isModalOpen, openModal, closeModal } = useModal();
   return (
-    <Layout>
-      <Card
-        className="h-full grid place-items-center"
+    <Layout className="border-2 shadow-sm border-border rounded-md grid place-items-center w-[98%] ">
+      <EmptyCard
         imageBottom="/girl.svg"
         paragraph="You havnet't loaded any  employees yet."
       >
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-2 ">
           <Button
             body="Load Team Members"
             icon={<AddIcon />}
@@ -31,15 +29,16 @@ export default function MyTeam() {
             size="big"
             className="rounded-md"
           />
-          <Button
-            body="Add Team Members"
-            icon={<UpLoadIcon />}
+          <CustomLink
             variant="primary"
             size="big"
-            className="rounded-md"
-          />
+            className="rounded-md flex gap-2"
+            href="/addTeam"
+          >
+            <UpLoadIcon /> Add Team Memeber
+          </CustomLink>
         </div>
-      </Card>
+      </EmptyCard>
 
       {isModalOpen && (
         <Aside title="Load Stock" closeModal={closeModal}>
@@ -70,8 +69,15 @@ export default function MyTeam() {
             />
           </div>
 
-          <div className="fixed bottom-5 w-[85%]">
-            <CustomLink href="/home/my-team/data">Attach File</CustomLink>
+          <div className="fixed bottom-5 w-[85%] flex">
+            <CustomLink
+              href="/home/my-team/data"
+              className="w- rounded-md flex-grow text-center"
+              variant="primary"
+              size="big"
+            >
+              Attach File
+            </CustomLink>
           </div>
         </Aside>
       )}

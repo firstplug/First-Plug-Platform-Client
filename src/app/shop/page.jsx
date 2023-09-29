@@ -11,6 +11,7 @@ import girlPc from "../../../public/svg/Frame 427321382.svg";
 import bagImage from "../../../public/svg/Frame 2608568.svg";
 import arrowIcon from "../../../public/svg/Frame 427321381.svg";
 import rectangle from "../../../public/svg/Rectangle 518.svg";
+import CustomLink from "@/common/CustomLink";
 const Shop = () => {
   return (
     <>
@@ -37,13 +38,14 @@ const Shop = () => {
             dedicated team is hard at work, handpicking the very best products
             for you.
           </p>
-          <Button
-            icon={<ChevronRight />}
-            body="Dashboard"
+          <CustomLink
             variant="primary"
             size="big"
-            className="rounded-lg w-[166px] h-[48px]"
-          />
+            className="rounded-lg w-[166px] h-[48px] flex"
+            href="/home/dashboard"
+          >
+            <ChevronRight /> Dashboard
+          </CustomLink>
         </section>
         <section className="w-[800px] h-[650px] absolute right-[300px] bottom-[80px]">
           <Image

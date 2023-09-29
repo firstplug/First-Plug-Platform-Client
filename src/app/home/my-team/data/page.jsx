@@ -13,6 +13,7 @@ import {
 import Dropdown from "@/common/Dropdown";
 import TableTeam from "@/components/TableTeam";
 import FitlerModal from "@/components/FitlerModal";
+import DropFilter from "@/common/DropFilter";
 
 const teams = ["Finance", "HR", "Dev", "Finance", "Design", "Sales"];
 const array = [
@@ -84,12 +85,12 @@ export default function MyTeamData() {
       <hr />
 
       <div className="w-full flex justify-between   gap-2  ">
-        <Dropdown
+        <DropFilter
           body={"Filter by team:"}
           className="rounded-md border font-medium"
         >
           <FitlerModal array={teams} />
-        </Dropdown>
+        </DropFilter>
         <div className="flex gap-2 items-center">
           <Button
             body="Create Team"

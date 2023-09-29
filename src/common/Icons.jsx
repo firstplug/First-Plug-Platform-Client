@@ -165,7 +165,7 @@ export function AlertCheck({ className }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={`w-6 h-6 ${className}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         fillRule="evenodd"
@@ -184,7 +184,7 @@ export function ShopBag({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`w-6 h-6 ${className}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -257,7 +257,7 @@ export function ShopIcon({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      className={`w-6 h-6 ${className || ""} `}
     >
       <path
         strokeLinecap="round"
@@ -280,7 +280,7 @@ export function NotificationIcon({ className, stroke, hasNotification }) {
         viewBox="0 0 24 24"
         strokeWidth={stroke || 1.5}
         stroke="currentColor"
-        className={`w-6 h-6 ${className} `}
+        className={`w-6 h-6 ${className || ""} `}
       >
         <path
           strokeLinecap="round"
@@ -300,7 +300,7 @@ export function DropDownArrow({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`w-6 h-6 ${className}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -319,7 +319,7 @@ export function SearchIcon({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="currentColor"
-      className={`w-6 h-6 ${className}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -338,7 +338,7 @@ export function UserIcon({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`w-10 h-10 m-0 ${className}`}
+      className={`w-10 h-10 m-0 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -348,8 +348,6 @@ export function UserIcon({ className }) {
     </svg>
   );
 }
-
-// Sidebar
 
 export function TruckIcon() {
   return (
@@ -369,6 +367,7 @@ export function TruckIcon() {
     </svg>
   );
 }
+
 export function ComputerIcon() {
   return (
     <svg
@@ -387,7 +386,8 @@ export function ComputerIcon() {
     </svg>
   );
 }
-export function DashboardIcon(className) {
+
+export function DashboardIcon({ className }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -405,6 +405,7 @@ export function DashboardIcon(className) {
     </svg>
   );
 }
+
 export function ArrowRight({ className }) {
   return (
     <svg
@@ -423,6 +424,7 @@ export function ArrowRight({ className }) {
     </svg>
   );
 }
+
 export function ArrowLeft({ className }) {
   return (
     <svg

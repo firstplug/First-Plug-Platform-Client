@@ -11,7 +11,7 @@ const DropdownButton = ({ name, email }) => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         type="button"
-        className="px-4 py-2 text-sm font-medium text-gray-700 rounded-md bg-white border active:bg-gray-100 flex items-center"
+        className="px-4 py-2 text-sm font-medium text-gray-700 rounded-md bg-white flex items-center"
       >
         <NavButtonIcon />
       </button>

@@ -5,8 +5,8 @@ import Button from "@/common/Button";
 import Input from "@/common/Input";
 import Form from "@/components/Form";
 import Image from "next/image";
-import axios from "axios";
 import { useRouter } from "next/navigation";
+import { AuthServices } from "@/services/auth.services";
 
 export default function Page() {
   const [fullname, setFullname] = useState("");
@@ -15,20 +15,15 @@ export default function Page() {
 
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(
-        "http://localhost:3001/api/auth/register",
-        {
-          fullname,
-          email,
-          password,
-        },
-        { withCredentials: true }
-      )
-      .then(() => router.push("/user-register"))
-      .catch((error) => console.error(error));
+
+    try {
+      await AuthServices.register({ fullname, email, password });
+      router.push("/user-register");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

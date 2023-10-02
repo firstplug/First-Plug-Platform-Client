@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@/common/Icons";
 
-const Input = ({ title, placeholder, type, className }) => {
+const Input = ({ title, placeholder, type, className, value, onChange }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const inputType = showPassword ? "text" : type;
@@ -12,6 +12,8 @@ const Input = ({ title, placeholder, type, className }) => {
     <div className={`relative   ${className || ""}`}>
       <label className="block text-dark-grey ml-2 font-sans">{title}</label>
       <input
+        value={value}
+        onChange={onChange}
         type={inputType}
         placeholder={placeholder}
         className="w-full h-14 py-2 rounded-xl border text-black p-4 outline-gray-950-none font-sans"

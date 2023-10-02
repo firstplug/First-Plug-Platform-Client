@@ -1,9 +1,36 @@
+"use client";
+
+import { useState } from "react";
 import Button from "@/common/Button";
 import Input from "@/common/Input";
 import Form from "@/components/Form";
 import Image from "next/image";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function Page() {
+  const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const router = useRouter();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post(
+        "http://localhost:3001/api/auth/register",
+        {
+          fullname,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
+      .then(() => router.push("/user-register"))
+      .catch((error) => console.error(error));
+  };
+
   return (
     <section className="flex">
       <Image
@@ -16,10 +43,28 @@ export default function page() {
       />
 
       <article className="w-[50%] h-screen flex justify-center">
-        <Form title="Welcome Back!" register>
-          <Input title="Full Name" placeholder="Placeholder" />
-          <Input title="Email" placeholder="user@mail.com" />
-          <Input title="Password" type="password" />
+        <Form title="Welcome Back!" register onSubmit={handleSubmit}>
+          <Input
+            title="Full Name"
+            placeholder="Placeholder"
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
+          />
+
+          <Input
+            title="Email"
+            placeholder="user@mail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <Input
+            title="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
           <Button
             body="Create Account"
             variant="primary"

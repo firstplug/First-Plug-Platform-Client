@@ -9,9 +9,13 @@ export default function Form({
   children,
   login = false,
   register = false,
+  onSubmit,
 }) {
   return (
-    <form className="py-40 min-w-[400px] w-[500px] h-screen flex flex-col justify-center gap-6">
+    <form
+      className="py-40 min-w-[400px] w-[500px] h-screen flex flex-col justify-center gap-6"
+      onSubmit={onSubmit}
+    >
       <h2 className="text-black font-bold text-3xl font-montserrat">{title}</h2>
 
       {children}

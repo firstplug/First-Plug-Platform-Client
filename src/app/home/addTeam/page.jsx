@@ -2,17 +2,18 @@ import CustomLink from "@/common/CustomLink";
 import Input from "@/common/Input";
 import Image from "next/image";
 import React from "react";
-import LogoFirstPlug from "../../../public/logo1.png";
-import Button from "@/common/Button";
-import memberImage from "../../../public/member.png";
-import RootLayout from "@/app/home/layout";
 
-import { IconX } from "../../common/Icons";
+import Button from "@/common/Button";
+import memberImage from "../../../../public/member.png";
+
+import Layout from "@/common/Layout";
+
+import { IconX } from "../../../common/Icons";
 
 const addTeam = () => {
   return (
     <>
-      <RootLayout>
+      <Layout className="flex flex-col gap-6 overflow-auto pb-16">
         <main className="h-full overflow-auto px-[48px] ">
           <div className="w-[100%] h-auto py-[45px] px-[20px]  rounded-[16px] shadow-lg border border-grey-200 ">
             <section className=" px-[32px] ">
@@ -67,6 +68,7 @@ const addTeam = () => {
                       title="Email Address"
                       placeholder="user@workemail.com"
                       type="email"
+                      bg-black
                     />
                     <span className="w-[20%]"></span>
                   </div>
@@ -162,9 +164,9 @@ const addTeam = () => {
             </section>
           </div>
         </main>
-      </RootLayout>
+      </Layout>
 
-      <section className="fixed bottom-0 left-0 right-0 h-[120px] flex items-center justify-end ">
+      <section className="absolute bottom-0 left-[259px] right-0 h-[88px] flex items-center justify-end bg-white ">
         <Button
           body="Save"
           variant="primary"

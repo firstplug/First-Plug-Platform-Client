@@ -11,35 +11,37 @@ import CustomLink from "@/common/CustomLink";
 import { ShopIcon, UpLoadIcon } from "@/common/Icons";
 
 import useModal from "@/hooks/useModal";
+import EmptyCard from "@/common/EmptyCard";
 
 export default function MyStock() {
   const { isModalOpen, openModal, closeModal } = useModal();
 
   return (
     <Layout className="border-2 shadow-sm border-border rounded-md grid place-items-center w-[98%] ">
-      <div>
-        <Card
-          imageBottom="/office.svg"
-          paragraph="You don't have any items."
-          className="border-none p-0 m-0"
-        />
-      </div>
-      <div className="flex gap-2">
-        <Button
-          variant="secondary"
-          body="Load Stock"
-          icon={<UpLoadIcon />}
-          className="p-3 rounded-md"
-          onClick={() => openModal()}
-        />
+      <EmptyCard
+        imageBottom="/office.svg"
+        paragraph="You don't have any items."
+      >
+        <div className="flex gap-2 ">
+          <Button
+            variant="secondary"
+            body="Load Stock"
+            size="big"
+            icon={<UpLoadIcon />}
+            className="p-3 rounded-md"
+            onClick={() => openModal()}
+          />
 
-        <Button
-          variant={"primary"}
-          icon={<ShopIcon />}
-          body="Shop Now"
-          className="p-3 rounded-md"
-        />
-      </div>
+          <CustomLink
+            variant="primary"
+            size="big"
+            className="rounded-md flex   gap-2"
+            href="/shop"
+          >
+            <ShopIcon /> Shop Now
+          </CustomLink>
+        </div>
+      </EmptyCard>
 
       {isModalOpen && (
         <Aside title="Load Stock" closeModal={closeModal}>
@@ -70,14 +72,14 @@ export default function MyStock() {
             />
           </div>
 
-          <div className="fixed bottom-5 w-[85%]">
-            <CustomLink href="/home/my-stock/data">
-              <Button
-                body="Attach Files"
-                variant="primary"
-                size="big"
-                className="w-full rounded-md"
-              />
+          <div className="fixed bottom-5 w-[85%] flex">
+            <CustomLink
+              href="/home/my-stock/data"
+              className="w- rounded-md flex-grow text-center"
+              variant="primary"
+              size="big"
+            >
+              Attach File
             </CustomLink>
           </div>
         </Aside>

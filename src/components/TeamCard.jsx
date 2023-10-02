@@ -9,6 +9,7 @@ import team2 from "../../public/employees/Rectangle 460.png";
 import team3 from "../../public/employees/Rectangle 461.png";
 import team4 from "../../public/employees/Rectangle 462.png";
 import Image from "next/image";
+import CustomLink from "@/common/CustomLink";
 
 const team = [
   {
@@ -71,14 +72,15 @@ export default function TeamCard({ className }) {
           <span className="text-dark-grey  text-[1.2rem]">Team members</span>
         </div>
         <div>
-          <Button
-            body={"Add Team Member"}
-            icon={<AddIcon />}
+          <CustomLink
+            href={"/addTeam"}
             size={"small"}
             className={
-              "rounded-md w-full justify-center text-xl py-4  border border-blue text-blue"
+              "rounded-md w-full justify-center text-xl py-4  border border-blue text-blue flex"
             }
-          />
+          >
+            <AddIcon /> Add Team Member
+          </CustomLink>
         </div>
       </div>
       <div className=" h-full  flex flex-col justify-top  w-2/3 mx-2">

@@ -85,7 +85,7 @@ const Sidebar = () => {
           isSmall={isSidebarSmall}
           icon={<NotebookOrdersIcon />}
           title="Orders"
-          href="/home/orders/equipment"
+          href="/home/orders"
         />
 
         <SidebarLink

@@ -2,6 +2,40 @@ import Layout from "@/common/Layout";
 import TableShipments from "@/components/TableShipments";
 
 export default function page() {
+  const data = [
+    {
+      imagen: "/notebook1.png",
+      category: "Notebook ",
+      model: "Macbook Pro 14",
+      description: "CPU: M2 Pro | RAM: 16GB | SSD: 512GB",
+      quantity: 5,
+      serial: "#00113",
+    },
+    {
+      imagen: "/notebook2.png",
+      category: "Notebook",
+      model: "Macbook Pro 14",
+      description: "CPU: M2 Pro | RAM: 8GB | SSD: 256GB",
+      quantity: 5,
+      serial: "#00343",
+    },
+    {
+      imagen: "/airpods.png",
+      category: "Airpods",
+      model: "Airpod",
+      description: "Wireless earbuds for Apple devices",
+      quantity: 5,
+      serial: "#00563",
+    },
+    {
+      imagen: "/keyboard.png",
+      category: "Keyboard",
+      model: "Magic Keyboard",
+      description: "Apple's wireless keyboard",
+      quantity: 5,
+      serial: "#00332",
+    },
+  ];
   const orders = [
     {
       id: "#001",
@@ -9,6 +43,7 @@ export default function page() {
       quantity: 2,
       type: "Internal",
       price: 2500,
+      details: data.slice(0, 1),
     },
     {
       id: "#002",
@@ -16,6 +51,7 @@ export default function page() {
       quantity: 3,
       type: "Courrier",
       price: 1000,
+      details: data.slice(0, 3),
     },
     {
       id: "#003",
@@ -23,10 +59,11 @@ export default function page() {
       quantity: 1,
       type: "Internal",
       price: 1850,
+      details: data.slice(0),
     },
   ];
   return (
-    <Layout>
+    <Layout className=" overflow-y-auto">
       <TableShipments orders={orders} />
     </Layout>
   );

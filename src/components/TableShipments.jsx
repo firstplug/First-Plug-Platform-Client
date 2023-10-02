@@ -22,7 +22,7 @@ export default function TableShipments({ orders = [], className, info = [] }) {
       }`}
     >
       <thead>
-        <tr className="border-b-2 border-gray-200 bg-light-grey text-black text-left">
+        <tr className="border-b-2 border-gray-300 bg-light-grey text-black text-left">
           <th className="py-3 px-3">Order ID</th>
           <th className="py-3 px-3">Order Date</th>
           <th className="py-3 px-3">Quantity Products</th>
@@ -37,7 +37,11 @@ export default function TableShipments({ orders = [], className, info = [] }) {
       <tbody>
         {orders.map((order, index) => (
           <>
-            <tr className="bg-white text-black border-b-2 border-gray-200 text-left">
+            <tr
+              className={`${
+                rowOpenState[index] ? " bg-[#EAEDF7]" : "  bg-white"
+              } text-black border-b-2 border-gray-200 text-left `}
+            >
               <td className="  py-4 px-3 ">{order.id}</td>
               <td className="  py-4 px-3">
                 <b>{order.date}</b>
@@ -58,7 +62,7 @@ export default function TableShipments({ orders = [], className, info = [] }) {
             {rowOpenState[index] && (
               <tr>
                 <td colSpan="12">
-                  <TableDetailsShipments quantity={order.quantity} />
+                  <TableDetailsShipments data={order.details} />
                 </td>
               </tr>
             )}

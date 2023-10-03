@@ -55,6 +55,7 @@ export default function Page() {
 
           <Input
             title="Password"
+            placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

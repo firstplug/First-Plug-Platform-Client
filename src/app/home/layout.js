@@ -1,4 +1,3 @@
-import Layout from "@/common/Layout";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 

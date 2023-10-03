@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Card from "@/components/Card";
 
@@ -6,15 +7,25 @@ import Layout from "@/common/Layout";
 import CustomLink from "@/common/CustomLink";
 import Button from "@/common/Button";
 import { VisaIcon } from "@/common/Icons";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/models/root.store";
 
-export default function page() {
+export default observer(function Page() {
+  // TODO: Remove.
+  const { addProduct, products } = useStore();
+
+  // TODO: Remove.
+  const handleAddProduct = () => {
+    addProduct({});
+  };
+
   return (
     <Layout className="flex flex-col gap-6 overflow-auto pb-16">
       <div className="flex w-full gap-6">
         <Card Title="User" className="w-1/2 flex flex-col gap-5 px-8">
           <div className="flex gap-8">
             <div className="flex">
-              <Image src="/Group 133544.svg" alt="empty image" />
+              <Image src="/Group 133544.svg" alt="empty image" fill />
             </div>
 
             <div className="w-3/4 flex flex-col gap-4">
@@ -28,7 +39,13 @@ export default function page() {
         </Card>
 
         <Card Title="Access" className="w-1/2 flex flex-col gap-5">
-          <Input title="Email Address" placeholder="user@workemail.com" />
+          {/* TODO: Remove */}
+          <button onClick={handleAddProduct}>Agregar</button>
+          <Input
+            title="Email Address"
+            placeholder="user@workemail.com"
+            value={products[1].title}
+          />
           <div className="flex items-end justify-between">
             <Input className="w-3/4" title="Password" type="password" />
             <CustomLink href="#">Change Password</CustomLink>
@@ -107,4 +124,4 @@ export default function page() {
       </section>
     </Layout>
   );
-}
+});

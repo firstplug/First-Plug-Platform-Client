@@ -1,7 +1,7 @@
 "use client";
 import { IconX } from "@/common/Icons";
 
-export default function Aside({ children, title, closeModal }) {
+export default function Aside({ children, title, closeModal, className = "" }) {
   return (
     <>
       {/* overlay */}
@@ -23,7 +23,7 @@ export default function Aside({ children, title, closeModal }) {
           </button>
         </header>
 
-        <div className="flex-[1] mt-[40px]">{children}</div>
+        <div className={`flex-[1] mt-[40px] ${className}`}>{children}</div>
       </aside>
     </>
   );

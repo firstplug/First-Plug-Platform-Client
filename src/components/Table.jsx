@@ -1,7 +1,8 @@
 "use client";
-import Dropdown from "@/common/Dropdown";
+
 import React, { useState } from "react";
 import TableDetails from "./TableDetails";
+import ButtonMyStock from "@/common/ButtonMyStock";
 
 const Table = ({ className }) => {
   const data = [
@@ -117,9 +118,10 @@ const Table = ({ className }) => {
               <td className="py-4 px-3">{item.quantity}</td>
               <td className="flex-col">
                 <div>
-                  <button onClick={() => toggleRow(index)}>
-                    <Dropdown body="Details"></Dropdown>
-                  </button>
+                  <ButtonMyStock
+                    body="Detail"
+                    onClick={() => toggleRow(index)}
+                  />
                 </div>
               </td>
             </tr>

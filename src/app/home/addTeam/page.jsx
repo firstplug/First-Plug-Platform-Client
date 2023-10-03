@@ -88,10 +88,12 @@ const addTeam = () => {
                   <DropdownInput
                     className="mr-4 font-inter text-[14px] w-[full]"
                     options={teamName}
+                    placeholder="Team Name"
                   />
                   <DropdownInput
                     className="mr-4 font-inter text-[14px] w-[full]"
                     options={jobPosition}
+                    placeholder="Job Position"
                   />
                 </div>
                 <div className="mt-[5px]  flex items-center">

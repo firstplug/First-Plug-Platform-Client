@@ -2,7 +2,7 @@ import CustomLink from "@/common/CustomLink";
 import Input from "@/common/Input";
 import Image from "next/image";
 import React from "react";
-
+import DropdownInput from "@/common/DropdownInput";
 import Button from "@/common/Button";
 import memberImage from "../../../../public/member.png";
 
@@ -11,6 +11,9 @@ import Layout from "@/common/Layout";
 import { IconX } from "../../../common/Icons";
 
 const addTeam = () => {
+  const teamName = ["Team1", "Team2", "Team3"];
+  const jobPosition = ["Job1", "Job2", "Job3"];
+
   return (
     <>
       <Layout className="flex flex-col gap-6 overflow-auto pb-16">
@@ -82,15 +85,13 @@ const addTeam = () => {
                   Employee information
                 </p>
                 <div className=" w-[100%]  grid grid-cols-4 gap-y-16  ">
-                  <Input
-                    title="Select Team"
-                    placeholder="aca va un dropdown"
+                  <DropdownInput
                     className="mr-4 font-inter text-[14px] w-[full]"
+                    options={teamName}
                   />
-                  <Input
-                    title="Job Position"
-                    placeholder="aca va un dropdown"
-                    className="mr-4 font-inter text-[14px] w-full"
+                  <DropdownInput
+                    className="mr-4 font-inter text-[14px] w-[full]"
+                    options={jobPosition}
                   />
                 </div>
                 <div className="mt-[5px]  flex items-center">

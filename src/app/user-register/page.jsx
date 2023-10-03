@@ -5,8 +5,12 @@ import Button from "@/common/Button";
 import Input from "@/common/Input";
 
 import { IconX } from "../../common/Icons";
+import DropdownInput from "@/common/DropdownInput";
 
 const UserRegister = () => {
+  const country = ["Argentina"];
+  const cities = ["Buenos Aires"];
+  const states = ["Escobar"];
   return (
     <>
       <header className="relative h-[84px] pb-[12px] px-[60px] flex justify-start items-center">
@@ -62,22 +66,26 @@ const UserRegister = () => {
               <p className="font-inter text-black font-bold text-[16px] mt-[16px] mb-[16px]">
                 Billing information
               </p>
-              <div className=" w-[100%]  grid grid-cols-4 gap-y-8 ">
-                <Input
-                  title="Country*"
-                  placeholder="aca va un dropdown"
-                  className="mr-4 font-inter text-[14px] "
+              <div className=" w-[100%]  grid grid-cols-4 gap-y-7 ">
+                <DropdownInput
+                  className="mr-4 font-inter text-[14px] w-[full]"
+                  placeholder="Country"
+                  title="Country"
+                  options={country}
                 />
-                <Input
-                  title="City*"
-                  placeholder="aca va un dropdown"
-                  className="mr-4 font-inter text-[14px] "
+                <DropdownInput
+                  className="mr-4 font-inter text-[14px] w-[full]"
+                  placeholder="City"
+                  title="City"
+                  options={cities}
                 />
-                <Input
-                  title="State*"
-                  placeholder="aca va un dropdown"
-                  className="mr-4 font-inter text-[14px] "
+                <DropdownInput
+                  className="mr-4 font-inter text-[14px] w-[full]"
+                  placeholder="State"
+                  title="State"
+                  options={states}
                 />
+
                 <Input
                   title="Zip Code*"
                   type="text"

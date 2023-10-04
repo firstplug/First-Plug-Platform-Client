@@ -3,7 +3,7 @@ import { SearchIcon } from "./Icons";
 export default function SearchInput({ placeholder, className }) {
   return (
     <div
-      className={`flex  border border-grey gap-2 items-center py-2 px-3  rounded-lg  ${className}`}
+      className={`flex  border border-grey gap-2 items-center py-2 px-3  rounded-lg  ${className || ""}`}
     >
       <SearchIcon className={" text-grey font-bold  "} />
       <input

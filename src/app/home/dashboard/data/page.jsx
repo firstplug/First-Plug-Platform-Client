@@ -4,7 +4,7 @@ import { ShopIcon } from "@/common/Icons";
 import TeamCard from "@/components/TeamCard";
 import StockCard from "@/components/StockCard";
 
-export default function page() {
+export default function DashboardData() {
   return (
     <Layout className="flex flex-col gap-4 w-[98%]">
       <Card className="flex-1 h-1/2">

@@ -1,7 +1,7 @@
 import Layout from "@/common/Layout";
 import TableShipments from "@/components/TableShipments";
 
-export default function page() {
+export default function ShipmentsData() {
   const data = [
     {
       imagen: "/notebook1.png",

@@ -8,7 +8,7 @@ import CustomLink from "@/common/CustomLink";
 import Button from "@/common/Button";
 import { VisaIcon } from "@/common/Icons";
 
-export default function page() {
+export default function Settings() {
   return (
     <Layout className="flex flex-col gap-6 overflow-auto pb-16">
       <div className="flex w-full gap-6">

@@ -12,7 +12,7 @@ import arrowIcon from "../../../public/svg/Frame 427321381.svg";
 import rectangle from "../../../public/svg/Rectangle 518.svg";
 import CustomLink from "@/common/CustomLink";
 
-const Shop = () => {
+export default function Shop() {
   return (
     <>
       <div>
@@ -87,6 +87,4 @@ const Shop = () => {
       </div>
     </>
   );
-};
-
-export default Shop;
+}

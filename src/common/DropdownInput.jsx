@@ -3,7 +3,12 @@ import { useState } from "react";
 import Button from "./Button";
 import { ChevronDown } from "./Icons";
 
-const DropdownInput = ({ className, title, placeholder, options = [] }) => {
+export default function DropdownInput({
+  className,
+  title,
+  placeholder,
+  options = [],
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -48,6 +53,4 @@ const DropdownInput = ({ className, title, placeholder, options = [] }) => {
       </div>
     </div>
   );
-};
-
-export default DropdownInput;
+}

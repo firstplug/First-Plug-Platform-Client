@@ -11,7 +11,7 @@ const statusColors = {
   shipped: "bg-lightBlue",
 };
 
-const TableRow = ({ id, name, status, actions, className }) => {
+export default function TableRow({ id, name, status, actions, className }) {
   const statusColorClass = statusColors[status] || "";
   return (
     <table
@@ -43,6 +43,4 @@ const TableRow = ({ id, name, status, actions, className }) => {
       </tr>
     </table>
   );
-};
-
-export default TableRow;
+}

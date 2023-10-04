@@ -3,7 +3,8 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement } from "chart.js";
 Chart.register(ArcElement);
-export function DoughnutChart({ className, data }) {
+
+export default function DoughnutChart({ className, data }) {
   const info = {
     labels: ["Assigned", "Avaliable"],
     color: "white",

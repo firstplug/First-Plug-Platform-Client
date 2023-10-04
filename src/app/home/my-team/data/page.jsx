@@ -14,8 +14,12 @@ import Dropdown from "@/common/Dropdown";
 import TableTeam from "@/components/TableTeam";
 import FitlerModal from "@/components/FitlerModal";
 import DropFilter from "@/common/DropFilter";
+import useModal from "@/hooks/useModal";
+import Aside from "@/components/Aside";
+import EditTeamsAsideDetails from "@/components/EditTeamsAsideDetails";
+import CreateTeamAside from "@/components/CreateTeamAside";
 
-const teams = ["Finance", "HR", "Dev", "Finance", "Design", "Sales"];
+const teams = ["HR", "Dev", "Finance", "Design", "Sales"];
 const array = [
   {
     id: "#002",
@@ -56,16 +60,23 @@ const array = [
     id: "#001",
     name: "Braian",
     lastName: "Barrientos",
-    jobPosition: "Desing",
+    jobPosition: "Design",
     dateBirth: "05/09/1998",
     joiningDate: "19/09/2023",
     products: ["mac", "phone", "monitor"],
     shimentsDetails: "incomplete",
-    team: "desing",
+    team: "design",
   },
 ];
 export default function MyTeamData() {
   const [display, setDisplay] = useState("grid");
+  const [optionAside, setOptionAside] = useState("edit");
+  const { closeModal, isModalOpen, openModal } = useModal();
+
+  const handleAside = (type) => {
+    setOptionAside(type);
+    openModal();
+  };
   return (
     <Layout className="flex flex-col gap-4">
       <div className="w-full flex  justify-end gap-2 ">
@@ -96,13 +107,15 @@ export default function MyTeamData() {
             body="Create Team"
             variant={"text"}
             icon={<AddIcon className={"w-[1rem]"} />}
-            className={"p-1 text-sm"}
+            className={"p-2 text-sm rounded-md"}
+            onClick={() => handleAside("create")}
           />
           <Button
             body="Edit Team"
             variant={"text"}
             icon={<PenIcon className={"w-[1rem]"} />}
-            className={"p-1 text-sm"}
+            className={"p-2 text-sm rounded-md"}
+            onClick={() => handleAside("edit")}
           />
           <span className="text-gray-400"> |</span>
 
@@ -133,6 +146,18 @@ export default function MyTeamData() {
       ) : (
         <TableTeam team={array} />
       )}
+
+      {isModalOpen ? (
+        optionAside === "edit" ? (
+          <Aside title="Edit Teams" closeModal={closeModal}>
+            <EditTeamsAsideDetails teams={teams} members={array} />
+          </Aside>
+        ) : (
+          <Aside title="New Team" closeModal={closeModal}>
+            <CreateTeamAside teams={teams} members={array} />
+          </Aside>
+        )
+      ) : null}
     </Layout>
   );
 }

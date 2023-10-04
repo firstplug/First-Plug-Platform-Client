@@ -2,7 +2,7 @@ import React from "react";
 
 export default function TeamCard({ team, className }) {
   const colors_role = {
-    desing: "bg-desing",
+    design: "bg-design",
     hr: "bg-hr",
     sales: "bg-sales",
     dev: "bg-dev",

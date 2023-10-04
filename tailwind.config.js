@@ -31,7 +31,7 @@ module.exports = {
         success: "#15CC8A",
         hoverRed: "#fa104814",
         pressedRed: "#fa10481f",
-        desing: "#FFE8E8",
+        design: "#FFE8E8",
         hr: "#D6E1FF",
         sales: "#F2E8FF",
         dev: "#D2FAEE",

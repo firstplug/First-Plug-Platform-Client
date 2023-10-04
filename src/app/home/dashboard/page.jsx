@@ -3,7 +3,7 @@ import Card from "@/components/Card";
 import { ShopIcon, AddIcon } from "@/common/Icons";
 import CustomLink from "@/common/CustomLink";
 
-export default function page() {
+export default function Dashboard() {
   return (
     <Layout>
       <div className="flex flex-col gap-4 w-full h-full">

@@ -4,7 +4,7 @@ import Button from "@/common/Button";
 
 import Image from "next/image";
 
-const Card = ({
+export default function Card({
   children,
   Title,
   titleButton,
@@ -13,7 +13,7 @@ const Card = ({
   icon,
   altImage,
   className,
-}) => {
+}) {
   return (
     <article
       className={`bg-white rounded-[16px] p-6 border border-grey ${
@@ -51,6 +51,4 @@ const Card = ({
       </div>
     </article>
   );
-};
-
-export default Card;
+}

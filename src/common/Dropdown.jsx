@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { signOut } from "next-auth/react";
 import { NavButtonIcon } from "./Icons";
 
-const DropdownButton = ({ name, email }) => {
+export default function DropdownButton({ name, email }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -45,6 +45,4 @@ const DropdownButton = ({ name, email }) => {
       )}
     </div>
   );
-};
-
-export default DropdownButton;
+}

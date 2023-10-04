@@ -1,7 +1,7 @@
 import React from "react";
 import { NavButtonIcon } from "./Icons";
 
-const ButtonMyStock = ({ body, onClick }) => {
+export default function ButtonMyStock({ body, onClick }) {
   return (
     <div>
       {" "}
@@ -14,6 +14,4 @@ const ButtonMyStock = ({ body, onClick }) => {
       </button>
     </div>
   );
-};
-
-export default ButtonMyStock;
+}

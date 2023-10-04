@@ -7,7 +7,7 @@ import Input from "@/common/Input";
 import { IconX } from "../../common/Icons";
 import DropdownInput from "@/common/DropdownInput";
 
-const UserRegister = () => {
+export default function UserRegister() {
   const country = ["Argentina"];
   const cities = ["Buenos Aires"];
   const states = ["Escobar"];
@@ -151,6 +151,4 @@ const UserRegister = () => {
       </footer>
     </>
   );
-};
-
-export default UserRegister;
+}

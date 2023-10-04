@@ -1,6 +1,5 @@
-import Button from "@/common/Button";
 import { AddIcon } from "@/common/Icons";
-import { Row } from "@/common/JoinerRow";
+import Row from "@/common/JoinerRow";
 import React from "react";
 import user from "../../public/UserLogo.jpeg";
 

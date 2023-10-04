@@ -1,4 +1,4 @@
-const HorizontalSection = ({
+export default function HorizontalSection({
   firstItem,
   secondItem,
   thirdItem,
@@ -7,7 +7,7 @@ const HorizontalSection = ({
   sixthItem,
   className,
   icon,
-}) => {
+}) {
   return (
     <table className="h-[48px] pl-84 pt-[12px] pb-[12px] py-2 flex items-center space-x-4 border-b border-gray w-full bg-light-grey border border-gray">
       {firstItem && (
@@ -49,6 +49,4 @@ const HorizontalSection = ({
       )}
     </table>
   );
-};
-
-export default HorizontalSection;
+}

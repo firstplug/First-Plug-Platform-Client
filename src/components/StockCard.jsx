@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { DoughnutChart } from "@/common/Graphs";
+import DoughnutChart from "@/common/Graphs";
 export function MouseIcon({ className }) {}
 export function MonitorIcon({ className }) {
   return (

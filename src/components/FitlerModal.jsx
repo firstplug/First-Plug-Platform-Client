@@ -47,7 +47,7 @@ export default function FitlerModal({ array, className }) {
               onChange={() => handleCheckboxChange(index)}
             />
 
-            <label>{filter}</label>
+            <label>{filter.name}</label>
           </div>
         ))}
       </div>

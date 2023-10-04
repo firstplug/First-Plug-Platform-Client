@@ -10,6 +10,7 @@ import SearchInput from "@/common/SearchInput";
 import { useState } from "react";
 import RadioButtons from "@/components/RadioButtons";
 
+
 export default function MyStock() {
   const { closeModal, isModalOpen, openModal } = useModal();
 
@@ -24,6 +25,7 @@ export default function MyStock() {
   const handleOptionSelected = (persona) => {
     setOptionSelected(persona);
   };
+
 
   return (
     <Layout>

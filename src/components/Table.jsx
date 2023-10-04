@@ -4,7 +4,9 @@ import React, { useState } from "react";
 import TableDetails from "./TableDetails";
 import ButtonMyStock from "@/common/ButtonMyStock";
 
-const Table = ({ className, openModal }) => {
+
+export default function Table({ className }) {
+
   const data = [
     {
       imagen: "/notebook1.png",
@@ -137,6 +139,4 @@ const Table = ({ className, openModal }) => {
       </tbody>
     </table>
   );
-};
-
-export default Table;
+}

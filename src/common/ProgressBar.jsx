@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-const ProgressBar = ({ onComplete, className }) => {
+export default function ProgressBar({ onComplete, className }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -30,6 +30,4 @@ const ProgressBar = ({ onComplete, className }) => {
       <div>{progress}%</div>
     </div>
   );
-};
-
-export default ProgressBar;
+}

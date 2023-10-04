@@ -4,7 +4,8 @@ import { TrashIcon } from "@/common/Icons";
 import State from "@/common/State";
 import React from "react";
 
-const TableDetails = ({ details, className, openModal }) => {
+export default function TableDetails({ details, className }) {
+
   return (
     <table
       className={` flex-col w-full rounded-lg overflow-hidden ${
@@ -56,6 +57,4 @@ const TableDetails = ({ details, className, openModal }) => {
       </tbody>
     </table>
   );
-};
-
-export default TableDetails;
+}

@@ -15,7 +15,7 @@ import {
 } from "@/common/Icons";
 import SidebarLink from "@/common/SidebarLink";
 
-const Sidebar = () => {
+export default function Sidebar() {
   const [showLogo, setShowLogo] = useState(true);
   const [isSidebarSmall, setIsSidebarSmall] = useState(false);
 
@@ -108,6 +108,4 @@ const Sidebar = () => {
       </section>
     </aside>
   );
-};
-
-export default Sidebar;
+}

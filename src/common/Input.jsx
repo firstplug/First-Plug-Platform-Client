@@ -3,7 +3,14 @@
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@/common/Icons";
 
-const Input = ({ title, placeholder, type, className, value, onChange }) => {
+export default function Input({
+  title,
+  placeholder,
+  type,
+  className,
+  value,
+  onChange,
+}) {
   const [showPassword, setShowPassword] = useState(false);
 
   const inputType = showPassword ? "text" : type;
@@ -36,6 +43,4 @@ const Input = ({ title, placeholder, type, className, value, onChange }) => {
       )}
     </div>
   );
-};
-
-export default Input;
+}

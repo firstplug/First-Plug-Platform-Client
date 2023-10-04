@@ -10,7 +10,7 @@ import Layout from "@/common/Layout";
 
 import { IconX } from "../../../common/Icons";
 
-const addTeam = () => {
+export default function AddTeam() {
   const teamName = ["Team1", "Team2", "Team3"];
   const jobPosition = ["Job1", "Job2", "Job3"];
 
@@ -181,6 +181,4 @@ const addTeam = () => {
       </section>
     </>
   );
-};
-
-export default addTeam;
+}

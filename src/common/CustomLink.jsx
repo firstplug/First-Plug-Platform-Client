@@ -7,6 +7,7 @@ export default function CustomLink({
   disabled,
   variant,
   size,
+  onClick,
 }) {
   const customLinkStyle = {
     variant: {

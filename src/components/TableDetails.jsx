@@ -4,7 +4,7 @@ import { TrashIcon } from "@/common/Icons";
 import State from "@/common/State";
 import React from "react";
 
-const TableDetails = ({ details, className }) => {
+const TableDetails = ({ details, className, openModal }) => {
   return (
     <table
       className={` flex-col w-full rounded-lg overflow-hidden ${
@@ -23,22 +23,26 @@ const TableDetails = ({ details, className }) => {
         </tr>
       </thead>
       <tbody>
-        {details.map((detail) => (
-          <tr className="bg-white text-black border-b-2 border-gray-200 text-left">
-            <td className="  py-4 px-3 ">{detail.serial}</td>
-            <td className="  py-4 px-3">
+        {details.map((detail, index) => (
+          <tr
+            key={index}
+            className="bg-white text-black border-b-2 border-gray-200 text-left"
+          >
+            <td className="py-4 px-3 ">{detail.serial}</td>
+            <td className="py-4 px-3">
               <b>
-                {" "}
-                {detail.name} {detail.lastName}{" "}
+                {detail.name} {detail.lastName}
               </b>
             </td>
             <td className="  py-4 px-3">
               <State message={detail.status} className="p-1" />
             </td>
             <td className=" py-4 px-3">
-              <CustomLink href="" className="text-right">
-                {detail.actions}
-              </CustomLink>
+              {detail.actions === "Assign To" ? (
+                <Button onClick={() => openModal()}>{detail.actions}</Button>
+              ) : (
+                <Button>{detail.actions}</Button>
+              )}
             </td>
             <td className=" py-4 px-3 ">
               <div className="flex gap-1">

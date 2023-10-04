@@ -6,7 +6,7 @@ export default function AddMemberForm({ members }) {
       <SearchInput placeholder="Search Member" />
       <div className="flex flex-col gap-3 mt-3">
         {members.map((member) => (
-          <div className="  flex gap-2 items-center ">
+          <div className="  flex gap-2 items-center " key={member.id}>
             <input type="checkbox" />
             <div className="flex gap-2">
               <b className="text-black">

@@ -19,7 +19,13 @@ import Aside from "@/components/Aside";
 import EditTeamsAsideDetails from "@/components/EditTeamsAsideDetails";
 import CreateTeamAside from "@/components/CreateTeamAside";
 
-const teams = ["HR", "Dev", "Finance", "Design", "Sales"];
+const teams = [
+  { name: "HR", id: "#00343" },
+  { name: "Dev", id: "#00324" },
+  { name: "Finance", id: "#00320" },
+  { name: "Design", id: "#00240" },
+  { name: "Sales", id: "#00346" },
+];
 const array = [
   {
     id: "#002",

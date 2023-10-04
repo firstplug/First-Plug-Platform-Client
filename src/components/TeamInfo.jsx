@@ -25,7 +25,10 @@ export default function TeamInfo({ members, team, filterMembembers }) {
           <span>({filterMembembers.length})</span>
         </div>
         {filterMembembers.map((member) => (
-          <div className="border p-3  flex justify-between rounded-xl">
+          <div
+            className="border p-3  flex justify-between rounded-xl"
+            key={member.id}
+          >
             <div className="flex gap-2">
               <p className="text-black font-semibold">
                 {member.name} {member.lastName}

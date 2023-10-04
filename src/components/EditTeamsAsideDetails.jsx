@@ -11,7 +11,7 @@ export default function EditTeamsAsideDetails({
     <div className={` ${className} flex flex-col justify-between h-full `}>
       <div className="flex flex-col gap-2   h-[70vh] overflow-y-auto">
         {teams.map((team) => (
-          <TeamDeatils team={team} members={members} />
+          <TeamDeatils team={team.name} members={members} key={team.id} />
         ))}
       </div>
 

@@ -13,14 +13,13 @@ function validator(type) {
 
   const passwordValidator = (value) => {
     if (value.length < 6) {
-      return "La contraseña debe tener al menos 6 caracteres";
+      return "The password must be at least 6 characters long.";
     }
 
-    // Al menos una mayúscula, una minúscula y cualquier caracter alfanumérico
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
 
     if (!regex.test(value)) {
-      return "La contraseña debe contener al menos una mayúscula, una minúscula y un número.";
+      return "The password must contain at least one uppercase letter, one lowercase letter, and one number.";
     }
 
     return null;
@@ -49,9 +48,9 @@ function validator(type) {
   }
 }
 
-export default function useInput(itialValue, type) {
+export default function useInput(initialValue, type) {
   const validateFunction = validator(type);
-  const [value, setValue] = useState(itialValue);
+  const [value, setValue] = useState(initialValue);
   const [error, setError] = useState(null);
   const [touched, setTouched] = useState(false);
 

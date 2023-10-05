@@ -4,7 +4,9 @@ import React, { useState } from "react";
 import TableDetails from "./TableDetails";
 import ButtonMyStock from "@/common/ButtonMyStock";
 
+
 export default function Table({ className }) {
+
   const data = [
     {
       imagen: "/notebook1.png",
@@ -49,7 +51,7 @@ export default function Table({ className }) {
       name: "Esteban Rodriguez",
       lastName: "Sucari",
       status: "MISSGING DATA",
-      actions: "Return",
+      actions: "Assign To",
     },
     {
       serial: "#3248",
@@ -128,7 +130,7 @@ export default function Table({ className }) {
             {rowOpenState[index] && (
               <tr>
                 <td colSpan="4">
-                  <TableDetails details={info} />
+                  <TableDetails details={info} openModal={openModal} />
                 </td>
               </tr>
             )}

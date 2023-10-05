@@ -1,6 +1,14 @@
 "use client";
+
+import { UsersStore, UsersStoreContext } from "@/models/users.store";
 import { SessionProvider } from "next-auth/react";
 
 export default function Providers({ children }) {
-  return <SessionProvider>{children}</SessionProvider>;
+  const store = UsersStore.create();
+
+  return (
+    <UsersStoreContext.Provider value={store}>
+      <SessionProvider>{children}</SessionProvider>
+    </UsersStoreContext.Provider>
+  );
 }

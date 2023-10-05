@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 import TableDetails from "./TableDetails";
 import ButtonMyStock from "@/common/ButtonMyStock";
-
+import useModal from "@/hooks/useModal";
 
 export default function Table({ className }) {
-
+  const { openModal } = useModal();
   const data = [
     {
       imagen: "/notebook1.png",

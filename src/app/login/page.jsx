@@ -4,13 +4,14 @@ import Button from "@/common/Button";
 import CustomLink from "@/common/CustomLink";
 import Input from "@/common/Input";
 import Form from "@/components/Form";
-import { useState } from "react";
 import { AuthServices } from "@/services/auth.services";
 import { useRouter } from "next/navigation";
+import useInput from "@/hooks/useInput";
+import { emailValidator, passwordValidator } from "@/utils/validators";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const emailInput = useInput("", "email");
+  const passWordInput = useInput("", "password");
 
   const router = useRouter();
 
@@ -18,7 +19,10 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      await AuthServices.login({ email, password });
+      await AuthServices.login({
+        email: emailInput.value,
+        password: passWordInput.value,
+      });
       router.push("/home/dashboard");
     } catch (error) {
       console.error(error);
@@ -41,18 +45,18 @@ export default function Login() {
           <Input
             title="Email"
             placeholder="user@mail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            {...emailInput}
             required
           />
+
           <Input
             title="Password"
             type="password"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...passWordInput}
             required
           />
+
           <CustomLink href="/login" className="text-right">
             Forgot Password ?
           </CustomLink>

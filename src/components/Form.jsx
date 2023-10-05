@@ -14,10 +14,11 @@ export default function Form({
 }) {
   return (
     <form
-      className={`py-40 min-w-[400px] w-[500px] h-screen flex flex-col justify-center gap-0 my-4${className}`}
+      className={`py-40 min-w-[400px] w-[500px] h-screen flex flex-col justify-center gap-6 my-4${className}`}
       onSubmit={onSubmit}
     >
       <h2 className="text-black font-bold text-3xl font-montserrat">{title}</h2>
+
       {children}
 
       <div className="flex justify-center items-center gap-4">

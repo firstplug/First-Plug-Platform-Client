@@ -13,8 +13,16 @@ function validator(type) {
 
   const passwordValidator = (value) => {
     if (value.length < 6) {
-      return "The password must be at least 6 characters long.";
+      return "La contraseña debe tener al menos 6 caracteres";
     }
+
+    // Al menos una mayúscula, una minúscula y cualquier caracter alfanumérico
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+
+    if (!regex.test(value)) {
+      return "La contraseña debe contener al menos una mayúscula, una minúscula y un número.";
+    }
+
     return null;
   };
 

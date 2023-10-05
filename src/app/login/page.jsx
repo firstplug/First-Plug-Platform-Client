@@ -7,7 +7,6 @@ import Form from "@/components/Form";
 import { AuthServices } from "@/services/auth.services";
 import { useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
-import { emailValidator, passwordValidator } from "@/utils/validators";
 
 export default function Login() {
   const emailInput = useInput("", "email");
@@ -42,21 +41,22 @@ export default function Login() {
 
       <article className="w-[50%] h-screen flex justify-center">
         <Form title="Welcome Back!" login onSubmit={handleSumbit}>
-          <Input
-            title="Email"
-            placeholder="user@mail.com"
-            {...emailInput}
-            required
-          />
+          <div>
+            <Input
+              title="Email"
+              placeholder="user@mail.com"
+              {...emailInput}
+              required
+            />
 
-          <Input
-            title="Password"
-            type="password"
-            placeholder="Password"
-            {...passWordInput}
-            required
-          />
-
+            <Input
+              title="Password"
+              type="password"
+              placeholder="Password"
+              {...passWordInput}
+              required
+            />
+          </div>
           <CustomLink href="/login" className="text-right">
             Forgot Password ?
           </CustomLink>

@@ -20,7 +20,7 @@ export default function Input({
   const inputType = showPassword ? "text" : type;
 
   return (
-    <div className={`relative  h-[100px] mb-2  ${className}`}>
+    <div className={`relative  h-[95px]   ${className}`}>
       <label className="block text-dark-grey ml-2 font-sans">{title}</label>
       <input
         value={value}
@@ -33,14 +33,11 @@ export default function Input({
           error ? "border-error" : ""
         } text-black p-4  font-sans focus:outline-none`}
       />
-      {touched && error ? (
-        <p className=" ml-4  text-error text-sm  ">{error}</p>
-      ) : null}
 
       {type === "password" && (
         <button
           type="button"
-          className="absolute inset-y-0 right-5 top-5 flex items-center mr-2"
+          className="absolute inset-y-0 right-5 top-2  h-full flex items-center mr-2"
           onClick={() => {
             setShowPassword(!showPassword);
           }}
@@ -52,6 +49,10 @@ export default function Input({
           )}
         </button>
       )}
+
+      {touched && error ? (
+        <p className=" ml-4  text-error text-sm  ">{error}</p>
+      ) : null}
     </div>
   );
 }

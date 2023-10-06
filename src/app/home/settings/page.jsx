@@ -10,7 +10,7 @@ import { VisaIcon } from "@/common/Icons";
 
 export default function Settings() {
   return (
-    <Layout className="flex flex-col gap-6 overflow-auto pb-16">
+    <Layout className="flex flex-col gap-6 pb-16 overflow-auto">
       <div className="flex w-full gap-6">
         <Card Title="User" className="w-1/2 flex flex-col gap-5 px-8">
           <div className="flex gap-8">
@@ -30,7 +30,7 @@ export default function Settings() {
 
         <Card Title="Access" className="w-1/2 flex flex-col gap-5">
           <Input title="Email Address" placeholder="user@workemail.com" />
-          <div className="flex items-end justify-between">
+          <div className="flex items-center gap-8">
             <Input className="w-3/4" title="Password" type="password" />
             <CustomLink href="#">Change Password</CustomLink>
           </div>
@@ -59,7 +59,7 @@ export default function Settings() {
         <Card
           Title="Plan"
           className="w-1/2 flex flex-col px-8 gap-4"
-          titleButton={<CustomLink href="#">Upgrade plan</CustomLink>}
+          titleButton="Upgrade plan"
         >
           <div className="flex items-center justify-between">
             <div>
@@ -94,7 +94,7 @@ export default function Settings() {
         </Card>
       </div>
 
-      <section className="absolute bottom-0 left-[259px] right-0 h-[88px] flex items-center justify-end bg-white shadow-lg">
+      <section className="py-6 flex items-center justify-end">
         <Button
           body="Cancel"
           variant="secondary"

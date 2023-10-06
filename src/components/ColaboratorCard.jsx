@@ -114,7 +114,7 @@ export default function ColaboratorCard({
               <div className="flex gap-4">
                 <div className="relative w-36 h-36">
                   <Image
-                    src={"/Colaborator.jpeg"}
+                    src={img || Photo}
                     alt="Colaborator"
                     fill
                     className="object-cover"

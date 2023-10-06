@@ -1,5 +1,5 @@
 import React from "react";
-import { PenIcon, StatusCircleIcon, TrashIcon } from "./Icons";
+import { PenIcon, TrashIcon } from "./Icons";
 import Button from "./Button";
 import TeamCard from "./TeamCard";
 import Image from "next/image";
@@ -9,9 +9,6 @@ import ShipmentStatus from "./ShipmentStatus";
 export default function MemberDetail({
   name,
   lastName,
-  img,
-  jobPosition,
-  products,
   dateBirth,
   joiningDate,
   shimentsDetails = "incomplete",

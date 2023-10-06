@@ -43,7 +43,7 @@ export default function Card({
       >
         {imageBottom && (
           <div className="w-52 h-52 relative">
-            <Image src={imageBottom} alt={altImage} fill />
+            <Image src={imageBottom} alt={altImage} fill priority />
           </div>
         )}
         <p className="text-dark-grey">{paragraph}</p>

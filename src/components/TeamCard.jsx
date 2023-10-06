@@ -1,6 +1,5 @@
 import { AddIcon } from "@/common/Icons";
 import Row from "@/common/JoinerRow";
-import React from "react";
 import user from "../../public/UserLogo.jpeg";
 
 import team1 from "../../public/employees/Rectangle 459.png";
@@ -12,24 +11,28 @@ import CustomLink from "@/common/CustomLink";
 
 const team = [
   {
+    id: "1",
     name: "Francisco",
     lastname: "Villanueva",
     jobPosition: "dev",
     image: user,
   },
   {
+    id: "2",
     name: "Esteban ",
     lastname: "Rodriguez",
     jobPosition: "dev",
     image: user,
   },
   {
+    id: "3",
     name: "Agustin ",
     lastname: "Sandoval",
     jobPosition: "dev",
     image: user,
   },
   {
+    id: "4",
     name: "Braian",
     lastname: "Barrientos",
     jobPosition: "design",
@@ -46,18 +49,22 @@ export default function TeamCard({ className }) {
             <Image
               src={team1}
               className="h-[3rem] w-[3rem] rounded-full -ml-[1.75rem]"
+              alt="employees"
             />
             <Image
               src={team2}
               className="h-[3rem] w-[3rem] rounded-full -ml-[1.75rem]"
-            />{" "}
+              alt="employees"
+            />
             <Image
               src={team3}
               className="h-[3rem] w-[3rem] rounded-full -ml-[1.75rem]"
+              alt="employees"
             />
             <Image
               src={team4}
               className="h-[3rem] w-[3rem] rounded-full -ml-[1.75rem]"
+              alt="employees"
             />
             <div className="h-[3rem] w-[3rem] grid place-items-center bg-white rounded-full -ml-[1.75rem] border-white border ">
               <p className="text-black font-medium">+56</p>
@@ -88,7 +95,7 @@ export default function TeamCard({ className }) {
         </div>
         <div className="flex flex-col overflow-y-auto max-h-[20rem] min-h-[20rem] ">
           {team.map((member) => (
-            <Row joiner={member} />
+            <Row key={member.id} joiner={member} />
           ))}
         </div>
       </div>

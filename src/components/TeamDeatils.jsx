@@ -1,8 +1,8 @@
 "use client";
 import Button from "@/common/Button";
-import { AddIcon, DropDownArrow, TrashIcon } from "@/common/Icons";
+import { DropDownArrow } from "@/common/Icons";
 import TeamCard from "@/common/TeamCard";
-import React, { useState } from "react";
+import { useState } from "react";
 import TeamInfo from "./TeamInfo";
 
 export default function TeamDeatils({ team, className = "", members }) {

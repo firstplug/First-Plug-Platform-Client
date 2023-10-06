@@ -9,6 +9,7 @@ export default function Logistics() {
       <EmptyCard
         imageBottom="/Orders.svg"
         paragraph="You haven't made any shipment yet."
+        altImage="Orders"
       >
         <CustomLink
           variant="primary"

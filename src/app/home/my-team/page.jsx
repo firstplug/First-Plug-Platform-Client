@@ -1,7 +1,6 @@
 "use client";
 
 import Card from "@/components/Card";
-
 import Layout from "@/common/Layout";
 import Button from "@/common/Button";
 import { AddIcon, UpLoadIcon } from "@/common/Icons";
@@ -19,6 +18,7 @@ export default function MyTeam() {
       <EmptyCard
         imageBottom="/girl.svg"
         paragraph="You havnet't loaded any  employees yet."
+        altImage="Girl"
       >
         <div className="flex gap-2 ">
           <Button
@@ -33,7 +33,7 @@ export default function MyTeam() {
             variant="primary"
             size="big"
             className="rounded-md flex gap-2"
-            href="/addTeam"
+            href="#"
           >
             <UpLoadIcon /> Add Team Memeber
           </CustomLink>

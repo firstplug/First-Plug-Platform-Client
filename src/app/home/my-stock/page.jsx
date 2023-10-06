@@ -21,6 +21,7 @@ export default function MyStock() {
       <EmptyCard
         imageBottom="/office.svg"
         paragraph="You don't have any items."
+        altImage="Office"
       >
         <div className="flex gap-2 ">
           <Button

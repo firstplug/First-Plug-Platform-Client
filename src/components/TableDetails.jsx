@@ -1,11 +1,8 @@
 import Button from "@/common/Button";
-import CustomLink from "@/common/CustomLink";
 import { TrashIcon } from "@/common/Icons";
 import State from "@/common/State";
-import React from "react";
 
 export default function TableDetails({ details, className }) {
-
   return (
     <table
       className={` flex-col w-full rounded-lg overflow-hidden ${
@@ -24,9 +21,9 @@ export default function TableDetails({ details, className }) {
         </tr>
       </thead>
       <tbody>
-        {details.map((detail, index) => (
+        {details.map((detail) => (
           <tr
-            key={index}
+            key={detail.serial}
             className="bg-white text-black border-b-2 border-gray-200 text-left"
           >
             <td className="py-4 px-3 ">{detail.serial}</td>
@@ -40,7 +37,7 @@ export default function TableDetails({ details, className }) {
             </td>
             <td className=" py-4 px-3">
               {detail.actions === "Assign To" ? (
-                <Button onClick={() => openModal()}>{detail.actions}</Button>
+                <Button>{detail.actions}</Button>
               ) : (
                 <Button>{detail.actions}</Button>
               )}

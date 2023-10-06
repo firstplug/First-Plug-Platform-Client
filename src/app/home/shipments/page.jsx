@@ -8,6 +8,7 @@ export default function Shipments() {
       <EmptyCard
         imageBottom="/world.svg"
         paragraph="You haven't made any shipment yet."
+        altImage="World"
       >
         <CustomLink
           variant="primary"

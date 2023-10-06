@@ -25,7 +25,6 @@ export default function AddTeam() {
               </h2>
             </section>
             <section className="pt-[16px] px-[32px] gap-[28px] ">
-              {/* ADD TEAM MEMBER*/}
               <div className="relative w-[100%] h-[152px] flex items-center gap-6">
                 <span className="w-[152px] h-[152px] rounded-[30px] relative">
                   <Image
@@ -77,9 +76,7 @@ export default function AddTeam() {
                   </div>
                 </span>
               </div>
-              {/* ADD TEAM MEMBER */}
               <hr className="mt-4 mb-4" />
-              {/* SEGUNDO DIV */}
               <div className="w-[100%] h-[auto]">
                 <p className="font-inter text-black font-bold text-[16px] mt-[16px] mb-[16px]">
                   Employee information
@@ -102,12 +99,12 @@ export default function AddTeam() {
                   <p className="font-inter text-[16px] text-dark-grey">
                     Does the team not exist yet?
                   </p>
-                  <CustomLink href="" children="Create Team" className="ml-4" />
+                  <CustomLink href="" className="ml-4">
+                    Create Team
+                  </CustomLink>
                 </div>
               </div>
-              {/* EMPLOYEE INFORMATION */}
               <hr className="mt-4 mb-4" />
-              {/* SHIPMENT DETAILS */}
               <div>
                 <p className="font-inter text-black font-bold text-[16px] mt-[16px] mb-[16px]">
                   Shipment Details
@@ -154,7 +151,6 @@ export default function AddTeam() {
                   <div className="w-[33%]"></div>
                 </div>
               </div>
-              {/* ADITIONAL INFORMATION */}
               <div>
                 <div className=" flex-grow flex items-center mt-[28px]">
                   <Input
@@ -165,7 +161,6 @@ export default function AddTeam() {
                   />
                 </div>
               </div>
-              {/* SECTION WITH CONTINUE BUTTON */}
             </section>
           </div>
         </main>

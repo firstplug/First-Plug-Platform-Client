@@ -1,6 +1,6 @@
 "use client";
-import Table from "@/components/Table";
 
+import Table from "@/components/Table";
 import Layout from "@/common/Layout";
 import Button from "@/common/Button";
 import { ShopIcon, UpLoadIcon } from "@/common/Icons";

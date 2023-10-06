@@ -33,7 +33,6 @@ export default function UserRegister() {
             </p>
           </section>
           <section className="pt-[16px] px-[32px] gap-[28px] ">
-            {/* PRIMER DIV */}
             <div className=" w-[100%] h-[152px] flex items-center gap-6">
               <span className=" w-[152px] h-[152px] rounded-[30px] relative">
                 <Image
@@ -59,9 +58,7 @@ export default function UserRegister() {
                 </div>
               </span>
             </div>
-            {/* PRIMER DIV */}
             <hr className="mt-4 mb-4" />
-            {/* SEGUNDO DIV */}
             <div className="w-[100%] h-[auto]">
               <p className="font-inter text-black font-bold text-[16px] mt-[16px] mb-[16px]">
                 Billing information
@@ -108,9 +105,7 @@ export default function UserRegister() {
                 </div>
               </div>
             </div>
-            {/* SEGUNDO DIV */}
             <hr className="mt-4 mb-4" />
-            {/* TERCER DIV */}
             <div>
               <p className="font-inter text-black font-bold text-[16px] mt-[16px] mb-[16px]">
                 Access information
@@ -133,7 +128,6 @@ export default function UserRegister() {
                 </CustomLink>
               </div>
             </div>
-            {/* TERCER DIV */}
           </section>
         </div>
       </section>

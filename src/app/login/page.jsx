@@ -18,10 +18,11 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      await AuthServices.login({
+      const user = await AuthServices.login({
         email: emailInput.value,
         password: passWordInput.value,
       });
+      localStorage.setItem("token", user.token);
       router.push("/home/dashboard");
     } catch (error) {
       console.error(error);

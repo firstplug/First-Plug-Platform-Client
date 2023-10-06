@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import CustomLink from "@/common/CustomLink";
 import Button from "@/common/Button";
 import {
   ComputerIcon,

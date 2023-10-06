@@ -4,17 +4,20 @@ const apiURL = "http://localhost:3001";
 
 export class AuthServices {
   static async register(data) {
-    const userData = await axios.post(`${apiURL}/api/auth/register`, data);
-    return userData.data;
+    return await axios.post(`${apiURL}/api/auth/register`, data);
   }
 
   static async login(data) {
-    const userData = await axios.post(`${apiURL}/api/auth/login`, data);
-    return userData.data;
+    const user = await axios.post(`${apiURL}/api/auth/login`, data);
+    return user.data;
   }
 
-  static async me() {
-    const userData = await axios.get(`${apiURL}/api/auth/login`);
-    return userData.data;
+  static async me(token) {
+    const user = await axios.get(`${apiURL}/api/auth/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return user.data.payload;
   }
 }

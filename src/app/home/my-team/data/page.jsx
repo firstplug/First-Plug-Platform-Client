@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Layout from "@/common/Layout";
 import ColaboratorCard from "@/components/ColaboratorCard";
 import Button from "@/common/Button";

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import DoughnutChart from "@/common/Graphs";
-export function MouseIcon({ className }) {}
 export function MonitorIcon({ className }) {
   return (
     <svg
@@ -20,13 +19,10 @@ export function MonitorIcon({ className }) {
     </svg>
   );
 }
-export function MerchIcon({ className }) {}
-export function HeadsetIcon({ className }) {}
-export function ChaiIcon({ className }) {}
-export function AccesoriesIcon({ className }) {}
 
 const data = [
   {
+    id: "1",
     name: "Accesories",
     assigned: 15,
     avaliable: 18,
@@ -34,6 +30,7 @@ const data = [
     icon: <MonitorIcon />,
   },
   {
+    id: "2",
     name: "Monitor",
     assigned: 15,
     avaliable: 4,
@@ -41,6 +38,7 @@ const data = [
     icon: <MonitorIcon />,
   },
   {
+    id: "3",
     name: "Headset",
     assigned: 30,
     avaliable: 40,
@@ -48,6 +46,7 @@ const data = [
     icon: <MonitorIcon />,
   },
   {
+    id: "4",
     name: "Merch",
     assigned: 90,
     avaliable: 20,
@@ -55,6 +54,7 @@ const data = [
     icon: <MonitorIcon />,
   },
   {
+    id: "5",
     name: "Laptop",
     assigned: 70,
     avaliable: 40,
@@ -62,6 +62,7 @@ const data = [
     icon: <MonitorIcon />,
   },
   {
+    id: "6",
     name: "Chair",
     assigned: 20,
     avaliable: 5,
@@ -80,6 +81,7 @@ export default function StockCard({ className }) {
       <div className="  h-100 flex flex-col justify-between  w-full">
         {data.map((equipment) => (
           <div
+            key={equipment.id}
             className={` w-full flex gap-2  font-medium cursor-pointer p-2 rounded-md hover:bg-light-grey ${
               info.name === equipment.name
                 ? "text-blue bg-light-grey"

@@ -19,8 +19,12 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      await AuthServices.register({ fullname, email, password });
-      router.push("/user-register");
+      await AuthServices.register({
+        fullname: nameInput.value,
+        email: emailInput.value,
+        password: passWordInput.value,
+      });
+      router.push("/login");
     } catch (error) {
       console.error(error);
     }

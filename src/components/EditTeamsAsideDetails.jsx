@@ -1,5 +1,4 @@
 import Button from "@/common/Button";
-
 import TeamDeatils from "./TeamDeatils";
 
 export default function EditTeamsAsideDetails({

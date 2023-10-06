@@ -1,6 +1,6 @@
 "use client";
 import SearchInput from "@/common/SearchInput";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function FitlerModal({ array, className }) {
   const [allChecked, setAllChecked] = useState(false);
@@ -39,14 +39,13 @@ export default function FitlerModal({ array, className }) {
           <label>Select All</label>
         </div>
         {array.map((filter, index) => (
-          <div className="flex items-center gap-2 ml-2 ">
+          <div key={filter.id} className="flex items-center gap-2 ml-2 ">
             <input
               type="checkbox"
               className="w-5 h-5"
               checked={checkboxes[index]}
               onChange={() => handleCheckboxChange(index)}
             />
-
             <label>{filter.name}</label>
           </div>
         ))}

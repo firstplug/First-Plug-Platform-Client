@@ -1,13 +1,11 @@
-"use client";
 import React from "react";
 import Button from "@/common/Button";
 import SearchInput from "@/common/SearchInput";
-import userPhoto from "../../public/UserLogo.jpeg";
 import Image from "next/image";
 import Logo from "../../public/logo1.png";
 import { ShopIcon, NotificationIcon } from "@/common/Icons";
-import { useSession } from "next-auth/react";
 import DropdownButton from "@/common/Dropdown";
+import ImgPorfile from "@/common/ImgPorfile";
 
 export default function Navbar({
   title,
@@ -15,8 +13,7 @@ export default function Navbar({
   placeholder,
   hasNotification,
 }) {
-  const { data: session } = useSession();
-
+  
   return (
     <nav className="flex justify-between items-center pt-6 px-10 pb-3">
       <div className="flex gap-6 items-center">
@@ -48,21 +45,9 @@ export default function Navbar({
         </div>
         <div className="flex items-center rounded-md hover:bg-light-grey ">
           <div className="relative w-10 h-10 ">
-            <Image
-              src={
-                session?.user.image === null ? userPhoto : session?.user.image
-              }
-              alt="userfoto"
-              className="object-cover rounded-full"
-              fill
-              priority
-            />
+            <ImgPorfile />
           </div>
-          <DropdownButton
-            className="py-0 px-2 m-0 "
-            name={session?.user.name}
-            email={session?.user.email}
-          />
+          <DropdownButton className="py-0 px-2 m-0 " />
         </div>
       </div>
     </nav>

@@ -1,6 +1,6 @@
 "use client";
 import CustomLink from "@/common/CustomLink";
-import React, { useState } from "react";
+import { useState } from "react";
 import TableDetailsShipments from "./TableDetailsShipments";
 import Button from "@/common/Button";
 import { ArrowLeft } from "@/common/Icons";
@@ -37,7 +37,7 @@ export default function TableShipments({ orders = [], className, info = [] }) {
       <tbody>
         {orders.map((order, index) => (
           <>
-            <tr
+            <tr key={order.id}
               className={`${
                 rowOpenState[index] ? " bg-[#EAEDF7]" : "  bg-white"
               } text-black border-b-2 border-gray-200 text-left `}

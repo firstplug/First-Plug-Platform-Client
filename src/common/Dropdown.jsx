@@ -1,10 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { NavButtonIcon } from "./Icons";
+import { useRouter } from "next/navigation";
 
-export default function DropdownButton({ name, email }) {
+export default function DropdownButton() {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const session = useSession();
 
   return (
     <div className="relative inline-block text-left">
@@ -25,15 +28,21 @@ export default function DropdownButton({ name, email }) {
             aria-labelledby="options-menu"
           >
             <div className="text-sm text-gray-500 pl-4 pb-2 font-inter font-semibold mt-2">
-              {name}
+              {session?.data?.user?.name || "Usuario Chill"}
             </div>
             <div className="text-sm text-gray-500 pl-4 pb-4 font-inter font-medium mr-4">
-              {email}
+              {session?.data?.user?.email || "mailChill@gmail.com"}
             </div>
             <button
-              onClick={() =>
-                signOut({ callbackUrl: "http://localhost:3000/login" })
-              }
+              onClick={() => {
+                if (!!localStorage.getItem("token")) {
+                  localStorage.removeItem("token");
+                  router.push("/login");
+                }
+                if (session.status === "authenticated") {
+                  signOut({ callbackUrl: "http://localhost:3000/login" });
+                }
+              }}
               type="button"
               className="block px-4 py-2 text-sm text-red-500 font-bold"
               role="menuitem"

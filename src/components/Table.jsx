@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState, Fragment } from "react";
 import TableDetails from "./TableDetails";
 import ButtonMyStock from "@/common/ButtonMyStock";
 import useModal from "@/hooks/useModal";
+import Image from "next/image";
 
 export default function Table({ className }) {
   const { openModal } = useModal();
   const data = [
     {
+      id: "1",
       imagen: "/notebook1.png",
       category: "Notebook ",
       model: "Macbook Pro 14",
@@ -16,6 +18,7 @@ export default function Table({ className }) {
       quantity: 5,
     },
     {
+      id: "2",
       imagen: "/notebook2.png",
       category: "Notebook",
       model: "Macbook Pro 14",
@@ -23,6 +26,7 @@ export default function Table({ className }) {
       quantity: 5,
     },
     {
+      id: "3",
       imagen: "/airpods.png",
       category: "Airpods",
       model: "Airpod",
@@ -30,6 +34,7 @@ export default function Table({ className }) {
       quantity: 5,
     },
     {
+      id: "4",
       imagen: "/keyboard.png",
       category: "Keyboard",
       model: "Magic Keyboard",
@@ -47,28 +52,28 @@ export default function Table({ className }) {
       actions: "Return",
     },
     {
-      serial: "#3248",
+      serial: "#3249",
       name: "Esteban Rodriguez",
       lastName: "Sucari",
       status: "MISSGING DATA",
       actions: "Assign To",
     },
     {
-      serial: "#3248",
+      serial: "#3250",
       name: "Agustin",
       lastName: "Sandoval",
       status: "PREPARING",
       actions: "Return",
     },
     {
-      serial: "#3248",
+      serial: "#3251",
       name: "Francisco",
       lastName: "Villanueva",
       status: "DELIVERED",
       actions: "Return",
     },
     {
-      serial: "#3248",
+      serial: "#3252",
       name: "Rafa",
       lastName: "Mojica",
       status: "AVAILABLE",
@@ -102,13 +107,14 @@ export default function Table({ className }) {
       </thead>
       <tbody>
         {data.map((item, index) => (
-          <React.Fragment key={index}>
+          <Fragment key={item.id}>
             <tr className="bg-white text-black border-b-2 border-gray-200 text-left">
               <td className="py-4 px-3 flex gap-2">
-                <img
+                <Image
                   src={item.imagen}
                   alt={item.category}
-                  className="h-12 w-12"
+                  width={48}
+                  height={48}
                 />
                 <span>{item.category}</span>
               </td>
@@ -134,7 +140,7 @@ export default function Table({ className }) {
                 </td>
               </tr>
             )}
-          </React.Fragment>
+          </Fragment>
         ))}
       </tbody>
     </table>

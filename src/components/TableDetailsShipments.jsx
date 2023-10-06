@@ -1,4 +1,4 @@
-import React from "react";
+import Image from "next/image";
 
 export default function TableDetailsShipments({ className, data = [] }) {
   return (
@@ -17,9 +17,12 @@ export default function TableDetailsShipments({ className, data = [] }) {
       </thead>
       <tbody>
         {data.map((item) => (
-          <tr className="bg-white text-black border-b-2 border-gray-200 text-left">
+          <tr
+            key={item.serial}
+            className="bg-white text-black border-b-2 border-gray-200 text-left"
+          >
             <td className="py-4 px-3 flex gap-2">
-              <img
+              <Image
                 src={item.imagen}
                 alt={item.category}
                 className="h-12 w-12"

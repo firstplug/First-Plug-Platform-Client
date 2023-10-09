@@ -9,9 +9,11 @@ import useModal from "@/hooks/useModal";
 import SearchInput from "@/common/SearchInput";
 import { useState } from "react";
 import RadioButtons from "@/components/RadioButtons";
-import CustomLink from "@/common/CustomLink";
+import { useRouter } from "next/navigation";
 
 export default function MyStock() {
+  const router = useRouter();
+
   const { closeModal, isModalOpen, openModal } = useModal();
 
   const [optionSelected, setOptionSelected] = useState(null);
@@ -46,14 +48,15 @@ export default function MyStock() {
             />
           </div>
           <div>
-            <CustomLink href="/shop">
-              <Button
-                variant="primary"
-                icon={<ShopIcon />}
-                body="Shop Now"
-                className="p-3 rounded-md"
-              />
-            </CustomLink>
+            <Button
+              variant="primary"
+              icon={<ShopIcon />}
+              body="Shop Now"
+              className="p-3 rounded-md"
+              onClick={() => {
+                router.push("/shop");
+              }}
+            />
           </div>
         </div>
       </div>

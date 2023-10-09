@@ -9,7 +9,7 @@ import useModal from "@/hooks/useModal";
 import SearchInput from "@/common/SearchInput";
 import { useState } from "react";
 import RadioButtons from "@/components/RadioButtons";
-
+import CustomLink from "@/common/CustomLink";
 
 export default function MyStock() {
   const { closeModal, isModalOpen, openModal } = useModal();
@@ -25,7 +25,6 @@ export default function MyStock() {
   const handleOptionSelected = (persona) => {
     setOptionSelected(persona);
   };
-
 
   return (
     <Layout>
@@ -47,12 +46,14 @@ export default function MyStock() {
             />
           </div>
           <div>
-            <Button
-              variant="primary"
-              icon={<ShopIcon />}
-              body="Shop Now"
-              className="p-3 rounded-md"
-            />
+            <CustomLink href="/shop">
+              <Button
+                variant="primary"
+                icon={<ShopIcon />}
+                body="Shop Now"
+                className="p-3 rounded-md"
+              />
+            </CustomLink>
           </div>
         </div>
       </div>

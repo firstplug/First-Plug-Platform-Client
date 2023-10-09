@@ -18,7 +18,9 @@ export default function Shop() {
       <div>
         <nav className="w-full h-[5.5rem] flex justify-between items-center py-[1.25rem] px-[2.5rem] bg-white fixed top-0 left-0 right-0">
           <div className="flex items-center gap-[1.5rem]">
-            <Image src={logo} alt="logoFirstPlug" width={193} height={210} />
+            <CustomLink href="/home/dashboard">
+              <Image src={logo} alt="logoFirstPlug" width={193} height={210} />
+            </CustomLink>
             <SearchInput
               placeholder="Search by Team, Name or ID Number"
               width={332}

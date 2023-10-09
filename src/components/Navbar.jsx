@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Button from "@/common/Button";
 import SearchInput from "@/common/SearchInput";
@@ -6,6 +7,7 @@ import Logo from "../../public/logo1.png";
 import { ShopIcon, NotificationIcon } from "@/common/Icons";
 import DropdownButton from "@/common/Dropdown";
 import ImgPorfile from "@/common/ImgPorfile";
+import { useRouter } from "next/navigation";
 
 export default function Navbar({
   title,
@@ -13,7 +15,7 @@ export default function Navbar({
   placeholder,
   hasNotification,
 }) {
-  
+  const router = useRouter();
   return (
     <nav className="flex justify-between items-center pt-6 px-10 pb-3">
       <div className="flex gap-6 items-center">
@@ -32,6 +34,9 @@ export default function Navbar({
             body={"Shop"}
             variant={"text"}
             className={"py-2 px-4 bg-none text-sm"}
+            onClick={() => {
+              router.push("/shop");
+            }}
           />
         </div>
         <div>

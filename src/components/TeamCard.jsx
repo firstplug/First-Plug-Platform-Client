@@ -79,7 +79,7 @@ export default function TeamCard({ className }) {
         </div>
         <div>
           <CustomLink
-            href={"/addTeam"}
+            href={"/home/addTeam"}
             size={"small"}
             className={
               "rounded-md w-full justify-center text-xl py-4  border border-blue text-blue flex"

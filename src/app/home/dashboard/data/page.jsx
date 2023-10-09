@@ -13,11 +13,10 @@ export default function DashboardData() {
       </Card>
 
       <div className="flex-1 h-1/2 grid grid-cols-2 gap-4">
-        <CustomLink href="/shop">
-          <Card Title="My Stock" titleButton="Shop Now" icon={<ShopIcon />}>
-            <StockCard className="my-4" />
-          </Card>
-        </CustomLink>
+        <Card Title="My Stock" titleButton="Shop Now" icon={<ShopIcon />}>
+          <StockCard className="my-4" />
+        </Card>
+
         <Card
           Title="Notifications"
           imageBottom="/alert.svg"

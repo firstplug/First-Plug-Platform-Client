@@ -29,7 +29,7 @@ export default function MyStock() {
   };
 
   return (
-    <Layout>
+    <Layout className="flex flex-col gap-5 overflow-auto pb-1">
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
           <input type="checkbox" />
@@ -38,7 +38,7 @@ export default function MyStock() {
           </label>
         </div>
 
-        <div className="flex  gap-2">
+        <div className="flex  gap-5 mr-3">
           <div>
             <Button
               variant="secondary"

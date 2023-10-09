@@ -3,6 +3,7 @@ import Card from "@/components/Card";
 import { ShopIcon } from "@/common/Icons";
 import TeamCard from "@/components/TeamCard";
 import StockCard from "@/components/StockCard";
+import CustomLink from "@/common/CustomLink";
 
 export default function DashboardData() {
   return (
@@ -12,9 +13,11 @@ export default function DashboardData() {
       </Card>
 
       <div className="flex-1 h-1/2 grid grid-cols-2 gap-4">
-        <Card Title="My Stock" titleButton="Shop Now" icon={<ShopIcon />}>
-          <StockCard className="my-4" />
-        </Card>
+        <CustomLink href="/shop">
+          <Card Title="My Stock" titleButton="Shop Now" icon={<ShopIcon />}>
+            <StockCard className="my-4" />
+          </Card>
+        </CustomLink>
         <Card
           Title="Notifications"
           imageBottom="/alert.svg"

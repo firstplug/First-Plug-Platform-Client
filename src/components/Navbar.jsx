@@ -6,6 +6,7 @@ import Logo from "../../public/logo1.png";
 import { ShopIcon, NotificationIcon } from "@/common/Icons";
 import DropdownButton from "@/common/Dropdown";
 import ImgPorfile from "@/common/ImgPorfile";
+import CustomLink from "@/common/CustomLink";
 
 export default function Navbar({
   title,
@@ -13,7 +14,6 @@ export default function Navbar({
   placeholder,
   hasNotification,
 }) {
-  
   return (
     <nav className="flex justify-between items-center pt-6 px-10 pb-3">
       <div className="flex gap-6 items-center">
@@ -27,12 +27,14 @@ export default function Navbar({
       </div>
       <div className="flex items-center  justify-end gap-2 ">
         <div>
-          <Button
-            icon={<ShopIcon />}
-            body={"Shop"}
-            variant={"text"}
-            className={"py-2 px-4 bg-none text-sm"}
-          />
+          <CustomLink href="/shop">
+            <Button
+              icon={<ShopIcon />}
+              body={"Shop"}
+              variant={"text"}
+              className={"py-2 px-4 bg-none text-sm"}
+            />
+          </CustomLink>
         </div>
         <div>
           <Button

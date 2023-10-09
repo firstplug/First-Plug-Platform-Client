@@ -25,7 +25,7 @@ export default function AddTeam() {
               </h2>
             </section>
             <section className="pt-[16px] px-[32px] gap-[28px] ">
-              <div className="relative w-[100%] h-[152px] flex items-center gap-6">
+              <div className="relative w-[100%] h-[152px] flex items-center gap-7 mb-11">
                 <span className="w-[152px] h-[152px] rounded-[30px] relative">
                   <Image
                     src={memberImage}

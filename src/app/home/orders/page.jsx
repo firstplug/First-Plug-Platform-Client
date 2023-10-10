@@ -15,7 +15,7 @@ export default function Logistics() {
           variant="primary"
           size="big"
           className="rounded-md flex gap-2"
-          href="/shop"
+          href="/home/orders/equipment"
         >
           <ShopIcon /> Shop Now
         </CustomLink>

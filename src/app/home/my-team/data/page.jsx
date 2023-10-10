@@ -36,7 +36,7 @@ const array = [
     joiningDate: "19/09/2023",
     products: ["mac", "phone"],
     shimentsDetails: "incomplete",
-    team: "dev",
+    team: "developer",
   },
   {
     id: "#004",
@@ -47,7 +47,7 @@ const array = [
     jobPosition: "Sernio Dev",
     products: ["mac", "phone", "monitor"],
     shimentsDetails: "complete",
-    team: "dev",
+    team: "developer",
   },
 
   {
@@ -71,7 +71,7 @@ const array = [
     joiningDate: "19/09/2023",
     products: ["mac", "phone", "monitor"],
     shimentsDetails: "incomplete",
-    team: "design",
+    team: "designer",
   },
 ];
 export default function MyTeamData() {

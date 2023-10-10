@@ -3,17 +3,23 @@ import Button from "@/common/Button";
 import AddMemberForm from "./AddMemberForm";
 import { TeamServices } from "../services/team.services";
 
-export default function CreateTeamAside({ className = "", members }) {
+export default function CreateTeamAside({
+  className = "",
+  members,
+  closeModal,
+}) {
   const [teamName, setTeamName] = useState("");
+  const [selectedMembers, setSelectedMembers] = useState([]);
 
   const handleCreateTeam = async () => {
     try {
       const newTeam = {
-        teamName: teamName,
-        members: members,
+        name: teamName,
+        teamMember: selectedMembers,
       };
 
       await TeamServices.createTeam(newTeam);
+      closeModal();
     } catch (error) {
       console.error("Error creating team:", error);
     }
@@ -24,6 +30,7 @@ export default function CreateTeamAside({ className = "", members }) {
       <div className="flex flex-col gap-2 h-[60vh] overflow-y-auto">
         <div className="flex flex-col">
           <span className="text-dark-grey">Team Name</span>
+
           <input
             type="text"
             className=" border-2 rounded-xl p-2 flex-grow w-full"
@@ -38,12 +45,20 @@ export default function CreateTeamAside({ className = "", members }) {
             <span>({members.length})</span>
           </div>
 
-          <AddMemberForm members={members} />
+          <AddMemberForm
+            setSelectedMembers={setSelectedMembers}
+            members={members}
+          />
         </div>
       </div>
 
       <div className="flex gap-2">
-        <Button variant="secondary" size="big" className="flex-grow rounded-md">
+        <Button
+          variant="secondary"
+          size="big"
+          className="flex-grow rounded-md"
+          onClick={() => closeModal()}
+        >
           Cancel
         </Button>
         <Button

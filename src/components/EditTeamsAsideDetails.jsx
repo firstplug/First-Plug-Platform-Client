@@ -1,16 +1,42 @@
+import React, { useState, useEffect } from "react";
 import Button from "@/common/Button";
-import TeamDeatils from "./TeamDeatils";
+import TeamDetails from "./TeamDeatils";
+import { TeamServices } from "../services/team.services";
 
-export default function EditTeamsAsideDetails({
-  className = "",
-  teams,
-  members,
-}) {
+export default function EditTeamsAsideDetails({ className = "", members }) {
+  const [teams, setTeams] = useState([]);
+
+  useEffect(() => {
+    async function fetchTeams() {
+      try {
+        const teamsData = await TeamServices.getAllTeams();
+        setTeams(teamsData);
+      } catch (error) {
+        console.error("Error al obtener los equipos:", error);
+      }
+    }
+
+    fetchTeams();
+  }, []);
+
+  const handleDeleteTeam = async (id) => {
+    try {
+      await TeamServices.deleteTeam(id);
+    } catch (error) {
+      console.error("Error al eliminar el equipo:", error);
+    }
+  };
+
   return (
     <div className={` ${className} flex flex-col justify-between h-full `}>
-      <div className="flex flex-col gap-2   h-[70vh] overflow-y-auto">
+      <div className="flex flex-col gap-2 h-[70vh] overflow-y-auto">
         {teams.map((team) => (
-          <TeamDeatils team={team.name} members={members} key={team.id} />
+          <TeamDetails
+            key={team.id}
+            team={team}
+            members={members}
+            onDelete={() => handleDeleteTeam(team.id)}
+          />
         ))}
       </div>
 

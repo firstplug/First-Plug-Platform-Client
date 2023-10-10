@@ -26,6 +26,8 @@ export default function Button({
     },
     disabled: {
       primary: "bg-light-grey    text-grey ",
+      delete: "bg-light-grey    text-grey ",
+
       secondary: "bg-white   text-grey ",
       text: "bg-white    text-grey   ",
       alert: "bg-white   text-grey ",

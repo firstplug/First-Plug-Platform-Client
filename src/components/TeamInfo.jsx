@@ -12,7 +12,7 @@ export default function TeamInfo({ members, team, filterMembembers }) {
         <span className="text-grey">Team Name</span>
         <input
           type="text"
-          value={team}
+          defaultValue={team.name}
           className=" border-2 rounded-xl p-2 flex-grow w-full"
         />
       </header>

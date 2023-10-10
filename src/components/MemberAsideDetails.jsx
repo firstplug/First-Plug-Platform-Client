@@ -32,7 +32,7 @@ export default function MemberAsideDetails({ member, className }) {
           <div className="flex justify-between">
             <h1 className="font-semibold text-xl">Products</h1>
             <p className="bg-border  rounded-full h-6 w-6 text-center  grid place-items-center items text-sm">
-              {member.products.length}
+              {member.products?.length || 0}
             </p>
           </div>
 

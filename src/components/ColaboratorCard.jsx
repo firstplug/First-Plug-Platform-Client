@@ -13,12 +13,11 @@ import DropdownInput from "@/common/DropdownInput";
 
 export default function ColaboratorCard({
   member,
-  name,
+  firstName,
   lastName,
   id,
   img,
   jobPosition,
-  products,
   shimentsDetails = "incomplete",
   team,
   className,
@@ -45,12 +44,12 @@ export default function ColaboratorCard({
             />
 
             <div className="ml-1 flex flex-col  items-start">
-              <TeamCard team={team} />
+              {/* <TeamCard team={team} /> */}
               <h2
                 className="text-black font-bold cursor-pointer"
                 onClick={() => handleModal("details")}
               >
-                {name} {lastName}
+                {firstName} {lastName}
               </h2>
               <b className="text-dark-grey">{id}</b>
             </div>
@@ -83,7 +82,7 @@ export default function ColaboratorCard({
           <div className="flex items-center  gap-3">
             <h2 className="font-semibold text-lg">Products</h2>
             <p className="bg-border  rounded-full h-6 w-6 text-center  grid place-items-center items text-sm">
-              {products.length}
+              {/* {products.length} */}
             </p>
           </div>
           <div className="flex  items-center gap-3">

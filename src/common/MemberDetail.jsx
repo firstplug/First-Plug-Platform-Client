@@ -7,9 +7,9 @@ import Photo from "../../public/employees/member.jpg";
 import ShipmentStatus from "./ShipmentStatus";
 
 export default function MemberDetail({
-  name,
+  firstName,
   lastName,
-  dateBirth,
+  dateOfBirth,
   joiningDate,
   shimentsDetails = "incomplete",
   team,
@@ -33,12 +33,12 @@ export default function MemberDetail({
         </div>
 
         <b className="text-xl">
-          {name} {lastName}
+          {firstName} {lastName}
         </b>
         <div className="flex justify-between items-center">
           <div className="flex gap-1">
             <span className="font-normal"> Date Of Birth: </span>
-            <span className="font-light"> {dateBirth} </span>
+            <span className="font-light"> {dateOfBirth} </span>
           </div>
           <span className="text-grey">|</span>
           <div className="flex gap-1">

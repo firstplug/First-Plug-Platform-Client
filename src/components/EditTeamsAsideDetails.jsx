@@ -12,7 +12,7 @@ export default function EditTeamsAsideDetails({ className = "", members }) {
         const teamsData = await TeamServices.getAllTeams();
         setTeams(teamsData);
       } catch (error) {
-        console.error("Error al obtener los equipos:", error);
+        console.error("Error obtaining teams:", error);
       }
     }
 
@@ -23,7 +23,7 @@ export default function EditTeamsAsideDetails({ className = "", members }) {
     try {
       await TeamServices.deleteTeam(id);
     } catch (error) {
-      console.error("Error al eliminar el equipo:", error);
+      console.error("Failed to delete team:", error);
     }
   };
 

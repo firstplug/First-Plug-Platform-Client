@@ -160,7 +160,11 @@ export default function MyTeamData() {
           </Aside>
         ) : (
           <Aside title="New Team" closeModal={closeModal}>
-            <CreateTeamAside teams={teams} members={array} />
+            <CreateTeamAside
+              closeModal={closeModal}
+              teams={teams}
+              members={array}
+            />
           </Aside>
         )
       ) : null}

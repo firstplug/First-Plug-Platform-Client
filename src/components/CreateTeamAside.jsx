@@ -15,7 +15,7 @@ export default function CreateTeamAside({ className = "", members }) {
 
       await TeamServices.createTeam(newTeam);
     } catch (error) {
-      console.error("Error al crear el equipo:", error);
+      console.error("Error creating team:", error);
     }
   };
 

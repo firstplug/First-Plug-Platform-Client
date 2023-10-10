@@ -4,25 +4,19 @@ import TableDetails from "./TableDetails";
 import ButtonMyStock from "@/common/ButtonMyStock";
 import useModal from "@/hooks/useModal";
 import Image from "next/image";
-import { ProductServices } from "@/services/product.services";
 import defaultPhoto from "../../public/Isotipo.png";
+import { useStore } from "@/models/products.store";
 
 export default function Table({ className }) {
   const { openModal } = useModal();
-  const [products, setProducts] = useState([]);
-
-  const getAllProducts = async () => {
-    try {
-      const productsResponse = await ProductServices.getAllProducts();
-      setProducts(productsResponse);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const store = useStore();
+  const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
-    getAllProducts();
-  }, []);
+    store.getAllProducts().then((data) => {
+      setProductsData(data);
+    });
+  }, [store]);
 
   const info = [
     {
@@ -63,7 +57,7 @@ export default function Table({ className }) {
   ];
 
   const [rowOpenState, setRowOpenState] = useState(
-    Array(products.length).fill(false)
+    Array(store.products.length).fill(false)
   );
 
   const toggleRow = (index) => {
@@ -83,7 +77,7 @@ export default function Table({ className }) {
         </tr>
       </thead>
       <tbody>
-        {products.map((product, index) => (
+        {productsData.map((product, index) => (
           <Fragment key={product._id}>
             <tr className="bg-white text-black border-b-2 border-gray-200 text-left h-[6rem] ">
               <td className="py-4 px-3 flex gap-9 items-center">
@@ -98,7 +92,7 @@ export default function Table({ className }) {
               <td className="py-4 px-3 items-center">
                 {product.model}
                 <br />
-                {product.description}
+                {product.description}{" "}
               </td>
               <td className="py-4 px-3 items-center">{product.quantity}</td>
               <td className="flex-col items-center">

@@ -13,6 +13,7 @@ export default function Card({
   icon,
   altImage,
   className,
+  onClick,
 }) {
   return (
     <article
@@ -32,6 +33,7 @@ export default function Card({
               body={titleButton}
               size="small"
               variant="secondary"
+              onClick={onClick}
             />
           )}
         </header>

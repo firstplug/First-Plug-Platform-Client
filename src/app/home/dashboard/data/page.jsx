@@ -1,11 +1,14 @@
+"use client";
 import Layout from "@/common/Layout";
 import Card from "@/components/Card";
 import { ShopIcon } from "@/common/Icons";
 import TeamCard from "@/components/TeamCard";
 import StockCard from "@/components/StockCard";
-import CustomLink from "@/common/CustomLink";
+import { useRouter } from "next/navigation";
 
 export default function DashboardData() {
+  const router = useRouter();
+
   return (
     <Layout className="flex flex-col gap-4 w-[98%]">
       <Card className="flex-1 h-1/2">
@@ -13,7 +16,14 @@ export default function DashboardData() {
       </Card>
 
       <div className="flex-1 h-1/2 grid grid-cols-2 gap-4">
-        <Card Title="My Stock" titleButton="Shop Now" icon={<ShopIcon />}>
+        <Card
+          Title="My Stock"
+          titleButton="Shop Now"
+          onClick={() => {
+            router.push("/shop");
+          }}
+          icon={<ShopIcon />}
+        >
           <StockCard className="my-4" />
         </Card>
 

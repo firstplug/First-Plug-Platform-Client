@@ -6,9 +6,11 @@ import { AuthServices } from "@/services/auth.services";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
+import { ProductStore, ProductStoreContext } from "@/models/products.store";
 
 export default function Providers({ children }) {
   const store = UsersStore.create();
+  const productStore = ProductStore.create();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -25,11 +27,14 @@ export default function Providers({ children }) {
 
   useEffect(() => {
     checkUserSession();
-  }, [checkUserSession]);
+    productStore.getAllProducts();
+  }, [checkUserSession, productStore]);
 
   return (
     <UsersStoreContext.Provider value={store}>
-      <SessionProvider>{children}</SessionProvider>
+      <ProductStoreContext.Provider value={productStore}>
+        <SessionProvider>{children}</SessionProvider>
+      </ProductStoreContext.Provider>
     </UsersStoreContext.Provider>
   );
 }

@@ -6,8 +6,7 @@ import Image from "next/image";
 import { observer } from "mobx-react-lite";
 import useInput from "@/hooks/useInput";
 import { TeamMemberServices } from "@/services/teamMember.services";
-import { clearinputs } from "@/utils/inputsServices";
-import { useTeamMemberStore } from "@/models/teamMeber.store";
+import { useStore } from "@/models/root.store";
 
 export default observer(function EditMemberAside({ member, closeModal }) {
   const firstName = useInput(member.firstName, "required");
@@ -24,7 +23,7 @@ export default observer(function EditMemberAside({ member, closeModal }) {
   const joiningDate = useInput(member.joiningDate, "required");
   const aditionalInfo = useInput(member.aditionalInfo, null);
   const timeSlotForDelivery = useInput(member.timeSlotForDelivery, "required");
-  const STORE_TEAM_MEMBERS = useTeamMemberStore();
+  const store = useStore();
 
   const handleEditMember = () => {
     const data = {
@@ -48,7 +47,7 @@ export default observer(function EditMemberAside({ member, closeModal }) {
         closeModal();
 
         TeamMemberServices.getAllMembers().then(({ data }) => {
-          STORE_TEAM_MEMBERS.setMembers(data);
+          store.setMembers(data);
         });
       })
       .catch((err) => alert("error"));

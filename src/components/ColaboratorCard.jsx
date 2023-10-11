@@ -8,12 +8,9 @@ import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
 import useModal from "@/hooks/useModal";
 import Aside from "./Aside";
 import MemberAsideDetails from "./MemberAsideDetails";
-import Input from "@/common/Input";
-import DropdownInput from "@/common/DropdownInput";
-import EditTeamsAsideDetails from "./EditTeamsAsideDetails";
 import EditMemberAside from "./EditMemberAside";
 import { TeamMemberServices } from "@/services/teamMember.services";
-import { useTeamMemberStore } from "@/models/teamMeber.store";
+import { useStore } from "@/models/root.store";
 
 export default function ColaboratorCard({
   member,
@@ -26,8 +23,7 @@ export default function ColaboratorCard({
   team,
   className,
 }) {
-  const STORE_TEAM_MEMBERS = useTeamMemberStore();
-
+  const store = useStore();
   const { openModal, closeModal, isModalOpen } = useModal();
   const [optionAside, setOptionAside] = useState("details");
 
@@ -39,7 +35,7 @@ export default function ColaboratorCard({
   const handleDeleteMember = () => {
     TeamMemberServices.deleteMember(_id).then((res) => {
       TeamMemberServices.getAllMembers().then((res) => {
-        STORE_TEAM_MEMBERS.setMembers(res.data);
+        store.setMembers(res.data);
       });
     });
   };

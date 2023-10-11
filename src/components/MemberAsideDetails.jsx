@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@/common/Button";
-import ProductDetail from "@/common/ProductDetail";
 import MemberDetail from "@/common/MemberDetail";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";

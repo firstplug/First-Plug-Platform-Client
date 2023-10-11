@@ -2,23 +2,16 @@ import React, { useState, useEffect } from "react";
 import Button from "@/common/Button";
 import TeamDetails from "./TeamDeatils";
 import { TeamServices } from "../services/team.services";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/models/root.store";
 
-export default function EditTeamsAsideDetails({ className = "", members }) {
-  const [teams, setTeams] = useState([]);
+export default observer(function EditTeamsAsideDetails({
+  className = "",
+  members,
+}) {
+  const store = useStore();
+
   const [selectedTeams, setSelectedTeams] = useState([]);
-
-  useEffect(() => {
-    async function fetchTeams() {
-      try {
-        const teamsData = await TeamServices.getAllTeams();
-        setTeams(teamsData);
-      } catch (error) {
-        console.error("Error obtaining teams:", error);
-      }
-    }
-
-    fetchTeams();
-  }, []);
 
   const handleCheckbox = (team) => {
     setSelectedTeams((prevSelectedTeams) => {
@@ -41,11 +34,9 @@ export default function EditTeamsAsideDetails({ className = "", members }) {
       await Promise.all(
         selectedTeams.map((team) => TeamServices.deleteTeam(team._id))
       );
-      setTeams((prev) =>
-        prev.filter(
-          (prev) => !selectedTeams.some((selected) => selected._id === prev._id)
-        )
-      );
+      TeamServices.getAllTeams().then((res) => {
+        store.setTeams(res);
+      });
       setSelectedTeams([]);
     } catch (error) {
       console.error("Failed to delete teams:", error);
@@ -55,7 +46,7 @@ export default function EditTeamsAsideDetails({ className = "", members }) {
   return (
     <div className={` ${className} flex flex-col justify-between h-full `}>
       <div className="flex flex-col gap-2 h-[70vh] overflow-y-auto">
-        {teams.map((team) => (
+        {store.teams.map((team) => (
           <TeamDetails
             key={team._id}
             team={team}
@@ -82,4 +73,4 @@ export default function EditTeamsAsideDetails({ className = "", members }) {
       </div>
     </div>
   );
-}
+});

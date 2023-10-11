@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import Button from "@/common/Button";
 import AddMemberForm from "./AddMemberForm";
 import { TeamServices } from "../services/team.services";
+import { useTeamStore } from "@/models/teams.store";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/models/root.store";
 
-export default function CreateTeamAside({
+export default observer(function CreateTeamAside({
   className = "",
   members,
   closeModal,
 }) {
+  const store = useStore();
   const [teamName, setTeamName] = useState("");
   const [selectedMembers, setSelectedMembers] = useState([]);
 
@@ -18,13 +22,33 @@ export default function CreateTeamAside({
         teamMember: selectedMembers,
       };
 
-      await TeamServices.createTeam(newTeam);
+      TeamServices.createTeam(newTeam).then((res) => {
+        TeamServices.getAllTeams().then((res) => {
+          store.setTeams(res);
+        });
+      });
+
       closeModal();
     } catch (error) {
       console.error("Error creating team:", error);
     }
   };
 
+  const handleSelectedMembers = (member) => {
+    setSelectedMembers((prevSelectedMember) => {
+      const isSelected = prevSelectedMember.some(
+        (selected) => selected._id === member._id
+      );
+
+      if (isSelected) {
+        return prevSelectedMember.filter(
+          (selected) => selected._id !== member._id
+        );
+      } else {
+        return [...prevSelectedMember, member];
+      }
+    });
+  };
   return (
     <div className={` ${className} flex flex-col justify-between h-full `}>
       <div className="flex flex-col gap-2 h-[60vh] overflow-y-auto">
@@ -46,7 +70,7 @@ export default function CreateTeamAside({
           </div>
 
           <AddMemberForm
-            setSelectedMembers={setSelectedMembers}
+            handleSelectedMembers={handleSelectedMembers}
             members={members}
           />
         </div>
@@ -72,4 +96,4 @@ export default function CreateTeamAside({
       </div>
     </div>
   );
-}
+});

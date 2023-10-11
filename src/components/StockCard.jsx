@@ -2,19 +2,13 @@
 import React, { useState, useEffect } from "react";
 import DoughnutChart from "@/common/Graphs";
 import { MonitorIcon, DeviceTablet, PencilAccesories } from "@/common/Icons";
-import { useStore } from "@/models/products.store";
+import { useStore } from "@/models/root.store";
+import { observer } from "mobx-react-lite";
 
-export default function StockCard({ className }) {
+export default observer(function StockCard({ className }) {
   const store = useStore();
-  const [productsData, setProductsData] = useState([]);
 
-  useEffect(() => {
-    store.getAllProducts().then((data) => {
-      setProductsData(data);
-    });
-  }, [store]);
-
-  const groupedProducts = productsData.reduce((result, product) => {
+  const groupedProducts = store.products?.reduce((result, product) => {
     if (!result[product.category]) {
       result[product.category] = product;
     }
@@ -23,11 +17,7 @@ export default function StockCard({ className }) {
 
   const uniqueProducts = Object.values(groupedProducts);
 
-  const [info, setInfo] = useState(productsData[0]);
-
-  const handleSetInfo = (e) => {
-    setInfo(e);
-  };
+  const [info, setInfo] = useState({ ...store.products[0] });
 
   return (
     <div className={`flex justify-around  ${className || ""} `}>
@@ -36,11 +26,11 @@ export default function StockCard({ className }) {
           <div
             key={equipment._id}
             className={` w-full flex gap-2  font-medium cursor-pointer p-2 rounded-md hover:bg-light-grey ${
-              info && info.name === equipment.name
+              info && info === equipment.category
                 ? "text-blue bg-light-grey"
-                : "bg-light-grey"
+                : "bg-none"
             } `}
-            onClick={() => handleSetInfo(equipment)}
+            onClick={() => setInfo(equipment)}
           >
             {equipment.category === "Notebook" ||
             equipment.category === "Escritorio" ? (
@@ -59,4 +49,4 @@ export default function StockCard({ className }) {
       </div>
     </div>
   );
-}
+});

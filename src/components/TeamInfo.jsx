@@ -4,25 +4,29 @@ import Button from "@/common/Button";
 import { AddIcon, IconX, TrashIcon } from "@/common/Icons";
 import AddMemberForm from "./AddMemberForm";
 import { TeamServices } from "@/services/team.services";
-import { useTeamMemberStore } from "@/models/teamMeber.store";
-import { TeamMemberServices } from "@/services/teamMember.services";
 import { observer } from "mobx-react-lite";
+import { useStore } from "@/models/root.store";
 
 export default observer(function TeamInfo({ team, filterMembers }) {
+  const store = useStore();
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [showAddMember, setShowAddMember] = useState(false);
 
   const handleAddTeam = () => {
     selectedMembers.forEach((member) => {
       TeamServices.addToTeam(team._id, member._id).then((res) => {
-        alert(`Member ${member.firstName} added to ${team.name} team`);
+        TeamServices.getAllTeams().then((res) => {
+          store.setTeams(res);
+        });
       });
     });
   };
 
   const handleDeleteMember = (member) => {
     TeamServices.deleteFromTeam(team._id, member._id).then((res) => {
-      alert(`Member ${member.firstName} deleted from ${team.name} team`);
+      TeamServices.getAllTeams().then((res) => {
+        store.setTeams(res);
+      });
     });
   };
 

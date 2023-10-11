@@ -36,12 +36,16 @@ export default function EditTeamsAsideDetails({ className = "", members }) {
     });
   };
 
-  const handleDeleteSelectedTeams = () => {
+  const handleDeleteSelectedTeams = async () => {
     try {
-      selectedTeams.forEach((team) => {
-        TeamServices.deleteTeam(team._id);
-        setTeams((prev) => prev.filter((prev) => prev._id !== team._id));
-      });
+      await Promise.all(
+        selectedTeams.map((team) => TeamServices.deleteTeam(team._id))
+      );
+      setTeams((prev) =>
+        prev.filter(
+          (prev) => !selectedTeams.some((selected) => selected._id === prev._id)
+        )
+      );
       setSelectedTeams([]);
     } catch (error) {
       console.error("Failed to delete teams:", error);
@@ -51,17 +55,15 @@ export default function EditTeamsAsideDetails({ className = "", members }) {
   return (
     <div className={` ${className} flex flex-col justify-between h-full `}>
       <div className="flex flex-col gap-2 h-[70vh] overflow-y-auto">
-        {teams.length === 0
-          ? "No teams"
-          : teams.map((team) => (
-              <TeamDetails
-                key={team._id}
-                team={team}
-                members={members}
-                handleSelectedTeams={handleCheckbox}
-                onDelete={() => handleDeleteSelectedTeams(team._id)}
-              />
-            ))}
+        {teams.map((team) => (
+          <TeamDetails
+            key={team._id}
+            team={team}
+            members={members}
+            handleSelectedTeams={handleCheckbox}
+            onDelete={() => handleDeleteSelectedTeams(team._id)}
+          />
+        ))}
       </div>
 
       <div className="flex gap-2">

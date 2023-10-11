@@ -8,16 +8,22 @@ export default function DropdownInput({
   title,
   placeholder,
   options = [],
+  selectedOption,
+  handleOption,
+  onBlur,
+  onFocus,
+  error,
+  touched,
+  defaultValue,
+  value,
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
+  const handleOptionClick = () => {
     setIsOpen(false);
   };
 
@@ -27,11 +33,18 @@ export default function DropdownInput({
       <div className="relative">
         <input
           placeholder={placeholder}
-          className="w-full h-14 py-2 pr-12 rounded-xl border text-black p-4 outline-gray-950-none font-sans"
           onClick={toggleDropdown}
-          readOnly
-          value={selectedOption || ""}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          value={selectedOption}
+          defaultValue={selectedOption}
+          className={`w-full  h-14 py-2 rounded-xl border ${
+            error ? "border-error" : ""
+          } text-black p-4  font-sans focus:outline-none`}
         />
+        {touched && error ? (
+          <p className=" ml-4  text-error text-sm  ">{error}</p>
+        ) : null}
         <Button
           icon={<ChevronDown stroke={3} />}
           className="absolute right-5 top-0 bottom-0 m-auto"
@@ -42,7 +55,10 @@ export default function DropdownInput({
             {options.map((option) => (
               <li
                 key={option}
-                onClick={() => handleOptionClick(option)}
+                onClick={() => {
+                  handleOption(option);
+                  handleOptionClick();
+                }}
                 className="py-2 px-4 cursor-pointer hover:bg-gray-100"
               >
                 {option}

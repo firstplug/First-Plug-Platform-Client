@@ -21,4 +21,14 @@ export class TeamServices {
     const response = await axios.delete(`${apiURL}/teams/${id}`);
     return response.data;
   }
+
+  static async deleteFromTeam(teamId, memberId) {
+    return await axios.delete(
+      `${apiURL}/teams/deleteMember/${teamId}/${memberId}`
+    );
+  }
+
+  static async addToTeam(teamId, memberId) {
+    return await axios.post(`${apiURL}/teams/addTeam`, { teamId, memberId });
+  }
 }

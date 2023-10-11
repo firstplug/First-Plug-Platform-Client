@@ -1,53 +1,8 @@
 import EquipmentRow from "@/common/EquipmentRow";
+import { TeamMembersServices } from "@/services/teamMember.services";
+import { ChevronDown } from "@/common/Icons";
 
-export default function TableEquipment({ handleClick }) {
-  const fakeDataEquipment = [
-    {
-      id: 7635,
-      name: "John doe",
-      date: "08/06/1999",
-      state: "CONFIRMATION PENDING",
-      price: 40000,
-    },
-    {
-      id: 1234,
-      name: "Santiago Sucari",
-      date: "08/06/2010",
-      state: "PAYMENT PENDING",
-      price: 1000,
-    },
-    {
-      id: 1342,
-      name: "Agustin Sandoval",
-      date: "08/06/2012",
-      state: "ORDER CANCELED",
-      price: 2302,
-    },
-    {
-      id: 1553,
-      name: "Francisco Villanueva",
-      date: "08/06/2014",
-      state: "ORDER CONFIRMED",
-      price: 4000,
-    },
-    {
-      id: 2043,
-      name: "Braian Barrientos",
-      date: "08/06/2009",
-      state: "CLOSED",
-      price: 8000,
-    },
-    {
-      id: 3000,
-      name: "Esteban Rodriguez",
-      date: "08/06/2001",
-      state: "OPEN",
-      price: 12000,
-    },
-  ];
-
-  fetch("").then()
-
+export default function TableEquipment({ handleClick, orders }) {
   return (
     <>
       <table className="flex-col\ border border-border divide-y divide-gray-200 font-inter text-black">
@@ -59,18 +14,7 @@ export default function TableEquipment({ handleClick }) {
             <th className="py-3 px-3 w-[10%]">
               <div className="flex justify-between items-center">
                 <span>Team Member</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={`w-4 h-4 transition-transform transform rotate-180`}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 3a1 1 0 01.7.29l7 7a1 1 0 01-1.4 1.42L10 5.42 3.7 11.71a1 1 0 01-1.4-1.42l7-7A1 1 0 0110 3z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <ChevronDown />
               </div>
             </th>
             <th className="py-3 px-3 w-[5%]">Order Date</th>
@@ -96,14 +40,14 @@ export default function TableEquipment({ handleClick }) {
         </thead>
 
         <tbody className="font-medium text-md divide-y divide-gray-200 ">
-          {fakeDataEquipment.map(({ id, name, date, state, price }) => (
+          {orders.map(({ _id, teamMember, date, status, totalPrice }) => (
             <EquipmentRow
-              key={id}
-              id={id}
-              name={name}
-              date={date}
-              state={state}
-              price={price}
+              key={_id}
+              id={_id}
+              idTeamMember={teamMember[0]}
+              date={new Date(date).toISOString().split("T")[0]}
+              state={status}
+              price={totalPrice}
               handleClick={handleClick}
             />
           ))}

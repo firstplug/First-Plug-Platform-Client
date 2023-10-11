@@ -26,6 +26,7 @@ function validator(type) {
   };
 
   const fullNameValidator = (value) => {
+    console.log("ENTRA  LA VALIDACION!", { value });
     if (value.length < 1) {
       return "This field is required";
     }
@@ -48,21 +49,27 @@ function validator(type) {
   }
 }
 
-export default function useInput(initialValue, type) {
+export default function useInput(initialValue, type, isOptionInput = false) {
   const validateFunction = validator(type);
   const [value, setValue] = useState(initialValue);
+  const [selectedOption, setSelectedOption] = useState(initialValue);
   const [error, setError] = useState(null);
   const [touched, setTouched] = useState(false);
 
   const onChange = (e) => {
     setValue(e.target.value);
   };
+  const handleOption = (option) => {
+    setSelectedOption(option);
+  };
 
   const onBlur = () => {
     setTouched(true);
 
     if (validateFunction) {
-      setError(validateFunction(value));
+      !isOptionInput
+        ? setError(validateFunction(value))
+        : setError(validateFunction(selectedOption));
     }
   };
 
@@ -70,5 +77,19 @@ export default function useInput(initialValue, type) {
     setTouched(false);
     setError(null);
   };
-  return { value, error, touched, onChange, onBlur, onFocus };
+  const clarInput = () => {
+    setValue("");
+    setSelectedOption("");
+  };
+  return {
+    value,
+    error,
+    touched,
+    onChange,
+    onBlur,
+    onFocus,
+    handleOption,
+    selectedOption,
+    clarInput,
+  };
 }

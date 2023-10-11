@@ -39,24 +39,6 @@ const Shipments = types.model({
   orders: types.optional(types.array(types.string), []),
 });
 
-const TeamMember = types.model({
-  _id: types.string,
-  lastName: types.string,
-  dateOfBirth: types.Date,
-  phone: types.string,
-  DNI: types.string,
-  email: types.string,
-  jobPosition: types.string,
-  city: types.string,
-  zipcode: types.string,
-  address: types.string,
-  appartment: types.string,
-  joiningDate: types.Date,
-  timeSlotForDelivery: types.string,
-  additionalInfo: types.string,
-  teams: types.optional(types.array(types.string), []),
-});
-
 const Teams = types.model({
   _id: types.string,
   name: types.string,
@@ -67,7 +49,6 @@ export const RootStore = types.model({
   products: types.array(Products),
   orders: types.array(Orders),
   shipments: types.array(Shipments),
-  teamMember: types.array(TeamMember),
   teams: types.array(Teams),
 });
 

@@ -9,8 +9,6 @@ export default function DropdownButton() {
   const router = useRouter();
   const session = useSession();
 
-  console.log(session.data?.user);
-
   return (
     <div className="relative inline-block text-left">
       <button

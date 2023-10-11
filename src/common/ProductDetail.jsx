@@ -14,9 +14,11 @@ export default function ProductDetail({
       {isChecked ? <input type="checkbox" className="w-5 h-5" /> : null}
 
       <Image
-        src={product.category === "Notebook" ? notebook1 : airpods}
+        src={product.imgUrl}
         className="h-[5rem] w-auto "
-        alt={`${product.category}`}
+        width={40}
+        height={40}
+        alt={"imagen-producto"}
       />
       <div className="flex flex-col w-full gap-2">
         <div className="flex gap-2 items-center">
@@ -30,7 +32,7 @@ export default function ProductDetail({
           <h1 className="font-normal text-lg">Model:</h1>
           <span className="font-light">{product.model}</span>
         </div>
-        <p className="text-dark-grey text-md">{product.description}</p>
+        <p className="text-dark-grey text-md">{product.screen}</p>
 
         {product.quantity ? (
           <>

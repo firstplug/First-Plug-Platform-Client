@@ -4,9 +4,10 @@ import Button from "@/common/Button";
 import CustomLink from "@/common/CustomLink";
 import Input from "@/common/Input";
 import Form from "@/components/Form";
-import { AuthServices } from "@/services/auth.services";
+
 import { useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
   const emailInput = useInput("", "email");
@@ -18,11 +19,12 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const user = await AuthServices.login({
+      const responseNextAuth = await signIn("credentials", {
         email: emailInput.value,
         password: passWordInput.value,
+        redirect: false,
       });
-      localStorage.setItem("token", user.token);
+
       router.push("/home/dashboard");
     } catch (error) {
       console.error(error);

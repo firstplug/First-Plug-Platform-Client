@@ -9,6 +9,8 @@ export default function DropdownButton() {
   const router = useRouter();
   const session = useSession();
 
+  console.log(session.data?.user);
+
   return (
     <div className="relative inline-block text-left">
       <button
@@ -28,7 +30,7 @@ export default function DropdownButton() {
             aria-labelledby="options-menu"
           >
             <div className="text-sm text-gray-500 pl-4 pb-2 font-inter font-semibold mt-2">
-              {session?.data?.user?.name || "Usuario Chill"}
+              {session?.data?.user?.name || session?.data?.user?.fullname}
             </div>
             <div className="text-sm text-gray-500 pl-4 pb-4 font-inter font-medium mr-4">
               {session?.data?.user?.email || "mailChill@gmail.com"}

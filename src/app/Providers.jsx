@@ -12,7 +12,6 @@ import { TeamMemberServices } from "@/services/teamMember.services";
 
 import { ProductStore, ProductStoreContext } from "@/models/products.store";
 
-
 export default function Providers({ children }) {
   const store = UsersStore.create();
   const productStore = ProductStore.create();
@@ -43,12 +42,11 @@ export default function Providers({ children }) {
 
   return (
     <UsersStoreContext.Provider value={store}>
-
-  <ProductStoreContext.Provider value={productStore}>
-      <TeamMemberContext.Provider value={memberStore}>
-        <SessionProvider>{children}</SessionProvider> 
+      <ProductStoreContext.Provider value={productStore}>
+        <TeamMemberContext.Provider value={memberStore}>
+          <SessionProvider>{children}</SessionProvider>
+        </TeamMemberContext.Provider>
       </ProductStoreContext.Provider>
-  </TeamMemberContext.Provider>
     </UsersStoreContext.Provider>
   );
 }

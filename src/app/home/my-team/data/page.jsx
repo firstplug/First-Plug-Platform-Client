@@ -18,6 +18,7 @@ import CreateTeamAside from "@/components/CreateTeamAside";
 import CustomLink from "@/common/CustomLink";
 import { observer } from "mobx-react-lite";
 import TeamMembers from "@/components/TeamMembers";
+import { useTeamMemberStore } from "@/models/teamMeber.store";
 
 const teams = [
   { name: "HR", id: "#00343" },
@@ -27,9 +28,8 @@ const teams = [
   { name: "Sales", id: "#00346" },
 ];
 
-
 export default observer(function MyTeamData() {
-
+  const STORE_TEAM_MEMBERS = useTeamMemberStore();
   const [display, setDisplay] = useState("grid");
   const [optionAside, setOptionAside] = useState("edit");
   const { closeModal, isModalOpen, openModal } = useModal();
@@ -98,14 +98,17 @@ export default observer(function MyTeamData() {
       {isModalOpen ? (
         optionAside === "edit" ? (
           <Aside title="Edit Teams" closeModal={closeModal}>
-            <EditTeamsAsideDetails teams={teams} members={array} />
+            <EditTeamsAsideDetails
+              teams={teams}
+              members={[...STORE_TEAM_MEMBERS.members]}
+            />
           </Aside>
         ) : (
           <Aside title="New Team" closeModal={closeModal}>
             <CreateTeamAside
               closeModal={closeModal}
               teams={teams}
-              members={array}
+              members={[...STORE_TEAM_MEMBERS.members]}
             />
           </Aside>
         )

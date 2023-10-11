@@ -5,12 +5,14 @@ import { Chart, ArcElement } from "chart.js";
 Chart.register(ArcElement);
 
 export default function DoughnutChart({ className, data }) {
+  const number = 10;
+  const quantity = data && data.quantity ? data.quantity : 0;
   const info = {
     labels: ["Assigned", "Avaliable"],
     color: "white",
     datasets: [
       {
-        data: [data.assigned, data.avaliable],
+        data: [quantity, number],
         backgroundColor: ["#9747FF", "#4FE8B7"],
         hoverBackgroundColor: ["#fff"],
         border: "none",
@@ -49,22 +51,20 @@ export default function DoughnutChart({ className, data }) {
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="flex flex-col items-center">
           <span className="text-dark-grey font-medium">Total</span>
-          <span className="font-bold text-2xl">
-            {data.assigned + data.avaliable}
-          </span>
+          <span className="font-bold text-2xl">{quantity + number}</span>
         </div>
       </div>
       <figcaption className="flex gap-2 w-full justify-center">
         <div className="flex gap-1 items-center">
           <div className="h-[1rem] w-[1rem] bg-purple rounded-full"></div>
           <p>
-            Assigned | <b> {data.assigned} </b>
+            Assigned | <b> {quantity} </b>
           </p>
         </div>
         <div className="flex gap-1 items-center">
           <div className="h-[1rem] w-[1rem] bg-green rounded-full"></div>
           <p>
-            Avaliable | <b> {data.avaliable} </b>
+            Avaliable | <b> {number} </b>
           </p>
         </div>
       </figcaption>

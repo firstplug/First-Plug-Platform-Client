@@ -5,18 +5,24 @@ import TeamCard from "@/common/TeamCard";
 import { useState } from "react";
 import TeamInfo from "./TeamInfo";
 
-export default function TeamDeatils({ team, className = "", members }) {
+export default function TeamDeatils({
+  team,
+  className = "",
+  members,
+  handleSelectedTeams,
+}) {
   const [showDeatils, setShowDeatils] = useState(false);
-
+  const [selectedTeam, setSelectedTeams] = useState([]);
   const filterMembembers = members.filter(
-    (member) => member.team.toLowerCase() === team.toLowerCase()
+    (member) => member.team.toLowerCase() === team.name.toLowerCase()
   );
+
   return (
     <section className={` ${className} border rounded-md p-3 `}>
       <div className="flex justify-between items-center ">
         <div className="flex gap-2">
-          <input type="checkbox" />
-          <TeamCard team={team} />
+          <input type="checkbox" onChange={() => handleSelectedTeams(team)} />
+          <TeamCard team={team.name} />
         </div>
 
         <Button

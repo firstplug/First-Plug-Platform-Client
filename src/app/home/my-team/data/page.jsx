@@ -27,7 +27,9 @@ const teams = [
   { name: "Sales", id: "#00346" },
 ];
 
+
 export default observer(function MyTeamData() {
+
   const [display, setDisplay] = useState("grid");
   const [optionAside, setOptionAside] = useState("edit");
   const { closeModal, isModalOpen, openModal } = useModal();
@@ -100,7 +102,11 @@ export default observer(function MyTeamData() {
           </Aside>
         ) : (
           <Aside title="New Team" closeModal={closeModal}>
-            <CreateTeamAside teams={teams} members={array} />
+            <CreateTeamAside
+              closeModal={closeModal}
+              teams={teams}
+              members={array}
+            />
           </Aside>
         )
       ) : null}

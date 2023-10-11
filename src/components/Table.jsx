@@ -1,47 +1,22 @@
 "use client";
-
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import TableDetails from "./TableDetails";
 import ButtonMyStock from "@/common/ButtonMyStock";
 import useModal from "@/hooks/useModal";
 import Image from "next/image";
+import defaultPhoto from "../../public/Isotipo.png";
+import { useStore } from "@/models/products.store";
 
 export default function Table({ className }) {
   const { openModal } = useModal();
-  const data = [
-    {
-      id: "1",
-      imagen: "/notebook1.png",
-      category: "Notebook ",
-      model: "Macbook Pro 14",
-      description: "CPU: M2 Pro | RAM: 16GB | SSD: 512GB",
-      quantity: 5,
-    },
-    {
-      id: "2",
-      imagen: "/notebook2.png",
-      category: "Notebook",
-      model: "Macbook Pro 14",
-      description: "CPU: M2 Pro | RAM: 8GB | SSD: 256GB",
-      quantity: 5,
-    },
-    {
-      id: "3",
-      imagen: "/airpods.png",
-      category: "Airpods",
-      model: "Airpod",
-      description: "Wireless earbuds for Apple devices",
-      quantity: 5,
-    },
-    {
-      id: "4",
-      imagen: "/keyboard.png",
-      category: "Keyboard",
-      model: "Magic Keyboard",
-      description: "Apple's wireless keyboard",
-      quantity: 5,
-    },
-  ];
+  const store = useStore();
+  const [productsData, setProductsData] = useState([]);
+
+  useEffect(() => {
+    store.getAllProducts().then((data) => {
+      setProductsData(data);
+    });
+  }, [store]);
 
   const info = [
     {
@@ -82,7 +57,7 @@ export default function Table({ className }) {
   ];
 
   const [rowOpenState, setRowOpenState] = useState(
-    Array(data.length).fill(false)
+    Array(store.products.length).fill(false)
   );
 
   const toggleRow = (index) => {
@@ -92,11 +67,7 @@ export default function Table({ className }) {
   };
 
   return (
-    <table
-      className={`flex-col w-full rounded-lg overflow-hidden ${
-        className || ""
-      }`}
-    >
+    <table className={`flex-col w-full  ${className || ""}  `}>
       <thead>
         <tr className="border-b-2 border-gray-200 bg-light-grey text-black text-left">
           <th className="py-3 px-3">Category</th>
@@ -106,25 +77,25 @@ export default function Table({ className }) {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
-          <Fragment key={item.id}>
-            <tr className="bg-white text-black border-b-2 border-gray-200 text-left">
-              <td className="py-4 px-3 flex gap-2">
+        {productsData.map((product, index) => (
+          <Fragment key={product._id}>
+            <tr className="bg-white text-black border-b-2 border-gray-200 text-left h-[6rem] ">
+              <td className="py-4 px-3 flex gap-9 items-center">
                 <Image
-                  src={item.imagen}
-                  alt={item.category}
+                  src={product.imgUrl ? product.imgUrl : defaultPhoto}
+                  alt={product.category}
                   width={48}
                   height={48}
                 />
-                <span>{item.category}</span>
+                <span>{product.category}</span>
               </td>
-              <td className="py-4 px-3">
-                {item.model}
+              <td className="py-4 px-3 items-center">
+                {product.model}
                 <br />
-                {item.description}
+                {product.description}{" "}
               </td>
-              <td className="py-4 px-3">{item.quantity}</td>
-              <td className="flex-col">
+              <td className="py-4 px-3 items-center">{product.quantity}</td>
+              <td className="flex-col items-center">
                 <div>
                   <ButtonMyStock
                     body="Detail"

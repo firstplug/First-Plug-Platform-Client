@@ -1,49 +1,38 @@
 "use client";
+import React, { useState } from "react";
 import Button from "@/common/Button";
 import { DropDownArrow } from "@/common/Icons";
 import TeamCard from "@/common/TeamCard";
-import { useState } from "react";
 import TeamInfo from "./TeamInfo";
 
-export default function TeamDeatils({
+export default function TeamDetails({
   team,
   className = "",
-  members,
   handleSelectedTeams,
 }) {
-  const [showDeatils, setShowDeatils] = useState(false);
-  const [selectedTeam, setSelectedTeams] = useState([]);
-  const filterMembembers = members.filter(
-    (member) => member.team.toLowerCase() === team.name.toLowerCase()
-  );
+  const [showDetails, setShowDetails] = useState(false);
 
   return (
     <section className={` ${className} border rounded-md p-3 `}>
-      <div className="flex justify-between items-center ">
+      <div className="flex justify-between items-center">
         <div className="flex gap-2">
           <input type="checkbox" onChange={() => handleSelectedTeams(team)} />
           <TeamCard team={team.name} />
         </div>
 
         <Button
-          className={"cursor-pointer ${}"}
-          onClick={() => setShowDeatils(!showDeatils)}
+          className="cursor-pointer"
+          onClick={() => setShowDetails(!showDetails)}
         >
           <DropDownArrow
             className={`${
-              showDeatils ? "rotate-180 " : " rotate-360"
+              showDetails ? "rotate-180 " : " rotate-360"
             } transition-all duration-300`}
           />
         </Button>
       </div>
 
-      {showDeatils && (
-        <TeamInfo
-          filterMembembers={filterMembembers}
-          members={members}
-          team={team}
-        />
-      )}
+      {showDetails && <TeamInfo filterMembers={team.teamMember} team={team} />}
     </section>
   );
 }

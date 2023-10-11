@@ -4,22 +4,6 @@ import ProductDetail from "@/common/ProductDetail";
 import MemberDetail from "@/common/MemberDetail";
 
 export default function MemberAsideDetails({ member, className }) {
-  const data = [
-    // {
-    //   id: "asda21312ssd",
-    //   image: "./notebook1.png",
-    //   category: "Notebook",
-    //   model: "MacBook Pro 14",
-    //   description: "CPU: M2 Pro | RAM: 16GB | SSD: 512GB",
-    // },
-    // {
-    //   id: "asd81927312",
-    //   image: "./airpods.png",
-    //   category: "Airpods",
-    //   model: "Airpod",
-    //   description: "Wireless earbuds for Apple devices",
-    // },
-  ];
   return (
     <article
       className={`${className || ""} flex flex-col justify-between h-full`}

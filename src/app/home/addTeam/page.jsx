@@ -52,8 +52,6 @@ export default observer(function AddTeam() {
     timeSlotForDelivery
   );
 
-  console.log("Is form valid?", isFormValid);
-
   const handleAddTeamMember = () => {
     const data = {
       firstName: firstName.value,
@@ -98,6 +96,7 @@ export default observer(function AddTeam() {
         alert("Error!");
       });
   };
+
   return (
     <>
       <Layout className="flex flex-col gap-6 overflow-auto pb-16">

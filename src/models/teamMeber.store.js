@@ -9,7 +9,6 @@ const TeamMember = types.model({
   lastName: types.string,
   dateOfBirth: types.string,
   phone: types.string,
-  // DNI: types.string,
   email: types.string,
   jobPosition: types.string,
   city: types.string,

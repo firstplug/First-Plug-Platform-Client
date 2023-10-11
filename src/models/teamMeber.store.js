@@ -9,7 +9,7 @@ const TeamMember = types.model({
   lastName: types.string,
   dateOfBirth: types.string,
   phone: types.string,
-  DNI: types.string,
+  // DNI: types.string,
   email: types.string,
   jobPosition: types.string,
   city: types.string,
@@ -30,16 +30,7 @@ export const TeamMemberStore = types
     setMembers(members) {
       store.members = members;
     },
-    loadMembers: flow(function* () {
-      try {
-        const response = yield TeamMemberServices.getAllMembers();
-        if (response && response.data) {
-          store.setMembers(response.data);
-        }
-      } catch (error) {
-        console.error("Error loading members:", error);
-      }
-    }),
+
     addMember(member) {
       store.members = [...store.members, member];
     },

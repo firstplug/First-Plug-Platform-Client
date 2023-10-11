@@ -11,7 +11,7 @@ import DropdownInput from "@/common/DropdownInput";
 import Photo from "../../public/employees/member.jpg";
 import { observer } from "mobx-react-lite";
 
-export default observer(function TableTeam({ img, className, members }) {
+export default (function TableTeam({ img, className, members }) {
   const { openModal, closeModal, isModalOpen } = useModal();
   const [optionAside, setOptionAside] = useState("details");
 

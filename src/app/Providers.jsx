@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { TeamMemberContext, TeamMemberStore } from "@/models/teamMeber.store";
+import { TeamMemberServices } from "@/services/teamMember.services";
 
 export default function Providers({ children }) {
   const store = UsersStore.create();
@@ -24,10 +25,11 @@ export default function Providers({ children }) {
     if (!token) return router.push("/login");
 
     await AuthServices.me(token);
-    memberStore.loadMembers();
 
-    console.log("USE CALLBAK ");
-  }, [pathname, router]);
+    TeamMemberServices.getAllMembers().then((res) => {
+      memberStore.setMembers(res.data);
+    });
+  }, [pathname, router, memberStore]);
 
   useEffect(() => {
     checkUserSession();

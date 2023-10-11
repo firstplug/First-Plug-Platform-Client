@@ -12,6 +12,7 @@ import useInput from "@/hooks/useInput";
 import { observer } from "mobx-react-lite";
 import { useTeamMemberStore } from "@/models/teamMeber.store";
 import { TeamMemberServices } from "@/services/teamMember.services";
+import { clearinputs, validateForm } from "@/utils/inputsServices";
 
 export default observer(function AddTeam() {
   const STORE_TEAM_MEMBERS = useTeamMemberStore();
@@ -23,8 +24,8 @@ export default observer(function AddTeam() {
   const dateOfBirth = useInput("", "required");
   const phoneNumber = useInput("", "required");
   const email = useInput("", "email");
-  const team = useInput("", "required");
-  const jobPosition = useInput("", "required");
+  const team = useInput("", "required", true);
+  const jobPosition = useInput("", "required", true);
   const zipCode = useInput("", "required");
   const city = useInput("", "required");
   const address = useInput("", "required");
@@ -33,14 +34,7 @@ export default observer(function AddTeam() {
   const aditionalInfo = useInput(" ", null);
 
   const timeSlotForDelivery = useInput("", "required");
-  function validateForm(...inputs) {
-    for (const input of inputs) {
-      if (input.error || input.value === "") {
-        return false;
-      }
-    }
-    return true;
-  }
+
   const isFormValid = validateForm(
     firstName,
     lastName,
@@ -61,8 +55,48 @@ export default observer(function AddTeam() {
   console.log("Is form valid?", isFormValid);
 
   const handleAddTeamMember = () => {
-    TeamMemberServices.createMember();
-    STORE_TEAM_MEMBERS.addMember();
+    const data = {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      dateOfBirth: dateOfBirth.value,
+      phone: phoneNumber.value,
+      email: email.value,
+      team: team.selectedOption,
+      jobPosition: jobPosition.selectedOption,
+      zipCode: zipCode.value,
+      city: city.value,
+      address: address.value,
+      appartment: appartment.value,
+      joiningDate: joiningDate.value,
+      additionalInfo: aditionalInfo.value,
+      timeSlotForDelivery: timeSlotForDelivery.value,
+    };
+
+    TeamMemberServices.createMember(data)
+      .then((res) => {
+        clearinputs(
+          firstName,
+          lastName,
+          dateOfBirth,
+          phoneNumber,
+          email,
+          team,
+          jobPosition,
+          zipCode,
+          city,
+          address,
+          appartment,
+          joiningDate,
+          aditionalInfo,
+          timeSlotForDelivery
+        );
+        alert("Member created!");
+
+        STORE_TEAM_MEMBERS.addMember(res.data);
+      })
+      .catch(() => {
+        alert("Error!");
+      });
   };
   return (
     <>
@@ -234,7 +268,7 @@ export default observer(function AddTeam() {
         <Button
           body="Save"
           variant="primary"
-          // disabled={!isFormValid}
+          disabled={!isFormValid}
           className="mr-[60px] w-[167px] h-[48px] rounded-lg"
           onClick={handleAddTeamMember}
         />

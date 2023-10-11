@@ -10,9 +10,9 @@ export default observer(function TeamMembers({ display }) {
   return (
     <section className="flex flex-col gap-4">
       {display === "grid" ? (
-        <GridTeam members={STORE_TEAM_MEMBERS.members} />
+        <GridTeam members={[...STORE_TEAM_MEMBERS.members]} />
       ) : (
-        <TableTeam members={STORE_TEAM_MEMBERS.members} />
+        <TableTeam members={[...STORE_TEAM_MEMBERS.members]} />
       )}
     </section>
   );

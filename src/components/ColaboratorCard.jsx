@@ -10,24 +10,38 @@ import Aside from "./Aside";
 import MemberAsideDetails from "./MemberAsideDetails";
 import Input from "@/common/Input";
 import DropdownInput from "@/common/DropdownInput";
+import EditTeamsAsideDetails from "./EditTeamsAsideDetails";
+import EditMemberAside from "./EditMemberAside";
+import { TeamMemberServices } from "@/services/teamMember.services";
+import { useTeamMemberStore } from "@/models/teamMeber.store";
 
 export default function ColaboratorCard({
   member,
   firstName,
   lastName,
-  id,
+  _id,
   img,
   jobPosition,
   shimentsDetails = "incomplete",
   team,
   className,
 }) {
+  const STORE_TEAM_MEMBERS = useTeamMemberStore();
+
   const { openModal, closeModal, isModalOpen } = useModal();
   const [optionAside, setOptionAside] = useState("details");
 
   const handleModal = (option) => {
     setOptionAside(option);
     openModal();
+  };
+
+  const handleDeleteMember = () => {
+    TeamMemberServices.deleteMember(_id).then((res) => {
+      TeamMemberServices.getAllMembers().then((res) => {
+        STORE_TEAM_MEMBERS.setMembers(res.data);
+      });
+    });
   };
 
   return (
@@ -51,7 +65,7 @@ export default function ColaboratorCard({
               >
                 {firstName} {lastName}
               </h2>
-              <b className="text-dark-grey">{id}</b>
+              <b className="text-dark-grey">#00{_id.slice(0, 6)}</b>
             </div>
           </div>
           <div className="flex gap-1">
@@ -65,10 +79,11 @@ export default function ColaboratorCard({
               onClick={() => handleModal("edit")}
             />
             <Button
+              onClick={handleDeleteMember}
               body={
                 <TrashIcon
                   stroke={2}
-                  className=" text-dark-grey w-[1.2rem] h-[1.2rem]"
+                  className=" text-dark-grey w-[1.2rem] h-[1.2rem] hover:text-error"
                 />
               }
             />
@@ -109,95 +124,7 @@ export default function ColaboratorCard({
             closeModal={closeModal}
             className="overflow-y-auto outline-red-400 text-md"
           >
-            <div className="flex flex-col gap-6 pr-4 pb-10">
-              <div className="flex gap-4">
-                <div className="relative w-36 h-36">
-                  <Image
-                    src={img || Photo}
-                    alt="Colaborator"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="w-[75%] flex flex-col gap-4">
-                  <Input title="Name" />
-                  <Input title="Lastname" />
-                </div>
-              </div>
-              <Input title="Date of Birth" type="Date" />
-              <div className="flex gap-4">
-                <Input title="Phone Number" type="tel" className="w-1/2" />
-                <Input title="Email Address" type="email" className="w-1/2" />
-              </div>
-
-              <h3 className="text-lg text-black font-inter  font-semibold border-t pt-4">
-                Employee Information
-              </h3>
-
-              <DropdownInput title="Select Team" />
-              <p>Does the theam not exist yet?</p>
-
-              <Input title="Job position" className="pr-4" />
-
-              <div className=" border-t flex justify-between items-center">
-                <h3 className="text-lg text-black font-inter font-semibold pt-4">
-                  Shipment Details
-                </h3>
-                <span className="pt-4">Complete</span>
-              </div>
-
-              <div className="flex gap-4">
-                <DropdownInput title="City" />
-                <DropdownInput title="State" />
-              </div>
-
-              <div className="flex gap-1">
-                <Input title="Zip code" className="w-1/6" />
-                <Input title="Address" className="w-3/6" />
-                <Input title="Appartament, Suite, etc." className="w-2/6" />
-              </div>
-
-              <div className="flex gap-4">
-                <Input title="Joining Date" type="Date" className="w-1/2" />
-                <DropdownInput title="Time slot for delivery" />
-              </div>
-
-              <div className="flex flex-col gap-1 m-auto w-[98%]">
-                <label className="block text-dark-grey font-sans">
-                  Additional Information
-                </label>
-                <textarea
-                  name=""
-                  id=""
-                  cols="30"
-                  rows="5"
-                  placeholder="Comments..."
-                  className="border-2 p-2"
-                ></textarea>
-              </div>
-
-              <div className="flex justify-end">
-                <Button
-                  icon={
-                    <TrashIcon
-                      stroke={2}
-                      className="text-error y w-[1.2rem] h-[1.2rem]"
-                    />
-                  }
-                  body="Delete Member"
-                  className="text-error text-md font-bold"
-                />
-              </div>
-
-              <div className="fixed bottom-5 w-[85%]">
-                <Button
-                  body="Save "
-                  variant="primary"
-                  size="big"
-                  className="w-full rounded-md"
-                />
-              </div>
-            </div>
+            <EditMemberAside member={member} closeModal={closeModal} />
           </Aside>
         ))}
     </>

@@ -10,11 +10,11 @@ export class TeamMemberServices {
     return await axios.get(`${apiURL}/${id}`);
   }
 
-  static async createMember() {
-    return await axios.post(`${apiURL}`);
+  static async createMember(data) {
+    return await axios.post(`${apiURL}`, data);
   }
-  static async updateMember(id) {
-    return await axios.put(`${apiURL}/${id}`);
+  static async updateMember(id, data) {
+    return await axios.put(`${apiURL}/${id}`, data);
   }
   static async deleteMember(id) {
     return await axios.delete(`${apiURL}/${id}`);

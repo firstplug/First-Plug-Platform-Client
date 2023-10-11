@@ -5,6 +5,7 @@ import TeamCard from "./TeamCard";
 import Image from "next/image";
 import Photo from "../../public/employees/member.jpg";
 import ShipmentStatus from "./ShipmentStatus";
+import { dateTo_DDMMYY } from "@/utils/dateFormat";
 
 export default function MemberDetail({
   firstName,
@@ -35,15 +36,15 @@ export default function MemberDetail({
         <b className="text-xl">
           {firstName} {lastName}
         </b>
-        <div className="flex justify-between items-center">
-          <div className="flex gap-1">
-            <span className="font-normal"> Date Of Birth: </span>
-            <span className="font-light"> {dateOfBirth} </span>
+        <div className="flex  items-center justify-between  gap-1 text-[.9rem]">
+          <div className="flex items-center gap-1 ">
+            <span className="font-semibold "> Date Of Birth: </span>
+            <span className="font-normal"> {dateTo_DDMMYY(dateOfBirth)} </span>
           </div>
           <span className="text-grey">|</span>
-          <div className="flex gap-1">
-            <span className="font-normal">Joining Date:</span>
-            <span className="font-light">{joiningDate}</span>
+          <div className="flex items-center gap-1 ">
+            <span className="font-semibold ">Joining Date:</span>
+            <span className="font-normal">{dateTo_DDMMYY(joiningDate)}</span>
           </div>
         </div>
         <div className="flex justify-between">

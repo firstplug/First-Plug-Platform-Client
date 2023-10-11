@@ -58,7 +58,7 @@ export default function ColaboratorCard({
             />
 
             <div className="ml-1 flex flex-col  items-start">
-              {/* <TeamCard team={team} /> */}
+              <TeamCard team={team} />
               <h2
                 className="text-black font-bold cursor-pointer"
                 onClick={() => handleModal("details")}

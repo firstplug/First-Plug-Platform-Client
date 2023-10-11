@@ -25,8 +25,6 @@ export default function Login() {
         redirect: false,
       });
 
-      console.log(responseNextAuth);
-
       router.push("/home/dashboard");
     } catch (error) {
       console.error(error);

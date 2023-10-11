@@ -9,8 +9,9 @@ import Image from "next/image";
 import Input from "@/common/Input";
 import DropdownInput from "@/common/DropdownInput";
 import Photo from "../../public/employees/member.jpg";
+import { observer } from "mobx-react-lite";
 
-export default function TableTeam({ img, team, className }) {
+export default (function TableTeam({ img, className, members }) {
   const { openModal, closeModal, isModalOpen } = useModal();
   const [optionAside, setOptionAside] = useState("details");
 
@@ -40,38 +41,35 @@ export default function TableTeam({ img, team, className }) {
           </tr>
         </thead>
         <tbody>
-          {team.map((team) => (
+          {members?.map((team) => (
             <tr
-              key={team.id}
+              key={team._id}
               className="bg-white text-black border-b-2 border-gray-200 text-left"
             >
-              <td className="  py-4 px-3 ">{team.id}</td>
+              <td className="  py-4 px-3 ">{`${team._id.slice(0, 5)}...`} </td>
               <td className="  py-4 px-3">
                 <b>
                   {" "}
-                  {team.name} {team.lastName}{" "}
+                  {team.firstName} {team.lastName}{" "}
                 </b>
               </td>
-              <td className="  py-4 px-3">{team.dateBirth}</td>
+              <td className="  py-4 px-3">{team.dateOfBirth}</td>
               <td className=" py-4 px-3">{team.joiningDate}</td>
               <td className=" py-4 px-3">
-                <TeamCard team={team.team} className={"text-lg"} />
+                <TeamCard team={team.team || ""} className={"text-lg"} />
               </td>
               <td className=" py-4 px-3">{team.jobPosition}</td>
               <td className=" py-4 px-3 ">
                 <div className="flex items-center gap-1">
-                  <StatusCircleIcon status={team.shimentsDetails} />
+                  <StatusCircleIcon status={"incomplete"} />
 
                   {team.shimentsDetails}
                 </div>
               </td>
               <td className=" py-4 px-3 ">
                 <div className="flex gap-5">
-                  <Button
-                    onClick={() => handleModal("edit")}
-                    icon={<PenIcon stroke={2} className="w-[1rem] h-[1rem]" />}
-                  >
-                    {/* <PenIcon className={"w-[1rem] h-[1rem]"} /> */}
+                  <Button onClick={() => handleModal("edit")}>
+                    <PenIcon stroke={2} className="w-[1rem] h-[1rem]" />
                   </Button>
                   <Button>
                     <TrashIcon className={"w-[1rem] h-[1rem]"} />
@@ -186,4 +184,4 @@ export default function TableTeam({ img, team, className }) {
         ))}
     </>
   );
-}
+});

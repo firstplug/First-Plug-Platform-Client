@@ -7,6 +7,7 @@ export default function Input({
   title,
   placeholder,
   type,
+  defaultValue = "",
   className = "",
   value,
   onChange,
@@ -29,6 +30,7 @@ export default function Input({
         onFocus={onFocus}
         type={inputType}
         placeholder={placeholder}
+        defaultValue={value}
         className={`w-full  h-14 py-2 rounded-xl border ${
           error ? "border-error" : ""
         } text-black p-4  font-sans focus:outline-none`}

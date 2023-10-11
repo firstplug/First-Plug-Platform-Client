@@ -1,6 +1,6 @@
 import EquipmentRow from "@/common/EquipmentRow";
-import { TeamMembersServices } from "@/services/teamMember.services";
 import { ChevronDown } from "@/common/Icons";
+import { dateTo_DDMMYY } from "@/utils/dateFormat";
 
 export default function TableEquipment({ handleClick, orders }) {
   return (
@@ -45,7 +45,7 @@ export default function TableEquipment({ handleClick, orders }) {
               key={_id}
               id={_id}
               idTeamMember={teamMember[0]}
-              date={new Date(date).toISOString().split("T")[0]}
+              date={dateTo_DDMMYY(date)}
               state={status}
               price={totalPrice}
               handleClick={handleClick}

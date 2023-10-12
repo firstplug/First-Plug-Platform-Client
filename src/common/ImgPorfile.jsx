@@ -10,7 +10,7 @@ export default function ImgPorfile() {
   return (
     <Image
       src={
-        session.status === "authenticated"
+        session.status === "authenticated" && session?.data?.user?.image
           ? session?.data?.user?.image
           : userPhoto
       }

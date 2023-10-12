@@ -1,6 +1,5 @@
 "use client";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import TableEquipment from "@/components/TableEquipment";
 import Layout from "@/common/Layout";
 import Header from "@/common/Header";
@@ -9,44 +8,36 @@ import ProductDetail from "@/common/ProductDetail";
 import Button from "@/common/Button";
 import { DownloadIcon } from "@/common/Icons";
 import useModal from "@/hooks/useModal";
+import { OrderServices } from "@/services/orders.services";
 
 export default function Equipment() {
   const [selectedTab, setSelectedTab] = useState("Equipment");
   const { isModalOpen, closeModal, openModal } = useModal();
+  const [orders, setOrders] = useState([]);
 
-  const data = [
-    {
-      id: "asda21312ssd",
-      image: "./notebook1.png",
-      category: "Notebook",
-      model: "MacBook Pro 14",
-      description: "CPU: M2 Pro | RAM: 16GB | SSD: 512GB",
-      quantity: 5,
-    },
-    {
-      id: "asd81927312",
-      image: "./airpods.png",
-      category: "Airpods",
-      model: "Airpod",
-      description: "Wireless earbuds for Apple devices",
-      quantity: 5,
-    },
-  ];
+  const getAllOrders = async () => {
+    const ordersResponse = await OrderServices.getAllOrders();
+    setOrders(ordersResponse);
+  };
+
+  useEffect(() => {
+    getAllOrders();
+  }, []);
 
   const handleTabClick = (tabName) => {
     setSelectedTab(tabName);
   };
 
   const handleClick = (id) => {
-    // Get Order by id
-
     openModal();
   };
+
+  const data = [];
 
   return (
     <Layout className="flex flex-col gap-8">
       <Header selectedTab={selectedTab} />
-      <TableEquipment handleClick={handleClick} />
+      <TableEquipment handleClick={handleClick} orders={orders} />
 
       {isModalOpen ? (
         <Aside closeModal={closeModal} title="ID Number" className="relative">

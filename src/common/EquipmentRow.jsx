@@ -1,15 +1,26 @@
 "use client";
+import { useEffect, useState } from "react";
 import State from "./State";
+import axios from "axios";
 
 export default function EquipmentRow({
   id,
-  name,
+  idTeamMember,
   date,
   state,
   price,
   className = "",
   handleClick,
 }) {
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/api/teamMembers/${idTeamMember}`)
+      .then((res) => {
+        setUser(res.data);
+      });
+  }, []);
+
   return (
     <tr className={`border-gray-200 text-left ${className}`}>
       <td
@@ -18,7 +29,9 @@ export default function EquipmentRow({
       >
         #{id}
       </td>
-      <td className="pl-3 py-3">{name}</td>
+      <td className="pl-3 py-3">
+        {user.firstName} {user.lastName}
+      </td>
       <td className="pl-3 py-3">{date}</td>
       <td className="pl-3 py-3">
         <State message={state} />
@@ -27,3 +40,4 @@ export default function EquipmentRow({
     </tr>
   );
 }
+99;

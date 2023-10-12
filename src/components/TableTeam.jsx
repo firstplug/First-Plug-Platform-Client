@@ -56,7 +56,13 @@ export default (function TableTeam({ img, className, members }) {
               <td className="  py-4 px-3">{team.dateOfBirth}</td>
               <td className=" py-4 px-3">{team.joiningDate}</td>
               <td className=" py-4 px-3">
-                <TeamCard team={team.team || ""} className={"text-lg"} />
+                {team.teams.length ? (
+                  team.teams.map((t) => (
+                    <TeamCard team={t || ""} className={"text-lg"} />
+                  ))
+                ) : (
+                  <TeamCard team={"Assing to team"} className={"text-lg"} />
+                )}
               </td>
               <td className=" py-4 px-3">{team.jobPosition}</td>
               <td className=" py-4 px-3 ">

@@ -61,6 +61,7 @@ const TeamMember = types.model({
   additionalInfo: types.optional(types.string, ""),
   teams: types.optional(types.array(types.string), []),
 });
+
 const Teams = types.model({
   _id: types.string,
   name: types.optional(types.string, ""),
@@ -89,7 +90,7 @@ export const RootStore = types
   })
   .actions((store) => ({
     setUser(user) {
-      self.users = user;
+      store.users = user;
     },
     setMembers(members) {
       store.members = members;

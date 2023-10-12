@@ -20,7 +20,7 @@ export default function ColaboratorCard({
   img,
   jobPosition,
   shimentsDetails = "incomplete",
-  team,
+  teams,
   className,
 }) {
   const store = useStore();
@@ -54,7 +54,11 @@ export default function ColaboratorCard({
             />
 
             <div className="ml-1 flex flex-col  items-start">
-              <TeamCard team={team} />
+              <div className="flex items-center gap-1">
+                {teams.map((team) => (
+                  <TeamCard team={team} key={team} />
+                ))}
+              </div>
               <h2
                 className="text-black font-bold cursor-pointer"
                 onClick={() => handleModal("details")}

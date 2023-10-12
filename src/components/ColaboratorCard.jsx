@@ -56,7 +56,7 @@ export default function ColaboratorCard({
             <div className="ml-1 flex flex-col  items-start">
               <div className="flex items-center gap-1">
                 {teams.map((team) => (
-                  <TeamCard team={team} />
+                  <TeamCard team={team} key={team} />
                 ))}
               </div>
               <h2

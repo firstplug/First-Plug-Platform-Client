@@ -6,6 +6,7 @@ import AddMemberForm from "./AddMemberForm";
 import { TeamServices } from "@/services/team.services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
+import { TeamMemberServices } from "@/services/teamMember.services";
 
 export default observer(function TeamInfo({ team, filterMembers }) {
   const store = useStore();
@@ -18,6 +19,9 @@ export default observer(function TeamInfo({ team, filterMembers }) {
         TeamServices.getAllTeams().then((res) => {
           store.setTeams(res);
         });
+        TeamMemberServices.getAllMembers().then((res) => {
+          store.setMembers(res.data);
+        });
       });
     });
   };
@@ -26,6 +30,9 @@ export default observer(function TeamInfo({ team, filterMembers }) {
     TeamServices.deleteFromTeam(team._id, member._id).then((res) => {
       TeamServices.getAllTeams().then((res) => {
         store.setTeams(res);
+      });
+      TeamMemberServices.getAllMembers().then((res) => {
+        store.setMembers(res.data);
       });
     });
   };

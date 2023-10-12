@@ -12,8 +12,8 @@ export default function TeamCard({ team, className }) {
     <span
       className={`  ${
         className || ""
-      } py-0.5 px-1 rounded text-md text-black font-medium ${
-        team ? colors_role[team] : "bg-light-grey"
+      } py-0.5 px-1 rounded text-md text-black font-medium border ${
+        team && colors_role[team] ? colors_role[team] : "bg-grey"
       } `}
     >
       {team || "Assing to a Team"}

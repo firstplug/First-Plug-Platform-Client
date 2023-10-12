@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 export default function FitlerModal({ array, className }) {
   const [allChecked, setAllChecked] = useState(false);
   const [checkboxes, setCheckboxes] = useState([]);
+  const [filterTeams, setFilterTeams] = useState([]);
 
   useEffect(() => {
-    // Initialize the state for checkboxes based on the array length
     setCheckboxes(Array(array.length).fill(false));
   }, [array]);
 
@@ -22,6 +22,20 @@ export default function FitlerModal({ array, className }) {
     setCheckboxes(newCheckboxes);
     setAllChecked(newCheckboxes.every((isChecked) => isChecked));
   };
+
+  const handleSelectFilter = (team, index) => {
+    handleCheckboxChange(index);
+    setFilterTeams((prevState) => {
+      const isSelected = prevState.some((selected) => selected === team);
+
+      if (isSelected) {
+        return prevState.filter((selected) => selected !== team);
+      } else {
+        return [...prevState, team];
+      }
+    });
+  };
+
   return (
     <div
       className={` ${
@@ -44,7 +58,7 @@ export default function FitlerModal({ array, className }) {
               type="checkbox"
               className="w-5 h-5"
               checked={checkboxes[index]}
-              onChange={() => handleCheckboxChange(index)}
+              onChange={() => handleSelectFilter(filter.name, index)}
             />
             <label>{filter.name}</label>
           </div>

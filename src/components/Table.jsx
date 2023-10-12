@@ -5,18 +5,13 @@ import ButtonMyStock from "@/common/ButtonMyStock";
 import useModal from "@/hooks/useModal";
 import Image from "next/image";
 import defaultPhoto from "../../public/Isotipo.png";
-import { useStore } from "@/models/products.store";
+import { useStore } from "@/models/root.store";
+import { observer } from "mobx-react-lite";
+import { ProductServices } from "@/services/product.services";
 
-export default function Table({ className }) {
+export default observer(function Table({ className }) {
   const { openModal } = useModal();
   const store = useStore();
-  const [productsData, setProductsData] = useState([]);
-
-  useEffect(() => {
-    store.getAllProducts().then((data) => {
-      setProductsData(data);
-    });
-  }, [store]);
 
   const info = [
     {
@@ -77,7 +72,7 @@ export default function Table({ className }) {
         </tr>
       </thead>
       <tbody>
-        {productsData.map((product, index) => (
+        {store.products?.map((product, index) => (
           <Fragment key={product._id}>
             <tr className="bg-white text-black border-b-2 border-gray-200 text-left h-[6rem] ">
               <td className="py-4 px-3 flex gap-9 items-center">
@@ -116,4 +111,4 @@ export default function Table({ className }) {
       </tbody>
     </table>
   );
-}
+});

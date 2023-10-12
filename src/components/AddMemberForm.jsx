@@ -1,12 +1,12 @@
 import SearchInput from "@/common/SearchInput";
-import { useTeamMemberStore } from "@/models/teamMeber.store";
+import { useStore } from "@/models/root.store";
 export default function AddMemberForm({ handleSelectedMembers }) {
-  const { members } = useTeamMemberStore();
+  const store = useStore();
   return (
     <section>
       <SearchInput placeholder="Search Member" />
       <div className="flex flex-col gap-3 mt-3">
-        {members.map((member) => (
+        {store.members.map((member) => (
           <div className="  flex gap-2 items-center " key={member._id}>
             <input
               type="checkbox"

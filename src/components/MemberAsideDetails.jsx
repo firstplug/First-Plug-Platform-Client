@@ -1,9 +1,11 @@
 import React from "react";
 import Button from "@/common/Button";
-import ProductDetail from "@/common/ProductDetail";
 import MemberDetail from "@/common/MemberDetail";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/models/root.store";
 
-export default function MemberAsideDetails({ member, className }) {
+export default observer(function MemberAsideDetails({ member, className }) {
+  const store = useStore();
   return (
     <article
       className={`${className || ""} flex flex-col justify-between h-full`}
@@ -21,9 +23,7 @@ export default function MemberAsideDetails({ member, className }) {
           </div>
 
           <div className="flex flex-col gap-2">
-            {data.map((product) => (
-              <ProductDetail product={product} key={product.id} isChecked />
-            ))}
+            {/* ACA HAY QUE CARGAR LOS PRODUCTS DE LA STORE (store.products) */}
           </div>
         </div>
       </div>
@@ -49,4 +49,4 @@ export default function MemberAsideDetails({ member, className }) {
       </div>
     </article>
   );
-}
+});

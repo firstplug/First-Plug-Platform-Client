@@ -14,6 +14,7 @@ export default function DropdownInput({
   onFocus,
   error,
   touched,
+  name,
   defaultValue,
   value,
 }) {

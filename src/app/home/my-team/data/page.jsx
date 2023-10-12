@@ -18,18 +18,17 @@ import CreateTeamAside from "@/components/CreateTeamAside";
 import CustomLink from "@/common/CustomLink";
 import { observer } from "mobx-react-lite";
 import TeamMembers from "@/components/TeamMembers";
-import { useTeamMemberStore } from "@/models/teamMeber.store";
-
-const teams = [
-  { name: "HR", id: "#00343" },
-  { name: "Dev", id: "#00324" },
-  { name: "Finance", id: "#00320" },
-  { name: "Design", id: "#00240" },
-  { name: "Sales", id: "#00346" },
-];
+import { TeamServices } from "@/services/team.services";
+import { useStore } from "@/models/root.store";
 
 export default observer(function MyTeamData() {
-  const STORE_TEAM_MEMBERS = useTeamMemberStore();
+  const store = useStore();
+
+  useEffect(() => {
+    TeamServices.getAllTeams().then((res) => {
+      store.setTeams(res);
+    });
+  }, []);
   const [display, setDisplay] = useState("grid");
   const [optionAside, setOptionAside] = useState("edit");
   const { closeModal, isModalOpen, openModal } = useModal();
@@ -62,7 +61,7 @@ export default observer(function MyTeamData() {
           body={"Filter by team:"}
           className="rounded-md border font-medium"
         >
-          <FitlerModal array={teams} />
+          <FitlerModal array={[...store.teams]} />
         </DropFilter>
         <div className="flex gap-2 items-center">
           <Button
@@ -98,17 +97,13 @@ export default observer(function MyTeamData() {
       {isModalOpen ? (
         optionAside === "edit" ? (
           <Aside title="Edit Teams" closeModal={closeModal}>
-            <EditTeamsAsideDetails
-              teams={teams}
-              members={[...STORE_TEAM_MEMBERS.members]}
-            />
+            <EditTeamsAsideDetails members={[...store.members]} />
           </Aside>
         ) : (
           <Aside title="New Team" closeModal={closeModal}>
             <CreateTeamAside
               closeModal={closeModal}
-              teams={teams}
-              members={[...STORE_TEAM_MEMBERS.members]}
+              members={[...store.members]}
             />
           </Aside>
         )

@@ -2,7 +2,7 @@
 import CustomLink from "@/common/CustomLink";
 import Input from "@/common/Input";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import DropdownInput from "@/common/DropdownInput";
 import Button from "@/common/Button";
 import memberImage from "../../../../public/member.png";
@@ -10,14 +10,18 @@ import Layout from "@/common/Layout";
 import { IconX } from "../../../common/Icons";
 import useInput from "@/hooks/useInput";
 import { observer } from "mobx-react-lite";
-import { useTeamMemberStore } from "@/models/teamMeber.store";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { clearinputs, validateForm } from "@/utils/inputsServices";
+import { useStore } from "@/models/root.store";
+import { TeamServices } from "@/services/team.services";
 
 export default observer(function AddTeam() {
-  const STORE_TEAM_MEMBERS = useTeamMemberStore();
+  const store = useStore();
 
-  const teamName = ["Team1", "Team2", "Team3"];
+  useEffect(() => {
+    TeamServices.getAllTeams().then((res) => store.setTeams(res));
+  }, []);
+
   const jobPositionData = ["Job1", "Job2", "Job3"];
   const firstName = useInput("", "required");
   const lastName = useInput("", "required");
@@ -25,7 +29,7 @@ export default observer(function AddTeam() {
   const phoneNumber = useInput("", "required");
   const email = useInput("", "email");
   const team = useInput("", "required", true);
-  const jobPosition = useInput("", "required", true);
+  const jobPosition = useInput("", "required");
   const zipCode = useInput("", "required");
   const city = useInput("", "required");
   const address = useInput("", "required");
@@ -90,7 +94,7 @@ export default observer(function AddTeam() {
         );
         alert("Member created!");
 
-        STORE_TEAM_MEMBERS.addMember(res.data);
+        store.addMember(res.data);
       })
       .catch(() => {
         alert("Error!");
@@ -172,14 +176,13 @@ export default observer(function AddTeam() {
                 <div className=" w-[100%]  grid grid-cols-4 gap-y-16  ">
                   <DropdownInput
                     className="mr-4 font-inter text-[14px] w-[full]"
-                    options={teamName}
+                    options={[...store.teams.map((team) => team.name)]}
                     placeholder="Team Name"
                     title="Team Name"
                     {...team}
                   />
-                  <DropdownInput
+                  <Input
                     className="mr-4 font-inter text-[14px] w-[full]"
-                    options={jobPositionData}
                     placeholder="Job Position"
                     title="Job Position"
                     {...jobPosition}

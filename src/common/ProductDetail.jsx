@@ -1,12 +1,28 @@
-import React from "react";
-import notebook1 from "../../public/notebook1.png";
-import airpods from "../../public/airpods.png";
+import React, { useEffect, useState } from "react";
+
 import Image from "next/image";
+import { ProductServices } from "@/services/product.services";
+
 export default function ProductDetail({
   product,
   className = "",
   isChecked = false,
 }) {
+  const [products, setProducts] = useState();
+
+  const getProductId = async () => {
+    const response = await ProductServices.getProductById(product);
+    setProducts(response);
+  };
+
+  useEffect(() => {
+    getProductId();
+  }, []);
+
+  if (!products) {
+    return null;
+  }
+
   return (
     <div
       className={`flex gap-2 border rounded-md p-2  text-black ${className}`}
@@ -14,7 +30,7 @@ export default function ProductDetail({
       {isChecked ? <input type="checkbox" className="w-5 h-5" /> : null}
 
       <Image
-        src={product.imgUrl}
+        src={products.imgUrl}
         className="h-[5rem] w-auto "
         width={40}
         height={40}
@@ -23,24 +39,24 @@ export default function ProductDetail({
       <div className="flex flex-col w-full gap-2">
         <div className="flex gap-2 items-center">
           <h1 className="font-normal text-lg">Category:</h1>
-          <span className="font-light">{product.category}</span>
+          <span className="font-light">{products.category}</span>
         </div>
 
         <hr />
 
         <div className="flex gap-2 items-center">
           <h1 className="font-normal text-lg">Model:</h1>
-          <span className="font-light">{product.model}</span>
+          <span className="font-light">{products.model}</span>
         </div>
-        <p className="text-dark-grey text-md">{product.screen}</p>
+        <p className="text-dark-grey text-md">{products.screen}</p>
 
-        {product.quantity ? (
+        {products.quantity ? (
           <>
             <hr />
 
             <div className="flex gap-2 items-center">
               <h1 className="font-normal text-lg">Quantity:</h1>
-              <span className="font-normal text-lg">{product.quantity}</span>
+              <span className="font-normal text-lg">{products.quantity}</span>
             </div>
           </>
         ) : null}

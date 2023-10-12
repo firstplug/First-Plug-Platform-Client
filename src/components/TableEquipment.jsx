@@ -1,6 +1,7 @@
 import EquipmentRow from "@/common/EquipmentRow";
 import { ChevronDown } from "@/common/Icons";
 import { dateTo_DDMMYY } from "@/utils/dateFormat";
+import State from "@/common/State";
 
 export default function TableEquipment({ handleClick, orders }) {
   return (
@@ -21,18 +22,8 @@ export default function TableEquipment({ handleClick, orders }) {
             <th className="py-3 px-3 w-[10%]">
               <div className="flex justify-between items-center">
                 <span>Status</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={`w-4 h-4 transition-transform transform rotate-180`}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 3a1 1 0 01.7.29l7 7a1 1 0 01-1.4 1.42L10 5.42 3.7 11.71a1 1 0 01-1.4-1.42l7-7A1 1 0 0110 3z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+
+                <ChevronDown />
               </div>
             </th>
             <th className="py-3 px-3 w-[10%]">Total</th>
@@ -46,7 +37,7 @@ export default function TableEquipment({ handleClick, orders }) {
               id={_id}
               idTeamMember={teamMember[0]}
               date={dateTo_DDMMYY(date)}
-              state={status}
+              state={<State message={status} />}
               price={totalPrice}
               handleClick={handleClick}
             />

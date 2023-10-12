@@ -22,7 +22,7 @@ export default function EquipmentRow({
   }, []);
 
   return (
-    <tr className={`border-gray-200 text-left ${className}`}>
+    <tr className={` text-left ${className}`}>
       <td
         onClick={() => handleClick(id)}
         className="pl-5 py-3 text-blue cursor-pointer"
@@ -33,11 +33,9 @@ export default function EquipmentRow({
         {user.firstName} {user.lastName}
       </td>
       <td className="pl-3 py-3">{date}</td>
-      <td className="pl-3 py-3">
-        <State message={state} />
-      </td>
+      <td className="pl-3 py-3 ">{state}</td>
+
       <td className="pl-3 py-3">USD {price}</td>
     </tr>
   );
 }
-99;

@@ -6,10 +6,6 @@ export class OrderServices {
     const response = await axios.get(`${apiUrl}/orders`);
     return response.data;
   }
-  static async getOneOrder(orderId) {
-    const response = await axios.post(`${apiUrl}/orders`, orderId);
-    return response.data;
-  }
 
   static async createOrder(data) {
     const response = await axios.post(`${apiUrl}/orders`, data);
@@ -22,6 +18,11 @@ export class OrderServices {
 
   static async deleteOrder(id) {
     const response = await axios.delete(`${apiUrl}/orders/${id}`);
+    return response.data;
+  }
+
+  static async getOneOrder(orderId) {
+    const response = await axios.get(`${apiUrl}/orders/${orderId}`);
     return response.data;
   }
 }

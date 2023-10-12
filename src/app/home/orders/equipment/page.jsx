@@ -15,6 +15,8 @@ export default function Equipment() {
   const { isModalOpen, closeModal, openModal } = useModal();
   const [orders, setOrders] = useState([]);
 
+  const [selectedOrder, setSelectedOrder] = useState([]);
+
   const getAllOrders = async () => {
     const ordersResponse = await OrderServices.getAllOrders();
     setOrders(ordersResponse);
@@ -28,11 +30,12 @@ export default function Equipment() {
     setSelectedTab(tabName);
   };
 
-  const handleClick = (id) => {
+  const handleClick = async (id) => {
+    const order = await OrderServices.getOneOrder(id);
+    setSelectedOrder(order);
+
     openModal();
   };
-
-  const data = [];
 
   return (
     <Layout className="flex flex-col gap-8">
@@ -42,8 +45,8 @@ export default function Equipment() {
       {isModalOpen ? (
         <Aside closeModal={closeModal} title="ID Number" className="relative">
           <section className="flex flex-col gap-4">
-            {data.map((product) => (
-              <ProductDetail key={product.id} product={product} className="" />
+            {selectedOrder.products.map((product) => (
+              <ProductDetail key={product} product={product} className="" />
             ))}
           </section>
 

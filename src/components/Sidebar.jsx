@@ -74,7 +74,7 @@ export default function Sidebar() {
           icon={<ComputerIcon />}
           title="My Stock"
           href="/home/my-stock"
-          isActive={pathArray.includes("stock")}
+          isActive={pathArray.includes("my-stock")}
         />
 
         <SidebarLink

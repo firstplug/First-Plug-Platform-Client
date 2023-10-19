@@ -31,8 +31,6 @@ const handler = NextAuth({
 
         if (user.error) throw user;
 
-        console.log(user);
-
         return user;
       },
     }),

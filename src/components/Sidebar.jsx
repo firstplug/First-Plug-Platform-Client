@@ -13,8 +13,11 @@ import {
   ArrowRight,
 } from "@/common/Icons";
 import SidebarLink from "@/common/SidebarLink";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Sidebar() {
+  const path = usePathname();
+  const pathArray = path.split("/");
   const [showLogo, setShowLogo] = useState(true);
   const [isSidebarSmall, setIsSidebarSmall] = useState(false);
 
@@ -63,7 +66,7 @@ export default function Sidebar() {
           icon={<DashboardIcon />}
           title="Dashboard"
           href="/home/dashboard"
-          isActive
+          isActive={pathArray.includes("dashboard")}
         />
 
         <SidebarLink
@@ -71,6 +74,7 @@ export default function Sidebar() {
           icon={<ComputerIcon />}
           title="My Stock"
           href="/home/my-stock"
+          isActive={pathArray.includes("my-stock")}
         />
 
         <SidebarLink
@@ -78,6 +82,7 @@ export default function Sidebar() {
           icon={<PersonsGroupIcon />}
           title="My Team"
           href="/home/my-team"
+          isActive={pathArray.includes("my-team")}
         />
 
         <SidebarLink
@@ -85,6 +90,7 @@ export default function Sidebar() {
           icon={<NotebookOrdersIcon />}
           title="Orders"
           href="/home/orders"
+          isActive={pathArray.includes("orders")}
         />
 
         <SidebarLink
@@ -92,6 +98,7 @@ export default function Sidebar() {
           icon={<TruckIcon />}
           title="Shipments"
           href="/home/shipments"
+          isActive={pathArray.includes("shipments")}
         />
       </section>
 
@@ -103,6 +110,7 @@ export default function Sidebar() {
           icon={<SettingsIcon />}
           title="Settings"
           href="/home/settings"
+          isActive={pathArray.includes("settings")}
         />
       </section>
     </aside>

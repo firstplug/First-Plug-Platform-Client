@@ -9,6 +9,7 @@
 
   <p align="center">
     <h3 align="center">FIRST PLUG</h3>
+    <a href="https://github.com/RafaMojica/First-Plug-Platform-Api"><strong>See the backend repository - Api »</strong></a>
   </p>
 </div>
 
@@ -49,11 +50,11 @@ Website where the main focus is inventory management, acquisition and control. i
 
 In the table below, you can see the complete list of the various technologies and libraries that we have used for the development and creation of this project.
 
-|          |            |                 |
-| :------: | :--------: | :-------------: |
-|  NodeJS  |  MongoDB   |     NextJs      |
-| Express  |  Mongoose  | Mobx State Tree |
-| Tailwind | Nodemailer |       JWT       |
+|          |                   |
+| :------: | :---------------: |
+|  NodeJS  |      NextJs       |
+| Express  |  Mobx State Tree  |
+| Tailwind |    JavaScript     |
 
 <p align="right"><a href="#home">⬆ Back to top</a></p>
 

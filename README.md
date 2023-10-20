@@ -3,12 +3,12 @@
 <!-- INTRODUCTION -->
 
 <div align="center">
-  <a href="./public/logo1.png">
-    <img src="" alt="First Plug" width="400">
+  <a href="#">
+    <img src="./public/Isotipo.png" alt="First Plug" width="300">
   </a>
 
   <p align="center">
-    <h3 align="center">First Plug</h3>
+    <h3 align="center">FIRST PLUG</h3>
   </p>
 </div>
 

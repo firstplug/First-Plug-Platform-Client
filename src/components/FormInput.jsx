@@ -11,13 +11,19 @@ export default function FormInput({
   prop,
   handleInput,
   options = [],
+  required,
+  clear,
 }) {
-  const input = useInput("", "required", type === "options");
+  const input = useInput("", required, type === "options");
   useEffect(() => {
-    const value = type === "options" ? input.selectedOption : input.value;
+    if (clear) {
+      input.clearInput();
+    } else {
+      const value = type === "options" ? input.selectedOption : input.value;
 
-    handleInput(prop, value);
-  }, [input.value, input.selectedOption]);
+      handleInput(prop, value);
+    }
+  }, [input.value, input.selectedOption, clear]);
   return (
     <>
       {type === "options" ? (
@@ -30,6 +36,7 @@ export default function FormInput({
       ) : (
         <Input
           type={type}
+          value={type === "optiones" ? input.selectedOption : input.value}
           className={` w-full ${className}`}
           placeholder={placeholder}
           title={title}

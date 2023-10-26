@@ -76,7 +76,7 @@ export default function useInput(initialValue, type, isOptionInput = false) {
     setTouched(false);
     setError(null);
   };
-  const clarInput = () => {
+  const clearInput = () => {
     setValue("");
     setSelectedOption("");
   };
@@ -84,11 +84,11 @@ export default function useInput(initialValue, type, isOptionInput = false) {
     value,
     error,
     touched,
+    selectedOption,
     onChange,
     onBlur,
     onFocus,
     handleOption,
-    selectedOption,
-    clarInput,
+    clearInput,
   };
 }

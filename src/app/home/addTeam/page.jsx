@@ -16,6 +16,7 @@ import { TeamServices } from "@/services/team.services";
 import FormInput from "@/components/FormInput";
 import FormLayout from "@/common/FormLayout";
 import SectionTitle from "@/common/SectionTitle";
+import { INITIAL_MEMBER_DATA } from "@/utils/constants";
 
 export default observer(function AddTeam() {
   const store = useStore();
@@ -24,30 +25,18 @@ export default observer(function AddTeam() {
     TeamServices.getAllTeams().then((res) => store.setTeams(res));
   }, []);
 
-  const [memberData, setMemberData] = useState({
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    phone: "",
-    email: "",
-    team: "",
-    jobPosition: "",
-    zipCode: "",
-    city: "",
-    address: "",
-    appartment: "",
-    joiningDate: "",
-    timeSlotForDelivery: "",
-    additionalInfo: "",
-  });
+  const [memberData, setMemberData] = useState(INITIAL_MEMBER_DATA);
   const handleInput = (prop, value) => {
     setMemberData((prev) => ({ ...prev, [prop]: value }));
   };
 
+  const [finish, setFinished] = useState(false);
   const handleAddTeamMember = () => {
     TeamMemberServices.createMember(memberData)
       .then((res) => {
         alert("Member created!");
+        setMemberData(INITIAL_MEMBER_DATA);
+        setFinished(true);
         store.addMember(res.data);
       })
       .catch(() => {
@@ -83,6 +72,8 @@ export default observer(function AddTeam() {
                     placeholder={"Complete"}
                     prop="firstName"
                     handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
                   />
                   <FormInput
                     title="Last Name"
@@ -90,12 +81,16 @@ export default observer(function AddTeam() {
                     type="text"
                     prop={"lastName"}
                     handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
                   />
                   <FormInput
                     title="Date of Birth"
                     type="date"
                     prop={"dateOfBirth"}
                     handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
                   />
                 </FormLayout>
                 <FormLayout>
@@ -105,6 +100,8 @@ export default observer(function AddTeam() {
                     type="text"
                     prop={"phone"}
                     handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
                   />
                   <FormInput
                     title="Email Address"
@@ -112,6 +109,8 @@ export default observer(function AddTeam() {
                     type="email"
                     prop={"email"}
                     handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
                   />
                   <span className="w-[20%]"></span>
                 </FormLayout>
@@ -129,6 +128,8 @@ export default observer(function AddTeam() {
                   type="options"
                   prop={"team"}
                   handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
                 />
 
                 <FormInput
@@ -137,6 +138,8 @@ export default observer(function AddTeam() {
                   type="text"
                   prop={"jobPosition"}
                   handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
                 />
               </FormLayout>
               <FormLayout>
@@ -157,6 +160,8 @@ export default observer(function AddTeam() {
                   type="text"
                   prop={"city"}
                   handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
                 />
                 <FormInput
                   title="Zip Code"
@@ -164,6 +169,8 @@ export default observer(function AddTeam() {
                   type="number"
                   prop={"zipCode"}
                   handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
                 />
                 <FormInput
                   title="Address"
@@ -171,6 +178,8 @@ export default observer(function AddTeam() {
                   type="text"
                   prop={"address"}
                   handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
                 />
                 <FormInput
                   title="Appartment, Suite, etc."
@@ -178,6 +187,8 @@ export default observer(function AddTeam() {
                   type="text"
                   prop={"appartment"}
                   handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
                 />
               </FormLayout>
               <FormLayout>
@@ -186,6 +197,8 @@ export default observer(function AddTeam() {
                   type="date"
                   prop={"joiningDate"}
                   handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
                 />
                 <FormInput
                   title="Time slot for delivery"
@@ -193,6 +206,8 @@ export default observer(function AddTeam() {
                   type="text"
                   prop={"timeSlotForDelivery"}
                   handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
                 />
               </FormLayout>
             </div>
@@ -203,6 +218,7 @@ export default observer(function AddTeam() {
                 type="text"
                 prop={"additionalInfo"}
                 handleInput={handleInput}
+                clear={finish}
               />
             </div>
           </section>

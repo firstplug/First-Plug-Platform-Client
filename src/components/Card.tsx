@@ -1,8 +1,19 @@
 "use client";
-import React from "react";
+import React, { MouseEvent, ReactNode } from "react";
 import Button from "@/common/Button";
-
 import Image from "next/image";
+
+interface CardProps  {
+  children?: ReactNode;
+  Title?: string;
+  titleButton?: string;
+  imageBottom?: string;
+  paragraph?: string;
+  icon?: JSX.Element
+  altImage?: string;
+  className?: string;
+  onClick?: (event: MouseEvent) => void;
+}
 
 export default function Card({
   children,
@@ -14,7 +25,7 @@ export default function Card({
   altImage,
   className,
   onClick,
-}) {
+} : CardProps) {
   return (
     <article
       className={`bg-white rounded-[16px] p-6 border border-grey ${

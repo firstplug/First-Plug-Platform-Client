@@ -3,7 +3,14 @@ import { useState } from "react";
 import { IconX, FileIcon, AlertCheck } from "./Icons";
 import ProgressBar from "./ProgressBar";
 
-export default function AddStockCard({ title, file, currentDate, className }) {
+interface AddStockCardProps  {
+  title: string;
+  file: string;
+  currentDate: string;
+  className?: string;
+}
+
+export default function AddStockCard({ title, file, currentDate, className } : AddStockCardProps) {
   const [showProgress, setShowProgress] = useState(true);
 
   const handleProgressComplete = () => {

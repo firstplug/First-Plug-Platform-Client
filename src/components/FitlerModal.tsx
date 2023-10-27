@@ -2,7 +2,17 @@
 import SearchInput from "@/common/SearchInput";
 import { useEffect, useState } from "react";
 
-export default function FitlerModal({ array, className }) {
+interface FilterModalProps {
+  array?: FilterItem[];
+  className?: string;
+}
+
+interface FilterItem {
+  id: string; 
+  name: string;
+}
+
+export default function FitlerModal({ array, className } : FilterModalProps) {
   const [allChecked, setAllChecked] = useState(false);
   const [checkboxes, setCheckboxes] = useState([]);
   const [filterTeams, setFilterTeams] = useState([]);

@@ -1,4 +1,17 @@
 import Link from "next/link";
+import { ReactNode } from "react";
+
+type disable= "primary" | "secondary" | "text" | "alert"
+
+interface CustomLinkProps  {
+  href? : string,
+  children?: ReactNode;
+  className?: string;
+  disabled?: disable;
+  variant?: "primary" | "secondary" | "text" | "alert";
+  size?: "big" | "small";
+}
+
 
 export default function CustomLink({
   href,
@@ -7,7 +20,7 @@ export default function CustomLink({
   disabled,
   variant,
   size,
-}) {
+} : CustomLinkProps) {
   const customLinkStyle = {
     variant: {
       primary:

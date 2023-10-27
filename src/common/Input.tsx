@@ -3,6 +3,20 @@
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@/common/Icons";
 
+type InputProps = {
+  title: string;
+  placeholder?: string;
+  type?: string;
+  defaultValue?: string;
+  className?: string;
+  value?: string;
+  onChange?: () => void,
+  onBlur?: () => void,
+  onFocus?: () => void,
+  error?: string;
+  touched?: boolean;
+};
+
 export default function Input({
   title,
   placeholder,
@@ -15,7 +29,7 @@ export default function Input({
   onFocus,
   error,
   touched,
-}) {
+} : InputProps ) {
   const [showPassword, setShowPassword] = useState(false);
 
   const inputType = showPassword ? "text" : type;

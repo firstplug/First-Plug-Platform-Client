@@ -9,6 +9,10 @@ import team4 from "../../public/employees/Rectangle 462.png";
 import Image from "next/image";
 import CustomLink from "@/common/CustomLink";
 
+interface TeamCardProps  {
+  className?: string;
+}
+
 const team = [
   {
     id: "1",
@@ -39,7 +43,8 @@ const team = [
     image: user,
   },
 ];
-export default function TeamCard({ className }) {
+
+export default function TeamCard({ className } : TeamCardProps) {
   return (
     <div className={`flex h-full ${className || ""}`}>
       <div className=" h-full  flex flex-col justify-between w-1/3 mx-2 px-4 py-6 rounded-lg bg-light-grey">
@@ -85,7 +90,7 @@ export default function TeamCard({ className }) {
               "rounded-md w-full justify-center text-xl py-4  border border-blue text-blue flex"
             }
           >
-            <AddIcon /> Add Team Member
+            <AddIcon strokeWidth={1.5}/> Add Team Member
           </CustomLink>
         </div>
       </div>

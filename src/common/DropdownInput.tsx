@@ -1,7 +1,23 @@
 "use client";
-import { useState } from "react";
+import { useState, ReactEventHandler } from "react";
 import Button from "./Button";
 import { ChevronDown } from "./Icons";
+
+interface DropdownInputProps  {
+  className?: string;
+  title: string;
+  placeholder?: string;
+  options?: string[];
+  selectedOption?: string;
+  handleOption?: (option: string) => void;
+  onBlur?: ReactEventHandler;
+  onFocus?: ReactEventHandler;
+  error?: string;
+  touched?: boolean;
+  name?: string;
+  defaultValue?: string;
+  value?: string;
+};
 
 export default function DropdownInput({
   className,
@@ -17,7 +33,7 @@ export default function DropdownInput({
   name,
   defaultValue,
   value,
-}) {
+} : DropdownInputProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {

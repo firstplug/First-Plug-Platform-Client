@@ -5,7 +5,11 @@ import { MonitorIcon, DeviceTablet, PencilAccesories } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 
-export default observer(function StockCard({ className }) {
+type classNameProps = {
+  className?: string,
+}
+
+export default observer(function StockCard({ className } : classNameProps) {
   const store = useStore();
 
   const groupedProducts = store.products?.reduce((result, product) => {

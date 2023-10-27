@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { DropDownArrow } from "./Icons";
 
-export default function DropFilter({ children }) {
+interface DropFilterProps {
+  children?: ReactNode
+  body?: string;
+  className?: string;
+}
+
+export default function DropFilter({ children, body, className } : DropFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

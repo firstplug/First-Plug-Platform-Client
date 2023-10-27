@@ -1,15 +1,12 @@
 "use client";
 import Image from "next/image";
-
 import Aside from "@/components/Aside";
 import Card from "@/components/Card";
-
 import Button from "@/common/Button";
 import Layout from "@/common/Layout";
 import AddStockCard from "@/common/AddStockCard";
 import CustomLink from "@/common/CustomLink";
 import { ShopIcon, UpLoadIcon } from "@/common/Icons";
-
 import useModal from "@/hooks/useModal";
 import EmptyCard from "@/common/EmptyCard";
 

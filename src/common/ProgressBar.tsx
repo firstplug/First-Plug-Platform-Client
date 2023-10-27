@@ -1,7 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-export default function ProgressBar({ onComplete, className }) {
+type ProgressBarProps = {
+  onComplete: () => void;
+  className?: string;
+}
+
+export default function ProgressBar({ onComplete, className } : ProgressBarProps) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {

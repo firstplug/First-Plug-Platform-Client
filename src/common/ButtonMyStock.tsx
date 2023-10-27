@@ -1,7 +1,12 @@
-import React from "react";
+import React, { MouseEventHandler, ReactNode } from "react";
 import { NavButtonIcon } from "./Icons";
 
-export default function ButtonMyStock({ body, onClick }) {
+interface ButtonMyStockProps {
+  body?: ReactNode;
+  onClick?: () => void
+}
+
+export default function ButtonMyStock({ body, onClick } : ButtonMyStockProps) {
   return (
     <div>
       {" "}

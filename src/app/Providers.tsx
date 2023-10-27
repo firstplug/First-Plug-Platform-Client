@@ -2,7 +2,7 @@
 
 import { RootStoreContext, RootStore } from "@/models/root.store";
 import { SessionProvider } from "next-auth/react";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect,  FC, createContext, ReactNode, ReactElement  } from "react";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { ProductServices } from "@/services/product.services";
 

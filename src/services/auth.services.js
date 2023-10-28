@@ -1,19 +1,17 @@
-import axios from "axios";
-
-const apiURL = "http://localhost:3001";
+import { baseApi } from "../config/configAxios";
 
 export class AuthServices {
   static async register(data) {
-    return await axios.post(`${apiURL}/api/auth/register`, data);
+    return await baseApi.post("/auth/register", data);
   }
 
   static async login(data) {
-    const user = await axios.post(`${apiURL}/api/auth/login`, data);
+    const user = await baseApi.post("/auth/login", data);
     return user.data;
   }
 
   static async me(token) {
-    const user = await axios.get(`${apiURL}/api/auth/me`, {
+    const user = await baseApi.get("/auth/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

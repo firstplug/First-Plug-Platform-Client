@@ -1,34 +1,31 @@
-import axios from "axios";
-const apiURL = "http://localhost:3001/api";
+import { baseApi } from "../config/configAxios";
 
 export class TeamServices {
   static async getAllTeams() {
-    const response = await axios.get(`${apiURL}/teams`);
+    const response = await baseApi.get(`/teams`);
     return response.data;
   }
 
   static async createTeam(teamData) {
-    const response = await axios.post(`${apiURL}/teams`, teamData);
+    const response = await baseApi.post(`/teams`, teamData);
     return response.data;
   }
 
   static async updateTeam(id, teamData) {
-    const response = await axios.put(`${apiURL}/teams/${id}`, teamData);
+    const response = await baseApi.put(`/teams/${id}`, teamData);
     return response.data;
   }
 
   static async deleteTeam(id) {
-    const response = await axios.delete(`${apiURL}/teams/${id}`);
+    const response = await baseApi.delete(`/teams/${id}`);
     return response.data;
   }
 
   static async deleteFromTeam(teamId, memberId) {
-    return await axios.delete(
-      `${apiURL}/teams/deleteMember/${teamId}/${memberId}`
-    );
+    return await baseApi.delete(`/teams/deleteMember/${teamId}/${memberId}`);
   }
 
   static async addToTeam(teamId, memberId) {
-    return await axios.post(`${apiURL}/teams/addTeam`, { teamId, memberId });
+    return await baseApi.post(`/teams/addTeam`, { teamId, memberId });
   }
 }

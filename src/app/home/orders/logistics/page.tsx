@@ -7,9 +7,9 @@ import Layout from "@/common/Layout";
 import Header from "@/common/Header";
 
 export default function Logistics() {
-  const [selectedTab, setSelectedTab] = useState("Logistics");
+  const [selectedTab, setSelectedTab] = useState<string>("Logistics");
 
-  const handleTabClick = (tabName) => {
+  const handleTabClick = (tabName: string) => {
     setSelectedTab(tabName);
   };
 

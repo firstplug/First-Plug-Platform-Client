@@ -55,10 +55,10 @@ export default function MyStock() {
               className="p-3 rounded-md"
               onClick={() => {
                 router.push("/shop");
-              }}
+              }} 
             />
           </div>
-        </div>
+        </div> 
       </div>
 
       <div className="mt-10">

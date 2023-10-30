@@ -1,7 +1,13 @@
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
+import { ReactNode } from "react";
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+
+export default function RootLayout({ children } : RootLayoutProps) {
   return (
     <div className="flex">
       <Sidebar />

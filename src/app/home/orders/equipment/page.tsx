@@ -10,12 +10,15 @@ import { DownloadIcon } from "@/common/Icons";
 import useModal from "@/hooks/useModal";
 import { OrderServices } from "@/services/orders.services";
 
-export default function Equipment() {
-  const [selectedTab, setSelectedTab] = useState("Equipment");
-  const { isModalOpen, closeModal, openModal } = useModal();
-  const [orders, setOrders] = useState([]);
+interface Order {
+  products: string[];
+}
 
-  const [selectedOrder, setSelectedOrder] = useState([]);
+export default function Equipment() {
+  const [selectedTab, setSelectedTab] = useState<string>("Equipment");
+  const { isModalOpen, closeModal, openModal } = useModal();
+  const [orders, setOrders] = useState<string[]>([]);
+  const [selectedOrder, setSelectedOrder] = useState<Order[]>([]);
 
   const getAllOrders = async () => {
     const ordersResponse = await OrderServices.getAllOrders();
@@ -26,11 +29,11 @@ export default function Equipment() {
     getAllOrders();
   }, []);
 
-  const handleTabClick = (tabName) => {
+  const handleTabClick = (tabName: string) => {
     setSelectedTab(tabName);
   };
 
-  const handleClick = async (id) => {
+  const handleClick = async (id: number) => {
     const order = await OrderServices.getOneOrder(id);
     setSelectedOrder(order);
 
@@ -44,11 +47,11 @@ export default function Equipment() {
 
       {isModalOpen ? (
         <Aside closeModal={closeModal} title="ID Number" className="relative">
-          <section className="flex flex-col gap-4">
-            {selectedOrder.products.map((product) => (
-              <ProductDetail key={product} product={product} className="" />
-            ))}
-          </section>
+           <section className="flex flex-col gap-4">
+            {selectedOrder.products.map((product: string) => {
+            return <ProductDetail key={product} product={product} className="" />;
+             })}
+            </section>
 
           <div className="flex gap-4 w-full absolute bottom-0">
             <Button

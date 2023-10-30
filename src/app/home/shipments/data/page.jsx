@@ -4,7 +4,7 @@ import TableShipments from "@/components/TableShipments";
 export default function ShipmentsData() {
   const data = [
     {
-      imagen: "/notebook1.png",
+      image: "/notebook1.png",
       category: "Notebook ",
       model: "Macbook Pro 14",
       description: "CPU: M2 Pro | RAM: 16GB | SSD: 512GB",
@@ -12,7 +12,7 @@ export default function ShipmentsData() {
       serial: "#00113",
     },
     {
-      imagen: "/notebook2.png",
+      image: "/notebook2.png",
       category: "Notebook",
       model: "Macbook Pro 14",
       description: "CPU: M2 Pro | RAM: 8GB | SSD: 256GB",
@@ -20,7 +20,7 @@ export default function ShipmentsData() {
       serial: "#00343",
     },
     {
-      imagen: "/airpods.png",
+      image: "/airpods.png",
       category: "Airpods",
       model: "Airpod",
       description: "Wireless earbuds for Apple devices",
@@ -28,7 +28,7 @@ export default function ShipmentsData() {
       serial: "#00563",
     },
     {
-      imagen: "/keyboard.png",
+      image: "/keyboard.png",
       category: "Keyboard",
       model: "Magic Keyboard",
       description: "Apple's wireless keyboard",

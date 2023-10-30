@@ -29,11 +29,11 @@ export default observer(function MyTeamData() {
       store.setTeams(res);
     });
   }, []);
-  const [display, setDisplay] = useState("grid");
-  const [optionAside, setOptionAside] = useState("edit");
+  const [display, setDisplay] = useState<string>("grid");
+  const [optionAside, setOptionAside] = useState<string>("edit");
   const { closeModal, isModalOpen, openModal } = useModal();
 
-  const handleAside = (type) => {
+  const handleAside = (type: string) => {
     setOptionAside(type);
     openModal();
   };

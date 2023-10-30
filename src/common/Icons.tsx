@@ -268,10 +268,6 @@ export function MicrosoftIcon({ className = "" }) {
 
 type ShopIconProps = {
   className?: string;
-<<<<<<< HEAD
-=======
-
->>>>>>> d458110be584bfa0773ad2a8eddb6627db838aab
 };
 
 export function ShopIcon({ className } : ShopIconProps ) {

@@ -4,18 +4,18 @@ import Button from "@/common/Button";
 import CustomLink from "@/common/CustomLink";
 import Input from "@/common/Input";
 import Form from "@/components/Form";
-
 import { useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
 import { signIn } from "next-auth/react";
+import { FormEvent } from "react";
 
 export default function Login() {
-  const emailInput = useInput("", "email");
-  const passWordInput = useInput("", "password");
+  const emailInput = useInput("", "email") 
+  const passWordInput = useInput("", "password")
 
   const router = useRouter();
 
-  const handleSumbit = async (e) => {
+  const handleSumbit = async (e: FormEvent) => {
     e.preventDefault();
 
     try {

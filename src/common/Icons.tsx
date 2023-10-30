@@ -22,7 +22,7 @@ type IconXProps = {
   strokeWidth?: number;
 };
 
-export function IconX({ className, strokeWidth } : IconXProps) {
+export function IconX({ className = "", strokeWidth } : IconXProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -268,6 +268,10 @@ export function MicrosoftIcon({ className = "" }) {
 
 type ShopIconProps = {
   className?: string;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d458110be584bfa0773ad2a8eddb6627db838aab
 };
 
 export function ShopIcon({ className } : ShopIconProps ) {

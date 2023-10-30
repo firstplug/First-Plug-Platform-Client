@@ -18,6 +18,7 @@ const Users = types.model({
   shipments: types.optional(types.array(types.string), []),
   orders: types.optional(types.array(types.string), []),
 });
+
 const Products = types.model({
   _id: types.string,
   category: types.optional(types.string, ""),
@@ -44,6 +45,7 @@ const Orders = types.model({
   totalPrice: types.optional(types.string, ""),
   products: types.optional(types.array(types.string), []),
 });
+
 const TeamMember = types.model({
   _id: types.string,
   firstName: types.optional(types.string, ""),
@@ -67,6 +69,7 @@ const Teams = types.model({
   name: types.optional(types.string, ""),
   teamMember: types.optional(types.array(TeamMember), []),
 });
+
 const Shipments = types.model({
   _id: types.string,
   fullname: types.optional(types.string, ""),

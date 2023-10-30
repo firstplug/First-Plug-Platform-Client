@@ -13,6 +13,7 @@ interface AddStockCardProps  {
 export default function AddStockCard({ title, file, currentDate, className } : AddStockCardProps) {
   const [showProgress, setShowProgress] = useState<Boolean>(true);
 
+
   const handleProgressComplete = () => {
     setShowProgress(false);
   };

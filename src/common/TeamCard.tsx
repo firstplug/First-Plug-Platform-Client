@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function TeamCard({ team, className }) {
+interface TeamCardProps {
+  team?: string;
+  className?: string;
+}
+
+export default function TeamCard({ team, className } : TeamCardProps) {
   const colors_role = {
     Designer: "bg-design",
     HR: "bg-hr",

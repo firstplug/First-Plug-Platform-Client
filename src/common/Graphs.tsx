@@ -1,14 +1,21 @@
 "use client";
-
+import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement } from "chart.js";
 Chart.register(ArcElement);
 
-export default function DoughnutChart({ className, data }) {
+interface DoughnutChartProps {
+  className?: string;
+  data: {
+    quantity: number;
+  }
+}
+
+export default function DoughnutChart({ className, data } : DoughnutChartProps) {
   const number = 10;
   const quantity = data && data.quantity ? data.quantity : 0;
   const info = {
-    labels: ["Assigned", "Avaliable"],
+    labels: ["Assigned", "Available"],
     color: "white",
     datasets: [
       {
@@ -19,8 +26,11 @@ export default function DoughnutChart({ className, data }) {
       },
     ],
   };
+
+const legendPosition = "bottom"
+
   const legendOptions = {
-    position: "bottom",
+    position: legendPosition,
     align: "center",
     labels: {
       boxWidth: 15,

@@ -1,4 +1,29 @@
 import Link from "next/link";
+import { ReactNode } from "react";
+
+const disableVariantOptions = ["primary", "secondary", "text", "alert"] as const
+const size = ["big", "small"] as const
+
+interface CustomLinkProps  {
+  href? : string,
+  children?: ReactNode;
+  className?: string;
+  disabled?: typeof disableVariantOptions[number];
+  variant?: typeof disableVariantOptions[number];
+  size?: typeof size[number];
+}
+
+interface CustomLinkStyles {
+  variant: {
+    [key: string]: string;
+  };
+  size: {
+    [key: string]: string;
+  };
+  disabled: {
+    [key: string]: string;
+  };
+}
 
 export default function CustomLink({
   href,
@@ -7,8 +32,8 @@ export default function CustomLink({
   disabled,
   variant,
   size,
-}) {
-  const customLinkStyle = {
+} : CustomLinkProps) {
+  const customLinkStyle: CustomLinkStyles = {
     variant: {
       primary:
         "bg-blue text-white   hover:bg-gradient-to-r from-blue to-green ",

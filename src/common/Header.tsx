@@ -3,7 +3,11 @@
 import CustomLink from "@/common/CustomLink";
 import Button from "@/common/Button";
 
-export default function Header({ selectedTab }) {
+interface selectedTabProps {
+  selectedTab: string;
+}
+
+export default function Header({ selectedTab } : selectedTabProps) {
   return (
     <header className="flex gap-5 border-b-4 border-gray-300">
       <CustomLink

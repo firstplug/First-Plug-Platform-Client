@@ -3,6 +3,16 @@ import React from "react";
 import { TrashIcon } from "@/common/Icons";
 import Button from "./Button";
 
+const status = ["missingData", "delivered", "preparing", "available", "shipped"] as const;
+
+interface TableRowProps {
+  id: string;
+  name: string;
+  status: typeof status[number];
+  actions: string;
+  className?: string;
+}
+
 const statusColors = {
   missingData: "bg-lightRed",
   delivered: "bg-lightGreen",
@@ -11,7 +21,7 @@ const statusColors = {
   shipped: "bg-lightBlue",
 };
 
-export default function TableRow({ id, name, status, actions, className }) {
+export default function TableRow({ id, name, status, actions, className } : TableRowProps) {
   const statusColorClass = statusColors[status] || "";
   return (
     <table

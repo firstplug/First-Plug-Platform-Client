@@ -1,5 +1,18 @@
 "use client";
 
+import { MouseEvent, ReactNode } from "react";
+
+interface ButtonProps  {
+  body?: ReactNode;
+  variant?: "primary" | "secondary" | "delete" | "text" | "alert";
+  icon?: JSX.Element
+  className?: string;
+  disabled?: boolean;
+  onClick?: (event: MouseEvent) => void;
+  size?: "big" | "small";
+  children?: ReactNode;
+};
+
 export default function Button({
   body,
   variant,
@@ -10,7 +23,7 @@ export default function Button({
   size,
   children,
   ...buttonProps
-}) {
+} : ButtonProps ) {
   const btnStyle = {
     variant: {
       primary:

@@ -4,7 +4,11 @@ import { signOut, useSession } from "next-auth/react";
 import { NavButtonIcon } from "./Icons";
 import { useRouter } from "next/navigation";
 
-export default function DropdownButton() {
+interface DropdownButtonProps  {
+  className?: string,
+}
+
+export default function DropdownButton({className} : DropdownButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const session = useSession();

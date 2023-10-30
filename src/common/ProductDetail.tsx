@@ -3,12 +3,28 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { ProductServices } from "@/services/product.services";
 
+interface ProductDetailProps {
+  product: string;
+  className?: string;
+  isChecked?: boolean;
+}
+
+interface Product {
+  id: string;
+  category: string;
+  model: string;
+  screen: string;
+  imgUrl: string;
+  quantity: number;
+}
+
 export default function ProductDetail({
   product,
   className = "",
   isChecked = false,
-}) {
-  const [products, setProducts] = useState();
+} : ProductDetailProps) {
+
+  const [products, setProducts] = useState<Product | undefined>(undefined);
 
   const getProductId = async () => {
     const response = await ProductServices.getProductById(product);

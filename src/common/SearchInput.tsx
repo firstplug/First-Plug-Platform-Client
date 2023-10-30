@@ -1,6 +1,15 @@
 import React from "react";
 import { SearchIcon } from "./Icons";
-export default function SearchInput({ placeholder, className }) {
+
+
+type SearchInputProps = {
+  placeholder?: string;
+  className?: string;
+  width?: string | number;
+  height?: string | number;
+}
+
+export default function SearchInput({ placeholder, className } : SearchInputProps) {
   return (
     <div
       className={`flex  border border-grey gap-2 items-center py-2 px-3  rounded-lg  ${className || ""}`}

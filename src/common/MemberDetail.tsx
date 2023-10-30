@@ -7,6 +7,16 @@ import Photo from "../../public/employees/member.jpg";
 import ShipmentStatus from "./ShipmentStatus";
 import { dateTo_DDMMYY } from "@/utils/dateFormat";
 
+interface MemberDetailProps {
+  firstName: string;
+  lastName: string;
+  dateOfBirth?: string;
+  joiningDate?: string;
+  shimentsDetails?: "incomplete",
+  team?: string;
+  className?: string;
+}
+
 export default function MemberDetail({
   firstName,
   lastName,
@@ -15,7 +25,7 @@ export default function MemberDetail({
   shimentsDetails = "incomplete",
   team,
   className,
-}) {
+} : MemberDetailProps) {
   return (
     <div className={`flex gap-2 ${className || ""}`}>
       <Image
@@ -28,7 +38,7 @@ export default function MemberDetail({
           <TeamCard team={team} />
 
           <div className="flex gap-2">
-            <Button icon={<PenIcon className={"h-[1.2rem]"} stroke={2} />} />
+            <Button icon={<PenIcon className={"h-[1.2rem]"} strokeWidth={2} />} />
             <Button icon={<TrashIcon className={" h-[1.2rem]"} />} />
           </div>
         </div>

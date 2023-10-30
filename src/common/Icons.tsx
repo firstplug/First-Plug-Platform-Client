@@ -17,13 +17,18 @@ export function FileIcon() {
   );
 }
 
-export function IconX({ className = "" }) {
+type IconXProps = {
+  className?: string | "";
+  strokeWidth?: number;
+};
+
+export function IconX({ className, strokeWidth } : IconXProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
+      strokeWidth={strokeWidth}
       stroke="currentColor"
       className={`w-6 h-6 ${className}`}
     >
@@ -36,7 +41,11 @@ export function IconX({ className = "" }) {
   );
 }
 
-export function EyeIcon() {
+type EyeIconProps = {
+  className?: string;
+};
+
+export function EyeIcon({ className }: EyeSlashIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +53,7 @@ export function EyeIcon() {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      className={`w-6 h-6 ${className || ''}`}
     >
       <path
         strokeLinecap="round"
@@ -60,7 +69,11 @@ export function EyeIcon() {
   );
 }
 
-export function EyeSlashIcon() {
+type EyeSlashIconProps = {
+  className?: string;
+};
+
+export function EyeSlashIcon({ className }: EyeSlashIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +81,7 @@ export function EyeSlashIcon() {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      className={`w-6 h-6 ${className || ''}`}
     >
       <path
         strokeLinecap="round"
@@ -159,7 +172,11 @@ export function AppleIcon({ className = "" }) {
   );
 }
 
-export function AlertCheck({ className }) {
+interface AlertCheckProps {
+  className?: string;
+}
+
+export function AlertCheck({ className } : AlertCheckProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -249,7 +266,11 @@ export function MicrosoftIcon({ className = "" }) {
   );
 }
 
-export function ShopIcon({ className }) {
+type ShopIconProps = {
+  className?: string;
+};
+
+export function ShopIcon({ className } : ShopIconProps ) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -268,7 +289,15 @@ export function ShopIcon({ className }) {
   );
 }
 
-export function NotificationIcon({ className, stroke, hasNotification }) {
+type NotificationIconProps = {
+  className?: string;
+  stroke?: number, 
+  hasNotification?: boolean;
+};
+
+
+
+export function NotificationIcon({ className, stroke, hasNotification } : NotificationIconProps) {
   return (
     <div>
       {hasNotification && (
@@ -387,7 +416,11 @@ export function ComputerIcon() {
   );
 }
 
-export function DashboardIcon({ className }) {
+type DashboardIconProps = {
+  className?: string
+}
+
+export function DashboardIcon({ className } : DashboardIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -406,7 +439,11 @@ export function DashboardIcon({ className }) {
   );
 }
 
-export function ArrowRight({ className }) {
+type ArrowRightProps = {
+  className?: string;
+}
+
+export function ArrowRight({ className } : ArrowRightProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -424,8 +461,12 @@ export function ArrowRight({ className }) {
     </svg>
   );
 }
+type ArrowLeftProps = {
+  className?: string;
+}
 
-export function ArrowLeft({ className }) {
+
+export function ArrowLeft({ className } : ArrowLeftProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -444,13 +485,18 @@ export function ArrowLeft({ className }) {
   );
 }
 
-export function AddIcon({ className }) {
+type AddIconProps = {
+  className?: string;
+  strokeWidth?: number;
+};
+
+export function AddIcon({ className, strokeWidth } : AddIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
+      strokeWidth={ strokeWidth }
       stroke="currentColor"
       className={`w-6 h-6 ${className || ""}`}
     >
@@ -463,13 +509,20 @@ export function AddIcon({ className }) {
   );
 }
 
-export function TrashIcon({ className, color }) {
+type TrashIconProps = {
+  className?: string;
+  color?: string;
+  strokeWidth?: number
+
+}
+
+export function TrashIcon({ className, color, strokeWidth }:TrashIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth="2"
+      strokeWidth={strokeWidth}
       className={`w-6 h-6 ${className || ""}`}
     >
       <path
@@ -482,7 +535,11 @@ export function TrashIcon({ className, color }) {
   );
 }
 
-export function UpLoadIcon({ className }) {
+type UpLoadIcoProps = {
+  className?: string;
+};
+
+export function UpLoadIcon({ className }: UpLoadIcoProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -501,7 +558,14 @@ export function UpLoadIcon({ className }) {
   );
 }
 
-export function ChevronDown({ className, stroke, color }) {
+type ChevronDownProps = {
+  className?: string;
+  stroke?: number;
+  color?: string;
+};
+
+
+export function ChevronDown({ className, stroke, color }: ChevronDownProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -520,7 +584,12 @@ export function ChevronDown({ className, stroke, color }) {
   );
 }
 
-export function ChevronRight({ className, color }) {
+type ChevronRightProps = {
+  className?: string;
+  color?: string;
+}
+
+export function ChevronRight({ className, color } :ChevronRightProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -539,7 +608,11 @@ export function ChevronRight({ className, color }) {
   );
 }
 
-export function TableDisplayIcon({ className }) {
+interface TableDisplayIconProps {
+  className: string;
+}
+
+export function TableDisplayIcon({ className } : TableDisplayIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -558,7 +631,11 @@ export function TableDisplayIcon({ className }) {
   );
 }
 
-export function GridLayoutIcon({ className }) {
+interface GridLayoutIconProps {
+  className: string | ""
+}
+
+export function GridLayoutIcon({ className } :GridLayoutIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -566,7 +643,7 @@ export function GridLayoutIcon({ className }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`w-6 h-6 ${className || ""}`}
+      className={`w-6 h-6 ${className}`}
     >
       <path
         strokeLinecap="round"
@@ -594,13 +671,18 @@ export function VisaIcon() {
   );
 }
 
-export function PenIcon({ className }) {
+type PenIconProps = {
+  className?: string;
+  strokeWidth?: number;
+}
+
+export function PenIcon({ className, strokeWidth } : PenIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
+      strokeWidth={strokeWidth}
       stroke="currentColor"
       className={`w-6 h-6 ${className || ""}`}
     >
@@ -613,7 +695,12 @@ export function PenIcon({ className }) {
   );
 }
 
-export function StatusCircleIcon({ className, status }) {
+type StatusCircleIcon = {
+  className?: string;
+  status?: "incomplete" | "complete"
+};
+
+export function StatusCircleIcon({ className, status } : StatusCircleIcon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -717,7 +804,7 @@ export function DeviceTablet() {
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="w-6 h-6"
+      className ="w-6 h-6"
     >
       <path
         stroke-linecap="round"
@@ -736,7 +823,7 @@ export function PencilAccesories() {
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="w-6 h-6"
+      className="w-6 h-6"
     >
       <path
         stroke-linecap="round"

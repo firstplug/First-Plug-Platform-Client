@@ -1,7 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import State from "./State";
 import axios from "axios";
+
+interface EquipmentRowProps {
+  id: number;
+  idTeamMember: number;
+  date: string;
+  state: string | ReactElement;
+  price: number;
+  className?: string | "";
+  handleClick: (id: number) => void;
+}
 
 export default function EquipmentRow({
   id,
@@ -11,8 +21,8 @@ export default function EquipmentRow({
   price,
   className = "",
   handleClick,
-}) {
-  const [user, setUser] = useState("");
+}: EquipmentRowProps) {
+  const [user, setUser] = useState<{ firstName: string; lastName: string } | null>(null);
   useEffect(() => {
     axios
       .get(`http://localhost:3001/api/teamMembers/${idTeamMember}`)

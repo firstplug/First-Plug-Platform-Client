@@ -1,4 +1,9 @@
-export default function State({ message, className = "" }) {
+interface StateProps{ 
+  message: string;
+  className?: string;
+}
+
+export default function State({ message, className = "" } : StateProps) {
   const states = [
     { state: "CONFIRMATION PENDING", color: "bg-lightPurple" },
     { state: "PAYMENT PENDING", color: "bg-lightYellow" },

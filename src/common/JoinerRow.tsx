@@ -1,7 +1,18 @@
 import Image from "next/image";
 import photo from "../../public/employees/Photo-2.png";
 
-export default function JoinerRow({ joiner }) {
+interface joinerProps {
+  joiner: joinerOptions;
+}
+
+interface joinerOptions {
+  name: string;
+  lastname: string;
+  jobPosition: string;
+  date: string;
+}
+
+export default function JoinerRow({ joiner } : joinerProps) {
   return (
     <div className="border-b rounded-md border-border flex items-center gap-2 justify-between p-2 ">
       <div className="flex gap-2 ">

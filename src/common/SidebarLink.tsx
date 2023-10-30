@@ -1,13 +1,23 @@
 import Link from "next/link";
+import { ReactNode } from "react";
+
+interface SidebarLinkProps {
+  isSmall?: boolean;
+  isActive?: boolean;
+  icon: ReactNode;
+  title: string;
+  className?: string | ""
+  href: string
+}
 
 export default function SidebarLink({
   isSmall,
   isActive,
   icon,
   title,
-  className = "",
+  className,
   href,
-}) {
+} : SidebarLinkProps) {
   return (
     <Link
       href={`${href}`}

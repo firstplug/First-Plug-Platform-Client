@@ -1,4 +1,13 @@
 import Image from "next/image";
+import { ReactNode } from "react";
+
+interface EmptyCardProps  {
+  className?: string;
+  imageBottom: string;
+  altImage: string;
+  paragraph: string;
+  children: ReactNode
+}
 
 export default function EmptyCard({
   imageBottom,
@@ -6,7 +15,7 @@ export default function EmptyCard({
   paragraph,
   children,
   className,
-}) {
+} : EmptyCardProps) {
   return (
     <div className={`${className || ""} flex flex-col items-center gap-3 `}>
       <div className="flex flex-col items-center">

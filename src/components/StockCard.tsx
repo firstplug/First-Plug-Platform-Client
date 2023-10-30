@@ -5,7 +5,11 @@ import { MonitorIcon, DeviceTablet, PencilAccesories } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 
-export default observer(function StockCard({ className }) {
+type classNameProps = {
+  className?: string,
+}
+
+export default observer(function StockCard({ className } : classNameProps) {
   const store = useStore();
 
   const groupedProducts = store.products?.reduce((result, product) => {
@@ -17,7 +21,9 @@ export default observer(function StockCard({ className }) {
 
   const uniqueProducts = Object.values(groupedProducts);
 
-  const [info, setInfo] = useState({ ...store.products[0] });
+  
+
+  const [info, setInfo] = useState({ ...store.products[0] } || {});
 
   return (
     <div className={`flex justify-around  ${className || ""} `}>

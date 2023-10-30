@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import Button from "@/common/Button";
 import { AddIcon, IconX, TrashIcon } from "@/common/Icons";
@@ -8,9 +7,25 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMemberServices } from "@/services/teamMember.services";
 
-export default observer(function TeamInfo({ team, filterMembers }) {
+type filterMembers = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+}[]
+
+type team = {
+  _id: string;
+  name: string;
+}
+
+interface TeamInfoProps {
+  team: team
+  filterMembers: filterMembers
+}
+
+export default observer(function TeamInfo({ team, filterMembers }: TeamInfoProps) {
   const store = useStore();
-  const [selectedMembers, setSelectedMembers] = useState([]);
+  const [selectedMembers, setSelectedMembers] = useState<{ _id: string; firstName: string; lastName: string }[]>([]);
   const [showAddMember, setShowAddMember] = useState(false);
 
   const handleAddTeam = () => {
@@ -26,7 +41,7 @@ export default observer(function TeamInfo({ team, filterMembers }) {
     });
   };
 
-  const handleDeleteMember = (member) => {
+  const handleDeleteMember = (member: { _id: string }) => {
     TeamServices.deleteFromTeam(team._id, member._id).then((res) => {
       TeamServices.getAllTeams().then((res) => {
         store.setTeams(res);
@@ -37,7 +52,7 @@ export default observer(function TeamInfo({ team, filterMembers }) {
     });
   };
 
-  const handleSelectedMembers = (member) => {
+  const handleSelectedMembers = (member: { _id: string; firstName: string; lastName: string }) => {
     setSelectedMembers((prevSelectedMember) => {
       const isSelected = prevSelectedMember.some(
         (selected) => selected._id === member._id
@@ -54,17 +69,17 @@ export default observer(function TeamInfo({ team, filterMembers }) {
   };
 
   return (
-    <article className="flex flex-col justify-between  gap-4   w-[95%]  m-auto mt-2">
-      <header className="flex flex-col gap-2  flex-grow ">
+    <article className="flex flex-col justify-between gap-4 w-[95%] m-auto mt-2">
+      <header className="flex flex-col gap-2 flex-grow">
         <span className="text-grey">Team Name</span>
         <input
           type="text"
           defaultValue={team.name}
-          className=" border-2 rounded-xl p-2 flex-grow w-full"
+          className="border-2 rounded-xl p-2 flex-grow w-full"
         />
       </header>
 
-      <hr className="my-2 " />
+      <hr className="my-2" />
 
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
@@ -90,17 +105,17 @@ export default observer(function TeamInfo({ team, filterMembers }) {
           ))}
       </div>
 
-      <hr className="my-2 " />
+      <hr className="my-2" />
 
       <Button
-        className="flex rounded-md  justify-between font-normal p-2 "
+        className="flex rounded-md justify-between font-normal p-2"
         onClick={() => setShowAddMember(!showAddMember)}
       >
         Add Members {!showAddMember ? <AddIcon /> : <IconX />}
       </Button>
 
       {showAddMember && (
-        <div className="relative ">
+        <div className="relative">
           <AddMemberForm handleSelectedMembers={handleSelectedMembers} />
           <Button
             variant="primary"

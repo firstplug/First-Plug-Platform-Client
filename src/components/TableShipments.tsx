@@ -5,7 +5,29 @@ import TableDetailsShipments from "./TableDetailsShipments";
 import Button from "@/common/Button";
 import { ArrowLeft } from "@/common/Icons";
 
-export default function TableShipments({ orders = [], className, info = [] }) {
+interface Order {
+  id: string;
+  date: string;
+  quantity: number;
+  type: string;
+  price: number;
+  details: {
+    image: string;
+    category: string;
+    model: string;
+    description: string;
+    quantity: number
+    serial: string;
+  }[];
+}
+
+interface TableDetailsShipmentsProps {
+  orders?: Order[];
+  className?: string;
+  info?: string[];
+}
+
+export default function TableShipments({ orders = [], className, info = [] }:TableDetailsShipmentsProps) {
   const [rowOpenState, setRowOpenState] = useState(
     Array(info.length).fill(false)
   );

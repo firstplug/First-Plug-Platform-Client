@@ -3,7 +3,12 @@ import { ChevronDown } from "@/common/Icons";
 import { dateTo_DDMMYY } from "@/utils/dateFormat";
 import State from "@/common/State";
 
-export default function TableEquipment({ handleClick, orders }) {
+interface TableEquipmentProps {
+  handleClick: (id: number | string) => void;
+  orders: [];
+}
+
+export default function TableEquipment({ handleClick, orders } : TableEquipmentProps) {
   return (
     <>
       <table className="flex-col\ border border-border divide-y divide-gray-200 font-inter text-black">

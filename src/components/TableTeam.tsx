@@ -11,7 +11,25 @@ import DropdownInput from "@/common/DropdownInput";
 import Photo from "../../public/employees/member.jpg";
 import { observer } from "mobx-react-lite";
 
-export default (function TableTeam({ img, className, members }) {
+
+interface TableTeamProps {
+  img?: string;
+  className?: string;
+  members: MemberProps[];
+}
+
+interface MemberProps {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  joiningDate: string;
+  teams: string[]; 
+  jobPosition: string; 
+  shimentsDetails: string;
+}
+
+export default (function TableTeam({ img, className, members }: TableTeamProps) {
   const { openModal, closeModal, isModalOpen } = useModal();
   const [optionAside, setOptionAside] = useState("details");
 
@@ -75,7 +93,7 @@ export default (function TableTeam({ img, className, members }) {
               <td className=" py-4 px-3 ">
                 <div className="flex gap-5">
                   <Button onClick={() => handleModal("edit")}>
-                    <PenIcon stroke={2} className="w-[1rem] h-[1rem]" />
+                    <PenIcon strokeWidth={2} className="w-[1rem] h-[1rem]" />
                   </Button>
                   <Button>
                     <TrashIcon className={"w-[1rem] h-[1rem]"} />
@@ -89,7 +107,7 @@ export default (function TableTeam({ img, className, members }) {
       {isModalOpen &&
         (optionAside === "details" ? (
           <Aside closeModal={closeModal}>
-            <MemberAsideDetails member={member} />
+            <MemberAsideDetails member={members} />
           </Aside>
         ) : (
           <Aside
@@ -168,7 +186,7 @@ export default (function TableTeam({ img, className, members }) {
                 <Button
                   icon={
                     <TrashIcon
-                      stroke={2}
+                    strokeWidth={2}
                       className="text-error y w-[1.2rem] h-[1.2rem]"
                     />
                   }

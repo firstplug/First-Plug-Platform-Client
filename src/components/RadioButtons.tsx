@@ -1,13 +1,25 @@
 import { useState } from "react";
 
+interface Options {
+  id: number;
+  name: string;
+  jobPosition: string;
+}
+
+interface RadioButtonsProps {
+  options: Options[];
+  onSelectedChange: (option: Options) => void;
+  className?: string;
+}
+
 export default function RadioButtons({
   options,
   onSelectedChange,
   className = "",
-}) {
+} : RadioButtonsProps) {
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const handleClick = (opcion) => {
+  const handleClick = (opcion: Options) => {
     setSelectedOption(opcion);
     onSelectedChange(opcion);
   };

@@ -1,7 +1,15 @@
 "use client";
 import { IconX } from "@/common/Icons";
+import { ReactNode } from "react";
 
-export default function Aside({ children, title, closeModal, className = "" }) {
+interface asideProps  {
+  children?: ReactNode
+  title?: string;
+  closeModal: () => void;
+  className?: string | "";
+}
+
+export default function Aside({ children, title, closeModal, className } : asideProps) {
   return (
     <>
       {/* overlay */}
@@ -19,7 +27,7 @@ export default function Aside({ children, title, closeModal, className = "" }) {
             {title}
           </h2>
           <button onClick={() => closeModal()}>
-            <IconX className="h-8 w-8" />
+            <IconX className="h-8 w-8" strokeWidth={1.5}/>
           </button>
         </header>
 

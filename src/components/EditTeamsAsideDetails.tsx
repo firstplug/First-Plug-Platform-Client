@@ -5,15 +5,20 @@ import { TeamServices } from "../services/team.services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 
+interface EditTeamsAsideDetailsProps {
+  className?: string | "";
+  members: string[]
+}
+
 export default observer(function EditTeamsAsideDetails({
-  className = "",
+  className,
   members,
-}) {
+} : EditTeamsAsideDetailsProps) {
   const store = useStore();
 
-  const [selectedTeams, setSelectedTeams] = useState([]);
+  const [selectedTeams, setSelectedTeams] = useState<any[]>([]);
 
-  const handleCheckbox = (team) => {
+  const handleCheckbox = (team: any) => {
     setSelectedTeams((prevSelectedTeams) => {
       const isSelected = prevSelectedTeams.some(
         (selected) => selected._id === team._id
@@ -29,7 +34,7 @@ export default observer(function EditTeamsAsideDetails({
     });
   };
 
-  const handleDeleteSelectedTeams = async () => {
+  const handleDeleteSelectedTeams = async (teamId: string ) => {
     try {
       await Promise.all(
         selectedTeams.map((team) => TeamServices.deleteTeam(team._id))
@@ -63,7 +68,7 @@ export default observer(function EditTeamsAsideDetails({
           disabled={selectedTeams.length === 0}
           size="big"
           className="flex-grow rounded-md"
-          onClick={handleDeleteSelectedTeams}
+          onClick={() => handleDeleteSelectedTeams}
         >
           Delete
         </Button>

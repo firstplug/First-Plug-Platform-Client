@@ -5,12 +5,25 @@ import { DropDownArrow } from "@/common/Icons";
 import TeamCard from "@/common/TeamCard";
 import TeamInfo from "./TeamInfo";
 
+type team =  {
+  name: string;
+  teamMember: string[]; 
+}
+
+interface TeamDetailsProps {
+  team: team
+  className?: string;
+  handleSelectedTeams: (selectedTeam: team) => void;
+  members: string[];
+  onDelete: (teamId: string) => Promise<void>; 
+}
+
 export default function TeamDetails({
   team,
-  className = "",
+  className,
   handleSelectedTeams,
-}) {
-  const [showDetails, setShowDetails] = useState(false);
+} : TeamDetailsProps) {
+  const [showDetails, setShowDetails] = useState<Boolean>(false);
 
   return (
     <section className={` ${className} border rounded-md p-3 `}>

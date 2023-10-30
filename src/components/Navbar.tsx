@@ -9,12 +9,19 @@ import DropdownButton from "@/common/Dropdown";
 import ImgPorfile from "@/common/ImgPorfile";
 import { useRouter } from "next/navigation";
 
+type NavbarProps = {
+  title?: string,
+  searchInput?: string;
+  placeholder?: string;
+  hasNotification?: boolean;
+}
+
 export default function Navbar({
   title,
   searchInput,
   placeholder,
   hasNotification,
-}) {
+} : NavbarProps) {
   const router = useRouter();
   return (
     <nav className="flex justify-between items-center pt-6 px-10 pb-3">

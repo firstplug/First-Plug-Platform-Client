@@ -1,6 +1,18 @@
 import Image from "next/image";
 
-export default function TableDetailsShipments({ className, data = [] }) {
+interface TableDetailsShipmentsProps {
+  className?: string;
+  data?: {
+    image: string;
+    category: string;
+    model: string;
+    description: string;
+    quantity: number;
+    serial: string;
+  }[];
+}
+
+export default function TableDetailsShipments({ className, data = [] } : TableDetailsShipmentsProps) {
   return (
     <table
       className={`flex-col w-full rounded-lg overflow-hidden ${
@@ -23,7 +35,7 @@ export default function TableDetailsShipments({ className, data = [] }) {
           >
             <td className="py-4 px-3 flex gap-2">
               <Image
-                src={item.imagen}
+                src={item.image}
                 alt={item.category}
                 className="h-12 w-12"
               />

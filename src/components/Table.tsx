@@ -1,19 +1,24 @@
 "use client";
-import { useState, Fragment, useEffect } from "react";
-import TableDetails from "./TableDetails";
+import { useState, Fragment, MouseEvent } from "react";
+import TableDetails, {Detail} from "./TableDetails";
 import ButtonMyStock from "@/common/ButtonMyStock";
 import useModal from "@/hooks/useModal";
 import Image from "next/image";
 import defaultPhoto from "../../public/Isotipo.png";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
-import { ProductServices } from "@/services/product.services";
 
-export default observer(function Table({ className }) {
+
+type TableProps = {
+  className?: string;
+  openModal: (event: MouseEvent) => void;
+}
+
+export default observer(function Table({ className } : TableProps) {
   const { openModal } = useModal();
   const store = useStore();
 
-  const info = [
+  const info: Detail[] = [
     {
       serial: "#3248",
       name: "Braian",

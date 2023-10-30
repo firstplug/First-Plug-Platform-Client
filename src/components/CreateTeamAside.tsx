@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 import Button from "@/common/Button";
 import AddMemberForm from "./AddMemberForm";
 import { TeamServices } from "../services/team.services";
@@ -6,14 +6,21 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMemberServices } from "@/services/teamMember.services";
 
+interface CreateTeamAsideProps {
+  className?: string;
+  members: string[];
+  closeModal: () => void;
+}
+
 export default observer(function CreateTeamAside({
   className = "",
   members,
   closeModal,
-}) {
+}: CreateTeamAsideProps) {
   const store = useStore();
-  const [teamName, setTeamName] = useState("");
-  const [selectedMembers, setSelectedMembers] = useState([]);
+  const [teamName, setTeamName] = useState<string>(""); 
+
+  const [selectedMembers, setSelectedMembers] = useState<any[]>([]);
 
   const handleCreateTeam = async () => {
     try {
@@ -37,7 +44,7 @@ export default observer(function CreateTeamAside({
     }
   };
 
-  const handleSelectedMembers = (member) => {
+  const handleSelectedMembers = (member: any) => {
     setSelectedMembers((prevSelectedMember) => {
       const isSelected = prevSelectedMember.some(
         (selected) => selected._id === member._id
@@ -52,6 +59,7 @@ export default observer(function CreateTeamAside({
       }
     });
   };
+
   return (
     <div className={` ${className} flex flex-col justify-between h-full `}>
       <div className="flex flex-col gap-2 h-[60vh] overflow-y-auto">
@@ -60,7 +68,7 @@ export default observer(function CreateTeamAside({
 
           <input
             type="text"
-            className=" border-2 rounded-xl p-2 flex-grow w-full"
+            className="border-2 rounded-xl p-2 flex-grow w-full"
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
           />

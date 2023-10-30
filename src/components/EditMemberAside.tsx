@@ -8,7 +8,12 @@ import useInput from "@/hooks/useInput";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
 
-export default observer(function EditMemberAside({ member, closeModal }) {
+interface EditMemberAsideProps {
+  member: any;
+  closeModal: () => void;
+}
+
+export default observer(function EditMemberAside({ member, closeModal } : EditMemberAsideProps) {
   const firstName = useInput(member.firstName, "required");
   const lastName = useInput(member.lastName, "required");
   const dateOfBirth = useInput(member.dateOfBirth, "required");
@@ -147,7 +152,7 @@ export default observer(function EditMemberAside({ member, closeModal }) {
         <Button
           icon={
             <TrashIcon
-              stroke={2}
+              strokeWidth={2}
               className="text-error y w-[1.2rem] h-[1.2rem]"
             />
           }

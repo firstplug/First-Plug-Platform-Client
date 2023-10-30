@@ -4,7 +4,24 @@ import MemberDetail from "@/common/MemberDetail";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 
-export default observer(function MemberAsideDetails({ member, className }) {
+interface MemberAsideDetailsProps {
+  className?: string;
+  member: MemberData | string; 
+}
+
+interface MemberData {
+  id: string;
+  firstName: string;
+  lastName: string;
+  products?: ProductData[];
+
+}
+
+interface ProductData {
+
+}
+
+export default observer(function MemberAsideDetails({ member, className } : MemberAsideDetailsProps) {
   const store = useStore();
   return (
     <article

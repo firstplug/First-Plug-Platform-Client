@@ -2,10 +2,20 @@
 import SearchInput from "@/common/SearchInput";
 import { useEffect, useState } from "react";
 
-export default function FitlerModal({ array, className }) {
-  const [allChecked, setAllChecked] = useState(false);
-  const [checkboxes, setCheckboxes] = useState([]);
-  const [filterTeams, setFilterTeams] = useState([]);
+interface FilterModalProps {
+  array?: FilterItem[];
+  className?: string;
+}
+
+interface FilterItem {
+  id: string; 
+  name: string;
+}
+
+export default function FitlerModal({ array, className } : FilterModalProps) {
+  const [allChecked, setAllChecked] = useState<boolean>(false);
+  const [checkboxes, setCheckboxes] = useState<boolean[]>([]);
+  const [filterTeams, setFilterTeams] = useState<string[]>([]);
 
   useEffect(() => {
     setCheckboxes(Array(array.length).fill(false));
@@ -23,7 +33,7 @@ export default function FitlerModal({ array, className }) {
     setAllChecked(newCheckboxes.every((isChecked) => isChecked));
   };
 
-  const handleSelectFilter = (team, index) => {
+  const handleSelectFilter = (team: string, index: number) => {
     handleCheckboxChange(index);
     setFilterTeams((prevState) => {
       const isSelected = prevState.some((selected) => selected === team);

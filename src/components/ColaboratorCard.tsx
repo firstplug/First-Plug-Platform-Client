@@ -12,6 +12,20 @@ import EditMemberAside from "./EditMemberAside";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
 
+const status = ["incomplete", "complete"] as const;
+
+interface ColaboratorCardProps {
+  member: string;
+  firstName: string;
+  lastName: string;
+  _id: string;
+  img: string;
+  jobPosition: string;
+  shimentsDetails: typeof status[number];
+  teams: string[];
+  className?: string;
+}
+
 export default function ColaboratorCard({
   member,
   firstName,
@@ -22,7 +36,7 @@ export default function ColaboratorCard({
   shimentsDetails = "incomplete",
   teams,
   className,
-}) {
+} : ColaboratorCardProps) {
   const store = useStore();
   const { openModal, closeModal, isModalOpen } = useModal();
   const [optionAside, setOptionAside] = useState("details");
@@ -74,7 +88,7 @@ export default function ColaboratorCard({
             <Button
               icon={
                 <PenIcon
-                  stroke={2}
+                strokeWidth={2}
                   className="text-dark-grey w-[1.2rem] h-[1.2rem]"
                 />
               }
@@ -84,7 +98,7 @@ export default function ColaboratorCard({
               onClick={handleDeleteMember}
               body={
                 <TrashIcon
-                  stroke={2}
+                  strokeWidth={2}
                   className=" text-dark-grey w-[1.2rem] h-[1.2rem] hover:text-error"
                 />
               }

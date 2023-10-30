@@ -13,13 +13,13 @@ import {
   ArrowRight,
 } from "@/common/Icons";
 import SidebarLink from "@/common/SidebarLink";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
   const path = usePathname();
   const pathArray = path.split("/");
-  const [showLogo, setShowLogo] = useState(true);
-  const [isSidebarSmall, setIsSidebarSmall] = useState(false);
+  const [showLogo, setShowLogo] = useState<boolean>(true);
+  const [isSidebarSmall, setIsSidebarSmall] = useState<boolean>(false);
 
   const toggleSidebarSize = () => {
     setIsSidebarSmall(!isSidebarSmall);

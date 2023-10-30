@@ -4,7 +4,11 @@ import TableTeam from "@/components/TableTeam";
 import GridTeam from "./GridTeam";
 import { useStore } from "@/models/root.store";
 
-export default observer(function TeamMembers({ display }) {
+interface TeamMembersProps {
+  display?: string,
+}
+
+export default observer(function TeamMembers({ display } : TeamMembersProps) {
   const store = useStore();
 
   return (

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { AuthServices } from "@/services/auth.services";
 import useInput from "@/hooks/useInput";
+import { FormEvent } from "react";
 
 export default function Register() {
   const nameInput = useInput("", "required");
@@ -15,7 +16,7 @@ export default function Register() {
 
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     try {

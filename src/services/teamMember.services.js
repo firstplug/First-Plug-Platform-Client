@@ -1,22 +1,32 @@
 import axios from "axios";
 
-const apiURL = "http://localhost:3001/api/teamMembers";
-
 export class TeamMemberServices {
   static async getAllMembers() {
-    return await axios.get(`${apiURL}`);
+    return await axios.get(
+      `${proccess.env.NEXT_PUBLIC_API_URL}/api/teamMembers`
+    );
   }
   static async getOneMember(id) {
-    return await axios.get(`${apiURL}/${id}`);
+    return await axios.get(
+      `${proccess.env.NEXT_PUBLIC_API_URL}/api/teamMembers/${id}`
+    );
   }
 
   static async createMember(data) {
-    return await axios.post(`${apiURL}`, data);
+    return await axios.post(
+      `${proccess.env.NEXT_PUBLIC_API_URL}/api/teamMembers`,
+      data
+    );
   }
   static async updateMember(id, data) {
-    return await axios.put(`${apiURL}/${id}`, data);
+    return await axios.put(
+      `${proccess.env.NEXT_PUBLIC_API_URL}/api/teamMembers/${id}`,
+      data
+    );
   }
   static async deleteMember(id) {
-    return await axios.delete(`${apiURL}/${id}`);
+    return await axios.delete(
+      `${proccess.env.NEXT_PUBLIC_API_URL}/api/teamMembers/${id}`
+    );
   }
 }

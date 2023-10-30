@@ -1,9 +1,10 @@
 "use client";
+import { ChangeEvent, useState } from "react";
 
-import { useState } from "react";
+type ValidatorType = "required" | "password" | "email"
 
-function validator(type) {
-  const emailValidator = (value) => {
+function validator(type: ValidatorType) {
+  const emailValidator = (value: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!value.match(emailRegex)) {
       return "Enter a valid email address.";
@@ -11,7 +12,7 @@ function validator(type) {
     return null;
   };
 
-  const passwordValidator = (value) => {
+  const passwordValidator = (value: string) => {
     if (value.length < 6) {
       return "The password must be at least 6 characters long.";
     }
@@ -25,7 +26,7 @@ function validator(type) {
     return null;
   };
 
-  const fullNameValidator = (value) => {
+  const fullNameValidator = (value: string) => {
     console.log("ENTRA  LA VALIDACION!", { value });
     if (value.length < 1) {
       return "This field is required";
@@ -49,17 +50,29 @@ function validator(type) {
   }
 }
 
-export default function useInput(initialValue, type, isOptionInput = false) {
+interface InputState<T>{
+  value: T;
+  error: string | null;
+  touched: boolean;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur: () => void;
+  onFocus: () => void;
+  handleOption: (option: T) => void;
+  selectedOption: T;
+  clearInput: () => void;
+}
+
+export default function useInput<T>(initialValue: T, type: ValidatorType, isOptionInput = false) : InputState<T> {
   const validateFunction = validator(type);
   const [value, setValue] = useState(initialValue);
   const [selectedOption, setSelectedOption] = useState(initialValue);
   const [error, setError] = useState(null);
   const [touched, setTouched] = useState(false);
 
-  const onChange = (e) => {
-    setValue(e.target.value);
+  const onChange = (e: ChangeEvent<HTMLInputElement> ) => {
+    setValue(e.target.value as T);
   };
-  const handleOption = (option) => {
+  const handleOption = (option: T) => {
     setSelectedOption(option);
   };
 
@@ -68,8 +81,8 @@ export default function useInput(initialValue, type, isOptionInput = false) {
 
     if (validateFunction) {
       !isOptionInput
-        ? setError(validateFunction(value))
-        : setError(validateFunction(selectedOption));
+        ? setError(validateFunction(value as string))
+        : setError(validateFunction(selectedOption as string));
     }
   };
 
@@ -77,9 +90,9 @@ export default function useInput(initialValue, type, isOptionInput = false) {
     setTouched(false);
     setError(null);
   };
-  const clarInput = () => {
-    setValue("");
-    setSelectedOption("");
+  const clearInput = () => {
+    setValue(initialValue);
+    setSelectedOption(initialValue);
   };
   return {
     value,
@@ -90,6 +103,6 @@ export default function useInput(initialValue, type, isOptionInput = false) {
     onFocus,
     handleOption,
     selectedOption,
-    clarInput,
+    clearInput,
   };
 }

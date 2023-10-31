@@ -21,6 +21,7 @@ import TeamMembers from "@/components/TeamMembers";
 import { TeamServices } from "@/services/team.services";
 import { useStore } from "@/models/root.store";
 
+
 export default observer(function MyTeamData() {
   const store = useStore();
 
@@ -61,7 +62,7 @@ export default observer(function MyTeamData() {
           body={"Filter by team:"}
           className="rounded-md border font-medium"
         >
-          <FitlerModal array={[...store.teams]} />
+          <FitlerModal array={store.teams.map(team => ({ id: team._id, name: team.name }))} />
         </DropFilter>
         <div className="flex gap-2 items-center">
           <Button
@@ -97,7 +98,7 @@ export default observer(function MyTeamData() {
       {isModalOpen ? (
         optionAside === "edit" ? (
           <Aside title="Edit Teams" closeModal={closeModal}>
-            <EditTeamsAsideDetails members={[...store.members]} />
+            <EditTeamsAsideDetails members={store.members}  />
           </Aside>
         ) : (
           <Aside title="New Team" closeModal={closeModal}>

@@ -17,7 +17,7 @@ interface Order {
 export default function Equipment() {
   const [selectedTab, setSelectedTab] = useState<string>("Equipment");
   const { isModalOpen, closeModal, openModal } = useModal();
-  const [orders, setOrders] = useState<string[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<Order[]>([]);
 
   const getAllOrders = async () => {
@@ -33,9 +33,12 @@ export default function Equipment() {
     setSelectedTab(tabName);
   };
 
-  const handleClick = async (id: number) => {
-    const order = await OrderServices.getOneOrder(id);
-    setSelectedOrder(order);
+  const handleClick = async (id: string) => {
+    const orderResponse = await OrderServices.getOneOrder(id);
+    const order: Order = {
+      products: orderResponse.products.map((product) => product),
+    };
+    setSelectedOrder([order]);
 
     openModal();
   };

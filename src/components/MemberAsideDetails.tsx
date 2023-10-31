@@ -6,19 +6,22 @@ import { useStore } from "@/models/root.store";
 
 interface MemberAsideDetailsProps {
   className?: string;
-  member: MemberData | string; 
+  member: MemberProps[]; 
 }
 
-interface MemberData {
-  id: string;
+interface MemberProps {
+  _id: string;
   firstName: string;
   lastName: string;
+  dateOfBirth: string;
+  joiningDate: string;
+  teams: string[]; 
+  jobPosition: string; 
+  shimentsDetails?: string;
   products?: ProductData[];
-
 }
 
 interface ProductData {
-
 }
 
 export default observer(function MemberAsideDetails({ member, className } : MemberAsideDetailsProps) {

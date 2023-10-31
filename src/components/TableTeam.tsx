@@ -9,8 +9,7 @@ import Image from "next/image";
 import Input from "@/common/Input";
 import DropdownInput from "@/common/DropdownInput";
 import Photo from "../../public/employees/member.jpg";
-import { observer } from "mobx-react-lite";
-
+import { useStore } from "@/models/root.store";
 
 interface TableTeamProps {
   img?: string;
@@ -26,17 +25,37 @@ interface MemberProps {
   joiningDate: string;
   teams: string[]; 
   jobPosition: string; 
-  shimentsDetails: string;
+  shimentsDetails?: string;
 }
 
 export default (function TableTeam({ img, className, members }: TableTeamProps) {
   const { openModal, closeModal, isModalOpen } = useModal();
   const [optionAside, setOptionAside] = useState("details");
 
-  const handleModal = (option) => {
+  const handleModal = (option : string) => {
     setOptionAside(option);
     openModal();
   };
+
+  const store = useStore();
+
+  const oneMember: MemberProps[] = store.members.map((member) => ({
+    _id: member._id,
+    firstName: member.firstName,
+    lastName: member.lastName,
+    dateOfBirth: member.dateOfBirth,
+    phone: member.phone,
+    email: member.email,
+    jobPosition: member.jobPosition,
+    city: member.city,
+    zipCode: member.zipCode,
+    address: member.address,
+    appartment: member.appartment,
+    joiningDate: member.joiningDate,
+    timeSlotForDelivery: member.timeSlotForDelivery,
+    additionalInfo: member.additionalInfo,
+    teams: member.teams,
+  }));
 
   return (
     <>
@@ -107,7 +126,7 @@ export default (function TableTeam({ img, className, members }: TableTeamProps) 
       {isModalOpen &&
         (optionAside === "details" ? (
           <Aside closeModal={closeModal}>
-            <MemberAsideDetails member={members} />
+            <MemberAsideDetails member={oneMember} />
           </Aside>
         ) : (
           <Aside

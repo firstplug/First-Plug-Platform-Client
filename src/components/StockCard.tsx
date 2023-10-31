@@ -9,6 +9,12 @@ type classNameProps = {
   className?: string,
 }
 
+type Product = {
+  _id: string,
+  category: string,
+  name: string,
+}
+
 export default observer(function StockCard({ className } : classNameProps) {
   const store = useStore();
 
@@ -19,9 +25,7 @@ export default observer(function StockCard({ className } : classNameProps) {
     return result;
   }, {});
 
-  const uniqueProducts = Object.values(groupedProducts);
-
-  
+  const uniqueProducts = Object.values(groupedProducts) as Product[];
 
   const [info, setInfo] = useState({ ...store.products[0] } || {});
 

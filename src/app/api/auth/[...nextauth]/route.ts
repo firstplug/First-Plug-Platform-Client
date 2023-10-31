@@ -23,16 +23,22 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
 
-      async authorize(credentials) {
-        const user = await AuthServices.login({
-          email: credentials?.email,
-          password: credentials?.password,
-        });
-
-        if (user.error) throw user;
-
-        return user;
-      },
+      async authorize(credentials, req) {
+        try {
+          const response = await AuthServices.login({
+            email: credentials?.email,
+            password: credentials?.password,
+          });
+      
+          if (response.data.error) {
+            throw new Error("Failed to authenticate: " + response.data.error);
+          }
+      
+          return response.data.user;
+        } catch (error) {
+          throw error;
+        }
+      }
     }),
   ],
   callbacks: {

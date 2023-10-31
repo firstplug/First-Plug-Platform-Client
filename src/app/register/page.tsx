@@ -21,7 +21,7 @@ export default function Register() {
 
     try {
       await AuthServices.register({
-        fullname: nameInput.value,
+        fullName: nameInput.value,
         email: emailInput.value,
         password: passWordInput.value,
       });

@@ -7,7 +7,7 @@ Chart.register(ArcElement);
 interface DoughnutChartProps {
   className?: string;
   data: {
-    quantity: number;
+    quantity?: number;
   }
 }
 

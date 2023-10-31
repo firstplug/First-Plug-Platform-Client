@@ -1,19 +1,23 @@
 "use client";
 
-import { RootStoreContext, RootStore } from "@/models/root.store";
+import { RootStore, useStore, RootStoreContext} from "@/models/root.store";
 import { SessionProvider } from "next-auth/react";
-import { useCallback, useEffect,  FC, createContext, ReactNode, ReactElement  } from "react";
+import { ReactNode, useCallback, useEffect} from "react";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { ProductServices } from "@/services/product.services";
 
-export default function Providers({ children }) {
+type ProvidersProps = {
+  children: ReactNode;
+}
+
+export default function Providers({ children } : ProvidersProps) {
   const store = RootStore.create({
-    users: [],
-    products: [],
-    orders: [],
-    shipments: [],
-    teams: [],
-    members: [],
+    users : [],
+    members : [],
+    products : [],
+    orders : [],
+    shipments : [],
+    teams : [],
   });
 
   const setData = useCallback(async () => {
@@ -33,5 +37,6 @@ export default function Providers({ children }) {
     <RootStoreContext.Provider value={store}>
       <SessionProvider>{children}</SessionProvider>
     </RootStoreContext.Provider>
+
   );
 }

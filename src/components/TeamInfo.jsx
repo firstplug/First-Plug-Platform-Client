@@ -9,7 +9,7 @@ import { useStore } from "@/models/root.store";
 import { TeamMemberServices } from "@/services/teamMember.services";
 
 export default observer(function TeamInfo({ team, filterMembers }) {
-  const store = useStore();
+  const { teams, members } = useStore();
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [showAddMember, setShowAddMember] = useState(false);
 
@@ -17,10 +17,10 @@ export default observer(function TeamInfo({ team, filterMembers }) {
     selectedMembers.forEach((member) => {
       TeamServices.addToTeam(team._id, member._id).then((res) => {
         TeamServices.getAllTeams().then((res) => {
-          store.setTeams(res);
+          teams.setTeams(res);
         });
         TeamMemberServices.getAllMembers().then((res) => {
-          store.setMembers(res.data);
+          members.setMembers(res.data);
         });
       });
     });
@@ -29,10 +29,10 @@ export default observer(function TeamInfo({ team, filterMembers }) {
   const handleDeleteMember = (member) => {
     TeamServices.deleteFromTeam(team._id, member._id).then((res) => {
       TeamServices.getAllTeams().then((res) => {
-        store.setTeams(res);
+        teams.setTeams(res);
       });
       TeamMemberServices.getAllMembers().then((res) => {
-        store.setMembers(res.data);
+        members.setMembers(res.data);
       });
     });
   };

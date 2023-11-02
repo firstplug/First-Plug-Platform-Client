@@ -5,11 +5,8 @@ import { TeamServices } from "../services/team.services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 
-export default observer(function EditTeamsAsideDetails({
-  className = "",
-  members,
-}) {
-  const store = useStore();
+export default observer(function EditTeamsAsideDetails({ className = "" }) {
+  const { members, teams } = useStore();
 
   const [selectedTeams, setSelectedTeams] = useState([]);
 
@@ -35,7 +32,7 @@ export default observer(function EditTeamsAsideDetails({
         selectedTeams.map((team) => TeamServices.deleteTeam(team._id))
       );
       TeamServices.getAllTeams().then((res) => {
-        store.setTeams(res);
+        teams.setTeams(res);
       });
       setSelectedTeams([]);
     } catch (error) {
@@ -46,7 +43,7 @@ export default observer(function EditTeamsAsideDetails({
   return (
     <div className={` ${className} flex flex-col justify-between h-full `}>
       <div className="flex flex-col gap-2 h-[70vh] overflow-y-auto">
-        {store.teams.map((team) => (
+        {teams.teams.map((team) => (
           <TeamDetails
             key={team._id}
             team={team}

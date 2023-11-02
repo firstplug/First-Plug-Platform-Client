@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import State from "./State";
 import axios from "axios";
+import { useStore } from "@/models/root.store";
 
 export default function EquipmentRow({
   id,
@@ -10,8 +11,8 @@ export default function EquipmentRow({
   state,
   price,
   className = "",
-  handleClick,
 }) {
+  const { orders, aside } = useStore();
   const [user, setUser] = useState("");
   useEffect(() => {
     axios
@@ -24,7 +25,11 @@ export default function EquipmentRow({
   return (
     <tr className={` text-left ${className}`}>
       <td
-        onClick={() => handleClick(id)}
+        onClick={() => {
+          orders.setSelectedOrder(id);
+          aside.setAside("orderDetails");
+          aside.openAside();
+        }}
         className="pl-5 py-3 text-blue cursor-pointer"
       >
         #{id}

@@ -62,20 +62,8 @@ export default function MyStock() {
       </div>
 
       <div className="mt-10">
-        <Table openModal={openModal} />
+        <Table />
       </div>
-
-      {isModalOpen ? (
-        <Aside title="Assign To" closeModal={closeModal}>
-          <SearchInput placeholder="Search Members" />
-
-          <RadioButtons
-            options={fakeData}
-            onSelectedChange={handleOptionSelected}
-            className="flex flex-col gap-4 my-4"
-          />
-        </Aside>
-      ) : null}
     </Layout>
   );
 }

@@ -5,23 +5,24 @@ import { SessionProvider } from "next-auth/react";
 import { useCallback, useEffect } from "react";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { ProductServices } from "@/services/product.services";
+import { AsideStore } from "@/models/aside.store";
 
 export default function Providers({ children }) {
   const store = RootStore.create({
-    users: [],
-    products: [],
-    orders: [],
-    shipments: [],
-    teams: [],
-    members: [],
+    orders: {},
+    shipments: {},
+    products: {},
+    teams: {},
+    members: {},
+    aside: {},
   });
 
   const setData = useCallback(async () => {
     TeamMemberServices.getAllMembers().then((res) => {
-      store.setMembers(res.data);
+      store.members.setMembers(res.data);
     });
     ProductServices.getAllProducts().then((res) => {
-      store.setProducts(res);
+      store.products.setProducts(res);
     });
   }, [store]);
 

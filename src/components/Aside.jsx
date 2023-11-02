@@ -1,8 +1,12 @@
 "use client";
 import { IconX } from "@/common/Icons";
+import AsideContent from "./AsideContent";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/models/root.store";
+export default observer(function Aside({ title, closeModal, className = "" }) {
+  const { aside } = useStore();
 
-export default function Aside({ children, title, closeModal, className = "" }) {
-  return (
+  return aside.isOpen ? (
     <>
       {/* overlay */}
       <div
@@ -18,13 +22,15 @@ export default function Aside({ children, title, closeModal, className = "" }) {
           <h2 className="text-2xl font-sans text-black font-semibold">
             {title}
           </h2>
-          <button onClick={() => closeModal()}>
+          <button onClick={() => aside.closeAside()}>
             <IconX className="h-8 w-8" />
           </button>
         </header>
 
-        <div className={`flex-[1] mt-[40px] ${className}`}>{children}</div>
+        <div className={`flex-[1] mt-[40px] ${className}`}>
+          <AsideContent />
+        </div>
       </aside>
     </>
-  );
-}
+  ) : null;
+});

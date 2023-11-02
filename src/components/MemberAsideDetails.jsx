@@ -4,8 +4,9 @@ import MemberDetail from "@/common/MemberDetail";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 
-export default observer(function MemberAsideDetails({ member, className }) {
-  const store = useStore();
+export default observer(function MemberAsideDetails({ className }) {
+  const { members } = useStore();
+  const member = members.oneMember();
   return (
     <article
       className={`${className || ""} flex flex-col justify-between h-full`}

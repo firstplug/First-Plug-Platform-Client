@@ -11,8 +11,9 @@ import MemberAsideDetails from "./MemberAsideDetails";
 import EditMemberAside from "./EditMemberAside";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
+import { observer } from "mobx-react-lite";
 
-export default function ColaboratorCard({
+export default observer(function ColaboratorCard({
   member,
   firstName,
   lastName,
@@ -78,7 +79,11 @@ export default function ColaboratorCard({
                   className="text-dark-grey w-[1.2rem] h-[1.2rem]"
                 />
               }
-              onClick={() => handleModal("edit")}
+              onClick={() => {
+                store.members.setSelectedMember(member._id);
+                store.aside.openAside();
+                store.aside.setAside("memberDetails");
+              }}
             />
             <Button
               onClick={handleDeleteMember}
@@ -115,20 +120,6 @@ export default function ColaboratorCard({
           </div>
         </section>
       </div>
-      {isModalOpen &&
-        (optionAside === "details" ? (
-          <Aside closeModal={closeModal}>
-            <MemberAsideDetails member={member} />
-          </Aside>
-        ) : (
-          <Aside
-            title="Team Member"
-            closeModal={closeModal}
-            className="overflow-y-auto outline-red-400 text-md"
-          >
-            <EditMemberAside member={member} closeModal={closeModal} />
-          </Aside>
-        ))}
     </>
   );
-}
+});

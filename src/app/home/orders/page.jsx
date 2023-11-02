@@ -3,7 +3,7 @@ import EmptyCard from "@/common/EmptyCard";
 import { ShopIcon } from "@/common/Icons";
 import Layout from "@/common/Layout";
 
-export default function Logistics() {
+export default function Orders() {
   return (
     <Layout className="border-2 shadow-sm border-border rounded-md grid place-items-center w-[98%] ">
       <EmptyCard

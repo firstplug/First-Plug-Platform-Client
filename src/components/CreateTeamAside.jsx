@@ -6,12 +6,8 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMemberServices } from "@/services/teamMember.services";
 
-export default observer(function CreateTeamAside({
-  className = "",
-  members,
-  closeModal,
-}) {
-  const store = useStore();
+export default observer(function CreateTeamAside({ className = "" }) {
+  const { teams, members, aside } = useStore();
   const [teamName, setTeamName] = useState("");
   const [selectedMembers, setSelectedMembers] = useState([]);
 
@@ -24,14 +20,14 @@ export default observer(function CreateTeamAside({
 
       TeamServices.createTeam(newTeam).then((res) => {
         TeamServices.getAllTeams().then((res) => {
-          store.setTeams(res);
+          teams.setTeams(res);
         });
         TeamMemberServices.getAllMembers().then((res) => {
-          store.setMembers(res.data);
+          members.setMembers(res.data);
         });
       });
 
-      closeModal();
+      aside.closeAside();
     } catch (error) {
       console.error("Error creating team:", error);
     }
@@ -69,12 +65,12 @@ export default observer(function CreateTeamAside({
         <div className="flex flex-col gap-2">
           <div className="flex justify-between">
             <span>Members</span>
-            <span>({members.length})</span>
+            <span>({members.members.length})</span>
           </div>
 
           <AddMemberForm
             handleSelectedMembers={handleSelectedMembers}
-            members={members}
+            members={members.members}
           />
         </div>
       </div>

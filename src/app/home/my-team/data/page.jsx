@@ -26,13 +26,10 @@ export default observer(function MyTeamData() {
 
   useEffect(() => {
     TeamServices.getAllTeams().then((res) => {
-      store.setTeams(res);
+      store.teams.setTeams(res);
     });
   }, []);
   const [display, setDisplay] = useState("grid");
-  const [optionAside, setOptionAside] = useState("edit");
-  const { closeModal, isModalOpen, openModal } = useModal();
-
   const handleAside = (type) => {
     setOptionAside(type);
     openModal();
@@ -61,7 +58,7 @@ export default observer(function MyTeamData() {
           body={"Filter by team:"}
           className="rounded-md border font-medium"
         >
-          <FitlerModal array={[...store.teams]} />
+          <FitlerModal array={[...store.teams.teams]} />
         </DropFilter>
         <div className="flex gap-2 items-center">
           <Button
@@ -69,14 +66,20 @@ export default observer(function MyTeamData() {
             variant={"text"}
             icon={<AddIcon className={"w-[1rem]"} />}
             className={"p-2 text-sm rounded-md"}
-            onClick={() => handleAside("create")}
+            onClick={() => {
+              store.aside.setAside("newTeam");
+              store.aside.openAside();
+            }}
           />
           <Button
             body="Edit Team"
             variant={"text"}
             icon={<PenIcon className={"w-[1rem]"} />}
             className={"p-2 text-sm rounded-md"}
-            onClick={() => handleAside("edit")}
+            onClick={() => {
+              store.aside.setAside("editTeam");
+              store.aside.openAside();
+            }}
           />
           <span className="text-gray-400"> |</span>
 
@@ -94,20 +97,6 @@ export default observer(function MyTeamData() {
         </div>
       </div>
       <TeamMembers display={display} />
-      {isModalOpen ? (
-        optionAside === "edit" ? (
-          <Aside title="Edit Teams" closeModal={closeModal}>
-            <EditTeamsAsideDetails members={[...store.members]} />
-          </Aside>
-        ) : (
-          <Aside title="New Team" closeModal={closeModal}>
-            <CreateTeamAside
-              closeModal={closeModal}
-              members={[...store.members]}
-            />
-          </Aside>
-        )
-      ) : null}
     </Layout>
   );
 });

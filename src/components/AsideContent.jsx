@@ -8,8 +8,6 @@ import LoadStock from "./LoadStock";
 import OrderAsideDetails from "./OrderAsideDetails";
 
 export default observer(function AsideContent() {
-  // const AsideStoreTypes = ["editTeam", "loadStock", "newTeam", "memberDetails"]; // as const
-
   const { aside } = useStore();
   switch (aside.type) {
     case "memberDetails":

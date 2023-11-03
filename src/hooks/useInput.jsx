@@ -26,7 +26,6 @@ function validator(type) {
   };
 
   const fullNameValidator = (value) => {
-    console.log("ENTRA  LA VALIDACION!", { value });
     if (value.length < 1) {
       return "This field is required";
     }
@@ -77,7 +76,7 @@ export default function useInput(initialValue, type, isOptionInput = false) {
     setTouched(false);
     setError(null);
   };
-  const clarInput = () => {
+  const clearInput = () => {
     setValue("");
     setSelectedOption("");
   };
@@ -85,11 +84,11 @@ export default function useInput(initialValue, type, isOptionInput = false) {
     value,
     error,
     touched,
+    selectedOption,
     onChange,
     onBlur,
     onFocus,
     handleOption,
-    selectedOption,
-    clarInput,
+    clearInput,
   };
 }

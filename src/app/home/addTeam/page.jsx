@@ -1,8 +1,7 @@
 "use client";
 import CustomLink from "@/common/CustomLink";
-import Input from "@/common/Input";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DropdownInput from "@/common/DropdownInput";
 import Button from "@/common/Button";
 import memberImage from "../../../../public/member.png";
@@ -14,6 +13,10 @@ import { TeamMemberServices } from "@/services/teamMember.services";
 import { clearinputs, validateForm } from "@/utils/inputsServices";
 import { useStore } from "@/models/root.store";
 import { TeamServices } from "@/services/team.services";
+import FormInput from "@/components/FormInput";
+import FormLayout from "@/common/FormLayout";
+import SectionTitle from "@/common/SectionTitle";
+import { INITIAL_MEMBER_DATA } from "@/utils/constants";
 
 export default observer(function AddTeam() {
   const store = useStore();
@@ -22,78 +25,18 @@ export default observer(function AddTeam() {
     TeamServices.getAllTeams().then((res) => store.setTeams(res));
   }, []);
 
-  const jobPositionData = ["Job1", "Job2", "Job3"];
-  const firstName = useInput("", "required");
-  const lastName = useInput("", "required");
-  const dateOfBirth = useInput("", "required");
-  const phoneNumber = useInput("", "required");
-  const email = useInput("", "email");
-  const team = useInput("", "required", true);
-  const jobPosition = useInput("", "required");
-  const zipCode = useInput("", "required");
-  const city = useInput("", "required");
-  const address = useInput("", "required");
-  const appartment = useInput("", "required");
-  const joiningDate = useInput("", "required");
-  const aditionalInfo = useInput(" ", null);
+  const [memberData, setMemberData] = useState(INITIAL_MEMBER_DATA);
+  const handleInput = (prop, value) => {
+    setMemberData((prev) => ({ ...prev, [prop]: value }));
+  };
 
-  const timeSlotForDelivery = useInput("", "required");
-
-  const isFormValid = validateForm(
-    firstName,
-    lastName,
-    dateOfBirth,
-    phoneNumber,
-    email,
-    team,
-    jobPosition,
-    zipCode,
-    city,
-    address,
-    appartment,
-    joiningDate,
-    aditionalInfo,
-    timeSlotForDelivery
-  );
-
+  const [finish, setFinished] = useState(false);
   const handleAddTeamMember = () => {
-    const data = {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      dateOfBirth: dateOfBirth.value,
-      phone: phoneNumber.value,
-      email: email.value,
-      team: team.selectedOption,
-      jobPosition: jobPosition.selectedOption,
-      zipCode: zipCode.value,
-      city: city.value,
-      address: address.value,
-      appartment: appartment.value,
-      joiningDate: joiningDate.value,
-      additionalInfo: aditionalInfo.value,
-      timeSlotForDelivery: timeSlotForDelivery.value,
-    };
-
-    TeamMemberServices.createMember(data)
+    TeamMemberServices.createMember(memberData)
       .then((res) => {
-        clearinputs(
-          firstName,
-          lastName,
-          dateOfBirth,
-          phoneNumber,
-          email,
-          team,
-          jobPosition,
-          zipCode,
-          city,
-          address,
-          appartment,
-          joiningDate,
-          aditionalInfo,
-          timeSlotForDelivery
-        );
         alert("Member created!");
-
+        setMemberData(INITIAL_MEMBER_DATA);
+        setFinished(true);
         store.addMember(res.data);
       })
       .catch(() => {
@@ -102,179 +45,196 @@ export default observer(function AddTeam() {
   };
 
   return (
-    <>
-      <Layout className="flex flex-col gap-6 overflow-auto pb-16">
-        <main className="h-full overflow-auto px-[48px] ">
-          <div className="w-[100%] h-auto py-[45px] px-[20px]  rounded-[16px] shadow-lg border border-grey-200 ">
-            <section className=" px-[32px] ">
-              <h2 className="font-inter text-[20px] font-semibold text-black">
-                Add Team Member
-              </h2>
-            </section>
-            <section className="pt-[16px] px-[32px] gap-[28px] ">
-              <div className="relative w-[100%] h-[152px] flex items-center gap-7 mb-11">
-                <span className="w-[152px] h-[152px] rounded-[30px] relative">
-                  <Image
-                    src={memberImage}
-                    alt="emptyImage"
-                    className="object-cover  h-full"
-                  />
-                  <Button
-                    icon={<IconX />}
-                    variant="primary"
-                    className="rounded-3xl w-[30px] h-[30px] absolute bottom-0 left-[110px] z-[1] "
-                  />
-                </span>
-                <span className="h-[148px] w-[100%]">
-                  <div className="flex-grow flex items-center">
-                    <Input
-                      className="mr-4 font-inter text-[14px] w-[40%]"
-                      title="First Name"
-                      placeholder="Complete"
-                      type="text"
-                      {...firstName}
-                    />
-                    <Input
-                      className="font-inter text-[14px]  mr-4 w-[40%]"
-                      title="Last Name"
-                      placeholder="Complete"
-                      type="text"
-                      {...lastName}
-                    />
-                    <Input
-                      className="font-inter text-[14px] w-[20%]"
-                      title="Date of Birth"
-                      type="date"
-                      {...dateOfBirth}
-                    />
-                  </div>
-                  <div className="flex-grow flex items-center">
-                    <Input
-                      className="mr-4 font-inter text-[14px] w-[40%]"
-                      title="Phone Number"
-                      placeholder="+54 11 11111111"
-                      type="number"
-                      {...phoneNumber}
-                    />
-                    <Input
-                      className="font-inter text-[14px]  mr-4 w-[40%]"
-                      title="Email Address"
-                      placeholder="user@workemail.com"
-                      type="email"
-                      bg-black
-                      {...email}
-                    />
-                    <span className="w-[20%]"></span>
-                  </div>
-                </span>
-              </div>
-              <hr className="mt-4 mb-4" />
-              <div className="w-[100%] h-[auto]">
-                <p className="font-inter text-black font-bold text-[16px] mt-[16px] mb-[16px]">
-                  Employee information
-                </p>
-                <div className=" w-[100%]  grid grid-cols-4 gap-y-16  ">
-                  <DropdownInput
-                    className="mr-4 font-inter text-[14px] w-[full]"
-                    options={[...store.teams.map((team) => team.name)]}
-                    placeholder="Team Name"
-                    title="Team Name"
-                    {...team}
-                  />
-                  <Input
-                    className="mr-4 font-inter text-[14px] w-[full]"
-                    placeholder="Job Position"
-                    title="Job Position"
-                    {...jobPosition}
-                  />
-                </div>
-                <div className="mt-[5px]  flex items-center">
-                  <p className="font-inter text-[16px] text-dark-grey">
-                    Does the team not exist yet?
-                  </p>
-                  <CustomLink href="" className="ml-4">
-                    Create Team
-                  </CustomLink>
-                </div>
-              </div>
-              <hr className="mt-4 mb-4" />
-              <div>
-                <p className="font-inter text-black font-bold text-[16px] mt-[16px] mb-[16px]">
-                  Shipment Details
-                </p>
+    <Layout className="relative">
+      <div className="h-full overflow-y-auto  ">
+        <div className=" px-10 py-4 rounded-3xl shadow-lg border  k">
+          <SectionTitle className="text-[20px]">Add Team Member</SectionTitle>
 
-                <div className=" flex-grow flex items-center ">
-                  <Input
-                    className="mr-4 font-inter text-[14px] w-full"
-                    title="City"
-                    placeholder="City"
+          <section className="flex flex-col gap-4 ">
+            <div className="  flex items-center  gap-7  ">
+              <section className=" h-full rounded-[30px] relative">
+                <Image
+                  src={memberImage}
+                  alt="emptyImage"
+                  className="object-cover  h-full"
+                />
+                <Button
+                  icon={<IconX />}
+                  variant="primary"
+                  className="rounded-3xl w-[30px] h-[30px] absolute bottom-0 left-[110px] z-[1] "
+                />
+              </section>
+              <section className="  w-full ">
+                <FormLayout>
+                  <FormInput
+                    type={"text"}
+                    title={"First Name"}
+                    placeholder={"Complete"}
+                    prop="firstName"
+                    handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
+                  />
+                  <FormInput
+                    title="Last Name"
+                    placeholder="Complete"
                     type="text"
-                    {...city}
+                    prop={"lastName"}
+                    handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
                   />
-                  <Input
-                    className="font-inter text-[14px] w-full mr-4"
-                    title="Zip Code"
-                    placeholder="0000"
-                    type="number"
-                    {...zipCode}
-                  />
-                  <Input
-                    className="font-inter text-[14px] w-full mr-4"
-                    title="Address"
-                    placeholder="Steet, number"
-                    type="text"
-                    {...address}
-                  />
-                  <Input
-                    className="font-inter text-[14px] w-full"
-                    title="Appartment, Suite, etc."
-                    placeholder="PB B"
-                    type="text"
-                    {...appartment}
-                  />
-                </div>
-                <div className=" flex-grow flex items-center mt-[28px] ">
-                  <Input
-                    className="mr-4 font-inter text-[14px] w-[33%]"
-                    title="Joining Date"
+                  <FormInput
+                    title="Date of Birth"
                     type="date"
-                    {...joiningDate}
+                    prop={"dateOfBirth"}
+                    handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
                   />
-                  <Input
-                    className="font-inter text-[14px]  mr-4 w-[33%]"
-                    title="Time slot for delivery"
-                    placeholder="HH/MM - HH/MM"
+                </FormLayout>
+                <FormLayout>
+                  <FormInput
+                    title="Phone Number"
+                    placeholder="+54 11 11111111"
                     type="text"
-                    {...timeSlotForDelivery}
+                    prop={"phone"}
+                    handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
                   />
-                  <div className="w-[33%]"></div>
-                </div>
-              </div>
-              <div>
-                <div className=" flex-grow flex items-center mt-[28px]">
-                  <Input
-                    className="mr-4 font-inter text-[14px] w-[100%] "
-                    title="Aditional information"
-                    placeholder="Comments..."
-                    type="text"
-                    {...aditionalInfo}
+                  <FormInput
+                    title="Email Address"
+                    placeholder="user@workemail.com"
+                    type="email"
+                    prop={"email"}
+                    handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
                   />
-                </div>
-              </div>
-            </section>
-          </div>
-        </main>
-      </Layout>
+                  <span className="w-[20%]"></span>
+                </FormLayout>
+              </section>
+            </div>
+            <hr />
+            <div>
+              <SectionTitle>Employee information</SectionTitle>
 
-      <section className="absolute bottom-0 left-[259px] right-0 h-[88px] flex items-center justify-end bg-white ">
+              <FormLayout className="w-1/2">
+                <FormInput
+                  options={[...store.teams.map((team) => team.name)]}
+                  placeholder="Team Name"
+                  title="Team Name"
+                  type="options"
+                  prop={"team"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+
+                <FormInput
+                  placeholder="Job Position"
+                  title="Job Position"
+                  type="text"
+                  prop={"jobPosition"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+              </FormLayout>
+              <FormLayout>
+                <p className="font-inter text-[16px] text-dark-grey">
+                  Does the team not exist yet?
+                </p>
+                <CustomLink href="">Create Team</CustomLink>
+              </FormLayout>
+            </div>
+            <hr />
+            <div>
+              <SectionTitle>Shipment Details</SectionTitle>
+
+              <FormLayout>
+                <FormInput
+                  title="City"
+                  placeholder="City"
+                  type="text"
+                  prop={"city"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+                <FormInput
+                  title="Zip Code"
+                  placeholder="0000"
+                  type="number"
+                  prop={"zipCode"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+                <FormInput
+                  title="Address"
+                  placeholder="Steet, number"
+                  type="text"
+                  prop={"address"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+                <FormInput
+                  title="Appartment, Suite, etc."
+                  placeholder="PB B"
+                  type="text"
+                  prop={"appartment"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+              </FormLayout>
+              <FormLayout>
+                <FormInput
+                  title="Joining Date"
+                  type="date"
+                  prop={"joiningDate"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+                <FormInput
+                  title="Time slot for delivery"
+                  placeholder="HH/MM - HH/MM"
+                  type="text"
+                  prop={"timeSlotForDelivery"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+              </FormLayout>
+            </div>
+            <hr />
+            <div>
+              <FormInput
+                title="Additionl Info"
+                type="text"
+                prop={"additionalInfo"}
+                handleInput={handleInput}
+                clear={finish}
+              />
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <aside className="absolute bottom-0 flex items-center justify-end bg-white w-full ">
         <Button
           body="Save"
           variant="primary"
-          disabled={!isFormValid}
-          className="mr-[60px] w-[167px] h-[48px] rounded-lg"
+          // disabled={!isFormValid}
+          className="mr-[60px]   rounded-lg"
+          size={"big"}
           onClick={handleAddTeamMember}
         />
-      </section>
-    </>
+      </aside>
+    </Layout>
   );
 });

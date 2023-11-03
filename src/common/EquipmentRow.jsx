@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import State from "./State";
 import axios from "axios";
 import { useStore } from "@/models/root.store";
 
@@ -13,12 +12,12 @@ export default function EquipmentRow({
   className = "",
 }) {
   const { orders, aside } = useStore();
-  const [user, setUser] = useState("");
+  const [member, setMember] = useState("");
   useEffect(() => {
     axios
       .get(`http://localhost:3001/api/teamMembers/${idTeamMember}`)
       .then((res) => {
-        setUser(res.data);
+        setMember(res.data);
       });
   }, []);
 
@@ -35,7 +34,7 @@ export default function EquipmentRow({
         #{id}
       </td>
       <td className="pl-3 py-3">
-        {user.firstName} {user.lastName}
+        {member.firstName} {member.lastName}
       </td>
       <td className="pl-3 py-3">{date}</td>
       <td className="pl-3 py-3 ">{state}</td>

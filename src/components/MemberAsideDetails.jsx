@@ -6,7 +6,7 @@ import { useStore } from "@/models/root.store";
 
 export default observer(function MemberAsideDetails({ className }) {
   const { members } = useStore();
-  const member = members.oneMember();
+  const member = members.selectedMember;
   return (
     <article
       className={`${className || ""} flex flex-col justify-between h-full`}

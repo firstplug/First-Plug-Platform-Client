@@ -25,12 +25,11 @@ export default observer(function ColaboratorCard({
   className,
 }) {
   const store = useStore();
-  const { openModal, closeModal, isModalOpen } = useModal();
-  const [optionAside, setOptionAside] = useState("details");
 
-  const handleModal = (option) => {
-    setOptionAside(option);
-    openModal();
+  const handleModal = (asideType) => {
+    store.members.setSelectedMember(member._id);
+    store.aside.openAside();
+    store.aside.setAside(asideType);
   };
 
   const handleDeleteMember = () => {
@@ -64,7 +63,7 @@ export default observer(function ColaboratorCard({
               </div>
               <h2
                 className="text-black font-bold cursor-pointer"
-                onClick={() => handleModal("details")}
+                onClick={() => handleModal("memberDetails")}
               >
                 {firstName} {lastName}
               </h2>
@@ -79,11 +78,7 @@ export default observer(function ColaboratorCard({
                   className="text-dark-grey w-[1.2rem] h-[1.2rem]"
                 />
               }
-              onClick={() => {
-                store.members.setSelectedMember(member._id);
-                store.aside.openAside();
-                store.aside.setAside("memberDetails");
-              }}
+              onClick={() => handleModal("editMember")}
             />
             <Button
               onClick={handleDeleteMember}

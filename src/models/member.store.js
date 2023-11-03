@@ -21,8 +21,15 @@ export const TeamMember = types.model({
 export const MemberStore = types
   .model({
     members: types.array(TeamMember),
-    selectedMember: types.optional(types.string, ""),
+    memberSelected: types.optional(types.string, ""),
   })
+  .views((store) => ({
+    get selectedMember() {
+      return store.members.find(
+        (member) => member._id === store.memberSelected
+      );
+    },
+  }))
   .actions((store) => ({
     setMembers(members) {
       store.members = members;
@@ -31,13 +38,6 @@ export const MemberStore = types
       store.members = [...store.members, member];
     },
     setSelectedMember(memberId) {
-      store.selectedMember = memberId;
-    },
-  }))
-  .views((store) => ({
-    oneMember() {
-      return store.members.filter(
-        (member) => member._id === store.selectedMember
-      )[0];
+      store.memberSelected = memberId;
     },
   }));

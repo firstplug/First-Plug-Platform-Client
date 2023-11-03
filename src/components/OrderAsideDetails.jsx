@@ -6,31 +6,30 @@ import { observer } from "mobx-react-lite";
 
 export default observer(function OrderAsideDetails() {
   const { orders } = useStore();
-  const selectedOrder = orders.oneOrder();
+  const selectedOrder = orders.selectedOrder;
 
-  console.log(selectedOrder.products);
   return (
-    <div>
+    <div className="h-full relative">
       <section className="flex flex-col gap-4">
         {selectedOrder.products.map((id) => (
           <ProductDetail key={id} porductId={id} className="" />
         ))}
       </section>
 
-      <div className="flex gap-4 w-full absolute bottom-0">
+      <div className="flex gap-4 w-full absolute bottom-0 ">
         <Button
           body="Download Invoice"
           variant={"secondary"}
           size={"big"}
           icon={<DownloadIcon />}
-          className={"rounded-md w-3/6 "}
+          className={"rounded-md w-1/2"}
         />
         <Button
           body="Download Payment Details"
           variant={"secondary"}
           size={"big"}
           icon={<DownloadIcon />}
-          className={"rounded-md w-4/6 "}
+          className={"rounded-md w-1/2 "}
         />
       </div>
     </div>

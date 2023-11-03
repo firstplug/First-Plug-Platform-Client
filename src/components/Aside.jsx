@@ -3,6 +3,7 @@ import { IconX } from "@/common/Icons";
 import AsideContent from "./AsideContent";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
+import AsideTitle from "@/common/AsideTitle";
 export default observer(function Aside({ title, closeModal, className = "" }) {
   const { aside } = useStore();
 
@@ -20,7 +21,7 @@ export default observer(function Aside({ title, closeModal, className = "" }) {
         {/* header */}
         <header className="flex justify-between items-center">
           <h2 className="text-2xl font-sans text-black font-semibold">
-            {title}
+            <AsideTitle />
           </h2>
           <button onClick={() => aside.closeAside()}>
             <IconX className="h-8 w-8" />

@@ -57,7 +57,7 @@ export default (function TableTeam({ img, className, members }) {
             </td>
             <td className=" py-4 px-3 ">
               <div className="flex gap-5">
-                <Button onClick={() => console.log("a")}>
+                <Button onClick={() => {}}>
                   <PenIcon stroke={2} className="w-[1rem] h-[1rem]" />
                 </Button>
                 <Button>

@@ -13,21 +13,18 @@ const Orders = types.model({
 export const OrderStore = types
   .model({
     orders: types.array(Orders),
-    selectedOrder: types.optional(types.string, ""),
+    orderSelected: types.optional(types.string, ""),
   })
+  .views((store) => ({
+    get selectedOrder() {
+      return store.orders.find((order) => order._id === store.orderSelected);
+    },
+  }))
   .actions((store) => ({
     setOrders(orders) {
       store.orders = orders;
     },
     setSelectedOrder(orderId) {
-      console.log("ENTRA AL SELECTED ID ORDER: ", orderId);
-      store.selectedOrder = orderId;
-    },
-  }))
-  .views((store) => ({
-    oneOrder() {
-      return store.orders.filter(
-        (order) => order._id === store.selectedOrder
-      )[0];
+      store.orderSelected = orderId;
     },
   }));

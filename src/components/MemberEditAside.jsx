@@ -2,14 +2,19 @@ import Button from "@/common/Button";
 import DropdownInput from "@/common/DropdownInput";
 import { TrashIcon } from "@/common/Icons";
 import Input from "@/common/Input";
-
-export default function MemberEditAside({ className = "" }) {
+import { useStore } from "@/models/root.store";
+import { observer } from "mobx-react-lite";
+import Photo from "../../public/employees/member.jpg";
+import Image from "next/image";
+export default observer(function MemberEditAside({ className = "" }) {
+  const { members } = useStore();
+  const member = members.selectedMember;
   return (
     <div className={`flex flex-col gap-6 pr-4 pb-10 ${className}`}>
       <div className="flex gap-4">
         <div className="relative w-36 h-36">
           <Image
-            src={img || Photo}
+            src={member.img || Photo}
             alt="Colaborator"
             fill
             className="object-cover"
@@ -95,4 +100,4 @@ export default function MemberEditAside({ className = "" }) {
       </div>
     </div>
   );
-}
+});

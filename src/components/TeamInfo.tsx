@@ -6,36 +6,27 @@ import { TeamServices } from "@/services/team.services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMemberServices } from "@/services/teamMember.services";
-
-type filterMembers = {
-  _id: string;
-  firstName: string;
-  lastName: string;
-}[]
-
-type team = {
-  _id: string;
-  name: string;
-}
+import { TeamMember } from "@/models/member.store";
+import { Team } from "@/models/teams.store";
 
 interface TeamInfoProps {
-  team: team
-  filterMembers: filterMembers
+  team: Team
 }
 
-export default observer(function TeamInfo({ team, filterMembers }: TeamInfoProps) {
-  const store = useStore();
-  const [selectedMembers, setSelectedMembers] = useState<{ _id: string; firstName: string; lastName: string }[]>([]);
+export default observer(function TeamInfo({ team }: TeamInfoProps) {
+  const { members: { setMembers }, teams: { setTeams } } = useStore();
+
+  const [selectedMembers, setSelectedMembers] = useState<TeamMember[]>([]);
   const [showAddMember, setShowAddMember] = useState(false);
 
   const handleAddTeam = () => {
     selectedMembers.forEach((member) => {
       TeamServices.addToTeam(team._id, member._id).then((res) => {
         TeamServices.getAllTeams().then((res) => {
-          store.setTeams(res);
+          setTeams(res);
         });
         TeamMemberServices.getAllMembers().then((res) => {
-          store.setMembers(res.data);
+          setMembers(res);
         });
       });
     });
@@ -44,26 +35,26 @@ export default observer(function TeamInfo({ team, filterMembers }: TeamInfoProps
   const handleDeleteMember = (member: { _id: string }) => {
     TeamServices.deleteFromTeam(team._id, member._id).then((res) => {
       TeamServices.getAllTeams().then((res) => {
-        store.setTeams(res);
+        setTeams(res);
       });
       TeamMemberServices.getAllMembers().then((res) => {
-        store.setMembers(res.data);
+        setMembers(res);
       });
     });
   };
 
-  const handleSelectedMembers = (member: { _id: string; firstName: string; lastName: string }) => {
-    setSelectedMembers((prevSelectedMember) => {
-      const isSelected = prevSelectedMember.some(
+  const handleSelectedMembers = (member: TeamMember) => {
+    setSelectedMembers((prevSelectedMembers) => {
+      const isSelected = prevSelectedMembers.some(
         (selected) => selected._id === member._id
       );
 
       if (isSelected) {
-        return prevSelectedMember.filter(
+        return prevSelectedMembers.filter(
           (selected) => selected._id !== member._id
         );
       } else {
-        return [...prevSelectedMember, member];
+        return [...prevSelectedMembers, member];
       }
     });
   };
@@ -84,25 +75,24 @@ export default observer(function TeamInfo({ team, filterMembers }: TeamInfoProps
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <span>Members</span>
-          <span>({filterMembers ? filterMembers.length : 0})</span>
+          <span>({team.teamMembers.length})</span>
         </div>
-        {filterMembers &&
-          filterMembers.map((member) => (
-            <div
-              className="border p-3 flex justify-between rounded-xl"
-              key={member._id}
-            >
-              <div className="flex gap-2">
-                <p className="text-black font-semibold">
-                  {member.firstName} {member.lastName}
-                </p>
-                <span className="text-dark-grey">{member._id}</span>
-              </div>
-              <Button onClick={() => handleDeleteMember(member)}>
-                <TrashIcon className={"w-[1.2rem] text-error"} />
-              </Button>
+        {team.teamMembers.map((member) => (
+          <div
+            className="border p-3 flex justify-between rounded-xl"
+            key={member._id}
+          >
+            <div className="flex gap-2">
+              <p className="text-black font-semibold">
+                {member.firstName} {member.lastName}
+              </p>
+              <span className="text-dark-grey">{member._id}</span>
             </div>
-          ))}
+            <Button onClick={() => handleDeleteMember(member)}>
+              <TrashIcon className={"w-[1.2rem] text-error"} />
+            </Button>
+          </div>
+        ))}
       </div>
 
       <hr className="my-2" />

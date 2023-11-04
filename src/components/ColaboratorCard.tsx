@@ -11,11 +11,11 @@ import MemberAsideDetails from "./MemberAsideDetails";
 import EditMemberAside from "./EditMemberAside";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
-
-const status = ["incomplete", "complete"] as const;
+import { observer } from "mobx-react-lite";
+import { TeamMember } from "@/models/member.store";
 
 interface ColaboratorCardProps {
-  member: string;
+  member: TeamMember;
   firstName: string;
   lastName: string;
   _id: string;
@@ -26,7 +26,9 @@ interface ColaboratorCardProps {
   className?: string;
 }
 
-export default function ColaboratorCard({
+const status = ["incomplete", "complete"] as const;
+
+export default observer(function ColaboratorCard({
   member,
   firstName,
   lastName,
@@ -36,20 +38,19 @@ export default function ColaboratorCard({
   shimentsDetails = "incomplete",
   teams,
   className,
-} : ColaboratorCardProps) {
-  const store = useStore();
-  const { openModal, closeModal, isModalOpen } = useModal();
-  const [optionAside, setOptionAside] = useState("details");
+}: ColaboratorCardProps) {
+  const { aside: { openAside, setAside }, members: { setMembers, setSelectedMember } } = useStore();
 
-  const handleModal = (option) => {
-    setOptionAside(option);
-    openModal();
+  const handleModal = (asideType) => {
+    setSelectedMember(member._id);
+    openAside();
+    setAside(asideType);
   };
 
   const handleDeleteMember = () => {
     TeamMemberServices.deleteMember(_id).then((res) => {
       TeamMemberServices.getAllMembers().then((res) => {
-        store.setMembers(res.data);
+        setMembers(res);
       });
     });
   };
@@ -77,7 +78,7 @@ export default function ColaboratorCard({
               </div>
               <h2
                 className="text-black font-bold cursor-pointer"
-                onClick={() => handleModal("details")}
+                onClick={() => handleModal("memberDetails")}
               >
                 {firstName} {lastName}
               </h2>
@@ -88,11 +89,11 @@ export default function ColaboratorCard({
             <Button
               icon={
                 <PenIcon
-                strokeWidth={2}
+                  strokeWidth={2}
                   className="text-dark-grey w-[1.2rem] h-[1.2rem]"
                 />
               }
-              onClick={() => handleModal("edit")}
+              onClick={() => handleModal("editMember")}
             />
             <Button
               onClick={handleDeleteMember}
@@ -129,20 +130,6 @@ export default function ColaboratorCard({
           </div>
         </section>
       </div>
-      {isModalOpen &&
-        (optionAside === "details" ? (
-          <Aside closeModal={closeModal}>
-            <MemberAsideDetails member={member} />
-          </Aside>
-        ) : (
-          <Aside
-            title="Team Member"
-            closeModal={closeModal}
-            className="overflow-y-auto outline-red-400 text-md"
-          >
-            <EditMemberAside member={member} closeModal={closeModal} />
-          </Aside>
-        ))}
     </>
   );
-}
+});

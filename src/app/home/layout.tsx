@@ -1,3 +1,4 @@
+import Aside from "@/components/Aside";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import { ReactNode } from "react";
@@ -16,6 +17,7 @@ export default function RootLayout({ children } : RootLayoutProps) {
         <Navbar />
 
         {children}
+        <Aside />
       </div>
     </div>
   );

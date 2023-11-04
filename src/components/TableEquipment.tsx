@@ -2,13 +2,11 @@ import EquipmentRow from "@/common/EquipmentRow";
 import { ChevronDown } from "@/common/Icons";
 import { dateTo_DDMMYY } from "@/utils/dateFormat";
 import State from "@/common/State";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/models/root.store";
 
-interface TableEquipmentProps {
-  handleClick: (id: number | string) => void;
-  orders: [];
-}
-
-export default function TableEquipment({ handleClick, orders } : TableEquipmentProps) {
+export default observer(function TableEquipment() {
+  const { orders } = useStore();
   return (
     <>
       <table className="flex-col\ border border-border divide-y divide-gray-200 font-inter text-black">
@@ -36,19 +34,20 @@ export default function TableEquipment({ handleClick, orders } : TableEquipmentP
         </thead>
 
         <tbody className="font-medium text-md divide-y divide-gray-200 ">
-          {orders.map(({ _id, teamMember, date, status, totalPrice }) => (
-            <EquipmentRow
-              key={_id}
-              id={_id}
-              idTeamMember={teamMember[0]}
-              date={dateTo_DDMMYY(date)}
-              state={<State message={status} />}
-              price={totalPrice}
-              handleClick={handleClick}
-            />
-          ))}
+          {orders.orders.map(
+            ({ _id, teamMember, date, status, totalPrice }) => (
+              <EquipmentRow
+                key={_id}
+                id={_id}
+                idTeamMember={teamMember[0]}
+                date={dateTo_DDMMYY(date)}
+                state={<State message={status} />}
+                price={totalPrice}
+              />
+            )
+          )}
         </tbody>
       </table>
     </>
   );
-}
+});

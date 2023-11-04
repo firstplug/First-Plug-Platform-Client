@@ -13,8 +13,8 @@ interface EditTeamsAsideDetailsProps {
 export default observer(function EditTeamsAsideDetails({
   className,
   members,
-} : EditTeamsAsideDetailsProps) {
-  const store = useStore();
+}: EditTeamsAsideDetailsProps) {
+  const { teams: { setTeams, teams } } = useStore();
 
   const [selectedTeams, setSelectedTeams] = useState<any[]>([]);
 
@@ -34,13 +34,13 @@ export default observer(function EditTeamsAsideDetails({
     });
   };
 
-  const handleDeleteSelectedTeams = async (teamId: string ) => {
+  const handleDeleteSelectedTeams = async (teamId: string) => {
     try {
       await Promise.all(
         selectedTeams.map((team) => TeamServices.deleteTeam(team._id))
       );
       TeamServices.getAllTeams().then((res) => {
-        store.setTeams(res);
+        setTeams(res);
       });
       setSelectedTeams([]);
     } catch (error) {
@@ -51,7 +51,7 @@ export default observer(function EditTeamsAsideDetails({
   return (
     <div className={` ${className} flex flex-col justify-between h-full `}>
       <div className="flex flex-col gap-2 h-[70vh] overflow-y-auto">
-        {store.teams.map((team) => (
+        {teams.map((team) => (
           <TeamDetails
             key={team._id}
             team={team}

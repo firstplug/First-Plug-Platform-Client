@@ -4,25 +4,21 @@ import Button from "@/common/Button";
 import { DropDownArrow } from "@/common/Icons";
 import TeamCard from "@/common/TeamCard";
 import TeamInfo from "./TeamInfo";
-
-type team =  {
-  name: string;
-  teamMember: string[]; 
-}
+import { Team } from "@/models/teams.store";
 
 interface TeamDetailsProps {
-  team: team
+  team: Team
   className?: string;
-  handleSelectedTeams: (selectedTeam: team) => void;
+  handleSelectedTeams: (selectedTeam: Team) => void;
   members: string[];
-  onDelete: (teamId: string) => Promise<void>; 
+  onDelete: (teamId: string) => Promise<void>;
 }
 
 export default function TeamDetails({
   team,
   className,
   handleSelectedTeams,
-} : TeamDetailsProps) {
+}: TeamDetailsProps) {
   const [showDetails, setShowDetails] = useState<Boolean>(false);
 
   return (
@@ -38,14 +34,13 @@ export default function TeamDetails({
           onClick={() => setShowDetails(!showDetails)}
         >
           <DropDownArrow
-            className={`${
-              showDetails ? "rotate-180 " : " rotate-360"
-            } transition-all duration-300`}
+            className={`${showDetails ? "rotate-180 " : " rotate-360"
+              } transition-all duration-300`}
           />
         </Button>
       </div>
 
-      {showDetails && <TeamInfo filterMembers={team.teamMember} team={team} />}
+      {showDetails && <TeamInfo team={team} />}
     </section>
   );
 }

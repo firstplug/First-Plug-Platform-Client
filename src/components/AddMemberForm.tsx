@@ -1,26 +1,20 @@
 import React from "react";
 import SearchInput from "@/common/SearchInput";
 import { useStore } from "@/models/root.store";
-
-interface Member {
-  _id: string;
-  firstName: string;
-  lastName: string;
-}
-
+import { observer } from "mobx-react-lite";
+import { TeamMember } from "@/models/member.store";
 interface AddMemberFormProps {
-  handleSelectedMembers: (member: Member) => void;
-  members: string[];
+  handleSelectedMembers: (member: TeamMember) => void;
 }
 
-export default function AddMemberForm({ handleSelectedMembers }: AddMemberFormProps) {
-  const store = useStore();
+export default observer(function AddMemberForm({ handleSelectedMembers }: AddMemberFormProps) {
+  const { members: { members } } = useStore();
 
   return (
     <section>
       <SearchInput placeholder="Search Member" />
       <div className="flex flex-col gap-3 mt-3">
-        {store.members.map((member: Member) => (
+        {members.map((member) => (
           <div className="flex gap-2 items-center" key={member._id}>
             <input
               type="checkbox"
@@ -37,4 +31,4 @@ export default function AddMemberForm({ handleSelectedMembers }: AddMemberFormPr
       </div>
     </section>
   );
-}
+});

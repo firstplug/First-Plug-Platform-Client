@@ -16,7 +16,7 @@ type TableProps = {
 
 export default observer(function Table({ className } : TableProps) {
   const { openModal } = useModal();
-  const store = useStore();
+  const { products } = useStore();
 
   const info: Detail[] = [
     {
@@ -57,7 +57,7 @@ export default observer(function Table({ className } : TableProps) {
   ];
 
   const [rowOpenState, setRowOpenState] = useState(
-    Array(store.products.length).fill(false)
+    Array(products.products.length).fill(false)
   );
 
   const toggleRow = (index) => {
@@ -77,7 +77,7 @@ export default observer(function Table({ className } : TableProps) {
         </tr>
       </thead>
       <tbody>
-        {store.products?.map((product, index) => (
+        {products.products?.map((product, index) => (
           <Fragment key={product._id}>
             <tr className="bg-white text-black border-b-2 border-gray-200 text-left h-[6rem] ">
               <td className="py-4 px-3 flex gap-9 items-center">

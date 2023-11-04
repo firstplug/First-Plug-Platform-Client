@@ -6,26 +6,11 @@ import { useStore } from "@/models/root.store";
 
 interface MemberAsideDetailsProps {
   className?: string;
-  member: MemberProps[]; 
 }
 
-interface MemberProps {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  joiningDate: string;
-  teams: string[]; 
-  jobPosition: string; 
-  shimentsDetails?: string;
-  products?: ProductData[];
-}
-
-interface ProductData {
-}
-
-export default observer(function MemberAsideDetails({ member, className } : MemberAsideDetailsProps) {
-  const store = useStore();
+export default observer(function MemberAsideDetails({ className } : MemberAsideDetailsProps) {
+  const { members } = useStore();
+  const member = members.selectedMember;
   return (
     <article
       className={`${className || ""} flex flex-col justify-between h-full`}
@@ -38,7 +23,8 @@ export default observer(function MemberAsideDetails({ member, className } : Memb
           <div className="flex justify-between">
             <h1 className="font-semibold text-xl">Products</h1>
             <p className="bg-border  rounded-full h-6 w-6 text-center  grid place-items-center items text-sm">
-              {member.products?.length || 0}
+              {/* TODO: MEMBER PRODUCTS YOU SONS OF BITCHES. */}
+              {/* {member.products?.length || 0} */}
             </p>
           </div>
 

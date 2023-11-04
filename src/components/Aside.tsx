@@ -1,16 +1,18 @@
 "use client";
 import { IconX } from "@/common/Icons";
-import { ReactNode } from "react";
+import AsideContent from "./AsideContent";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/models/root.store";
+import AsideTitle from "@/common/AsideTitle";
 
-interface asideProps  {
-  children?: ReactNode
-  title?: string;
-  closeModal: () => void;
-  className?: string | "";
+interface AsideProps {
+  className?: string
 }
 
-export default function Aside({ children, title, closeModal, className } : asideProps) {
-  return (
+export default observer(function Aside({ className = "" }: AsideProps) {
+  const { aside: { closeAside, isOpen } } = useStore();
+
+  return isOpen ? (
     <>
       {/* overlay */}
       <div
@@ -24,15 +26,17 @@ export default function Aside({ children, title, closeModal, className } : aside
         {/* header */}
         <header className="flex justify-between items-center">
           <h2 className="text-2xl font-sans text-black font-semibold">
-            {title}
+            <AsideTitle />
           </h2>
-          <button onClick={() => closeModal()}>
-            <IconX className="h-8 w-8" strokeWidth={1.5}/>
+          <button onClick={() => closeAside()}>
+            <IconX className="h-8 w-8" />
           </button>
         </header>
 
-        <div className={`flex-[1] mt-[40px] ${className}`}>{children}</div>
+        <div className={`flex-[1] mt-[40px] ${className}`}>
+          <AsideContent />
+        </div>
       </aside>
     </>
-  );
-}
+  ) : null;
+});

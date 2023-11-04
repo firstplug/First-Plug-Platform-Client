@@ -1,22 +1,8 @@
+import { Product } from "@/models/products.store";
 import axios, { AxiosResponse } from "axios";
 const apiURL = "http://localhost:3001";
 
 const ProductStatus = ["Available", "Delivered"] as const;
-
-type Product = {
-  _id: string
-  category: string;
-  model: string;
-  color: string;
-  screen: string;
-  keyboard: string;
-  processor: string;
-  ram: string;
-  status: typeof ProductStatus[number];
-  imgUrl: string;
-  quantity: number;
-  __v: number
-}
 
 type CreationProduct = Omit<Omit<Product, "_id">, "__v">;
 

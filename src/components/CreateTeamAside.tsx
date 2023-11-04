@@ -8,19 +8,13 @@ import { TeamMemberServices } from "@/services/teamMember.services";
 
 interface CreateTeamAsideProps {
   className?: string;
-  members: string[];
-  closeModal: () => void;
 }
 
-export default observer(function CreateTeamAside({
-  className = "",
-  members,
-  closeModal,
-}: CreateTeamAsideProps) {
-  const store = useStore();
-  const [teamName, setTeamName] = useState<string>(""); 
+export default observer(function CreateTeamAside({ className = "" }: CreateTeamAsideProps) {
+  const { aside: { closeAside }, members: { memberCount, setMembers }, teams: { setTeams } } = useStore();
+  const [teamName, setTeamName] = useState("");
+  const [selectedMembers, setSelectedMembers] = useState([]);
 
-  const [selectedMembers, setSelectedMembers] = useState<any[]>([]);
 
   const handleCreateTeam = async () => {
     try {
@@ -31,14 +25,14 @@ export default observer(function CreateTeamAside({
 
       TeamServices.createTeam(newTeam).then((res) => {
         TeamServices.getAllTeams().then((res) => {
-          store.setTeams(res);
+          setTeams(res);
         });
         TeamMemberServices.getAllMembers().then((res) => {
-          store.setMembers(res.data);
+          setMembers(res);
         });
       });
 
-      closeModal();
+      closeAside();
     } catch (error) {
       console.error("Error creating team:", error);
     }
@@ -77,12 +71,11 @@ export default observer(function CreateTeamAside({
         <div className="flex flex-col gap-2">
           <div className="flex justify-between">
             <span>Members</span>
-            <span>({members.length})</span>
+            <span>({memberCount})</span>
           </div>
 
           <AddMemberForm
             handleSelectedMembers={handleSelectedMembers}
-            members={members}
           />
         </div>
       </div>
@@ -92,7 +85,7 @@ export default observer(function CreateTeamAside({
           variant="secondary"
           size="big"
           className="flex-grow rounded-md"
-          onClick={() => closeModal()}
+          onClick={() => closeAside()}
         >
           Cancel
         </Button>

@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { ReactNode, useCallback, useEffect} from "react";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { ProductServices } from "@/services/product.services";
+import { AsideStore } from "@/models/aside.store";
 
 type ProvidersProps = {
   children: ReactNode;
@@ -12,20 +13,20 @@ type ProvidersProps = {
 
 export default function Providers({ children } : ProvidersProps) {
   const store = RootStore.create({
-    users : [],
-    members : [],
-    products : [],
-    orders : [],
-    shipments : [],
-    teams : [],
+    orders: {},
+    shipments: {},
+    products: {},
+    teams: {},
+    members: {},
+    aside: {},
   });
 
   const setData = useCallback(async () => {
     TeamMemberServices.getAllMembers().then((res) => {
-      store.setMembers(res.data);
+      store.members.setMembers(res);
     });
     ProductServices.getAllProducts().then((res) => {
-      store.setProducts(res);
+      store.products.setProducts(res);
     });
   }, [store]);
 

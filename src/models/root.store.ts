@@ -1,8 +1,9 @@
 "use client";
 import { createContext, useContext } from "react";
-import { types } from "mobx-state-tree";
+import { types, Instance, SnapshotOut } from "mobx-state-tree";
 
-const Users = types.model({
+
+const User = types.model({
   _id: types.string,
   fullname: types.optional(types.string, ""),
   email: types.optional(types.string, ""),
@@ -19,7 +20,7 @@ const Users = types.model({
   orders: types.optional(types.array(types.string), []),
 });
 
-const Products = types.model({
+const Product = types.model({
   _id: types.string,
   category: types.optional(types.string, ""),
   model: types.optional(types.string, ""),
@@ -37,7 +38,7 @@ const Products = types.model({
   quantity: types.number,
 });
 
-const Orders = types.model({
+const Order = types.model({
   _id: types.string,
   teamMember: types.optional(types.array(types.string), []),
   status: types.optional(types.string, ""),
@@ -64,13 +65,13 @@ const TeamMember = types.model({
   teams: types.optional(types.array(types.string), []),
 });
 
-const Teams = types.model({
+const Team = types.model({
   _id: types.string,
   name: types.optional(types.string, ""),
   teamMember: types.optional(types.array(TeamMember), []),
 });
 
-const Shipments = types.model({
+const Shipment = types.model({
   _id: types.string,
   fullname: types.optional(types.string, ""),
   date: types.Date,
@@ -82,38 +83,55 @@ const Shipments = types.model({
   orders: types.optional(types.array(types.string), []),
 });
 
+type UserType = Instance<typeof User>;
+type ProductType = Instance<typeof Product>;
+export type TeamMemberType = Instance<typeof TeamMember>;
+type TeamType = Instance<typeof Team>;
+type ShipmentType = Instance<typeof Shipment>;
+type OrderType = Instance<typeof Order>;
+
 export const RootStore = types
   .model({
-    users: types.array(Users),
+    users: types.array(User),
     members: types.array(TeamMember),
-    products: types.array(Products),
-    orders: types.array(Orders),
-    shipments: types.array(Shipments),
-    teams: types.array(Teams),
+    products: types.array(Product),
+    orders: types.array(Order),
+    shipments: types.array(Shipment),
+    teams: types.array(Team),
   })
   .actions((store) => ({
-    setUser(user) {
-      store.users = user;
+    setUser(user: UserType[]) {
+      store.users.replace(user);
     },
-    setMembers(members) {
-      store.members = members;
+    setMembers(member: TeamMemberType[]) {
+      store.members.replace(member);
     },
-    setTeams(teams) {
-      store.teams = teams;
+    setTeams(teams: TeamType[]) {
+      store.teams.replace(teams);
     },
-    setProducts(products) {
-      store.products = products;
+    setProducts(products: ProductType[]) {
+      store.products.replace(products);
     },
-    addTeam(team) {
-      store.teams = [...store.teams, team];
+    addTeam(team: TeamType[]) {
+      store.teams.push(...team)
     },
-    addMember(member) {
-      store.members = [...store.members, member];
+    addMember(member: TeamMemberType[]) {
+      store.members.push(...member)
     },
-    addProduct(product) {
-      store.products = [...store.products, product];
+    addProduct(product: ProductType[]) {
+      store.products.push(product);
     },
   }));
 
-export const RootStoreContext = createContext(RootStore);
-export const useStore = () => useContext(RootStoreContext);
+
+export const useStore = () => {
+  const store = useContext(RootStoreContext);
+  if (!store) {
+    throw new Error("useRootStore debe usarse dentro de un RootStoreProvider");
+  }
+  return store;
+};
+
+export const RootStoreContext = createContext<Instance<typeof RootStore> | null>(null);
+export type RootStoreInstance = Instance<typeof RootStore>;
+export type RootStoreSnapshot = SnapshotOut<typeof RootStore>;

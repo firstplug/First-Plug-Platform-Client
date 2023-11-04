@@ -1,0 +1,240 @@
+"use client";
+import CustomLink from "@/common/CustomLink";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import DropdownInput from "@/common/DropdownInput";
+import Button from "@/common/Button";
+import memberImage from "../../../../public/member.png";
+import Layout from "@/common/Layout";
+import { IconX } from "../../../common/Icons";
+import useInput from "@/hooks/useInput";
+import { observer } from "mobx-react-lite";
+import { TeamMemberServices } from "@/services/teamMember.services";
+import { clearinputs, validateForm } from "@/utils/inputsServices";
+import { useStore } from "@/models/root.store";
+import { TeamServices } from "@/services/team.services";
+import FormInput from "@/components/FormInput";
+import FormLayout from "@/common/FormLayout";
+import SectionTitle from "@/common/SectionTitle";
+import { INITIAL_MEMBER_DATA } from "@/utils/constants";
+
+export default observer(function AddTeam() {
+  const store = useStore();
+
+  useEffect(() => {
+    TeamServices.getAllTeams().then((res) => store.setTeams(res));
+  }, []);
+
+  const [memberData, setMemberData] = useState(INITIAL_MEMBER_DATA);
+  const handleInput = (prop, value) => {
+    setMemberData((prev) => ({ ...prev, [prop]: value }));
+  };
+
+  const [finish, setFinished] = useState(false);
+  const handleAddTeamMember = () => {
+    TeamMemberServices.createMember(memberData)
+      .then((res) => {
+        alert("Member created!");
+        setMemberData(INITIAL_MEMBER_DATA);
+        setFinished(true);
+        store.addMember(res.data);
+      })
+      .catch(() => {
+        alert("Error!");
+      });
+  };
+
+  return (
+    <Layout className="relative">
+      <div className="h-full overflow-y-auto  ">
+        <div className=" px-10 py-4 rounded-3xl shadow-lg border  k">
+          <SectionTitle className="text-[20px]">Add Team Member</SectionTitle>
+
+          <section className="flex flex-col gap-4 ">
+            <div className="  flex items-center  gap-7  ">
+              <section className=" h-full rounded-[30px] relative">
+                <Image
+                  src={memberImage}
+                  alt="emptyImage"
+                  className="object-cover  h-full"
+                />
+                <Button
+                  icon={<IconX />}
+                  variant="primary"
+                  className="rounded-3xl w-[30px] h-[30px] absolute bottom-0 left-[110px] z-[1] "
+                />
+              </section>
+              <section className="  w-full ">
+                <FormLayout>
+                  <FormInput
+                    type={"text"}
+                    title={"First Name"}
+                    placeholder={"Complete"}
+                    prop="firstName"
+                    handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
+                  />
+                  <FormInput
+                    title="Last Name"
+                    placeholder="Complete"
+                    type="text"
+                    prop={"lastName"}
+                    handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
+                  />
+                  <FormInput
+                    title="Date of Birth"
+                    type="date"
+                    prop={"dateOfBirth"}
+                    handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
+                  />
+                </FormLayout>
+                <FormLayout>
+                  <FormInput
+                    title="Phone Number"
+                    placeholder="+54 11 11111111"
+                    type="text"
+                    prop={"phone"}
+                    handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
+                  />
+                  <FormInput
+                    title="Email Address"
+                    placeholder="user@workemail.com"
+                    type="email"
+                    prop={"email"}
+                    handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
+                  />
+                  <span className="w-[20%]"></span>
+                </FormLayout>
+              </section>
+            </div>
+            <hr />
+            <div>
+              <SectionTitle>Employee information</SectionTitle>
+
+              <FormLayout className="w-1/2">
+                <FormInput
+                  options={[...store.teams.map((team) => team.name)]}
+                  placeholder="Team Name"
+                  title="Team Name"
+                  type="options"
+                  prop={"team"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+
+                <FormInput
+                  placeholder="Job Position"
+                  title="Job Position"
+                  type="text"
+                  prop={"jobPosition"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+              </FormLayout>
+              <FormLayout>
+                <p className="font-inter text-[16px] text-dark-grey">
+                  Does the team not exist yet?
+                </p>
+                <CustomLink href="">Create Team</CustomLink>
+              </FormLayout>
+            </div>
+            <hr />
+            <div>
+              <SectionTitle>Shipment Details</SectionTitle>
+
+              <FormLayout>
+                <FormInput
+                  title="City"
+                  placeholder="City"
+                  type="text"
+                  prop={"city"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+                <FormInput
+                  title="Zip Code"
+                  placeholder="0000"
+                  type="number"
+                  prop={"zipCode"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+                <FormInput
+                  title="Address"
+                  placeholder="Steet, number"
+                  type="text"
+                  prop={"address"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+                <FormInput
+                  title="Appartment, Suite, etc."
+                  placeholder="PB B"
+                  type="text"
+                  prop={"appartment"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+              </FormLayout>
+              <FormLayout>
+                <FormInput
+                  title="Joining Date"
+                  type="date"
+                  prop={"joiningDate"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+                <FormInput
+                  title="Time slot for delivery"
+                  placeholder="HH/MM - HH/MM"
+                  type="text"
+                  prop={"timeSlotForDelivery"}
+                  handleInput={handleInput}
+                  required={"required"}
+                  clear={finish}
+                />
+              </FormLayout>
+            </div>
+            <hr />
+            <div>
+              <FormInput
+                title="Additionl Info"
+                type="text"
+                prop={"additionalInfo"}
+                handleInput={handleInput}
+                clear={finish}
+              />
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <aside className="absolute bottom-0 flex items-center justify-end bg-white w-full ">
+        <Button
+          body="Save"
+          variant="primary"
+          // disabled={!isFormValid}
+          className="mr-[60px]   rounded-lg"
+          size={"big"}
+          onClick={handleAddTeamMember}
+        />
+      </aside>
+    </Layout>
+  );
+});

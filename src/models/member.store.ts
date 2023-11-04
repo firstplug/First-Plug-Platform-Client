@@ -26,6 +26,10 @@ export const MemberStore = types
     memberSelected: types.optional(types.string, ""),
   })
   .views((store) => ({
+    get memberCount() {
+      return store.members.length
+    },
+
     get selectedMember() {
       return store.members.find(
         (member) => member._id === store.memberSelected

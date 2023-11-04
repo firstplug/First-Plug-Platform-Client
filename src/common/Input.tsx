@@ -37,7 +37,7 @@ export default function Input({
   const inputType = showPassword ? "text" : type;
 
   return (
-    <div className={`relative  h-[95px]   ${className}`}>
+    <div className={`relative   h-24  font-inter  ${className}`}>
       <label className="block text-dark-grey ml-2 font-sans">{title}</label>
       <input
         value={value}
@@ -69,7 +69,7 @@ export default function Input({
       )}
 
       {touched && error ? (
-        <p className=" ml-4  text-error text-sm  ">{error}</p>
+        <p className=" ml-2  text-error text-sm  ">{error}</p>
       ) : null}
     </div>
   );

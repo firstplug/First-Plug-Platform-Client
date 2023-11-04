@@ -45,7 +45,7 @@ export default function DropdownInput({
   };
 
   return (
-    <div className={` ${className || ""}`}>
+    <div className={`h-[95px]  ${className || ""}`}>
       <label className="block text-dark-grey ml-2 font-sans">{title}</label>
       <div className="relative">
         <input

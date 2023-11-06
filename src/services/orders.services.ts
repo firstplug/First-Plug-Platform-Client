@@ -1,11 +1,16 @@
 import axios, { AxiosResponse } from "axios";
-const apiUrl = "http://localhost:3001/api";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const ProductStatus = ["Available", "Delivered"] as const;
-const OrderStatus = ["order confirmed", "order canceled", "confirmation pending", "payment pending"] as const;
+const OrderStatus = [
+  "order confirmed",
+  "order canceled",
+  "confirmation pending",
+  "payment pending",
+] as const;
 
 type Product = {
-  _id: string
+  _id: string;
   category: string;
   model: string;
   color: string;
@@ -13,20 +18,20 @@ type Product = {
   keyboard: string;
   processor: string;
   ram: string;
-  status: typeof ProductStatus[number];
+  status: (typeof ProductStatus)[number];
   imgUrl: string;
   quantity: number;
-}
+};
 
 type Order = {
   _id: string;
   teamMember: string[];
-  status: typeof OrderStatus[number];
+  status: (typeof OrderStatus)[number];
   date: Date;
   totalPrice: number;
   products: Product[];
-  __v: number; 
-}
+  __v: number;
+};
 
 type DeleteOrderResponse = {
   msg: string;
@@ -37,26 +42,36 @@ type CreationOrder = Omit<Omit<Product, "_id">, "__v">;
 
 export class OrderServices {
   static async getAllOrders(): Promise<Order[]> {
-    const response: AxiosResponse = await axios.get(`${apiUrl}/orders`);
+    const response: AxiosResponse = await axios.get(`${BASE_URL}/orders`);
     return response.data;
   }
 
   static async createOrder(data: CreationOrder): Promise<Order> {
-    const response: AxiosResponse = await axios.post(`${apiUrl}/orders`, data);
+    const response: AxiosResponse = await axios.post(
+      `${BASE_URL}/orders`,
+      data
+    );
     return response.data;
   }
   static async updateOrder(id: Order["_id"], data: Order): Promise<Order> {
-    const response: AxiosResponse = await axios.put(`${apiUrl}/orders/${id}`, data);
+    const response: AxiosResponse = await axios.put(
+      `${BASE_URL}/orders/${id}`,
+      data
+    );
     return response.data;
   }
 
   static async deleteOrder(id: Order["_id"]): Promise<DeleteOrderResponse> {
-    const response: AxiosResponse = await axios.delete(`${apiUrl}/orders/${id}`);
+    const response: AxiosResponse = await axios.delete(
+      `${BASE_URL}/orders/${id}`
+    );
     return response.data;
   }
 
   static async getOneOrder(orderId: Order["_id"]): Promise<Order> {
-    const response: AxiosResponse = await axios.get(`${apiUrl}/orders/${orderId}`);
+    const response: AxiosResponse = await axios.get(
+      `${BASE_URL}/orders/${orderId}`
+    );
     return response.data;
   }
 }

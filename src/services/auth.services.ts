@@ -14,11 +14,11 @@ type LoginUser = {
 };
 
 export class AuthServices {
-  static async register(data: User) {
+  static async register(data: User): Promise<AxiosResponse> {
     return await axios.post(`${BASE_URL}/api/auth/register`, data);
   }
 
-  static async login(data: LoginUser) {
+  static async login(data: LoginUser): Promise<any> {
     const user: AxiosResponse = await axios.post(
       `${BASE_URL}/api/auth/login`,
       data

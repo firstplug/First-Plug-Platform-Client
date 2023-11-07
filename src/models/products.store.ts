@@ -4,6 +4,8 @@ import { types } from "mobx-state-tree";
 
 export const Product = types.model({
   _id: types.string,
+  name: types.optional(types.string, ""),
+  description: types.optional(types.string, ""),
   category: types.optional(types.string, ""),
   model: types.optional(types.string, ""),
   color: types.optional(types.string, ""),

@@ -1,6 +1,6 @@
 "use client";
 import { useState, Fragment, MouseEvent } from "react";
-import TableDetails, {Detail} from "./TableDetails";
+import TableDetails, { Detail } from "./TableDetails";
 import ButtonMyStock from "@/common/ButtonMyStock";
 import useModal from "@/hooks/useModal";
 import Image from "next/image";
@@ -13,9 +13,9 @@ type TableProps = {
   className?: string;
 }
 
-export default observer(function Table({ className } : TableProps) {
+export default observer(function Table({ className }: TableProps) {
   const { openModal } = useModal();
-  const { products } = useStore();
+  const { products: { products } } = useStore();
 
   const info: Detail[] = [
     {
@@ -56,7 +56,7 @@ export default observer(function Table({ className } : TableProps) {
   ];
 
   const [rowOpenState, setRowOpenState] = useState(
-    Array(products.products.length).fill(false)
+    Array(products.length).fill(false)
   );
 
   const toggleRow = (index) => {
@@ -76,7 +76,7 @@ export default observer(function Table({ className } : TableProps) {
         </tr>
       </thead>
       <tbody>
-        {products.products?.map((product, index) => (
+        {products.map((product, index) => (
           <Fragment key={product._id}>
             <tr className="bg-white text-black border-b-2 border-gray-200 text-left h-[6rem] ">
               <td className="py-4 px-3 flex gap-9 items-center">

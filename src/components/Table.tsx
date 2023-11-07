@@ -11,7 +11,6 @@ import { observer } from "mobx-react-lite";
 
 type TableProps = {
   className?: string;
-  openModal: (event: MouseEvent) => void;
 }
 
 export default observer(function Table({ className } : TableProps) {

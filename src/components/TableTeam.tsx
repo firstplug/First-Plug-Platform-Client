@@ -62,7 +62,7 @@ export default (function TableTeam({ img, className }: TableTeamProps) {
             <td className=" py-4 px-3">
               {member.teams.length ? (
                 member.teams.map((t) => (
-                  <TeamCard team={t || ""} className={"text-lg"} />
+                  <TeamCard key={`table-team-${t}`} team={t || ""} className={"text-lg"} />
                 ))
               ) : (
                 <TeamCard team={"Assing to team"} className={"text-lg"} />
@@ -89,5 +89,6 @@ export default (function TableTeam({ img, className }: TableTeamProps) {
           </tr>
         ))}
       </tbody>
-    </table >
+    </table>
+  )
 });

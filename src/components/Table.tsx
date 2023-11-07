@@ -105,7 +105,7 @@ export default observer(function Table({ className }: TableProps) {
             </tr>
             {rowOpenState[index] && (
               <tr>
-                <td colSpan="4">
+                <td colSpan={4}>
                   <TableDetails details={info} openModal={openModal} />
                 </td>
               </tr>

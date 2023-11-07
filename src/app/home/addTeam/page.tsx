@@ -17,17 +17,20 @@ import FormInput from "@/components/FormInput";
 import FormLayout from "@/common/FormLayout";
 import SectionTitle from "@/common/SectionTitle";
 import { INITIAL_MEMBER_DATA } from "@/utils/constants";
+import { TeamMember } from "@/models/member.store";
+
+const isDate = (value: unknown) => value instanceof Date && !isNaN(value.valueOf())
 
 export default observer(function AddTeam() {
-  const store = useStore();
+  const { members: { addMember }, teams: { setTeams, teams } } = useStore();
 
   useEffect(() => {
-    TeamServices.getAllTeams().then((res) => store.setTeams(res));
+    TeamServices.getAllTeams().then((res) => setTeams(res));
   }, []);
 
-  const [memberData, setMemberData] = useState(INITIAL_MEMBER_DATA);
+  const [memberData, setMemberData] = useState<TeamMember | undefined>();
   const handleInput = (prop, value) => {
-    setMemberData((prev) => ({ ...prev, [prop]: value }));
+    setMemberData((prev) => ({ ...prev, [prop]: isDate(value) ? (value as Date).toISOString() : value }));
   };
 
   const [finish, setFinished] = useState(false);
@@ -35,9 +38,9 @@ export default observer(function AddTeam() {
     TeamMemberServices.createMember(memberData)
       .then((res) => {
         alert("Member created!");
-        setMemberData(INITIAL_MEMBER_DATA);
+        setMemberData(undefined);
         setFinished(true);
-        store.addMember(res.data);
+        addMember(res);
       })
       .catch(() => {
         alert("Error!");
@@ -87,6 +90,7 @@ export default observer(function AddTeam() {
                   <FormInput
                     title="Date of Birth"
                     type="date"
+                    placeholder='Date of birth'
                     prop={"dateOfBirth"}
                     handleInput={handleInput}
                     required={"required"}
@@ -122,7 +126,7 @@ export default observer(function AddTeam() {
 
               <FormLayout className="w-1/2">
                 <FormInput
-                  options={[...store.teams.map((team) => team.name)]}
+                  options={teams.map((team) => team.name)}
                   placeholder="Team Name"
                   title="Team Name"
                   type="options"
@@ -195,6 +199,7 @@ export default observer(function AddTeam() {
                 <FormInput
                   title="Joining Date"
                   type="date"
+                  placeholder='Join date'
                   prop={"joiningDate"}
                   handleInput={handleInput}
                   required={"required"}
@@ -214,11 +219,13 @@ export default observer(function AddTeam() {
             <hr />
             <div>
               <FormInput
-                title="Additionl Info"
+                title="Additional Info"
+                placeholder='Additional Info'
                 type="text"
                 prop={"additionalInfo"}
                 handleInput={handleInput}
                 clear={finish}
+                required={false}
               />
             </div>
           </section>

@@ -11,19 +11,17 @@ import {
 } from "@/common/Icons";
 import FitlerModal from "@/components/FitlerModal";
 import DropFilter from "@/common/DropFilter";
-import useModal from "@/hooks/useModal";
-import Aside from "@/components/Aside";
-import EditTeamsAsideDetails from "@/components/EditTeamsAsideDetails";
-import CreateTeamAside from "@/components/CreateTeamAside";
 import CustomLink from "@/common/CustomLink";
 import { observer } from "mobx-react-lite";
 import TeamMembers from "@/components/TeamMembers";
 import { TeamServices } from "@/services/team.services";
 import { useStore } from "@/models/root.store";
 
-
 export default observer(function MyTeamData() {
-  const { aside: { openAside, setAside }, teams: { setTeams, teams } } = useStore();
+  const {
+    aside: { openAside, setAside },
+    teams: { setTeams, teams },
+  } = useStore();
   const [display, setDisplay] = useState("grid");
 
   useEffect(() => {
@@ -61,7 +59,9 @@ export default observer(function MyTeamData() {
           body={"Filter by team:"}
           className="rounded-md border font-medium"
         >
-          <FitlerModal array={teams.map(team => ({ id: team._id, name: team.name }))} />
+          <FitlerModal
+            array={teams.map((team) => ({ id: team._id, name: team.name }))}
+          />
         </DropFilter>
         <div className="flex gap-2 items-center">
           <Button
@@ -76,7 +76,7 @@ export default observer(function MyTeamData() {
             variant={"text"}
             icon={<PenIcon className={"w-[1rem]"} />}
             className={"p-2 text-sm rounded-md"}
-            onClick={() => handleAside('editTeam')}
+            onClick={() => handleAside("editTeam")}
           />
           <span className="text-gray-400"> |</span>
 

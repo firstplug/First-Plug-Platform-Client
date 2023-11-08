@@ -4,11 +4,11 @@ import { signOut, useSession } from "next-auth/react";
 import { NavButtonIcon } from "./Icons";
 import { useRouter } from "next/navigation";
 
-interface DropdownButtonProps  {
-  className?: string,
+interface DropdownButtonProps {
+  className?: string;
 }
 
-export default function DropdownButton({className} : DropdownButtonProps) {
+export default function DropdownButton({ className }: DropdownButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const session = useSession();
@@ -32,7 +32,7 @@ export default function DropdownButton({className} : DropdownButtonProps) {
             aria-labelledby="options-menu"
           >
             <div className="text-sm text-gray-500 pl-4 pb-2 font-inter font-semibold mt-2">
-              {session?.data?.user?.name || session?.data?.user?.fullname}
+              {session?.data?.user?.name || session?.data?.user?.name}
             </div>
             <div className="text-sm text-gray-500 pl-4 pb-4 font-inter font-medium mr-4">
               {session?.data?.user?.email || "mailChill@gmail.com"}

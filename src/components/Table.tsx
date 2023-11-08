@@ -8,14 +8,17 @@ import defaultPhoto from "../../public/Isotipo.png";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 
-
 type TableProps = {
   className?: string;
-}
+};
 
 export default observer(function Table({ className }: TableProps) {
   const { openModal } = useModal();
-  const { products: { products } } = useStore();
+  const {
+    products: { products },
+  } = useStore();
+  // TODO: Consumir la data de "details shipment" de la store. como se hace con los member details.
+  // Y elmininar fake data.
 
   const info: Detail[] = [
     {

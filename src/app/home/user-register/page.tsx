@@ -6,8 +6,9 @@ import { IconX } from "../../../common/Icons";
 import DropdownInput from "@/common/DropdownInput";
 import Layout from "@/common/Layout";
 
-
 export default function UserRegister() {
+  //TODO: User los FormInputs y reemplazar los Inputs
+
   const country = ["Argentina"];
   const cities = ["Buenos Aires"];
   const states = ["Escobar"];
@@ -143,6 +144,6 @@ export default function UserRegister() {
           className="mr-[20px] w-[210px] h-[48px]"
         />
       </div>
-      </Layout>
+    </Layout>
   );
 }

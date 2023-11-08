@@ -7,6 +7,7 @@ import { observer } from "mobx-react-lite";
 export default observer(function OrderAsideDetails() {
   const { orders } = useStore();
   const selectedOrder = orders.selectedOrder;
+  // TODO: TIPAR ESTE ARCHIVO
 
   return (
     <div className="h-full relative">

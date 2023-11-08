@@ -16,7 +16,7 @@ interface Order {
     category: string;
     model: string;
     description: string;
-    quantity: number
+    quantity: number;
     serial: string;
   }[];
 }
@@ -27,7 +27,11 @@ interface TableDetailsShipmentsProps {
   info?: string[];
 }
 
-export default function TableShipments({ orders = [], className, info = [] }:TableDetailsShipmentsProps) {
+export default function TableShipments({
+  orders = [],
+  className,
+  info = [],
+}: TableDetailsShipmentsProps) {
   const [rowOpenState, setRowOpenState] = useState(
     Array(info.length).fill(false)
   );
@@ -59,7 +63,8 @@ export default function TableShipments({ orders = [], className, info = [] }:Tab
       <tbody>
         {orders.map((order, index) => (
           <>
-            <tr key={order.id}
+            <tr
+              key={order.id}
               className={`${
                 rowOpenState[index] ? " bg-[#EAEDF7]" : "  bg-white"
               } text-black border-b-2 border-gray-200 text-left `}
@@ -83,7 +88,7 @@ export default function TableShipments({ orders = [], className, info = [] }:Tab
 
             {rowOpenState[index] && (
               <tr>
-                <td colSpan="12">
+                <td colSpan={12}>
                   <TableDetailsShipments data={order.details} />
                 </td>
               </tr>

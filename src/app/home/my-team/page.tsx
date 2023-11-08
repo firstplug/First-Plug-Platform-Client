@@ -1,14 +1,10 @@
 "use client";
 
-import Card from "@/components/Card";
 import Layout from "@/common/Layout";
 import Button from "@/common/Button";
 import { AddIcon, UpLoadIcon } from "@/common/Icons";
-import useModal from "@/hooks/useModal";
 import CustomLink from "@/common/CustomLink";
-import AddStockCard from "@/common/AddStockCard";
-import Image from "next/image";
-import Aside from "@/components/Aside";
+
 import EmptyCard from "@/common/EmptyCard";
 import { useStore } from "@/models/root.store";
 

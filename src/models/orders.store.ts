@@ -1,18 +1,19 @@
-const { types } = require("mobx-state-tree");
+import { Instance, types } from "mobx-state-tree";
 
-const Orders = types.model({
+const Order = types.model({
   _id: types.string,
   teamMember: types.optional(types.array(types.string), []),
   status: types.optional(types.string, ""),
   date: types.string,
   totalPrice: types.optional(types.string, ""),
   products: types.optional(types.array(types.string), []),
-  // products: types.optional(types.array(Products), []),
 });
+
+export type Order = Instance<typeof Order>;
 
 export const OrderStore = types
   .model({
-    orders: types.array(Orders),
+    orders: types.array(Order),
     orderSelected: types.optional(types.string, ""),
   })
   .views((store) => ({

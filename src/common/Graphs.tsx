@@ -8,10 +8,10 @@ interface DoughnutChartProps {
   className?: string;
   data: {
     quantity?: number;
-  }
+  };
 }
 
-export default function DoughnutChart({ className, data } : DoughnutChartProps) {
+export default function DoughnutChart({ className, data }: DoughnutChartProps) {
   const number = 10;
   const quantity = data && data.quantity ? data.quantity : 0;
   const info = {
@@ -27,7 +27,8 @@ export default function DoughnutChart({ className, data } : DoughnutChartProps) 
     ],
   };
 
-const legendPosition = "bottom"
+  // TODO  : Revisar error de TS sobre options en el "Doughnut"
+  const legendPosition = "bottom";
 
   const legendOptions = {
     position: legendPosition,

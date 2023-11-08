@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 
 export default observer(function AsideTitle() {
+  //TODO: Tipar
   const { aside, orders, members } = useStore();
   switch (aside.type) {
     case "memberDetails":

@@ -3,6 +3,7 @@ import { Instance, types } from "mobx-state-tree";
 export const TeamMember = types.model({
   _id: types.optional(types.string, ""),
   firstName: types.optional(types.string, ""),
+  img: types.optional(types.string, ""),
   lastName: types.optional(types.string, ""),
   dateOfBirth: types.optional(types.string, ""),
   phone: types.optional(types.string, ""),
@@ -18,7 +19,7 @@ export const TeamMember = types.model({
   teams: types.optional(types.array(types.string), []),
 });
 
-export type TeamMember = Instance<typeof TeamMember>
+export type TeamMember = Instance<typeof TeamMember>;
 
 export const MemberStore = types
   .model({
@@ -27,7 +28,7 @@ export const MemberStore = types
   })
   .views((store) => ({
     get memberCount() {
-      return store.members.length
+      return store.members.length;
     },
 
     get selectedMember() {
@@ -40,10 +41,10 @@ export const MemberStore = types
     setMembers(members) {
       store.members = members;
     },
-    addMember(member) {
+    addMember(member: TeamMember) {
       store.members.push(member);
     },
-    setSelectedMember(memberId) {
+    setSelectedMember(memberId: string) {
       store.memberSelected = memberId;
     },
   }));

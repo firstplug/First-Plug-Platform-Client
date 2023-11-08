@@ -7,8 +7,12 @@ interface AddMemberFormProps {
   handleSelectedMembers: (member: TeamMember) => void;
 }
 
-export default observer(function AddMemberForm({ handleSelectedMembers }: AddMemberFormProps) {
-  const { members: { members } } = useStore();
+export default observer(function AddMemberForm({
+  handleSelectedMembers,
+}: AddMemberFormProps) {
+  const {
+    members: { members },
+  } = useStore();
 
   return (
     <section>

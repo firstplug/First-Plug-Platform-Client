@@ -23,6 +23,7 @@ export default observer(function EditMemberAside() {
     TeamMemberServices.updateMember(selectedMember._id, memberData)
       .then((res) => {
         setMemberData(undefined);
+        setFinished(true);
         TeamMemberServices.getAllMembers().then((res) => {
           setMembers(res);
         });

@@ -10,8 +10,10 @@ import { signIn } from "next-auth/react";
 import { FormEvent } from "react";
 
 export default function Login() {
-  const emailInput = useInput("", "email") 
-  const passWordInput = useInput("", "password")
+  //TODO: User los FormInputs y reemplazar los Inputs
+
+  const emailInput = useInput("", "email");
+  const passWordInput = useInput("", "password");
 
   const router = useRouter();
 

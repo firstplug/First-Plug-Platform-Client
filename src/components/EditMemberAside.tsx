@@ -1,91 +1,102 @@
 import Button from "@/common/Button";
-import DropdownInput from "@/common/DropdownInput";
 import { TrashIcon } from "@/common/Icons";
-import Input from "@/common/Input";
 import Image from "next/image";
 import { observer } from "mobx-react-lite";
-import useInput from "@/hooks/useInput";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
+import FormInput from "./FormInput";
+import { useState } from "react";
+import { TeamMember } from "@/models/member.store";
 
-interface EditMemberAsideProps {
-  member: any;
-  closeModal: () => void;
-}
+export default observer(function EditMemberAside() {
+  const [finish, setFinished] = useState(false);
+  const [memberData, setMemberData] = useState<TeamMember | undefined>();
+  const {
+    members: { setMembers, selectedMember },
+    teams: { setTeams, teams },
+  } = useStore();
 
-export default observer(function EditMemberAside({ member, closeModal } : EditMemberAsideProps) {
-  const firstName = useInput(member.firstName, "required");
-  const lastName = useInput(member.lastName, "required");
-  const dateOfBirth = useInput(member.dateOfBirth, "required");
-  const phoneNumber = useInput(member.phone, "required");
-  const email = useInput(member.email, "email");
-  const team = useInput(member.team, "required", true);
-  const jobPosition = useInput(member.jobPosition, "required", true);
-  const zipCode = useInput(member.zipCode, "required");
-  const city = useInput(member.city, "required");
-  const address = useInput(member.address, "required");
-  const appartment = useInput(member.appartment, "required");
-  const joiningDate = useInput(member.joiningDate, "required");
-  const aditionalInfo = useInput(member.aditionalInfo, null);
-  const timeSlotForDelivery = useInput(member.timeSlotForDelivery, "required");
-  const store = useStore();
+  const isDate = (value: unknown) =>
+    value instanceof Date && !isNaN(value.valueOf());
 
   const handleEditMember = () => {
-    const data = {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      dateOfBirth: dateOfBirth.value,
-      phone: phoneNumber.value,
-      email: email.value,
-      team: team.selectedOption,
-      jobPosition: jobPosition.selectedOption,
-      zipCode: zipCode.value,
-      city: city.value,
-      address: address.value,
-      appartment: appartment.value,
-      joiningDate: joiningDate.value,
-      additionalInfo: aditionalInfo.value,
-      timeSlotForDelivery: timeSlotForDelivery.value,
-    };
-    TeamMemberServices.updateMember(member._id, data)
+    TeamMemberServices.updateMember(selectedMember._id, memberData)
       .then((res) => {
-        closeModal();
-
-        TeamMemberServices.getAllMembers().then(({ data }) => {
-          store.setMembers(data);
+        setMemberData(undefined);
+        TeamMemberServices.getAllMembers().then((res) => {
+          setMembers(res);
         });
       })
       .catch((err) => alert("error"));
+  };
+
+  const handleInput = (prop, value) => {
+    setMemberData((prev) => ({
+      ...prev,
+      [prop]: isDate(value) ? (value as Date).toISOString() : value,
+    }));
   };
   return (
     <div className="flex flex-col gap-6 pr-4 pb-10">
       <div className="flex gap-4">
         <div className="relative w-36 h-36">
           <Image
-            src={member.img ? member.img : "/employees/member.jpg"}
+            src={
+              selectedMember.img ? selectedMember.img : "/employees/member.jpg"
+            }
             alt="Colaborator"
             fill
             className="object-cover"
           />
         </div>
         <div className="w-[75%] flex flex-col gap-4">
-          <Input title="Name" {...firstName} />
-          <Input title="Lastname" {...lastName} />
+          <FormInput
+            type={"text"}
+            title={"First Name"}
+            placeholder={"Complete"}
+            prop="firstName"
+            handleInput={handleInput}
+            required={"required"}
+            clear={finish}
+          />
+          <FormInput
+            title="Last Name"
+            placeholder="Complete"
+            type="text"
+            prop={"lastName"}
+            handleInput={handleInput}
+            required={"required"}
+            clear={finish}
+          />
         </div>
       </div>
-      <Input title="Date of Birth" type="Date" {...dateOfBirth} />
+      <FormInput
+        title="Date of Birth"
+        type="date"
+        placeholder="Date of birth"
+        prop={"dateOfBirth"}
+        handleInput={handleInput}
+        required={"required"}
+        clear={finish}
+      />
       <div className="flex gap-4">
-        <Input
+        <FormInput
           title="Phone Number"
-          type="tel"
-          className="w-1/2"
-          {...phoneNumber}
+          placeholder="+54 11 11111111"
+          type="text"
+          prop={"phone"}
+          handleInput={handleInput}
+          required={"required"}
+          clear={finish}
         />
-        <Input
+        <FormInput
           title="Email Address"
+          placeholder="user@workemail.com"
           type="email"
-          className="w-1/2"
-          {...email}
+          prop={"email"}
+          handleInput={handleInput}
+          required={"required"}
+          clear={finish}
         />
       </div>
 
@@ -93,10 +104,16 @@ export default observer(function EditMemberAside({ member, closeModal } : EditMe
         Employee Information
       </h3>
 
-      <DropdownInput title="Select Team" {...team} />
-      <p>Does the theam not exist yet?</p>
-
-      <Input title="Job position" className="pr-4" {...jobPosition} />
+      <FormInput
+        options={teams.map((team) => team.name)}
+        placeholder="Team Name"
+        title="Team Name"
+        type="options"
+        prop={"team"}
+        handleInput={handleInput}
+        required={"required"}
+        clear={finish}
+      />
 
       <div className=" border-t flex justify-between items-center">
         <h3 className="text-lg text-black font-inter font-semibold pt-4">
@@ -106,46 +123,78 @@ export default observer(function EditMemberAside({ member, closeModal } : EditMe
       </div>
 
       <div className="flex gap-4">
-        <DropdownInput title="City" {...city} />
-        {/* <DropdownInput title="State"{...city} /> */}
+        <FormInput
+          title="City"
+          placeholder="City"
+          type="text"
+          prop={"city"}
+          handleInput={handleInput}
+          required={"required"}
+          clear={finish}
+        />
       </div>
 
       <div className="flex gap-1">
-        <Input title="Zip code" className="w-1/6" {...zipCode} />
-        <Input title="Address" className="w-3/6" {...address} />
-        <Input
-          title="Appartament, Suite, etc."
-          className="w-2/6"
-          {...appartment}
+        <FormInput
+          title="Zip Code"
+          placeholder="0000"
+          type="number"
+          prop={"zipCode"}
+          handleInput={handleInput}
+          required={"required"}
+          clear={finish}
+        />
+        <FormInput
+          title="Address"
+          placeholder="Steet, number"
+          type="text"
+          prop={"address"}
+          handleInput={handleInput}
+          required={"required"}
+          clear={finish}
+        />
+        <FormInput
+          title="Appartment, Suite, etc."
+          placeholder="PB B"
+          type="text"
+          prop={"appartment"}
+          handleInput={handleInput}
+          required={"required"}
+          clear={finish}
         />
       </div>
 
       <div className="flex gap-4">
-        <Input
+        <FormInput
           title="Joining Date"
-          type="Date"
-          className="w-1/2"
-          {...joiningDate}
+          type="date"
+          placeholder="Join date"
+          prop={"joiningDate"}
+          handleInput={handleInput}
+          required={"required"}
+          clear={finish}
         />
-        <DropdownInput
+        <FormInput
           title="Time slot for delivery"
-          {...timeSlotForDelivery}
+          placeholder="HH/MM - HH/MM"
+          type="text"
+          prop={"timeSlotForDelivery"}
+          handleInput={handleInput}
+          required={"required"}
+          clear={finish}
         />
       </div>
 
       <div className="flex flex-col gap-1 m-auto w-[98%]">
-        <label className="block text-dark-grey font-sans">
-          Additional Information
-        </label>
-        <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="5"
-          {...aditionalInfo}
-          placeholder="Comments..."
-          className="border-2 p-2"
-        ></textarea>
+        <FormInput
+          title="Additional Info"
+          placeholder="Additional Info"
+          type="text"
+          prop={"additionalInfo"}
+          handleInput={handleInput}
+          clear={finish}
+          required={false}
+        />
       </div>
 
       <div className="flex justify-end">

@@ -1,7 +1,7 @@
 "use client";
 import { ChangeEvent, useState } from "react";
 
-type ValidatorType = "required" | "password" | "email"
+type ValidatorType = "required" | "password" | "email" 
 
 function validator(type: ValidatorType) {
   const emailValidator = (value: string) => {

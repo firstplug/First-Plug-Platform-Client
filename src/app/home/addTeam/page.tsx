@@ -232,7 +232,7 @@ export default observer(function AddTeam() {
                 prop={"additionalInfo"}
                 handleInput={handleInput}
                 clear={finish}
-                required={false}
+                required={"required"}
               />
             </div>
           </section>

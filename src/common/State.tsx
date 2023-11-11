@@ -1,9 +1,11 @@
-interface StateProps{ 
+interface StateProps {
   message: string;
   className?: string;
 }
 
-export default function State({ message, className = "" } : StateProps) {
+export default function State({ message, className = "" }: StateProps) {
+  // TODO: Hacer un type para los states
+
   const states = [
     { state: "CONFIRMATION PENDING", color: "bg-lightPurple" },
     { state: "PAYMENT PENDING", color: "bg-lightYellow" },

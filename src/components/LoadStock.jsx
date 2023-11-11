@@ -5,6 +5,7 @@ import AddStockCard from "@/common/AddStockCard";
 import CustomLink from "@/common/CustomLink";
 
 export default function LoadStock() {
+  // TODO: TIPAR ESTE ARCHIVO
   return (
     <div>
       <div className="flex flex-col gap-6">

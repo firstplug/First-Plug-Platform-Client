@@ -16,9 +16,19 @@ type TableDetailsProps = {
   openModal?: () => void;
 };
 
-export default function TableDetails({ details, className, openModal }: TableDetailsProps) {
+export default function TableDetails({
+  details,
+  className,
+  openModal,
+}: TableDetailsProps) {
+  // TODO: Consumir la data de "details shipment" de la store. como se hace con los member details
+
   return (
-    <table className={`flex-col w-full rounded-lg overflow-hidden ${className || ""}`}>
+    <table
+      className={`flex-col w-full rounded-lg overflow-hidden ${
+        className || ""
+      }`}
+    >
       <thead>
         <tr className="border-b-2 border-gray-200 bg-light-grey text-black text-left">
           <th className="py-3 px-3">Serial</th>

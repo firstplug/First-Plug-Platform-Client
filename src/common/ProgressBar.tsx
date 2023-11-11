@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 
 type ProgressBarProps = {
   onComplete: () => void;
-  className?: string;
-}
+};
 
-export default function ProgressBar({ onComplete, className } : ProgressBarProps) {
+export default function ProgressBar({ onComplete }: ProgressBarProps) {
+  // TODO: Hacer que esto sea real
+
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {

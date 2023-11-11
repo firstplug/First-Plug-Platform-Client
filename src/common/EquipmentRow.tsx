@@ -2,6 +2,7 @@
 import { ReactElement, useEffect, useState } from "react";
 import axios from "axios";
 import { useStore } from "@/models/root.store";
+import { TeamMember } from "@/models/member.store";
 
 interface EquipmentRowProps {
   id: number;
@@ -21,8 +22,7 @@ export default function EquipmentRow({
   className = "",
 }: EquipmentRowProps) {
   const { orders, aside } = useStore();
-  // TODO: IMPORT MEMBER TYPE YOU SONS OF BITCHES.
-  const [member, setMember] = useState<any>();
+  const [member, setMember] = useState<TeamMember>();
 
   useEffect(() => {
     axios

@@ -8,15 +8,18 @@ interface MemberAsideDetailsProps {
   className?: string;
 }
 
-export default observer(function MemberAsideDetails({ className } : MemberAsideDetailsProps) {
-  const { members } = useStore();
-  const member = members.selectedMember;
+export default observer(function MemberAsideDetails({
+  className,
+}: MemberAsideDetailsProps) {
+  const {
+    members: { members, selectedMember },
+  } = useStore();
   return (
     <article
       className={`${className || ""} flex flex-col justify-between h-full`}
     >
       <div className="flex flex-col gap-6 ">
-        <MemberDetail {...member} />
+        <MemberDetail />
 
         <hr />
         <div className="flex flex-col gap-2">
@@ -24,7 +27,7 @@ export default observer(function MemberAsideDetails({ className } : MemberAsideD
             <h1 className="font-semibold text-xl">Products</h1>
             <p className="bg-border  rounded-full h-6 w-6 text-center  grid place-items-center items text-sm">
               {/* TODO: MEMBER PRODUCTS YOU SONS OF BITCHES. */}
-              {/* {member.products?.length || 0} */}
+              {/* {selectedMember.products?.length || 0} */}
             </p>
           </div>
 

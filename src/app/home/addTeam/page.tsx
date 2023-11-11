@@ -19,21 +19,28 @@ import SectionTitle from "@/common/SectionTitle";
 import { INITIAL_MEMBER_DATA } from "@/utils/constants";
 import { TeamMember } from "@/models/member.store";
 
-const isDate = (value: unknown) => value instanceof Date && !isNaN(value.valueOf())
+const isDate = (value: unknown) =>
+  value instanceof Date && !isNaN(value.valueOf());
 
 export default observer(function AddTeam() {
-  const { members: { addMember }, teams: { setTeams, teams } } = useStore();
+  const {
+    members: { addMember },
+    teams: { setTeams, teams },
+  } = useStore();
+  const [finish, setFinished] = useState(false);
+  const [memberData, setMemberData] = useState<TeamMember | undefined>();
 
   useEffect(() => {
     TeamServices.getAllTeams().then((res) => setTeams(res));
   }, []);
 
-  const [memberData, setMemberData] = useState<TeamMember | undefined>();
   const handleInput = (prop, value) => {
-    setMemberData((prev) => ({ ...prev, [prop]: isDate(value) ? (value as Date).toISOString() : value }));
+    setMemberData((prev) => ({
+      ...prev,
+      [prop]: isDate(value) ? (value as Date).toISOString() : value,
+    }));
   };
 
-  const [finish, setFinished] = useState(false);
   const handleAddTeamMember = () => {
     TeamMemberServices.createMember(memberData)
       .then((res) => {
@@ -90,7 +97,7 @@ export default observer(function AddTeam() {
                   <FormInput
                     title="Date of Birth"
                     type="date"
-                    placeholder='Date of birth'
+                    placeholder="Date of birth"
                     prop={"dateOfBirth"}
                     handleInput={handleInput}
                     required={"required"}
@@ -199,7 +206,7 @@ export default observer(function AddTeam() {
                 <FormInput
                   title="Joining Date"
                   type="date"
-                  placeholder='Join date'
+                  placeholder="Join date"
                   prop={"joiningDate"}
                   handleInput={handleInput}
                   required={"required"}
@@ -220,7 +227,7 @@ export default observer(function AddTeam() {
             <div>
               <FormInput
                 title="Additional Info"
-                placeholder='Additional Info'
+                placeholder="Additional Info"
                 type="text"
                 prop={"additionalInfo"}
                 handleInput={handleInput}

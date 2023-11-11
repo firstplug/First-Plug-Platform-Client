@@ -10,6 +10,8 @@ import useInput from "@/hooks/useInput";
 import { FormEvent } from "react";
 
 export default function Register() {
+  //TODO: User los FormInputs y reemplazar los Inputs
+
   const nameInput = useInput("", "required");
   const emailInput = useInput("", "email");
   const passWordInput = useInput("", "password");

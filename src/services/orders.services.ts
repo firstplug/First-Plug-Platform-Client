@@ -1,37 +1,16 @@
+import { Order } from "@/models/orders.store";
+import { Product } from "@/models/products.store";
 import axios, { AxiosResponse } from "axios";
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
+// TODO: Tipar esto y mandarlo a la store de products.
 const ProductStatus = ["Available", "Delivered"] as const;
+// TODO: Tipar esto y mandarlo a la store de orders.
 const OrderStatus = [
   "order confirmed",
   "order canceled",
   "confirmation pending",
   "payment pending",
 ] as const;
-
-type Product = {
-  _id: string;
-  category: string;
-  model: string;
-  color: string;
-  screen: string;
-  keyboard: string;
-  processor: string;
-  ram: string;
-  status: (typeof ProductStatus)[number];
-  imgUrl: string;
-  quantity: number;
-};
-
-type Order = {
-  _id: string;
-  teamMember: string[];
-  status: (typeof OrderStatus)[number];
-  date: Date;
-  totalPrice: number;
-  products: Product[];
-  __v: number;
-};
 
 type DeleteOrderResponse = {
   msg: string;

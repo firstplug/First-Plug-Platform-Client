@@ -1,24 +1,18 @@
 import Button from "@/common/Button";
 import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
 import TeamCard from "@/common/TeamCard";
-import useModal from "@/hooks/useModal";
 
-import { useState } from "react";
-import Aside from "./Aside";
-import MemberAsideDetails from "./MemberAsideDetails";
-import Image from "next/image";
-import Input from "@/common/Input";
-import DropdownInput from "@/common/DropdownInput";
-import Photo from "../../public/employees/member.jpg";
 import { useStore } from "@/models/root.store";
 
 interface TableTeamProps {
-  img?: string;
   className?: string;
 }
 
-export default (function TableTeam({ img, className }: TableTeamProps) {
-  const { aside: { openAside, setAside }, members: { members } } = useStore();
+export default (function TableTeam({ className }: TableTeamProps) {
+  const {
+    aside: { openAside, setAside },
+    members: { members },
+  } = useStore();
 
   // TODO: Type Aside type.
   const handleModal = (option: string) => {
@@ -26,11 +20,11 @@ export default (function TableTeam({ img, className }: TableTeamProps) {
     openAside();
   };
 
-
   return (
     <table
-      className={` flex-col w-full rounded-lg overflow-hidden ${className || ""
-        }`}
+      className={` flex-col w-full rounded-lg overflow-hidden ${
+        className || ""
+      }`}
     >
       <thead>
         <tr className="border-b-2 border-gray-200 bg-light-grey text-black text-left">
@@ -62,7 +56,11 @@ export default (function TableTeam({ img, className }: TableTeamProps) {
             <td className=" py-4 px-3">
               {member.teams.length ? (
                 member.teams.map((t) => (
-                  <TeamCard key={`table-team-${t}`} team={t || ""} className={"text-lg"} />
+                  <TeamCard
+                    key={`table-team-${t}`}
+                    team={t || ""}
+                    className={"text-lg"}
+                  />
                 ))
               ) : (
                 <TeamCard team={"Assing to team"} className={"text-lg"} />
@@ -90,5 +88,5 @@ export default (function TableTeam({ img, className }: TableTeamProps) {
         ))}
       </tbody>
     </table>
-  )
+  );
 });

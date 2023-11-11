@@ -1,7 +1,7 @@
 "use client";
 import { ChangeEvent, useState } from "react";
 
-type ValidatorType = "required" | "password" | "email" 
+type ValidatorType = "required" | "password" | "email";
 
 function validator(type: ValidatorType) {
   const emailValidator = (value: string) => {
@@ -50,7 +50,7 @@ function validator(type: ValidatorType) {
   }
 }
 
-interface InputState<T>{
+interface InputState<T> {
   value: T;
   error: string | null;
   touched: boolean;
@@ -62,14 +62,18 @@ interface InputState<T>{
   clearInput: () => void;
 }
 
-export default function useInput<T>(initialValue: T, type: ValidatorType, isOptionInput = false) : InputState<T> {
+export default function useInput<T>(
+  initialValue: T,
+  type: ValidatorType,
+  isOptionInput = false
+): InputState<T> {
   const validateFunction = validator(type);
   const [value, setValue] = useState(initialValue);
   const [selectedOption, setSelectedOption] = useState(initialValue);
   const [error, setError] = useState(null);
   const [touched, setTouched] = useState(false);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement> ) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value as T);
   };
   const handleOption = (option: T) => {

@@ -1,14 +1,10 @@
 "use client";
-import { useState } from "react";
 import Photo from "../../public/employees/member.jpg";
 import Image from "next/image";
 import Button from "@/common/Button";
 import TeamCard from "@/common/TeamCard";
 import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
-import useModal from "@/hooks/useModal";
-import Aside from "./Aside";
-import MemberAsideDetails from "./MemberAsideDetails";
-import EditMemberAside from "./EditMemberAside";
+
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
@@ -21,7 +17,7 @@ interface ColaboratorCardProps {
   _id: string;
   img: string;
   jobPosition: string;
-  shimentsDetails: typeof status[number];
+  shimentsDetails: (typeof status)[number];
   teams: string[];
   className?: string;
 }
@@ -39,7 +35,10 @@ export default observer(function ColaboratorCard({
   teams,
   className,
 }: ColaboratorCardProps) {
-  const { aside: { openAside, setAside }, members: { setMembers, setSelectedMember } } = useStore();
+  const {
+    aside: { openAside, setAside },
+    members: { setMembers, setSelectedMember },
+  } = useStore();
 
   const handleModal = (asideType) => {
     setSelectedMember(member._id);

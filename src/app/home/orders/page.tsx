@@ -4,6 +4,7 @@ import { ShopIcon } from "@/common/Icons";
 import Layout from "@/common/Layout";
 
 export default function Orders() {
+  //TODO: implemetnar logica con estados para mostrar logistsi o equipment, y que no sean dos rutas diferentes
   return (
     <Layout className="border-2 shadow-sm border-border rounded-md grid place-items-center w-[98%] ">
       <EmptyCard

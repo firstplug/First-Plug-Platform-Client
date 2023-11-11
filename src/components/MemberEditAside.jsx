@@ -9,6 +9,9 @@ import Image from "next/image";
 export default observer(function MemberEditAside({ className = "" }) {
   const { members } = useStore();
   const member = members.selectedMember;
+
+  // TODO: TIPAR ESTE ARCHIVO
+
   return (
     <div className={`flex flex-col gap-6 pr-4 pb-10 ${className}`}>
       <div className="flex gap-4">

@@ -12,7 +12,11 @@ interface TableDetailsShipmentsProps {
   }[];
 }
 
-export default function TableDetailsShipments({ className, data = [] } : TableDetailsShipmentsProps) {
+export default function TableDetailsShipments({
+  className,
+  data = [],
+}: TableDetailsShipmentsProps) {
+  // TODO: Consumir la data de "details shipment" de la store. como se hace con los member details
   return (
     <table
       className={`flex-col w-full rounded-lg overflow-hidden ${

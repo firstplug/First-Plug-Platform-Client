@@ -9,6 +9,8 @@ import Button from "@/common/Button";
 import { VisaIcon } from "@/common/Icons";
 
 export default function Settings() {
+  //TODO: User los FormInputs y reemplazar los Inputs
+
   return (
     <Layout className="flex flex-col gap-6 pb-16 overflow-auto">
       <div className="flex w-full gap-6">

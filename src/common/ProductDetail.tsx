@@ -14,6 +14,7 @@ export default function ProductDetail({
   className = "",
   isChecked = false,
 }: ProductDetailProps) {
+  // TODO:  Usar las views de products para ver un product details (Misma logia que member details)
 
   const [product, setProduct] = useState<Product>();
 

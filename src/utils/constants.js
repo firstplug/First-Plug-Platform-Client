@@ -1,3 +1,5 @@
+//TODO: VER SI ESTO SIRVE, Y SI ES ASI, TIPARLO
+
 export const INITIAL_MEMBER_DATA = {
   firstName: "",
   lastName: "",

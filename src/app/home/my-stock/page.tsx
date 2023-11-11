@@ -3,7 +3,6 @@ import Button from "@/common/Button";
 import Layout from "@/common/Layout";
 import CustomLink from "@/common/CustomLink";
 import { ShopIcon, UpLoadIcon } from "@/common/Icons";
-import useModal from "@/hooks/useModal";
 import EmptyCard from "@/common/EmptyCard";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";

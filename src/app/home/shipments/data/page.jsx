@@ -2,6 +2,9 @@ import Layout from "@/common/Layout";
 import TableShipments from "@/components/TableShipments";
 
 export default function ShipmentsData() {
+  //TODO: TIPARLO
+  //TODO: No mas facke data. Consumir del back
+
   const data = [
     {
       image: "/notebook1.png",

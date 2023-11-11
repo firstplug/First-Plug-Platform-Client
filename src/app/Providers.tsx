@@ -1,17 +1,16 @@
 "use client";
 
-import { RootStore, useStore, RootStoreContext} from "@/models/root.store";
+import { RootStore, RootStoreContext } from "@/models/root.store";
 import { SessionProvider } from "next-auth/react";
-import { ReactNode, useCallback, useEffect} from "react";
+import { ReactNode, useCallback, useEffect } from "react";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { ProductServices } from "@/services/product.services";
-import { AsideStore } from "@/models/aside.store";
 
 type ProvidersProps = {
   children: ReactNode;
-}
+};
 
-export default function Providers({ children } : ProvidersProps) {
+export default function Providers({ children }: ProvidersProps) {
   const store = RootStore.create({
     orders: {},
     shipments: {},
@@ -38,6 +37,5 @@ export default function Providers({ children } : ProvidersProps) {
     <RootStoreContext.Provider value={store}>
       <SessionProvider>{children}</SessionProvider>
     </RootStoreContext.Provider>
-
   );
 }

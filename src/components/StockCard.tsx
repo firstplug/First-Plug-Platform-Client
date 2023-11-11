@@ -6,19 +6,22 @@ import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 
 type classNameProps = {
-  className?: string,
-}
+  className?: string;
+};
 
 type Product = {
-  _id: string,
-  category: string,
-  name: string,
-}
+  _id: string;
+  category: string;
+  name: string;
+};
 
-export default observer(function StockCard({ className } : classNameProps) {
-  const store = useStore();
+export default observer(function StockCard({ className }: classNameProps) {
+  const {
+    products: { products },
+  } = useStore();
 
-  const groupedProducts = store.products?.reduce((result, product) => {
+  // TODO:llevar este "groupedProducts" a las views de product.store
+  const groupedProducts = products.reduce((result, product) => {
     if (!result[product.category]) {
       result[product.category] = product;
     }
@@ -27,7 +30,7 @@ export default observer(function StockCard({ className } : classNameProps) {
 
   const uniqueProducts = Object.values(groupedProducts) as Product[];
 
-  const [info, setInfo] = useState({ ...store.products[0] } || {});
+  const [info, setInfo] = useState({ ...products[0] } || {});
 
   return (
     <div className={`flex justify-around  ${className || ""} `}>

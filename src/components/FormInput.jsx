@@ -14,6 +14,7 @@ export default function FormInput({
   required,
   clear,
 }) {
+  // TODO: TIPAR ESTE ARCHIVO
   const input = useInput("", required, type === "options");
   useEffect(() => {
     if (clear) {

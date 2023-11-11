@@ -8,8 +8,12 @@ import LoadStock from "./LoadStock";
 import OrderAsideDetails from "./OrderAsideDetails";
 
 export default observer(function AsideContent() {
-  const { aside } = useStore();
-  switch (aside.type) {
+  // TODO: TIPAR ESTE ARCHIVO
+
+  const {
+    aside: { type },
+  } = useStore();
+  switch (type) {
     case "memberDetails":
       return <MemberAsideDetails />;
     case "editTeam":

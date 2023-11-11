@@ -5,7 +5,9 @@ interface TeamCardProps {
   className?: string;
 }
 
-export default function TeamCard({ team, className } : TeamCardProps) {
+export default function TeamCard({ team, className }: TeamCardProps) {
+  // TODO: Settear los colores en otro lugar y tiparlo. Los teams son particulares
+  // a cada user (empresa). En el modelo de Teams, agrear el campo "color".
   const colors_role = {
     Designer: "bg-design",
     HR: "bg-hr",

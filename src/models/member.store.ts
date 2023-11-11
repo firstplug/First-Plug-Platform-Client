@@ -16,6 +16,7 @@ export const TeamMember = types.model({
   timeSlotForDelivery: types.optional(types.string, ""),
   additionalInfo: types.optional(types.string, ""),
   teams: types.optional(types.array(types.string), []),
+  image: types.optional(types.string, "")
 });
 
 export type TeamMember = Instance<typeof TeamMember>

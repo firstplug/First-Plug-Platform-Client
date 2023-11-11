@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "@/common/Button";
 import TeamDetails from "./TeamDeatils";
 import { TeamServices } from "../services/team.services";
@@ -7,7 +7,7 @@ import { useStore } from "@/models/root.store";
 
 interface EditTeamsAsideDetailsProps {
   className?: string | "";
-  members: string[]
+  members?: string[]
 }
 
 export default observer(function EditTeamsAsideDetails({

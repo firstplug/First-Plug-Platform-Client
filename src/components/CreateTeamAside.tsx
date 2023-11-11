@@ -5,8 +5,7 @@ import { TeamServices } from "../services/team.services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMemberServices } from "@/services/teamMember.services";
-import { TeamMember } from "@/models/member.store";
-import { TeamModel } from "@/models/teams.store";
+import { TeamMember, TeamModel } from "@/models";
 
 interface CreateTeamAsideProps {
   className?: string;

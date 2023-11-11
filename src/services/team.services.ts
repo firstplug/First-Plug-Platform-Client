@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-type createTeam = Omit<Omit<Team, "_id">, "__v">;
+type TeamCreation = Omit<Team, "_id" | "__v">
 
 export class TeamServices {
   static async getAllTeams(): Promise<Team[]> {
@@ -12,7 +12,7 @@ export class TeamServices {
     return response.data;
   }
 
-  static async createTeam(teamData: createTeam): Promise<Team> {
+  static async createTeam(teamData: TeamCreation): Promise<Team> {
     const response: AxiosResponse = await axios.post(
       `${BASE_URL}/api/teams`,
       teamData
@@ -22,7 +22,7 @@ export class TeamServices {
 
   static async updateTeam(
     id: Team["_id"],
-    teamData: createTeam
+    teamData: TeamCreation
   ): Promise<Team> {
     const response: AxiosResponse = await axios.put(
       `${BASE_URL}/api/teams/${id}`,

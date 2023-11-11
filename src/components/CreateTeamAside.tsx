@@ -5,6 +5,8 @@ import { TeamServices } from "../services/team.services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMemberServices } from "@/services/teamMember.services";
+import { TeamMember } from "@/models/member.store";
+import { TeamModel } from "@/models/teams.store";
 
 interface CreateTeamAsideProps {
   className?: string;
@@ -12,18 +14,13 @@ interface CreateTeamAsideProps {
 
 export default observer(function CreateTeamAside({ className = "" }: CreateTeamAsideProps) {
   const { aside: { closeAside }, members: { memberCount, setMembers }, teams: { setTeams } } = useStore();
-  const [teamName, setTeamName] = useState("");
-  const [selectedMembers, setSelectedMembers] = useState([]);
-
+  const [name, setName] = useState("");
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
   const handleCreateTeam = async () => {
     try {
-      const newTeam = {
-        name: teamName,
-        teamMember: selectedMembers,
-      };
-
-      TeamServices.createTeam(newTeam).then((res) => {
+      const team = TeamModel.create({ name, teamMembers })
+      TeamServices.createTeam(team).then((res) => {
         TeamServices.getAllTeams().then((res) => {
           setTeams(res);
         });
@@ -38,18 +35,18 @@ export default observer(function CreateTeamAside({ className = "" }: CreateTeamA
     }
   };
 
-  const handleSelectedMembers = (member: any) => {
-    setSelectedMembers((prevSelectedMember) => {
-      const isSelected = prevSelectedMember.some(
+  const handleSelectedMembers = (member: TeamMember) => {
+    setTeamMembers((prevSelectedMembers) => {
+      const isSelected = prevSelectedMembers.some(
         (selected) => selected._id === member._id
       );
 
       if (isSelected) {
-        return prevSelectedMember.filter(
+        return prevSelectedMembers.filter(
           (selected) => selected._id !== member._id
         );
       } else {
-        return [...prevSelectedMember, member];
+        return [...prevSelectedMembers, member];
       }
     });
   };
@@ -63,8 +60,8 @@ export default observer(function CreateTeamAside({ className = "" }: CreateTeamA
           <input
             type="text"
             className="border-2 rounded-xl p-2 flex-grow w-full"
-            value={teamName}
-            onChange={(e) => setTeamName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <hr className="my-3" />

@@ -1,6 +1,6 @@
 import { Instance, types } from "mobx-state-tree";
 
-export const TeamMember = types.model({
+export const TeamMemberModel = types.model({
   _id: types.optional(types.string, ""),
   firstName: types.optional(types.string, ""),
   img: types.optional(types.string, ""),
@@ -20,11 +20,11 @@ export const TeamMember = types.model({
   image: types.optional(types.string, "")
 });
 
-export type TeamMember = Instance<typeof TeamMember>;
+export type TeamMember = Instance<typeof TeamMemberModel>;
 
 export const MemberStore = types
   .model({
-    members: types.array(TeamMember),
+    members: types.array(TeamMemberModel),
     memberSelected: types.optional(types.string, ""),
   })
   .views((store) => ({

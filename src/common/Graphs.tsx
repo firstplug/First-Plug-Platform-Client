@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
-import { Chart, ArcElement } from "chart.js";
+import { Chart, ArcElement, ChartOptions } from "chart.js";
 Chart.register(ArcElement);
 
 interface DoughnutChartProps {
@@ -27,21 +27,16 @@ export default function DoughnutChart({ className, data }: DoughnutChartProps) {
     ],
   };
 
-  // TODO  : Revisar error de TS sobre options en el "Doughnut"
-  const legendPosition = "bottom";
-
-  const legendOptions = {
-    position: legendPosition,
-    align: "center",
-    labels: {
-      boxWidth: 15,
-      usePointStyle: true,
-    },
-  };
-
-  const options = {
+  const options: ChartOptions<'doughnut'> = {
     plugins: {
-      legend: legendOptions,
+      legend: {
+        position: "bottom",
+        align: "center",
+        labels: {
+          boxWidth: 15,
+          usePointStyle: true,
+        },
+      },
       tooltip: {
         callbacks: {
           label: function (context) {

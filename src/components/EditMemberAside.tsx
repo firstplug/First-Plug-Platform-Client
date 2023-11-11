@@ -194,7 +194,7 @@ export default observer(function EditMemberAside() {
           prop={"additionalInfo"}
           handleInput={handleInput}
           clear={finish}
-          required={false}
+          required={"required"}
         />
       </div>
 

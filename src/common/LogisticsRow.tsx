@@ -1,4 +1,3 @@
-import { Interface } from "readline";
 import State from "./State";
 
 interface LogisticsRowProps{
@@ -14,7 +13,7 @@ export default function LogisticsRow({
   shipmentQuantity,
   state,
   total,
-  className = "",
+  className,
 } : LogisticsRowProps) {
   return (
     <tr className={`border-gray-200 text-left ${className}`}>

@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 
 interface LayoutProps  {
   children: ReactNode;
-  className?: string | "";
+  className?: string;
 };
 
 export default function Layout({ children, className }: LayoutProps) {

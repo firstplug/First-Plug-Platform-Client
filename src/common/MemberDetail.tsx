@@ -17,7 +17,6 @@ export default function MemberDetail({ className }: MemberDetailProps) {
     members: { selectedMember },
   } = useStore();
 
-  // TODO: ver la propiedad shipmentdDetails en el modelo de members. Para ver el 'status' de shipments
   return (
     <div className={`flex gap-2 ${className || ""}`}>
       <Image

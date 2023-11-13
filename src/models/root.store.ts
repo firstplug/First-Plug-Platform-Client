@@ -1,12 +1,14 @@
 "use client";
 import { createContext, useContext } from "react";
 import { types, Instance, SnapshotOut } from "mobx-state-tree";
-import { OrderStore } from "./orders.store";
-import { ShipmentStore } from "./shipment.store";
-import { TeamStore } from "./teams.store";
-import { ProductsStore } from "./products.store";
-import { MemberStore } from "./member.store";
-import { AsideStore } from "./aside.store";
+import {
+  AsideStore,
+  OrderStore,
+  ShipmentStore,
+  TeamStore,
+  ProductsStore,
+  MemberStore,
+} from "./";
 
 export const RootStore = types.model({
   orders: types.late(() => OrderStore),
@@ -25,6 +27,8 @@ export const useStore = () => {
   return store;
 };
 
-export const RootStoreContext = createContext<Instance<typeof RootStore> | null>(null);
+export const RootStoreContext = createContext<Instance<
+  typeof RootStore
+> | null>(null);
 export type RootStoreInstance = Instance<typeof RootStore>;
 export type RootStoreSnapshot = SnapshotOut<typeof RootStore>;

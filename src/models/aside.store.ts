@@ -1,21 +1,13 @@
+import { AsideType, ASIDE_TYPES } from "@/types/aside";
 import { types } from "mobx-state-tree";
-
-const AsideStoreTypes = [
-  "editTeam",
-  "editMember",
-  "loadStock",
-  "newTeam",
-  "memberDetails",
-  "orderDetails",
-]; // as const
 
 export const AsideStore = types
   .model({
-    type: types.maybe(types.enumeration(AsideStoreTypes)),
+    type: types.maybe(types.enumeration(ASIDE_TYPES)),
     isOpen: types.optional(types.boolean, false),
   })
   .actions((store) => ({
-    setAside(type) {
+    setAside(type: AsideType) {
       store.type = type;
     },
     openAside() {

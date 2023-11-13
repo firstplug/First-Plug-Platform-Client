@@ -3,3 +3,4 @@ export * from "./member";
 export * from "./product";
 export * from "./teams";
 export * from "./shimpent";
+export * from "./aside";

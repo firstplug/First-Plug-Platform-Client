@@ -1,4 +1,4 @@
-import { AsideType, ASIDE_TYPES } from "@/types/aside";
+import { AsideType, ASIDE_TYPES } from "@/types";
 import { types } from "mobx-state-tree";
 
 export const AsideStore = types

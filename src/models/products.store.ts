@@ -1,5 +1,4 @@
 import { Instance } from "mobx-state-tree";
-
 import { types } from "mobx-state-tree";
 
 export const Product = types.model({
@@ -27,7 +26,19 @@ export type Product = Instance<typeof Product>
 export const ProductsStore = types
   .model({
     products: types.array(Product),
+    productSelected: types.optional(types.string, ""),
   })
+  .views((store) => ({
+    get productCount() {
+      return store.products.length;
+    },
+
+    get selectedProduct() {
+      return store.products.find(
+        (product) => product._id === store.productSelected
+      );
+    },
+  }))
   .actions((store) => ({
     setProducts(products) {
       store.products = products;

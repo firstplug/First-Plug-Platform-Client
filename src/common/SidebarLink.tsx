@@ -6,7 +6,7 @@ interface SidebarLinkProps {
   isActive?: boolean;
   icon: ReactNode;
   title: string;
-  className?: string | ""
+  className?: string
   href: string
 }
 

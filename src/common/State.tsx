@@ -4,13 +4,13 @@ interface StateProps {
 }
 
 export default function State({ message, className = "" }: StateProps) {
-  // TODO: Hacer un type para los states
+  // TODO: remove from here "status" and move it to types carpet that is doing to Fran
 
   const states = [
     { state: "CONFIRMATION PENDING", color: "bg-lightPurple" },
     { state: "PAYMENT PENDING", color: "bg-lightYellow" },
     { state: "ORDER CANCELED", color: "bg-lightRed" },
-    { state: "ORDER CONFIRMED", color: "bg-lightGreen" },
+    { state: "ORDER CONFIRMED", color: "-lightGreen" },
     { state: "CLOSED", color: "bg-disabled" },
     { state: "OPEN", color: "bg-lightBlue" },
     { state: "DELIVERED", color: "bg-lightGreen" },

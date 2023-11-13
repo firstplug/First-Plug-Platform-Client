@@ -6,7 +6,7 @@ type ProgressBarProps = {
 };
 
 export default function ProgressBar({ onComplete }: ProgressBarProps) {
-  // TODO: Hacer que esto sea real
+  // TODO: We need add logic to update csv file
 
   const [progress, setProgress] = useState(0);
 

@@ -2,14 +2,17 @@
 
 import { MouseEvent, ReactNode } from "react";
 
+const buttonVarianProps = ["primary", "secondary", "delete", "text", "alert"] as const
+const sizeVariantProps = ["big", "small"] as const
+
 interface ButtonProps  {
   body?: ReactNode;
-  variant?: "primary" | "secondary" | "delete" | "text" | "alert";
+  variant?: typeof buttonVarianProps[number];
   icon?: JSX.Element
   className?: string;
   disabled?: boolean;
   onClick?: (event: MouseEvent) => void;
-  size?: "big" | "small";
+  size?: typeof sizeVariantProps[number];
   children?: ReactNode;
 };
 

@@ -1,5 +1,4 @@
 "use client";
-
 import { ChangeEvent, FocusEvent, useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@/common/Icons";
 
@@ -22,8 +21,8 @@ export default function Input({
   title,
   placeholder,
   type,
-  defaultValue = "",
-  className = "",
+  defaultValue,
+  className,
   value,
   onChange,
   onBlur,
@@ -32,7 +31,7 @@ export default function Input({
   touched,
   required,
 } : InputProps ) {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const inputType = showPassword ? "text" : type;
 

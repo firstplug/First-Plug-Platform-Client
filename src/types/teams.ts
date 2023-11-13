@@ -3,7 +3,7 @@ import { TeamMemberModel } from "./member";
 
 export const TeamModel = types.model({
   _id: types.string,
-  name: types.optional(types.string, ""),
+  name: types.string,
   teamMembers: types.optional(types.array(TeamMemberModel), []),
 });
 

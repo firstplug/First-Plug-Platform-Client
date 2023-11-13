@@ -1,10 +1,10 @@
 export const ASIDE_TYPES = [
-  "editTeam",
-  "editMember",
-  "loadStock",
-  "newTeam",
-  "memberDetails",
-  "orderDetails",
+  "EditTeam",
+  "EditMember",
+  "LoadStock",
+  "NewTeam",
+  "MemberDetails",
+  "OrderDetails",
 ] as const;
 
 export type AsideType = (typeof ASIDE_TYPES)[number];

@@ -1,14 +1,14 @@
 import { types } from "mobx-state-tree";
 
-import { Product } from "@/types";
+import { Product, ProductModel } from "@/types";
 
 export const ProductsStore = types
   .model({
-    products: types.array(Product),
+    products: types.array(ProductModel),
   })
   .actions((store) => ({
-    setProducts(products: any) {
-      store.products = products;
+    setProducts(products: Product[]) {
+      store.products.push(...products);
     },
     addProduct(product: Product) {
       store.products.push(product);

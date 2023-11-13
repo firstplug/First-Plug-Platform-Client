@@ -4,7 +4,7 @@ export const PRODUCT_STATUSES = ["Available", "Delivered"] as const;
 
 export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
 
-export const Product = types.model({
+export const ProductModel = types.model({
   _id: types.string,
   name: types.optional(types.string, ""),
   description: types.optional(types.string, ""),
@@ -21,7 +21,7 @@ export const Product = types.model({
   price: types.optional(types.string, ""),
   status: types.optional(types.string, ""),
   imgUrl: types.optional(types.string, ""),
-  quantity: types.number,
+  stock: types.number,
 });
 
-export type Product = Instance<typeof Product>;
+export type Product = Instance<typeof ProductModel>;

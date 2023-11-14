@@ -3,25 +3,55 @@ interface StateProps {
   className?: string;
 }
 
-export default function State({ message, className = "" }: StateProps) {
-  // TODO: remove from here "status" and move it to types carpet that is doing to Fran
+const Colors = {
+  "CONFIRMATION PENDING": "bg-lightPurple",
+  "PAYMENT PENDING": "bg-lightYellow",
+  "ORDER CANCELED": "bg-lightRed",
+  "ORDER CONFIRMED": "lightGreen",
+  CLOSED: "bg-disabled",
+  OPEN: "bg-lightBlue",
+  DELIVERED: "bg-lightGreen",
+  "MISSING DATA": "bg-lightRed",
+  PREPARING: "bg-lightYellow",
+  AVAILABLE: "bg-lightPurple",
+  SHIPPED: "bg-lightBlue",
+};
 
-  const states = [
-    { state: "CONFIRMATION PENDING", color: "bg-lightPurple" },
-    { state: "PAYMENT PENDING", color: "bg-lightYellow" },
-    { state: "ORDER CANCELED", color: "bg-lightRed" },
-    { state: "ORDER CONFIRMED", color: "-lightGreen" },
-    { state: "CLOSED", color: "bg-disabled" },
-    { state: "OPEN", color: "bg-lightBlue" },
-    { state: "DELIVERED", color: "bg-lightGreen" },
-    { state: "MISSGING DATA", color: "bg-lightRed" },
-    { state: "PREPARING", color: "bg-lightYellow" },
-    { state: "AVAILABLE", color: "bg-lightPurple" },
-    { state: "SHIPPED", color: "bg-lightBlue" },
-  ];
+type OrderStatus =
+  | "CONFIRMATION PENDING"
+  | "PAYMENT PENDING"
+  | "ORDER CANCELED"
+  | "ORDER CONFIRMED"
+  | "CLOSED"
+  | "OPEN"
+  | "DELIVERED"
+  | "MISSING DATA"
+  | "PREPARING"
+  | "AVAILABLE"
+  | "SHIPPED";
 
+type State = {
+  state: OrderStatus;
+  color: keyof typeof Colors;
+};
+
+const states: State[] = [
+  { state: "CONFIRMATION PENDING", color: "CONFIRMATION PENDING" },
+  { state: "PAYMENT PENDING", color: "PAYMENT PENDING" },
+  { state: "ORDER CANCELED", color: "ORDER CANCELED" },
+  { state: "ORDER CONFIRMED", color: "ORDER CONFIRMED" },
+  { state: "CLOSED", color: "CLOSED" },
+  { state: "OPEN", color: "OPEN" },
+  { state: "DELIVERED", color: "DELIVERED" },
+  { state: "MISSING DATA", color: "MISSING DATA" },
+  { state: "PREPARING", color: "PREPARING" },
+  { state: "AVAILABLE", color: "AVAILABLE" },
+  { state: "SHIPPED", color: "SHIPPED" },
+];
+
+export default function State({ message, className }: StateProps) {
   const stateObj = states.find((stateItem) => stateItem.state === message);
-  const backgroundColorClass = stateObj ? stateObj.color : "";
+  const backgroundColorClass = stateObj ? Colors[stateObj.color] : "";
 
   return (
     <p

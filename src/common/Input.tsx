@@ -31,7 +31,7 @@ export default function Input({
   touched,
   required,
 } : InputProps ) {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const inputType = showPassword ? "text" : type;
 

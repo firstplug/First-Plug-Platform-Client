@@ -14,5 +14,5 @@ const Shipments = types.model({
 });
 
 export const ShipmentStore = types.model({
-  shipments: types.array(Shipments),
+  shipments: types.array(ShimpentModel),
 });

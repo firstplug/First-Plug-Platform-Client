@@ -1,31 +1,24 @@
-import { Instance, types } from "mobx-state-tree";
-
-const Order = types.model({
-  _id: types.string,
-  teamMember: types.optional(types.array(types.string), []),
-  status: types.optional(types.string, ""),
-  date: types.string,
-  totalPrice: types.optional(types.string, ""),
-  products: types.optional(types.array(types.string), []),
-});
-
-export type Order = Instance<typeof Order>;
+import { OrderModel, Order } from "@/types";
+import { types } from "mobx-state-tree";
 
 export const OrderStore = types
   .model({
-    orders: types.array(Order),
-    orderSelected: types.optional(types.string, ""),
+    orders: types.array(OrderModel),
+    selectedOrderId: types.optional(types.string, ""),
   })
   .views((store) => ({
     get selectedOrder() {
-      return store.orders.find((order) => order._id === store.orderSelected);
+      return store.orders.find((order) => order._id === store.selectedOrderId);
     },
   }))
   .actions((store) => ({
-    setOrders(orders) {
-      store.orders = orders;
+    setOrders(orders: Order[]) {
+      // TODO: the same cuestion at product store
+      // store.orders = orders;
+
+      store.orders.push(orders);
     },
-    setSelectedOrder(orderId) {
-      store.orderSelected = orderId;
+    setSelectedOrder(orderId: Order["_id"]) {
+      store.selectedOrderId = orderId;
     },
   }));

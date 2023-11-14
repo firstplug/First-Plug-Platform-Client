@@ -1,18 +1,19 @@
 "use client";
-
 import { MouseEvent, ReactNode } from "react";
 
-const buttonVarianProps = ["primary", "secondary", "delete", "text", "alert"] as const
-const sizeVariantProps = ["big", "small"] as const
+const ButtonVarianProps = ["primary", "secondary", "delete", "text", "alert"] as const
+const Sizes = ["big", "small"] as const
+type Size = typeof Sizes[number]
+type Variant = typeof ButtonVarianProps[number]
 
 interface ButtonProps  {
   body?: ReactNode;
-  variant?: typeof buttonVarianProps[number];
+  variant?: Variant;
   icon?: JSX.Element
   className?: string;
   disabled?: boolean;
   onClick?: (event: MouseEvent) => void;
-  size?: typeof sizeVariantProps[number];
+  size?: Size;
   children?: ReactNode;
 };
 

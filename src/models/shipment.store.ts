@@ -10,6 +10,7 @@ const Shipments = types.model({
   trackingURL: types.optional(types.string, ""),
   price: types.optional(types.string, ""),
   orders: types.optional(types.array(types.string), []),
+  shipmentDetails: types.optional(types.string, ""),
 });
 
 export const ShipmentStore = types.model({

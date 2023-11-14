@@ -18,7 +18,6 @@ export const TeamMemberModel = types.model({
   additionalInfo: types.optional(types.string, ""),
   teams: types.optional(types.array(types.string), []),
   image: types.optional(types.string, ""),
-  shipmentDetails: types.optional(types.string, ""),
 });
 
 export type TeamMember = Instance<typeof TeamMemberModel>;

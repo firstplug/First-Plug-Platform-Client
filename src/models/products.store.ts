@@ -26,7 +26,7 @@ export type Product = Instance<typeof Product>
 export const ProductsStore = types
   .model({
     products: types.array(Product),
-    selectedProductId: types.optional(types.string, ""),
+    selectedProductId: types.maybe(types.string),
   })
   .views((store) => ({
     get productCount() {

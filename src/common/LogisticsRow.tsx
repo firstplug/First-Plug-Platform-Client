@@ -1,4 +1,4 @@
-import State from "./State";
+import {State} from "./State";
 
 interface LogisticsRowProps{
   month: string;
@@ -8,7 +8,7 @@ interface LogisticsRowProps{
   className?: string;
 }
 
-export default function LogisticsRow({
+export function LogisticsRow({
   month,
   shipmentQuantity,
   state,

@@ -10,7 +10,7 @@ interface SidebarLinkProps {
   href: string
 }
 
-export default function SidebarLink({
+export function SidebarLink({
   isSmall,
   isActive,
   icon,

@@ -1,3 +1,5 @@
+import { ShimpentModel } from "@/types";
+
 const { types } = require("mobx-state-tree");
 
 const Shipments = types.model({

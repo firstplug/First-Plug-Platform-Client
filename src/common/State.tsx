@@ -1,6 +1,7 @@
 export interface StateProps {
-  status: OrderStatus;
+  status?: OrderStatus;
   className?: string;
+  message?: string
 }
 
 const Colors = {

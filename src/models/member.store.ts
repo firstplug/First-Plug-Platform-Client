@@ -1,7 +1,6 @@
 import { types } from "mobx-state-tree";
 import { TeamMemberModel, TeamMember } from "@/types";
 
-
 export const MemberStore = types
   .model({
     members: types.array(TeamMemberModel),

@@ -1,28 +1,52 @@
 "use client";
 import React from "react";
 import { TrashIcon } from "@/common/Icons";
-import Button from "./Button";
+import {Button} from "./Button";
 
-const status = ["missingData", "delivered", "preparing", "available", "shipped"] as const;
+// TODO: move all status and colors to type file because we use it in State.tsx too
 
 interface TableRowProps {
   id: string;
   name: string;
-  status: typeof status[number];
-  actions: string;
+  status: Status;
   className?: string;
+  actions: string;
 }
 
-const statusColors = {
+type Status =
+  | "MISSING DATA"
+  | "DELIVERED"
+  | "PREPARING"
+  | "AVAILABLE"
+  | "SHIPPED";
+
+const StatusColors = {
   missingData: "bg-lightRed",
   delivered: "bg-lightGreen",
   preparing: "bg-lightYellow",
   available: "bg-lightPurple",
   shipped: "bg-lightBlue",
-};
+} as const;
 
-export default function TableRow({ id, name, status, actions, className } : TableRowProps) {
-  const statusColorClass = statusColors[status] || "";
+type Color = keyof typeof StatusColors;
+
+const StateColors: Record<Status, Color> = {
+  "MISSING DATA": "missingData",
+  DELIVERED: "delivered",
+  PREPARING: "preparing",
+  AVAILABLE: "available",
+  SHIPPED: "shipped",
+} as const;
+
+export  function TableRow({
+  id,
+  name,
+  status,
+  actions,
+  className,
+}: TableRowProps) {
+  const Color = StateColors[status] || "";
+
   return (
     <table
       className={`w-full h-10 bg-white flex items-center justify-between p-8 gap-x-40 border-t-2 border-grey ${
@@ -37,7 +61,7 @@ export default function TableRow({ id, name, status, actions, className } : Tabl
       </tr>
       <tr>
         <td
-          className={`text-black ${statusColorClass} px-[8px] py-[4px] rounded-[200px] font-montserrat text-[12px] font-semibold text-center`}
+          className={`text-black ${Color} px-[8px] py-[4px] rounded-[200px] font-montserrat text-[12px] font-semibold text-center`}
         >
           {status.toUpperCase()}
         </td>

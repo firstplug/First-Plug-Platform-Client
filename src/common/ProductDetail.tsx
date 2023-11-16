@@ -8,13 +8,14 @@ interface ProductDetailProps {
   isChecked?: boolean;
 }
 
-export default function ProductDetail({
+export function ProductDetail({
   productId,
   className = "",
   isChecked = false,
 }: ProductDetailProps) {
-
-  const {products: {selectedProduct} } = useStore();
+  const {
+    products: { selectedProduct },
+  } = useStore();
 
   return (
     <div
@@ -43,13 +44,15 @@ export default function ProductDetail({
         </div>
         <p className="text-dark-grey text-md">{selectedProduct.screen}</p>
 
-        {selectedProduct.quantity ? (
+        {selectedProduct.stock ? (
           <>
             <hr />
 
             <div className="flex gap-2 items-center">
               <h1 className="font-normal text-lg">Quantity:</h1>
-              <span className="font-normal text-lg">{selectedProduct.quantity}</span>
+              <span className="font-normal text-lg">
+                {selectedProduct.stock}
+              </span>
             </div>
           </>
         ) : null}

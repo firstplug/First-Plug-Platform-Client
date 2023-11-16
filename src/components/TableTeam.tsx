@@ -3,6 +3,7 @@ import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
 import TeamCard from "@/common/TeamCard";
 
 import { useStore } from "@/models/root.store";
+import { AsideType } from "@/types";
 
 interface TableTeamProps {
   className?: string;
@@ -14,8 +15,7 @@ export default (function TableTeam({ className }: TableTeamProps) {
     members: { members },
   } = useStore();
 
-  // TODO: Type Aside type.
-  const handleModal = (option: string) => {
+  const handleModal = (option: AsideType) => {
     setAside(option);
     openAside();
   };
@@ -76,7 +76,7 @@ export default (function TableTeam({ className }: TableTeamProps) {
             </td>
             <td className=" py-4 px-3 ">
               <div className="flex gap-5">
-                <Button onClick={() => handleModal("edit")}>
+                <Button onClick={() => handleModal("EditMember")}>
                   <PenIcon strokeWidth={2} className="w-[1rem] h-[1rem]" />
                 </Button>
                 <Button>

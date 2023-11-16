@@ -38,7 +38,7 @@ const btnStyle = {
   },
 } as const
 
-export default function Button({
+export function Button({
   body,
   variant = "primary",
   icon,

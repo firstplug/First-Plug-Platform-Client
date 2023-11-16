@@ -1,13 +1,13 @@
 "use client";
 
-import CustomLink from "@/common/CustomLink";
-import Button from "@/common/Button";
+import {CustomLink} from "@/common";
+import {Button} from "@/common";
 
 interface selectedTabProps {
   selectedTab: string;
 }
 
-export default function Header({ selectedTab } : selectedTabProps) {
+export function Header({ selectedTab } : selectedTabProps) {
   return (
     <header className="flex gap-5 border-b-4 border-gray-300">
       <CustomLink

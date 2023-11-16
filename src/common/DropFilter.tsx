@@ -7,7 +7,7 @@ interface DropFilterProps {
   className?: string;
 }
 
-export default function DropFilter({
+export function DropFilter({
   children,
   body,
   className,

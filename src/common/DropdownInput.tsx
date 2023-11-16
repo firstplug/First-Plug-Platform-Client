@@ -1,6 +1,6 @@
 "use client";
 import { useState, ReactEventHandler } from "react";
-import Button from "./Button";
+import {Button} from "./Button";
 import { ChevronDown } from "./Icons";
 
 interface DropdownInputProps  {
@@ -19,7 +19,7 @@ interface DropdownInputProps  {
   value?: string;
 };
 
-export default function DropdownInput({
+export function DropdownInput({
   className,
   title,
   placeholder,

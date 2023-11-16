@@ -1,5 +1,4 @@
 "use client";
-
 import { ChangeEvent, FocusEvent, useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@/common/Icons";
 
@@ -18,12 +17,12 @@ type InputProps = {
   required?: boolean;
 };
 
-export default function Input({
+export function Input({
   title,
   placeholder,
   type,
-  defaultValue = "",
-  className = "",
+  defaultValue,
+  className,
   value,
   onChange,
   onBlur,

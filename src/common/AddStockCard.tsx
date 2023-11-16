@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { IconX, FileIcon, AlertCheck } from "./Icons";
-import ProgressBar from "./ProgressBar";
+import {ProgressBar} from "./ProgressBar";
 
 interface AddStockCardProps  {
   title: string;
@@ -10,7 +10,7 @@ interface AddStockCardProps  {
   className?: string;
 }
 
-export default function AddStockCard({ title, file, currentDate, className } : AddStockCardProps) {
+export function AddStockCard({ title, file, currentDate, className } : AddStockCardProps) {
   const [showProgress, setShowProgress] = useState<Boolean>(true);
 
 

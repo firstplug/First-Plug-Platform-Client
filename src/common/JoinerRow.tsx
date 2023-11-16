@@ -12,7 +12,7 @@ interface joinerOptions {
   date: string;
 }
 
-export default function JoinerRow({ joiner } : joinerProps) {
+export function JoinerRow({ joiner } : joinerProps) {
   return (
     <div className="border-b rounded-md border-border flex items-center gap-2 justify-between p-2 ">
       <div className="flex gap-2 ">

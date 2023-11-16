@@ -4,7 +4,7 @@ import React from "react";
 import userPhoto from "../../public/UserLogo.jpeg";
 import { useSession } from "next-auth/react";
 
-export default function ImgPorfile() {
+export function ImgPorfile() {
   const session = useSession();
 
   return (

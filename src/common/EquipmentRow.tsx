@@ -1,8 +1,6 @@
 "use client";
-import { ReactElement, useEffect, useState } from "react";
-import axios from "axios";
+import { ReactElement  } from "react";
 import { useStore } from "@/models/root.store";
-import { TeamMember } from "@/models/member.store";
 
 interface EquipmentRowProps {
   id: number;
@@ -10,10 +8,10 @@ interface EquipmentRowProps {
   date: string;
   state: string | ReactElement;
   price: number;
-  className?: string | "";
+  className?: string;
 }
 
-export default function EquipmentRow({
+export function EquipmentRow({
   id,
   idTeamMember,
   date,
@@ -21,31 +19,27 @@ export default function EquipmentRow({
   price,
   className = "",
 }: EquipmentRowProps) {
-  const { orders, aside } = useStore();
-  const [member, setMember] = useState<TeamMember>();
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3001/api/teamMembers/${idTeamMember}`)
-      .then((res) => {
-        setMember(res.data);
-      });
-  }, []);
+  const {
+    orders : { orders },
+    aside: {setAside, openAside},
+    members: {selectedMember}
+  } = useStore();
 
   return (
     <tr className={` text-left ${className}`}>
       <td
         onClick={() => {
-          orders.setSelectedOrder(id);
-          aside.setAside("orderDetails");
-          aside.openAside();
+          orders;
+          setAside("OrderDetails");
+          openAside();
         }}
         className="pl-5 py-3 text-blue cursor-pointer"
       >
         #{id}
       </td>
       <td className="pl-3 py-3">
-        {member.firstName} {member.lastName}
+        {selectedMember.firstName} {selectedMember.lastName}
       </td>
       <td className="pl-3 py-3">{date}</td>
       <td className="pl-3 py-3 ">{state}</td>

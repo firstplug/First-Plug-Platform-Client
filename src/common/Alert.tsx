@@ -5,7 +5,7 @@ interface AlertProps {
   msg: string;
 }
 
-export default function Alert({ title, msg } : AlertProps) {
+export function Alert({ title, msg } : AlertProps) {
   return (
     <article className=" bg-white font-sans grid items-center-8 rounded-lg shadow border-2 border-ligth-grey py-6 px-4 absolute ">
       <button className="items-end absolute right-5 top-5">

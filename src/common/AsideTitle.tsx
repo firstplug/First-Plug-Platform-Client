@@ -1,7 +1,7 @@
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 
-export default observer(function AsideTitle() {
+export observer(function AsideTitle() {
   const { aside, orders, members } = useStore();
   switch (aside.type) {
     case "memberDetails":

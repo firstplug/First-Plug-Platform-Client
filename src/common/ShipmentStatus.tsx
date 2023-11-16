@@ -7,8 +7,8 @@ interface ShipmentStatusProps {
   status: (typeof status)[number];
 }
 
-export default function ShipmentStatus({ status }: ShipmentStatusProps) {
-  // TODO: Tipar los status de shipments
+export function ShipmentStatus({ status }: ShipmentStatusProps) {
+  // TODO: remove from here "status" and move it to types carpet that is doing to Fran
 
   return (
     <span className="flex items-center gap-1 font-light">

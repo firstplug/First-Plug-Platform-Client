@@ -8,7 +8,7 @@ interface DropdownButtonProps {
   className?: string;
 }
 
-export default function DropdownButton({ className }: DropdownButtonProps) {
+export function DropdownButton({ className }: DropdownButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const session = useSession();

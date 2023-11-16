@@ -11,7 +11,7 @@ interface DoughnutChartProps {
   };
 }
 
-export default function DoughnutChart({ className, data }: DoughnutChartProps) {
+export function DoughnutChart({ className, data }: DoughnutChartProps) {
   const number = 10;
   const quantity = data && data.quantity ? data.quantity : 0;
   const info = {

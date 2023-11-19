@@ -1,28 +1,30 @@
 import Button from "@/common/Button";
 import { TrashIcon } from "@/common/Icons";
 import State from "@/common/State";
-
-export type Detail = {
-  serial: string;
-  name: string;
-  lastName: string;
-  status: string;
-  actions: string;
-};
+import { useStore } from "@/models";
+import { observer } from "mobx-react-lite";
 
 type TableDetailsProps = {
-  details: Detail[];
   className?: string;
-  openModal?: () => void;
+  productId: string;
 };
 
-export default function TableDetails({
-  details,
+export default observer(function TableDetails({
   className,
-  openModal,
+  productId,
 }: TableDetailsProps) {
-  // TODO: Consumir la data de "details shipment" de la store. como se hace con los member details
+  // ASK: En esta tabla se muestran los shimpents que contienen este product?
+  const {
+    shipments: { shipmentByProduct },
+  } = useStore();
 
+  const SHIPMENT_ACTION = {
+    "Missin Data": "Fill Data",
+    Delivered: "Fill Data",
+    Preparing: "Reasing",
+    Avaliable: "Assing To",
+    Shipped: "Track >",
+  };
   return (
     <table
       className={`flex-col w-full rounded-lg overflow-hidden ${
@@ -39,26 +41,24 @@ export default function TableDetails({
         </tr>
       </thead>
       <tbody>
-        {details.map((detail) => (
+        {shipmentByProduct(productId).map((shipment) => (
           <tr
-            key={detail.serial}
+            key={shipment._id}
             className="bg-white text-black border-b-2 border-gray-200 text-left"
           >
-            <td className="py-4 px-3 ">{detail.serial}</td>
+            <td className="py-4 px-3 ">
+              #{shipment._id.slice(shipment._id.length - 5)}
+            </td>
             <td className="py-4 px-3">
               <b>
-                {detail.name} {detail.lastName}
+                {shipment.name} {shipment.lastName}
               </b>
             </td>
             <td className="  py-4 px-3">
-              <State message={detail.status} className="p-1" />
+              <State message={shipment.status} className="p-1" />
             </td>
             <td className=" py-4 px-3">
-              {detail.actions === "Assign To" ? (
-                <Button>{detail.actions}</Button>
-              ) : (
-                <Button>{detail.actions}</Button>
-              )}
+              <Button>{SHIPMENT_ACTION[shipment.status]}</Button>
             </td>
             <td className=" py-4 px-3 ">
               <div className="flex gap-1">
@@ -72,4 +72,4 @@ export default function TableDetails({
       </tbody>
     </table>
   );
-}
+});

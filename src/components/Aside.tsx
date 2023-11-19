@@ -6,13 +6,15 @@ import { useStore } from "@/models/root.store";
 import AsideTitle from "@/common/AsideTitle";
 
 interface AsideProps {
-  className?: string
+  className?: string;
 }
 
 export default observer(function Aside({ className = "" }: AsideProps) {
-  const { aside: { closeAside, isOpen } } = useStore();
+  const {
+    aside: { type, setAside },
+  } = useStore();
 
-  return isOpen ? (
+  return type ? (
     <>
       {/* overlay */}
       <div
@@ -28,7 +30,7 @@ export default observer(function Aside({ className = "" }: AsideProps) {
           <h2 className="text-2xl font-sans text-black font-semibold">
             <AsideTitle />
           </h2>
-          <button onClick={() => closeAside()}>
+          <button onClick={() => setAside(undefined)}>
             <IconX className="h-8 w-8" />
           </button>
         </header>

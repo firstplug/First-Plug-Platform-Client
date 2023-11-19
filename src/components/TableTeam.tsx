@@ -11,13 +11,12 @@ interface TableTeamProps {
 
 export default (function TableTeam({ className }: TableTeamProps) {
   const {
-    aside: { openAside, setAside },
+    aside: { setAside },
     members: { members },
   } = useStore();
 
   const handleModal = (option: AsideType) => {
     setAside(option);
-    openAside();
   };
 
   return (
@@ -70,7 +69,10 @@ export default (function TableTeam({ className }: TableTeamProps) {
             <td className=" py-4 px-3 ">
               <div className="flex items-center gap-1">
                 <StatusCircleIcon status={"incomplete"} />
-                {/* TODO: WTF is this? */}
+                {/* TODO: En la tabla de memebers, hay una columna de Shipment Details que tiene 2 valores, complete | incomplete
+                  Ese valor se define si todos sus shipmetns estan en status delivered? Entiendo que un memeber, puede tener
+                  mas de un shipment asignado.
+                */}
                 {/* {member.shimentsDetails} */}
               </div>
             </td>

@@ -1,33 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { ProductServices } from "@/services/product.services";
-import { Product } from "@/models/products.store";
+import { Product } from "@/types";
 
 interface ProductDetailProps {
-  productId: string;
+  product: Product;
   className?: string;
   isChecked?: boolean;
 }
 
 export default function ProductDetail({
-  productId,
+  product,
   className = "",
   isChecked = false,
 }: ProductDetailProps) {
-  // TODO:  Usar las views de products para ver un product details (Misma logia que member details)
-
-  const [product, setProduct] = useState<Product>();
-
-  const getProductId = () => {
-    ProductServices.getProductById(productId).then((res) => {
-      setProduct(res);
-    });
-  };
-
-  useEffect(() => {
-    getProductId();
-  }, []);
-
   if (!product) {
     return null;
   }
@@ -59,13 +45,13 @@ export default function ProductDetail({
         </div>
         <p className="text-dark-grey text-md">{product.screen}</p>
 
-        {product.quantity ? (
+        {product.stock ? (
           <>
             <hr />
 
             <div className="flex gap-2 items-center">
               <h1 className="font-normal text-lg">Quantity:</h1>
-              <span className="font-normal text-lg">{product.quantity}</span>
+              <span className="font-normal text-lg">{product.stock}</span>
             </div>
           </>
         ) : null}

@@ -24,4 +24,11 @@ export const ShipmentStore = types
         shipment.products.some((product) => product._id === productId)
       );
     },
+    shipmentByMember(memberId: string) {
+      const shipment = store.shipments.find(
+        (shipment) => shipment.memberId === memberId
+      );
+
+      return shipment.products;
+    },
   }));

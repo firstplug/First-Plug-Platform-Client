@@ -14,6 +14,7 @@ export type ShipmentType = (typeof SHIPMENT_TYPE)[number];
 
 export const ShimpentModel = types.model({
   _id: types.string,
+  memberId: types.string,
   name: types.string,
   lastName: types.string,
   date: types.Date,

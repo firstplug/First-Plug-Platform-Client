@@ -19,4 +19,9 @@ export const ShipmentStore = types
 
       return shipment.products;
     },
+    shipmentByProduct(productId: string) {
+      return store.shipments.filter((shipment) =>
+        shipment.products.some((product) => product._id === productId)
+      );
+    },
   }));

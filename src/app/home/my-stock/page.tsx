@@ -8,7 +8,9 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 
 export default observer(function MyStock() {
-  const { aside } = useStore();
+  const {
+    aside: { setAside },
+  } = useStore();
 
   return (
     <Layout className="border-2 shadow-sm border-border rounded-md grid place-items-center w-[98%] ">
@@ -25,8 +27,7 @@ export default observer(function MyStock() {
             icon={<UpLoadIcon />}
             className="p-3 rounded-md"
             onClick={() => {
-              aside.setAside("loadStock");
-              aside.openAside();
+              setAside("LoadStock");
             }}
           />
 

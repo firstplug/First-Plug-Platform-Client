@@ -2,22 +2,19 @@
 import CustomLink from "@/common/CustomLink";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import DropdownInput from "@/common/DropdownInput";
 import Button from "@/common/Button";
 import memberImage from "../../../../public/member.png";
 import Layout from "@/common/Layout";
 import { IconX } from "../../../common/Icons";
-import useInput from "@/hooks/useInput";
 import { observer } from "mobx-react-lite";
 import { TeamMemberServices } from "@/services/teamMember.services";
-import { clearinputs, validateForm } from "@/utils/inputsServices";
 import { useStore } from "@/models/root.store";
 import { TeamServices } from "@/services/team.services";
 import FormInput from "@/components/FormInput";
 import FormLayout from "@/common/FormLayout";
 import SectionTitle from "@/common/SectionTitle";
 import { INITIAL_MEMBER_DATA } from "@/utils/constants";
-import { TeamMember } from "@/models/member.store";
+import { TeamMember } from "@/types";
 
 const isDate = (value: unknown) =>
   value instanceof Date && !isNaN(value.valueOf());

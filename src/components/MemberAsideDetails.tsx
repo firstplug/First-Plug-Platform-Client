@@ -36,7 +36,7 @@ export default observer(function MemberAsideDetails({
 
           <div className="flex flex-col gap-2">
             {shipmentPrdoucts.map((product) => (
-              <ProductDetail product={product} />
+              <ProductDetail product={product} key={product._id} />
             ))}
           </div>
         </div>

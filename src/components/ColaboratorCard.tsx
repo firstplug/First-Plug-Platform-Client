@@ -4,11 +4,10 @@ import Image from "next/image";
 import Button from "@/common/Button";
 import TeamCard from "@/common/TeamCard";
 import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
-
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
-import { TeamMember } from "@/models/member.store";
+import { AsideType, TeamMember } from "@/types";
 
 interface ColaboratorCardProps {
   member: TeamMember;
@@ -36,13 +35,12 @@ export default observer(function ColaboratorCard({
   className,
 }: ColaboratorCardProps) {
   const {
-    aside: { openAside, setAside },
+    aside: { setAside },
     members: { setMembers, setSelectedMember },
   } = useStore();
 
-  const handleModal = (asideType) => {
+  const handleModal = (asideType: AsideType) => {
     setSelectedMember(member._id);
-    openAside();
     setAside(asideType);
   };
 
@@ -77,7 +75,7 @@ export default observer(function ColaboratorCard({
               </div>
               <h2
                 className="text-black font-bold cursor-pointer"
-                onClick={() => handleModal("memberDetails")}
+                onClick={() => handleModal("MemberDetails")}
               >
                 {firstName} {lastName}
               </h2>
@@ -92,7 +90,7 @@ export default observer(function ColaboratorCard({
                   className="text-dark-grey w-[1.2rem] h-[1.2rem]"
                 />
               }
-              onClick={() => handleModal("editMember")}
+              onClick={() => handleModal("EditMember")}
             />
             <Button
               onClick={handleDeleteMember}

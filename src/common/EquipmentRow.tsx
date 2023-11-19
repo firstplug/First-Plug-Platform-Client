@@ -2,10 +2,10 @@
 import { ReactElement, useEffect, useState } from "react";
 import axios from "axios";
 import { useStore } from "@/models/root.store";
-import { TeamMember } from "@/models/member.store";
+import { TeamMember } from "@/types";
 
 interface EquipmentRowProps {
-  id: number;
+  id: string;
   idTeamMember: number;
   date: string;
   state: string | ReactElement;
@@ -21,7 +21,10 @@ export default function EquipmentRow({
   price,
   className = "",
 }: EquipmentRowProps) {
-  const { orders, aside } = useStore();
+  const {
+    orders: { setSelectedOrder },
+    aside: { setAside },
+  } = useStore();
   const [member, setMember] = useState<TeamMember>();
 
   useEffect(() => {
@@ -36,9 +39,8 @@ export default function EquipmentRow({
     <tr className={` text-left ${className}`}>
       <td
         onClick={() => {
-          orders.setSelectedOrder(id);
-          aside.setAside("orderDetails");
-          aside.openAside();
+          setSelectedOrder(id);
+          setAside("OrderDetails");
         }}
         className="pl-5 py-3 text-blue cursor-pointer"
       >

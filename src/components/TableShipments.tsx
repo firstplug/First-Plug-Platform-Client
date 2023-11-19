@@ -4,39 +4,26 @@ import { useState } from "react";
 import TableDetailsShipments from "./TableDetailsShipments";
 import Button from "@/common/Button";
 import { ArrowLeft } from "@/common/Icons";
-
-interface Order {
-  id: string;
-  date: string;
-  quantity: number;
-  type: string;
-  price: number;
-  details: {
-    image: string;
-    category: string;
-    model: string;
-    description: string;
-    quantity: number;
-    serial: string;
-  }[];
-}
+import { Order } from "@/types";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/models";
 
 interface TableDetailsShipmentsProps {
-  orders?: Order[];
   className?: string;
-  info?: string[];
 }
 
-export default function TableShipments({
-  orders = [],
+export default observer(function TableShipments({
   className,
-  info = [],
 }: TableDetailsShipmentsProps) {
+  const {
+    orders: { orders, orderPrice },
+    shipments: { shipments },
+  } = useStore();
   const [rowOpenState, setRowOpenState] = useState(
-    Array(info.length).fill(false)
+    Array(shipments.length).fill(false)
   );
 
-  const toggleRow = (index) => {
+  const toggleRow = (index: number) => {
     const updatedRowOpenState = [...rowOpenState];
     updatedRowOpenState[index] = !updatedRowOpenState[index];
     setRowOpenState(updatedRowOpenState);
@@ -49,8 +36,8 @@ export default function TableShipments({
     >
       <thead>
         <tr className="border-b-2 border-gray-300 bg-light-grey text-black text-left">
-          <th className="py-3 px-3">Order ID</th>
-          <th className="py-3 px-3">Order Date</th>
+          <th className="py-3 px-3">ID</th>
+          <th className="py-3 px-3">Date</th>
           <th className="py-3 px-3">Quantity Products</th>
           <th className="py-3 px-3">Type</th>
           <th className="py-3 px-3">Track</th>
@@ -61,24 +48,27 @@ export default function TableShipments({
         </tr>
       </thead>
       <tbody>
-        {orders.map((order, index) => (
+        {shipments.map((shipment, index) => (
           <>
             <tr
-              key={order.id}
+              key={shipment._id}
               className={`${
                 rowOpenState[index] ? " bg-[#EAEDF7]" : "  bg-white"
               } text-black border-b-2 border-gray-200 text-left `}
             >
-              <td className="  py-4 px-3 ">{order.id}</td>
+              <td className="  py-4 px-3 ">{shipment._id}</td>
               <td className="  py-4 px-3">
-                <b>{order.date}</b>
+                <b>{shipment.date.toISOString()}</b>
               </td>
-              <td className="  py-4 px-3">{order.quantity}</td>
-              <td className=" py-4 px-3">{order.type}</td>
+              <td className="  py-4 px-3">{shipment.products.length}</td>
+              <td className=" py-4 px-3">
+                //TODO QUE SERIA EL TYPE EN LA TABLA DE SHIPMENTS
+                {/* {order.type} */}
+              </td>
               <td className=" py-4 px-3">
                 <CustomLink href={"/"}>Link {">"}</CustomLink>
               </td>
-              <td className=" py-4 px-3">$ {order.price}</td>
+              <td className=" py-4 px-3">$ {orderPrice(index)}</td>
               <td className="  " onClick={() => toggleRow(index)}>
                 <Button className="p-2  rounded-md">
                   Details <ArrowLeft className="rotate-[-90deg]" />
@@ -89,7 +79,7 @@ export default function TableShipments({
             {rowOpenState[index] && (
               <tr>
                 <td colSpan={12}>
-                  <TableDetailsShipments data={order.details} />
+                  <TableDetailsShipments />
                 </td>
               </tr>
             )}
@@ -98,4 +88,4 @@ export default function TableShipments({
       </tbody>
     </table>
   );
-}
+});

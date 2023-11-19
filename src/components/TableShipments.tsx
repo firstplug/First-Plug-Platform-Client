@@ -61,10 +61,7 @@ export default observer(function TableShipments({
                 <b>{shipment.date.toISOString()}</b>
               </td>
               <td className="  py-4 px-3">{shipment.products.length}</td>
-              <td className=" py-4 px-3">
-                //TODO QUE SERIA EL TYPE EN LA TABLA DE SHIPMENTS
-                {/* {order.type} */}
-              </td>
+              <td className=" py-4 px-3">{shipment.type}</td>
               <td className=" py-4 px-3">
                 <CustomLink href={"/"}>Link {">"}</CustomLink>
               </td>

@@ -4,7 +4,7 @@ import { TeamMemberModel, TeamMember } from "@/types";
 export const MemberStore = types
   .model({
     members: types.array(TeamMemberModel),
-    memberSelected: types.optional(types.string, ""),
+    memberId: types.optional(types.string, ""),
   })
   .views((store) => ({
     get memberCount() {
@@ -12,9 +12,7 @@ export const MemberStore = types
     },
 
     get selectedMember() {
-      return store.members.find(
-        (member) => member._id === store.memberSelected
-      );
+      return store.members.find((member) => member._id === store.memberId);
     },
   }))
   .actions((store) => ({
@@ -25,6 +23,6 @@ export const MemberStore = types
       store.members.push(member);
     },
     setSelectedMember(memberId: string) {
-      store.memberSelected = memberId;
+      store.memberId = memberId;
     },
   }));

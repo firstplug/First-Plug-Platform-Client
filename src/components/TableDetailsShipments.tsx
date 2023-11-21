@@ -1,5 +1,5 @@
+"use client";
 import { useStore } from "@/models";
-import { Product, Shimpent } from "@/types";
 import { observer } from "mobx-react-lite";
 import Image from "next/image";
 

@@ -1,6 +1,6 @@
-import Button from "@/common/Button";
+"use client";
+import { Button, State } from "@/common";
 import { TrashIcon } from "@/common/Icons";
-import State from "@/common/State";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 

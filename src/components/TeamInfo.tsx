@@ -1,20 +1,23 @@
+"use client";
 import React, { useState } from "react";
-import Button from "@/common/Button";
+import { Button } from "@/common";
 import { AddIcon, IconX, TrashIcon } from "@/common/Icons";
 import AddMemberForm from "./AddMemberForm";
 import { TeamServices } from "@/services/team.services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMemberServices } from "@/services/teamMember.services";
-import { TeamMember } from "@/models/member.store";
-import { Team } from "@/models/teams.store";
+import { TeamMember, Team } from "@/types";
 
 interface TeamInfoProps {
-  team: Team
+  team: Team;
 }
 
 export default observer(function TeamInfo({ team }: TeamInfoProps) {
-  const { members: { setMembers }, teams: { setTeams } } = useStore();
+  const {
+    members: { setMembers },
+    teams: { setTeams },
+  } = useStore();
 
   const [selectedMembers, setSelectedMembers] = useState<TeamMember[]>([]);
   const [showAddMember, setShowAddMember] = useState(false);

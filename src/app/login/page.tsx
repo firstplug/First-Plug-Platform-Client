@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
-import Button from "@/common/Button";
-import CustomLink from "@/common/CustomLink";
-import Input from "@/common/Input";
+import { Button, CustomLink, Input } from "@/common";
 import Form from "@/components/Form";
 import { useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";

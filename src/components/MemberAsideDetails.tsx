@@ -1,6 +1,6 @@
+"use client";
 import React from "react";
-import Button from "@/common/Button";
-import MemberDetail from "@/common/MemberDetail";
+import { Button, MemberDetail } from "@/common";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import ProductDetail from "@/common/ProductDetail";

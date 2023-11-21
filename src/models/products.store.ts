@@ -1,9 +1,9 @@
 import { types } from "mobx-state-tree";
-
 import { Product, ProductModel } from "@/types";
 
 export const ProductsStore = types
   .model({
+    selectedProductId: types.maybe(types.string),
     products: types.array(ProductModel),
   })
   .views((store) => ({

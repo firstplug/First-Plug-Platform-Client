@@ -1,8 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Card from "./Card";
-import AddStockCard from "@/common/AddStockCard";
-import CustomLink from "@/common/CustomLink";
+import { AddStockCard, CustomLink } from "@/common";
 
 export default function LoadStock() {
   return (

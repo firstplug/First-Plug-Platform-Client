@@ -1,8 +1,7 @@
-import { TeamMember } from "@/models/member.store";
+import { TeamMember } from "@/types";
 import axios, { AxiosResponse } from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
 
 type CreationMember = Omit<Omit<TeamMember, "_id">, "__v">;
 

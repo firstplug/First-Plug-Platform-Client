@@ -1,51 +1,54 @@
 "use client";
-
 import { MouseEvent, ReactNode } from "react";
+
+type Size = keyof typeof btnStyle["size"]
+type Variant = keyof typeof btnStyle["variant"]
 
 interface ButtonProps  {
   body?: ReactNode;
-  variant?: "primary" | "secondary" | "delete" | "text" | "alert";
+  variant?: Variant;
   icon?: JSX.Element
   className?: string;
   disabled?: boolean;
   onClick?: (event: MouseEvent) => void;
-  size?: "big" | "small";
+  size?: Size;
   children?: ReactNode;
 };
 
-export default function Button({
+const btnStyle = {
+  variant: {
+    primary:
+      "bg-blue text-white   hover:bg-gradient-to-r from-blue to-green ",
+    secondary: "bg-white border border-blue hover:bg-hoverBlue  text-blue ",
+    delete: "bg-white border border-red-500 hover:bg-hoverRed  text-red-500 ",
+    text: "bg-white   text-blue  hover:bg-hoverBlue",
+    alert: "text-error    hover:bg-hoverRed",
+  },
+  size: {
+    big: "text-lg py-3 px-6",
+    small: "text-sm  py-2 px-6",
+  },
+  disabled: {
+    primary: "bg-light-grey    text-grey ",
+    delete: "bg-light-grey    text-grey ",
+
+    secondary: "bg-white   text-grey ",
+    text: "bg-white    text-grey   ",
+    alert: "bg-white   text-grey ",
+  },
+} as const
+
+export function Button({
   body,
-  variant,
+  variant = "primary",
   icon,
   className,
   disabled = false,
   onClick,
-  size,
+  size = "small",
   children,
   ...buttonProps
 } : ButtonProps ) {
-  const btnStyle = {
-    variant: {
-      primary:
-        "bg-blue text-white   hover:bg-gradient-to-r from-blue to-green ",
-      secondary: "bg-white border border-blue hover:bg-hoverBlue  text-blue ",
-      delete: "bg-white border border-red-500 hover:bg-hoverRed  text-red-500 ",
-      text: "bg-white   text-blue  hover:bg-hoverBlue",
-      alert: "text-error    hover:bg-hoverRed",
-    },
-    size: {
-      big: "text-lg py-3 px-6",
-      small: "text-sm  py-2 px-6",
-    },
-    disabled: {
-      primary: "bg-light-grey    text-grey ",
-      delete: "bg-light-grey    text-grey ",
-
-      secondary: "bg-white   text-grey ",
-      text: "bg-white    text-grey   ",
-      alert: "bg-white   text-grey ",
-    },
-  };
 
   return (
     <button

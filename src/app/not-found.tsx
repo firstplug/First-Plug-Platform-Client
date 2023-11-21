@@ -1,6 +1,4 @@
-import CustomLink from "@/common/CustomLink";
-import Layout from "@/common/Layout";
-
+import { CustomLink, Layout } from "@/common";
 import Image from "next/image";
 import notFound from "../../public/svg/not-found.svg";
 import Navbar from "@/components/Navbar";

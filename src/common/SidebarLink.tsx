@@ -6,11 +6,11 @@ interface SidebarLinkProps {
   isActive?: boolean;
   icon: ReactNode;
   title: string;
-  className?: string | ""
+  className?: string
   href: string
 }
 
-export default function SidebarLink({
+export function SidebarLink({
   isSmall,
   isActive,
   icon,

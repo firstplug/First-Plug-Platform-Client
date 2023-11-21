@@ -1,10 +1,8 @@
 "use client";
-import CustomLink from "@/common/CustomLink";
+import { CustomLink, Button } from "@/common";
 import { useState } from "react";
 import TableDetailsShipments from "./TableDetailsShipments";
-import Button from "@/common/Button";
 import { ArrowLeft } from "@/common/Icons";
-import { Order } from "@/types";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models";
 

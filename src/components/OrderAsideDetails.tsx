@@ -1,19 +1,20 @@
-import Button from "@/common/Button";
+"use client";
+import { Button } from "@/common";
 import { DownloadIcon } from "@/common/Icons";
 import ProductDetail from "@/common/ProductDetail";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 
 export default observer(function OrderAsideDetails() {
-
-  const { orders } = useStore();
-  const selectedOrder = orders.selectedOrder;
+  const {
+    orders: { selectedOrder },
+  } = useStore();
 
   return (
     <div className="h-full relative">
       <section className="flex flex-col gap-4">
-        {selectedOrder.products.map((id: string) => (
-          <ProductDetail key={id} productId={id} className="" />
+        {selectedOrder.products.map((product) => (
+          <ProductDetail key={product._id} product={product} />
         ))}
       </section>
 

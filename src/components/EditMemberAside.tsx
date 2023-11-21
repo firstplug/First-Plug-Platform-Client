@@ -1,4 +1,5 @@
-import Button from "@/common/Button";
+"use client";
+import { Button } from "@/common";
 import { TrashIcon } from "@/common/Icons";
 import Image from "next/image";
 import { observer } from "mobx-react-lite";
@@ -6,7 +7,7 @@ import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
 import FormInput from "./FormInput";
 import { useState } from "react";
-import { TeamMember } from "@/models/member.store";
+import { TeamMember } from "@/types";
 
 export default observer(function EditMemberAside() {
   const [finish, setFinished] = useState(false);

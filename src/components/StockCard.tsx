@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import DoughnutChart from "@/common/Graphs";
+import { DoughnutChart } from "@/common";
 import { MonitorIcon, DeviceTablet, PencilAccesories } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";

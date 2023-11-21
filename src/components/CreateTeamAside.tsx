@@ -1,24 +1,31 @@
+"use client";
 import React, { useState, ReactNode } from "react";
-import Button from "@/common/Button";
+import { Button } from "@/common";
 import AddMemberForm from "./AddMemberForm";
 import { TeamServices } from "../services/team.services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMemberServices } from "@/services/teamMember.services";
-import { TeamMember, TeamModel } from "@/models";
+import { TeamMember, TeamModel } from "@/types";
 
 interface CreateTeamAsideProps {
   className?: string;
 }
 
-export default observer(function CreateTeamAside({ className = "" }: CreateTeamAsideProps) {
-  const { aside: { closeAside }, members: { memberCount, setMembers }, teams: { setTeams } } = useStore();
+export default observer(function CreateTeamAside({
+  className = "",
+}: CreateTeamAsideProps) {
+  const {
+    aside: { setAside },
+    members: { memberCount, setMembers },
+    teams: { setTeams },
+  } = useStore();
   const [name, setName] = useState("");
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
   const handleCreateTeam = async () => {
     try {
-      const team = TeamModel.create({ name, teamMembers })
+      const team = TeamModel.create({ name, teamMembers });
       TeamServices.createTeam(team).then((res) => {
         TeamServices.getAllTeams().then((res) => {
           setTeams(res);
@@ -28,7 +35,7 @@ export default observer(function CreateTeamAside({ className = "" }: CreateTeamA
         });
       });
 
-      closeAside();
+      setAside(undefined);
     } catch (error) {
       console.error("Error creating team:", error);
     }
@@ -70,9 +77,7 @@ export default observer(function CreateTeamAside({ className = "" }: CreateTeamA
             <span>({memberCount})</span>
           </div>
 
-          <AddMemberForm
-            handleSelectedMembers={handleSelectedMembers}
-          />
+          <AddMemberForm handleSelectedMembers={handleSelectedMembers} />
         </div>
       </div>
 
@@ -81,7 +86,7 @@ export default observer(function CreateTeamAside({ className = "" }: CreateTeamA
           variant="secondary"
           size="big"
           className="flex-grow rounded-md"
-          onClick={() => closeAside()}
+          onClick={() => setAside(undefined)}
         >
           Cancel
         </Button>

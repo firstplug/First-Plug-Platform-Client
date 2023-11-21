@@ -3,7 +3,7 @@ import { IconX } from "@/common/Icons";
 import AsideContent from "./AsideContent";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
-import AsideTitle from "@/common/AsideTitle";
+import { AsideTitle } from "@/common";
 
 interface AsideProps {
   className?: string;

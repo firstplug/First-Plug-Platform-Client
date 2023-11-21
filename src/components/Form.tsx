@@ -1,17 +1,16 @@
 "use client";
-import Button from "@/common/Button";
-import CustomLink from "@/common/CustomLink";
+import { Button, CustomLink } from "@/common";
 import { AppleIcon, GoogleIcon, MicrosoftIcon } from "@/common/Icons";
 import { signIn } from "next-auth/react";
 import { FormEvent, ReactNode } from "react";
 
 interface FormProps {
- title: string;
- children: ReactNode;
- login?: boolean;
- register?: boolean;
- onSubmit: (e: FormEvent) => void;
- className?: string | "";
+  title: string;
+  children: ReactNode;
+  login?: boolean;
+  register?: boolean;
+  onSubmit: (e: FormEvent) => void;
+  className?: string | "";
 }
 
 export default function Form({
@@ -21,7 +20,7 @@ export default function Form({
   register = false,
   onSubmit,
   className,
-} : FormProps) {
+}: FormProps) {
   return (
     <form
       className={`py-40 min-w-[400px] w-[500px] h-screen flex flex-col justify-center gap-6 my-4${className}`}

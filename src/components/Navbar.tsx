@@ -1,27 +1,25 @@
 "use client";
 import React from "react";
-import Button from "@/common/Button";
-import SearchInput from "@/common/SearchInput";
+import { Button, SearchInput, DropdownButton, ImgPorfile } from "@/common";
 import Image from "next/image";
 import Logo from "../../public/logo1.png";
 import { ShopIcon, NotificationIcon } from "@/common/Icons";
-import DropdownButton from "@/common/Dropdown";
-import ImgPorfile from "@/common/ImgPorfile";
+
 import { useRouter } from "next/navigation";
 
 type NavbarProps = {
-  title?: string,
+  title?: string;
   searchInput?: string;
   placeholder?: string;
   hasNotification?: boolean;
-}
+};
 
 export default function Navbar({
   title,
   searchInput,
   placeholder,
   hasNotification,
-} : NavbarProps) {
+}: NavbarProps) {
   const router = useRouter();
   return (
     <nav className="flex justify-between items-center pt-6 px-10 pb-3">

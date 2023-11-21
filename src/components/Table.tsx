@@ -1,8 +1,7 @@
 "use client";
-import { useState, Fragment, MouseEvent } from "react";
+import { useState, Fragment } from "react";
 import TableDetails from "./TableDetails";
-import ButtonMyStock from "@/common/ButtonMyStock";
-import useModal from "@/hooks/useModal";
+import { ButtonMyStock } from "@/common";
 import Image from "next/image";
 import defaultPhoto from "../../public/Isotipo.png";
 import { useStore } from "@/models/root.store";

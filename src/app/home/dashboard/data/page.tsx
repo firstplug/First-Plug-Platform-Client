@@ -1,8 +1,8 @@
 "use client";
-import Layout from "@/common/Layout";
+import { Layout } from "@/common";
 import Card from "@/components/Card";
 import { ShopIcon } from "@/common/Icons";
-import TeamCard from "@/components/TeamCard";
+import TeamHomeCard from "@/components/TeamHomeCard";
 import StockCard from "@/components/StockCard";
 import { useRouter } from "next/navigation";
 
@@ -12,7 +12,7 @@ export default function DashboardData() {
   return (
     <Layout className="flex flex-col gap-4 w-[98%]">
       <Card className="flex-1 h-1/2">
-        <TeamCard />
+        <TeamHomeCard />
       </Card>
 
       <div className="flex-1 h-1/2 grid grid-cols-2 gap-4">

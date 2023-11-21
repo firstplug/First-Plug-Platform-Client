@@ -10,8 +10,11 @@ export const OrderStore = types
     get selectedOrder() {
       return store.orders.find((order) => order._id === store.selectedOrderId);
     },
-  }))
-  .views((store) => ({
+    orderPriceById(orderId: string) {
+      const order = store.orders.find((order) => order._id === orderId);
+
+      return order.products.reduce((a, b) => parseInt(b.price) + a, 0);
+    },
     orderPrice(index: number) {
       return store.orders[index].products.reduce(
         (a, b) => parseInt(b.price) + a,
@@ -19,6 +22,7 @@ export const OrderStore = types
       );
     },
   }))
+
   .actions((store) => ({
     setOrders(orders: Order[]) {
       store.orders.push(orders);

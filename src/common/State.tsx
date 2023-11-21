@@ -1,34 +1,56 @@
-interface StateProps {
-  message: string;
+export interface StateProps {
+  status?: OrderStatus;
   className?: string;
+  message?: string
 }
 
-export default function State({ message, className = "" }: StateProps) {
-  // TODO: Hacer un type para los states
+const Colors = {
+  info: "bg-lightPurple",
+  pending: "bg-lightYellow",
+  warn: "bg-lightRed",
+  confirmed: "bg-lightGreen",
+  closed: "bg-disabled",
+  success: "bg-lightBlue",
+} as const;
 
-  const states = [
-    { state: "CONFIRMATION PENDING", color: "bg-lightPurple" },
-    { state: "PAYMENT PENDING", color: "bg-lightYellow" },
-    { state: "ORDER CANCELED", color: "bg-lightRed" },
-    { state: "ORDER CONFIRMED", color: "bg-lightGreen" },
-    { state: "CLOSED", color: "bg-disabled" },
-    { state: "OPEN", color: "bg-lightBlue" },
-    { state: "DELIVERED", color: "bg-lightGreen" },
-    { state: "MISSGING DATA", color: "bg-lightRed" },
-    { state: "PREPARING", color: "bg-lightYellow" },
-    { state: "AVAILABLE", color: "bg-lightPurple" },
-    { state: "SHIPPED", color: "bg-lightBlue" },
-  ];
+type Color = keyof typeof Colors;
 
-  const stateObj = states.find((stateItem) => stateItem.state === message);
-  const backgroundColorClass = stateObj ? stateObj.color : "";
+export type OrderStatus =
+  | "CONFIRMATION PENDING"
+  | "PAYMENT PENDING"
+  | "ORDER CANCELED"
+  | "ORDER CONFIRMED"
+  | "CLOSED"
+  | "OPEN"
+  | "DELIVERED"
+  | "MISSING DATA"
+  | "PREPARING"
+  | "AVAILABLE"
+  | "SHIPPED";
+
+const StateColors: Record<OrderStatus, Color> = {
+  "CONFIRMATION PENDING": "info",
+  "PAYMENT PENDING": "pending",
+  "ORDER CANCELED": "warn",
+  "ORDER CONFIRMED": "confirmed",
+  CLOSED: "closed",
+  OPEN: "success",
+  DELIVERED: "confirmed",
+  "MISSING DATA": "warn",
+  PREPARING: "pending",
+  AVAILABLE: "info",
+  SHIPPED: "success",
+} as const;
+
+export function State({ status, className }: StateProps) {
+  const color = StateColors[status] || ""; 
 
   return (
     <p
-      className={`${backgroundColorClass} ${className} py-1  rounded-full text-sm font-medium text-center whitespace-nowrap bg-disabled `}
-      style={{ width: `${message?.length + 2}ch` }}
+      className={`${Colors[color]} ${className} py-1 rounded-full text-sm font-medium text-center whitespace-nowrap bg-disabled`}
+      style={{ width: `${status.length + 2}ch` }}
     >
-      {message}
+      {status}
     </p>
   );
 }

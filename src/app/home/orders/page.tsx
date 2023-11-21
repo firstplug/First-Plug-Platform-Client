@@ -1,7 +1,5 @@
-import CustomLink from "@/common/CustomLink";
-import EmptyCard from "@/common/EmptyCard";
+import { CustomLink, EmptyCard, Layout } from "@/common";
 import { ShopIcon } from "@/common/Icons";
-import Layout from "@/common/Layout";
 
 export default function Orders() {
   //TODO: implemetnar logica con estados para mostrar logistsi o equipment, y que no sean dos rutas diferentes

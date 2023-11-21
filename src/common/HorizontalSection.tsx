@@ -1,3 +1,5 @@
+//TODO: This common is not used anywhere and have table estructure. Check it and delete because to Seba doesnt like tables.
+
 interface HorizontalSectionProps {
   firstItem: JSX.Element;
   secondItem: JSX.Element;

@@ -1,58 +1,46 @@
 "use client";
-import { ReactElement, useEffect, useState } from "react";
-import axios from "axios";
+import { ReactElement, useState, useEffect } from "react";
 import { useStore } from "@/models/root.store";
-import { TeamMember } from "@/types";
+import { Order, TeamMember } from "@/types";
+import axios from "axios";
+import { State } from "./State";
 
 interface EquipmentRowProps {
-  id: string;
-  idTeamMember: number;
-  date: string;
-  state: string | ReactElement;
-  price: number;
-  className?: string | "";
+  order: Order;
+  className?: string;
 }
 
-export default function EquipmentRow({
-  id,
-  idTeamMember,
-  date,
-  state,
-  price,
+export function EquipmentRow({
+  order,
+
   className = "",
 }: EquipmentRowProps) {
   const {
-    orders: { setSelectedOrder },
+    orders: { selectedOrder, setSelectedOrder, orderPriceById },
+    members: { selectedMember },
     aside: { setAside },
   } = useStore();
-  const [member, setMember] = useState<TeamMember>();
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3001/api/teamMembers/${idTeamMember}`)
-      .then((res) => {
-        setMember(res.data);
-      });
-  }, []);
 
   return (
     <tr className={` text-left ${className}`}>
       <td
         onClick={() => {
-          setSelectedOrder(id);
+          setSelectedOrder(order._id);
           setAside("OrderDetails");
         }}
         className="pl-5 py-3 text-blue cursor-pointer"
       >
-        #{id}
+        #{order._id.slice(10)}
       </td>
       <td className="pl-3 py-3">
-        {member.firstName} {member.lastName}
+        {selectedMember.firstName} {selectedMember.lastName}
       </td>
-      <td className="pl-3 py-3">{date}</td>
-      <td className="pl-3 py-3 ">{state}</td>
+      <td className="pl-3 py-3">{order.date}</td>
+      <td className="pl-3 py-3 ">
+        <State message={order.status} />
+      </td>
 
-      <td className="pl-3 py-3">USD {price}</td>
+      <td className="pl-3 py-3">USD {orderPriceById(order._id)}</td>
     </tr>
   );
 }

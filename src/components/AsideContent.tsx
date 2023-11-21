@@ -10,17 +10,17 @@ import OrderAsideDetails from "./OrderAsideDetails";
 export default observer(function AsideContent() {
   const { aside } = useStore();
   switch (aside.type) {
-    case "memberDetails":
+    case "MemberDetails":
       return <MemberAsideDetails />;
-    case "editTeam":
+    case "EditTeam":
       return <EditTeamsAsideDetails />;
-    case "newTeam":
+    case "NewTeam":
       return <CreateTeamAside />;
-    case "editMember":
+    case "EditMember":
       return <MemberEditAside />;
-    case "loadStock":
+    case "LoadStock":
       return <LoadStock />;
-    case "orderDetails":
+    case "OrderDetails":
       return <OrderAsideDetails />;
   }
 });

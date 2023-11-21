@@ -1,32 +1,42 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 
-const disableVariantOptions = ["primary", "secondary", "text", "alert"] as const
-const size = ["big", "small"] as const
+type Variant = keyof typeof customLinkStyle["variant"]
+type Size = keyof typeof customLinkStyle["size"]
+type Disabled = keyof typeof customLinkStyle["disabled"]
 
 interface CustomLinkProps  {
   href? : string,
   children?: ReactNode;
   className?: string;
-  disabled?: typeof disableVariantOptions[number];
-  variant?: typeof disableVariantOptions[number];
-  size?: typeof size[number];
+  disabled?: Disabled;
+  variant?: Variant;
+  size?: Size;
 }
 
-interface CustomLinkStyles {
+
+const customLinkStyle = {
   variant: {
-    [key: string]: string;
-  };
+    primary:
+      "bg-blue text-white   hover:bg-gradient-to-r from-blue to-green ",
+    secondary: "bg-white border border-blue hover:bg-hoverBlue  text-blue ",
+    text: "bg-white   text-blue  hover:bg-hoverBlue",
+    alert: "text-error    hover:bg-hoverRed",
+  },
   size: {
-    [key: string]: string;
-  };
+    big: "text-lg py-3 px-6",
+    small: "text-sm  py-2 px-6",
+  },
   disabled: {
-    [key: string]: string;
-  };
-}
+    primary: "bg-light-grey    text-grey ",
+    secondary: "bg-white   text-grey ",
+    text: "bg-white    text-grey   ",
+    alert: "bg-white   text-grey ",
+  },
+} as const;
 
 
-export default function CustomLink({
+export function CustomLink({
   href,
   children,
   className = "",
@@ -34,30 +44,11 @@ export default function CustomLink({
   variant,
   size,
 } : CustomLinkProps) {
-  const customLinkStyle: CustomLinkStyles = {
-    variant: {
-      primary:
-        "bg-blue text-white   hover:bg-gradient-to-r from-blue to-green ",
-      secondary: "bg-white border border-blue hover:bg-hoverBlue  text-blue ",
-      text: "bg-white   text-blue  hover:bg-hoverBlue",
-      alert: "text-error    hover:bg-hoverRed",
-    },
-    size: {
-      big: "text-lg py-3 px-6",
-      small: "text-sm  py-2 px-6",
-    },
-    disabled: {
-      primary: "bg-light-grey    text-grey ",
-      secondary: "bg-white   text-grey ",
-      text: "bg-white    text-grey   ",
-      alert: "bg-white   text-grey ",
-    },
-  };
 
   return (
     <Link
       href={href}
-      target={href.startsWith("http") ? "_black" : undefined}
+      target={href.startsWith("http") ? "_blank" : undefined}
       className={`text-blue font-lg font-bold font-sans ${className} ${
         disabled
           ? `${customLinkStyle.disabled[variant]} ${customLinkStyle.size[size]}`

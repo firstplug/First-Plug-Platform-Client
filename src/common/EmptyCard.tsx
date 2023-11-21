@@ -9,7 +9,7 @@ interface EmptyCardProps  {
   children: ReactNode
 }
 
-export default function EmptyCard({
+export function EmptyCard({
   imageBottom,
   altImage,
   paragraph,

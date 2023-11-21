@@ -1,7 +1,5 @@
-import Button from "@/common/Button";
+import { Button, TeamCard } from "@/common";
 import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
-import TeamCard from "@/common/TeamCard";
-
 import { useStore } from "@/models/root.store";
 import { AsideType } from "@/types";
 

@@ -1,5 +1,5 @@
-import { types } from "mobx-state-tree";
 import { ShimpentModel } from "@/types";
+import { types } from "mobx-state-tree";
 
 export const ShipmentStore = types
   .model({

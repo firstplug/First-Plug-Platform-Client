@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
-import { ProductServices } from "@/services/product.services";
 import { Product } from "@/types";
 
 interface ProductDetailProps {

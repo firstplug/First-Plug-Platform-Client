@@ -1,23 +1,22 @@
 import React from "react";
 import { PenIcon, TrashIcon } from "./Icons";
-import Button from "./Button";
-import TeamCard from "./TeamCard";
+import {Button} from "./Button";
+import {TeamCard} from "./TeamCard";
 import Image from "next/image";
 import Photo from "../../public/employees/member.jpg";
-import ShipmentStatus from "./ShipmentStatus";
+import {ShipmentStatus} from "./ShipmentStatus";
 import { dateTo_DDMMYY } from "@/utils/dateFormat";
 import { useStore } from "@/models/root.store";
-
+ 
 interface MemberDetailProps {
   className?: string;
 }
 
-export default function MemberDetail({ className }: MemberDetailProps) {
+export function MemberDetail({ className }: MemberDetailProps) {
   const {
     members: { selectedMember },
   } = useStore();
 
-  // TODO: ver la propiedad shipmentdDetails en el modelo de members. Para ver el 'status' de shipments
   return (
     <div className={`flex gap-2 ${className || ""}`}>
       <Image

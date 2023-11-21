@@ -1,8 +1,7 @@
 "use client";
 import Photo from "../../public/employees/member.jpg";
 import Image from "next/image";
-import Button from "@/common/Button";
-import TeamCard from "@/common/TeamCard";
+import { Button, TeamCard } from "@/common";
 import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";

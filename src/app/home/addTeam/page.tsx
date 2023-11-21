@@ -1,19 +1,15 @@
 "use client";
-import CustomLink from "@/common/CustomLink";
+import { CustomLink, Button, Layout, FormLayout, SectionTitle } from "@/common";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import Button from "@/common/Button";
 import memberImage from "../../../../public/member.png";
-import Layout from "@/common/Layout";
+
 import { IconX } from "../../../common/Icons";
 import { observer } from "mobx-react-lite";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
 import { TeamServices } from "@/services/team.services";
 import FormInput from "@/components/FormInput";
-import FormLayout from "@/common/FormLayout";
-import SectionTitle from "@/common/SectionTitle";
-import { INITIAL_MEMBER_DATA } from "@/utils/constants";
 import { TeamMember } from "@/types";
 
 const isDate = (value: unknown) =>

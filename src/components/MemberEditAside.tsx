@@ -1,7 +1,6 @@
-import Button from "@/common/Button";
-import DropdownInput from "@/common/DropdownInput";
+"use client";
+import { Button, Input, DropdownInput } from "@/common";
 import { TrashIcon } from "@/common/Icons";
-import Input from "@/common/Input";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 import Photo from "../../public/employees/member.jpg";
@@ -78,8 +77,8 @@ export default observer(function MemberEditAside({
         <textarea
           name=""
           id=""
-          cols="30"
-          rows="5"
+          cols={30}
+          rows={5}
           placeholder="Comments..."
           className="border-2 p-2"
         ></textarea>

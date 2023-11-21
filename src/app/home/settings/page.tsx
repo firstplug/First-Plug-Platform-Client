@@ -1,11 +1,7 @@
 import Image from "next/image";
 import Card from "@/components/Card";
 import Group from "../../../../public/svg/Group 133544.svg";
-
-import Input from "@/common/Input";
-import Layout from "@/common/Layout";
-import CustomLink from "@/common/CustomLink";
-import Button from "@/common/Button";
+import { Input, Layout, CustomLink, Button } from "@/common";
 import { VisaIcon } from "@/common/Icons";
 
 export default function Settings() {

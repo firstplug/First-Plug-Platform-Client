@@ -2,9 +2,7 @@
 import { useState } from "react";
 
 import TableLogistics from "@/components/TableLogistics";
-
-import Layout from "@/common/Layout";
-import Header from "@/common/Header";
+import { Layout, Header } from "@/common";
 
 export default function Logistics() {
   const [selectedTab, setSelectedTab] = useState<string>("Logistics");

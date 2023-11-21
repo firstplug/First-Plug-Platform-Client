@@ -1,11 +1,8 @@
 "use client";
 
-import Layout from "@/common/Layout";
-import Button from "@/common/Button";
-import { AddIcon, UpLoadIcon } from "@/common/Icons";
-import CustomLink from "@/common/CustomLink";
+import { Layout, Button, CustomLink, EmptyCard } from "@/common";
 
-import EmptyCard from "@/common/EmptyCard";
+import { AddIcon, UpLoadIcon } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
 
 export default function MyTeam() {

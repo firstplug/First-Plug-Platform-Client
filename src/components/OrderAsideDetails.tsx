@@ -13,9 +13,11 @@ export default observer(function OrderAsideDetails() {
   return (
     <div className="h-full relative">
       <section className="flex flex-col gap-4">
-        {selectedOrder.products.map((product) => (
-          <ProductDetail key={product._id} product={product} />
-        ))}
+        {selectedOrder.products.length
+          ? selectedOrder.products.map((product) => (
+              <ProductDetail key={product._id} product={product} />
+            ))
+          : null}
       </section>
 
       <div className="flex gap-4 w-full absolute bottom-0 ">

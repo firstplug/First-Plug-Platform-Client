@@ -66,12 +66,11 @@ export default (function TableTeam({ className }: TableTeamProps) {
             <td className=" py-4 px-3">{member.jobPosition}</td>
             <td className=" py-4 px-3 ">
               <div className="flex items-center gap-1">
+                {/* // TODO: Review with @SEBA. /* This is the status "complete " |
+                "incomplete" for shipment details. We have to get this
+                information from de database? Or, in case the ShipmentStatus is
+                "delivered" we show "complete" */}
                 <StatusCircleIcon status={"incomplete"} />
-                {/* TODO: En la tabla de memebers, hay una columna de Shipment Details que tiene 2 valores, complete | incomplete
-                  Ese valor se define si todos sus shipmetns estan en status delivered? Entiendo que un memeber, puede tener
-                  mas de un shipment asignado.
-                */}
-                {/* {member.shimentsDetails} */}
               </div>
             </td>
             <td className=" py-4 px-3 ">

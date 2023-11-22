@@ -8,12 +8,13 @@ type TableDetailsProps = {
   className?: string;
   productId: string;
 };
-
+// TODO: Review with @SEBA
 export default observer(function TableDetails({
   className,
   productId,
 }: TableDetailsProps) {
   // ASK: En esta tabla se muestran los shimpents que contienen este product?
+
   const {
     shipments: { shipmentByProduct },
   } = useStore();

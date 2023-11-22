@@ -5,7 +5,7 @@ import { Layout, Button } from "@/common";
 import { ShopIcon, UpLoadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";
 
-export default function MyStpageock() {
+export default function MyStockPage() {
   const router = useRouter();
 
   return (

@@ -1,3 +1,4 @@
+"use client";
 import { DropdownInput, Input } from "@/common";
 import useInput from "@/hooks/useInput";
 import React, { useEffect } from "react";

@@ -34,6 +34,7 @@ export default observer(function TableShipments({
     >
       <thead>
         <tr className="border-b-2 border-gray-300 bg-light-grey text-black text-left">
+          {/* // TODO: Review with @SEBA */}
           <th className="py-3 px-3">ID</th>
           <th className="py-3 px-3">Date</th>
           <th className="py-3 px-3">Quantity Products</th>
@@ -41,7 +42,6 @@ export default observer(function TableShipments({
           <th className="py-3 px-3">Track</th>
           <th className="py-3 px-3">Price</th>
           <th className="py-3 px-3"></th>
-
           <th></th>
         </tr>
       </thead>

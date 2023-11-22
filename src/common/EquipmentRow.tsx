@@ -28,9 +28,12 @@ export function EquipmentRow({
           setSelectedOrder(order._id);
           setAside("OrderDetails");
         }}
-        className="pl-5 py-3 text-blue cursor-pointer"
+        style={{
+          textOverflow: "ellipsis",
+        }}
+        className="pl-5 py-3 text-blue cursor-pointer text-ov"
       >
-        #{order._id.slice(10)}
+        {order._id}
       </td>
       <td className="pl-3 py-3">
         {selectedMember.firstName} {selectedMember.lastName}

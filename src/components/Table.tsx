@@ -20,6 +20,7 @@ export default observer(function Table({ className }: TableProps) {
     Array(products.length).fill(false)
   );
 
+  //TODO:  to toggle by rowId instead of index
   const toggleRow = (index: number) => {
     const updatedRowOpenState = [...rowOpenState];
     updatedRowOpenState[index] = !updatedRowOpenState[index];

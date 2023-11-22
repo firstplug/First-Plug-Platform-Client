@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { SearchInput } from "@/common";
 import { useStore } from "@/models/root.store";

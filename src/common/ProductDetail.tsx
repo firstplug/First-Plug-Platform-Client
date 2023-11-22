@@ -13,10 +13,6 @@ export default function ProductDetail({
   className = "",
   isChecked = false,
 }: ProductDetailProps) {
-  if (!product) {
-    return null;
-  }
-
   return (
     <div
       className={`flex gap-2 border rounded-md p-2  text-black ${className}`}

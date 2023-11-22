@@ -35,9 +35,11 @@ export default observer(function MemberAsideDetails({
           </div>
 
           <div className="flex flex-col gap-2">
-            {shipmentPrdoucts.map((product) => (
-              <ProductDetail product={product} key={product._id} />
-            ))}
+            {shipmentPrdoucts.length
+              ? shipmentPrdoucts.map((product) => (
+                  <ProductDetail product={product} key={product._id} />
+                ))
+              : null}
           </div>
         </div>
       </div>

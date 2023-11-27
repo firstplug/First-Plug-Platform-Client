@@ -1,10 +1,9 @@
 import React from "react";
 import { StatusCircleIcon } from "./Icons";
-
-const status = ["incomplete", "complete"] as const;
+import { ShipmentStatus } from "@/types";
 
 interface ShipmentStatusProps {
-  status: (typeof status)[number];
+  status: ShipmentStatus
 }
 
 export function ShipmentStatus({ status }: ShipmentStatusProps) {
@@ -12,8 +11,9 @@ export function ShipmentStatus({ status }: ShipmentStatusProps) {
 
   return (
     <span className="flex items-center gap-1 font-light">
-      <StatusCircleIcon status={status} />
-      {status.slice(0, 1).toUpperCase().concat(status.slice(1))}
+      <StatusCircleIcon />
+      {status}
+      {/* {status.slice(0, 1).toUpperCase().concat(status.slice(1))} */}
     </span>
   );
 }

@@ -58,7 +58,7 @@ export function MemberDetail({ className }: MemberDetailProps) {
         <div className="flex justify-between">
           <div className="flex gap-1">
             <span className="font-normal"> Shipment Details: </span>
-            <ShipmentStatus status={"complete"} />
+            <ShipmentStatus status={'Avaliable'} />
           </div>
         </div>
       </div>

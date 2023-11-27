@@ -1,7 +1,7 @@
 import { Button, TeamCard } from "@/common";
 import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
-import { AsideType } from "@/types";
+import { AsideType, SHIPMENT_STATUS } from "@/types";
 
 interface TableTeamProps {
   className?: string;
@@ -19,9 +19,8 @@ export default (function TableTeam({ className }: TableTeamProps) {
 
   return (
     <table
-      className={` flex-col w-full rounded-lg overflow-hidden ${
-        className || ""
-      }`}
+      className={` flex-col w-full rounded-lg overflow-hidden ${className || ""
+        }`}
     >
       <thead>
         <tr className="border-b-2 border-gray-200 bg-light-grey text-black text-left">
@@ -66,11 +65,8 @@ export default (function TableTeam({ className }: TableTeamProps) {
             <td className=" py-4 px-3">{member.jobPosition}</td>
             <td className=" py-4 px-3 ">
               <div className="flex items-center gap-1">
-                {/* // TODO: Review with @SEBA. /* This is the status "complete " |
-                "incomplete" for shipment details. We have to get this
-                information from de database? Or, in case the ShipmentStatus is
-                "delivered" we show "complete" */}
-                <StatusCircleIcon status={"incomplete"} />
+                {/* TODO: Use shipment status component? */}
+                <StatusCircleIcon />
               </div>
             </td>
             <td className=" py-4 px-3 ">

@@ -1,5 +1,5 @@
 "use client";
-import SearchInput from "@/common/SearchInput";
+import { SearchInput } from "@/common";
 import { useEffect, useState } from "react";
 
 interface FilterModalProps {
@@ -8,11 +8,11 @@ interface FilterModalProps {
 }
 
 interface FilterItem {
-  id: string; 
+  id: string;
   name: string;
 }
 
-export default function FitlerModal({ array, className } : FilterModalProps) {
+export default function FitlerModal({ array, className }: FilterModalProps) {
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const [checkboxes, setCheckboxes] = useState<boolean[]>([]);
   const [filterTeams, setFilterTeams] = useState<string[]>([]);

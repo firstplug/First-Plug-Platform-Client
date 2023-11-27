@@ -1,10 +1,6 @@
 import Image from "next/image";
-import CustomLink from "@/common/CustomLink";
-import Button from "@/common/Button";
-import Input from "@/common/Input";
+import { CustomLink, Button, Input, DropdownInput, Layout } from "@/common";
 import { IconX } from "../../../common/Icons";
-import DropdownInput from "@/common/DropdownInput";
-import Layout from "@/common/Layout";
 
 export default function UserRegister() {
   //TODO: User los FormInputs y reemplazar los Inputs

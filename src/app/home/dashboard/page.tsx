@@ -1,7 +1,6 @@
-import Layout from "@/common/Layout";
+import { Layout, CustomLink } from "@/common";
 import Card from "@/components/Card";
 import { ShopIcon, AddIcon } from "@/common/Icons";
-import CustomLink from "@/common/CustomLink";
 
 export default function Dashboard() {
   return (

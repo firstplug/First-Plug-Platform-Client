@@ -22,7 +22,7 @@ type IconXProps = {
   strokeWidth?: number;
 };
 
-export function IconX({ className = "", strokeWidth } : IconXProps) {
+export function IconX({ className = "", strokeWidth }: IconXProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +176,7 @@ interface AlertCheckProps {
   className?: string;
 }
 
-export function AlertCheck({ className } : AlertCheckProps) {
+export function AlertCheck({ className }: AlertCheckProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -270,7 +270,7 @@ type ShopIconProps = {
   className?: string;
 };
 
-export function ShopIcon({ className } : ShopIconProps ) {
+export function ShopIcon({ className }: ShopIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -291,13 +291,13 @@ export function ShopIcon({ className } : ShopIconProps ) {
 
 type NotificationIconProps = {
   className?: string;
-  stroke?: number, 
+  stroke?: number,
   hasNotification?: boolean;
 };
 
 
 
-export function NotificationIcon({ className, stroke, hasNotification } : NotificationIconProps) {
+export function NotificationIcon({ className, stroke, hasNotification }: NotificationIconProps) {
   return (
     <div>
       {hasNotification && (
@@ -420,7 +420,7 @@ type DashboardIconProps = {
   className?: string
 }
 
-export function DashboardIcon({ className } : DashboardIconProps) {
+export function DashboardIcon({ className }: DashboardIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -443,7 +443,7 @@ type ArrowRightProps = {
   className?: string;
 }
 
-export function ArrowRight({ className } : ArrowRightProps) {
+export function ArrowRight({ className }: ArrowRightProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -466,7 +466,7 @@ type ArrowLeftProps = {
 }
 
 
-export function ArrowLeft({ className } : ArrowLeftProps) {
+export function ArrowLeft({ className }: ArrowLeftProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -490,13 +490,13 @@ type AddIconProps = {
   strokeWidth?: number;
 };
 
-export function AddIcon({ className, strokeWidth } : AddIconProps) {
+export function AddIcon({ className, strokeWidth }: AddIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={ strokeWidth }
+      strokeWidth={strokeWidth}
       stroke="currentColor"
       className={`w-6 h-6 ${className || ""}`}
     >
@@ -516,7 +516,7 @@ type TrashIconProps = {
 
 }
 
-export function TrashIcon({ className, color, strokeWidth }:TrashIconProps) {
+export function TrashIcon({ className, color, strokeWidth }: TrashIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -589,7 +589,7 @@ type ChevronRightProps = {
   color?: string;
 }
 
-export function ChevronRight({ className, color } :ChevronRightProps) {
+export function ChevronRight({ className, color }: ChevronRightProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -612,7 +612,7 @@ interface TableDisplayIconProps {
   className: string;
 }
 
-export function TableDisplayIcon({ className } : TableDisplayIconProps) {
+export function TableDisplayIcon({ className }: TableDisplayIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -635,7 +635,7 @@ interface GridLayoutIconProps {
   className: string | ""
 }
 
-export function GridLayoutIcon({ className } :GridLayoutIconProps) {
+export function GridLayoutIcon({ className }: GridLayoutIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -676,7 +676,7 @@ type PenIconProps = {
   strokeWidth?: number;
 }
 
-export function PenIcon({ className, strokeWidth } : PenIconProps) {
+export function PenIcon({ className, strokeWidth }: PenIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -697,10 +697,9 @@ export function PenIcon({ className, strokeWidth } : PenIconProps) {
 
 type StatusCircleIcon = {
   className?: string;
-  status?: "incomplete" | "complete"
 };
 
-export function StatusCircleIcon({ className, status } : StatusCircleIcon) {
+export function StatusCircleIcon({ className }: StatusCircleIcon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -714,7 +713,9 @@ export function StatusCircleIcon({ className, status } : StatusCircleIcon) {
         cx="4"
         cy="4"
         r="4"
-        fill={status.toLowerCase() === "complete" ? "#15CC8A" : "#FA1048"}
+        // TODO: This should depend on the level of the icon (info - warn - success - error).
+        // fill={status.toLowerCase() === "complete" ? "#15CC8A" : "#FA1048"}
+        fill="#FA1048"
       />
     </svg>
   );
@@ -804,7 +805,7 @@ export function DeviceTablet() {
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      className ="w-6 h-6"
+      className="w-6 h-6"
     >
       <path
         stroke-linecap="round"

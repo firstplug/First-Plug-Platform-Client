@@ -1,7 +1,6 @@
-import EquipmentRow from "@/common/EquipmentRow";
+"use client";
+import { EquipmentRow, State } from "@/common";
 import { ChevronDown } from "@/common/Icons";
-import { dateTo_DDMMYY } from "@/utils/dateFormat";
-import State from "@/common/State";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 
@@ -36,15 +35,8 @@ export default observer(function TableEquipment() {
         </thead>
 
         <tbody className="font-medium text-md divide-y divide-gray-200 ">
-          {orders.map(({ _id, teamMember, date, status, totalPrice }) => (
-            <EquipmentRow
-              key={_id}
-              id={_id}
-              idTeamMember={teamMember[0]}
-              date={dateTo_DDMMYY(date)}
-              state={<State message={status} />}
-              price={totalPrice}
-            />
+          {orders.map((order) => (
+            <EquipmentRow key={order._id} order={order} />
           ))}
         </tbody>
       </table>

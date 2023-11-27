@@ -1,10 +1,6 @@
-import { Order } from "@/models/orders.store";
-import { Product } from "@/types";
+import { Product, Order } from "@/types";
 import axios, { AxiosResponse } from "axios";
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-// TODO: Tipar esto y mandarlo a la store de products.
-const ProductStatus = ["Available", "Delivered"] as const;
-// TODO: Tipar esto y mandarlo a la store de orders.
 
 type DeleteOrderResponse = {
   msg: string;

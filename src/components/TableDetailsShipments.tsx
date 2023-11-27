@@ -1,22 +1,19 @@
+"use client";
+import { useStore } from "@/models";
+import { observer } from "mobx-react-lite";
 import Image from "next/image";
 
 interface TableDetailsShipmentsProps {
   className?: string;
-  data?: {
-    image: string;
-    category: string;
-    model: string;
-    description: string;
-    quantity: number;
-    serial: string;
-  }[];
 }
 
-export default function TableDetailsShipments({
+export default observer(function TableDetailsShipments({
   className,
-  data = [],
 }: TableDetailsShipmentsProps) {
-  // TODO: Consumir la data de "details shipment" de la store. como se hace con los member details
+  const {
+    shipments: { shipmentDetails },
+  } = useStore();
+
   return (
     <table
       className={`flex-col w-full rounded-lg overflow-hidden ${
@@ -32,14 +29,14 @@ export default function TableDetailsShipments({
         </tr>
       </thead>
       <tbody>
-        {data.map((item) => (
+        {shipmentDetails.map((item) => (
           <tr
-            key={item.serial}
+            key={item._id}
             className="bg-white text-black border-b-2 border-gray-200 text-left"
           >
             <td className="py-4 px-3 flex gap-2">
               <Image
-                src={item.image}
+                src={item.imgUrl}
                 alt={item.category}
                 className="h-12 w-12"
               />
@@ -50,10 +47,10 @@ export default function TableDetailsShipments({
               <br />
               {item.description}
             </td>
-            <td className="py-4 px-3">{item.serial}</td>
+            <td className="py-4 px-3">{item.serialNumber}</td>
           </tr>
         ))}
       </tbody>
     </table>
   );
-}
+});

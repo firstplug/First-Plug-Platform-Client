@@ -1,5 +1,5 @@
-import DropdownInput from "@/common/DropdownInput";
-import Input from "@/common/Input";
+"use client";
+import { DropdownInput, Input } from "@/common";
 import useInput from "@/hooks/useInput";
 import React, { useEffect } from "react";
 
@@ -25,9 +25,8 @@ export default function FormInput({
   options = [],
   required,
   clear,
-} : FormInputProps) {
-
-  const input = useInput("", required = "required", type === "options");
+}: FormInputProps) {
+  const input = useInput("", (required = "required"), type === "options");
 
   useEffect(() => {
     if (clear) {

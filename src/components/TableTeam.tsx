@@ -1,8 +1,7 @@
-import Button from "@/common/Button";
+import { Button, TeamCard } from "@/common";
 import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
-import TeamCard from "@/common/TeamCard";
-
 import { useStore } from "@/models/root.store";
+import { AsideType, SHIPMENT_STATUS } from "@/types";
 
 interface TableTeamProps {
   className?: string;
@@ -10,21 +9,18 @@ interface TableTeamProps {
 
 export default (function TableTeam({ className }: TableTeamProps) {
   const {
-    aside: { openAside, setAside },
+    aside: { setAside },
     members: { members },
   } = useStore();
 
-  // TODO: Type Aside type.
-  const handleModal = (option: string) => {
+  const handleModal = (option: AsideType) => {
     setAside(option);
-    openAside();
   };
 
   return (
     <table
-      className={` flex-col w-full rounded-lg overflow-hidden ${
-        className || ""
-      }`}
+      className={` flex-col w-full rounded-lg overflow-hidden ${className || ""
+        }`}
     >
       <thead>
         <tr className="border-b-2 border-gray-200 bg-light-grey text-black text-left">
@@ -69,14 +65,13 @@ export default (function TableTeam({ className }: TableTeamProps) {
             <td className=" py-4 px-3">{member.jobPosition}</td>
             <td className=" py-4 px-3 ">
               <div className="flex items-center gap-1">
-                <StatusCircleIcon status={"incomplete"} />
-                {/* TODO: WTF is this? */}
-                {/* {member.shimentsDetails} */}
+                {/* TODO: Use shipment status component? */}
+                <StatusCircleIcon />
               </div>
             </td>
             <td className=" py-4 px-3 ">
               <div className="flex gap-5">
-                <Button onClick={() => handleModal("edit")}>
+                <Button onClick={() => handleModal("EditMember")}>
                   <PenIcon strokeWidth={2} className="w-[1rem] h-[1rem]" />
                 </Button>
                 <Button>

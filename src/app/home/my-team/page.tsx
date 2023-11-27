@@ -1,15 +1,14 @@
 "use client";
 
-import Layout from "@/common/Layout";
-import Button from "@/common/Button";
-import { AddIcon, UpLoadIcon } from "@/common/Icons";
-import CustomLink from "@/common/CustomLink";
+import { Layout, Button, CustomLink, EmptyCard } from "@/common";
 
-import EmptyCard from "@/common/EmptyCard";
+import { AddIcon, UpLoadIcon } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
 
 export default function MyTeam() {
-  const { aside } = useStore();
+  const {
+    aside: { setAside },
+  } = useStore();
   return (
     <Layout className="border-2 shadow-sm border-border rounded-md grid place-items-center w-[98%] ">
       <EmptyCard
@@ -22,8 +21,7 @@ export default function MyTeam() {
             body="Load Team Members"
             icon={<AddIcon />}
             onClick={() => {
-              aside.setAside("loadStock");
-              aside.openAside();
+              setAside("LoadStock");
             }}
             variant="secondary"
             size="big"

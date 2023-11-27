@@ -1,8 +1,9 @@
+"use client";
 import React from "react";
-import Button from "@/common/Button";
-import MemberDetail from "@/common/MemberDetail";
+import { Button, MemberDetail } from "@/common";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
+import ProductDetail from "@/common/ProductDetail";
 
 interface MemberAsideDetailsProps {
   className?: string;
@@ -13,7 +14,10 @@ export default observer(function MemberAsideDetails({
 }: MemberAsideDetailsProps) {
   const {
     members: { members, selectedMember },
+    shipments: { shipmentByMember },
   } = useStore();
+
+  const shipmentPrdoucts = shipmentByMember(selectedMember._id);
   return (
     <article
       className={`${className || ""} flex flex-col justify-between h-full`}
@@ -26,13 +30,16 @@ export default observer(function MemberAsideDetails({
           <div className="flex justify-between">
             <h1 className="font-semibold text-xl">Products</h1>
             <p className="bg-border  rounded-full h-6 w-6 text-center  grid place-items-center items text-sm">
-              {/* TODO: MEMBER PRODUCTS YOU SONS OF BITCHES. */}
-              {/* {selectedMember.products?.length || 0} */}
+              {shipmentPrdoucts.length || 0}
             </p>
           </div>
 
           <div className="flex flex-col gap-2">
-            {/* ACA HAY QUE CARGAR LOS PRODUCTS DE LA STORE (store.products) */}
+            {shipmentPrdoucts.length
+              ? shipmentPrdoucts.map((product) => (
+                  <ProductDetail product={product} key={product._id} />
+                ))
+              : null}
           </div>
         </div>
       </div>

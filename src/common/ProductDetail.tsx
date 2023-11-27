@@ -1,22 +1,18 @@
 import React from "react";
 import Image from "next/image";
-import { useStore } from "@/models";
+import { Product } from "@/types";
 
 interface ProductDetailProps {
-  productId: string;
+  product: Product;
   className?: string;
   isChecked?: boolean;
 }
 
-export function ProductDetail({
-  productId,
+export default function ProductDetail({
+  product,
   className = "",
   isChecked = false,
 }: ProductDetailProps) {
-  const {
-    products: { selectedProduct },
-  } = useStore();
-
   return (
     <div
       className={`flex gap-2 border rounded-md p-2  text-black ${className}`}
@@ -24,7 +20,7 @@ export function ProductDetail({
       {isChecked ? <input type="checkbox" className="w-5 h-5" /> : null}
 
       <Image
-        src={selectedProduct.imgUrl}
+        src={product.imgUrl}
         className="h-[5rem] w-auto "
         width={40}
         height={40}
@@ -33,26 +29,24 @@ export function ProductDetail({
       <div className="flex flex-col w-full gap-2">
         <div className="flex gap-2 items-center">
           <h1 className="font-normal text-lg">Category:</h1>
-          <span className="font-light">{selectedProduct.category}</span>
+          <span className="font-light">{product.category}</span>
         </div>
 
         <hr />
 
         <div className="flex gap-2 items-center">
           <h1 className="font-normal text-lg">Model:</h1>
-          <span className="font-light">{selectedProduct.model}</span>
+          <span className="font-light">{product.model}</span>
         </div>
-        <p className="text-dark-grey text-md">{selectedProduct.screen}</p>
+        <p className="text-dark-grey text-md">{product.screen}</p>
 
-        {selectedProduct.stock ? (
+        {product.stock ? (
           <>
             <hr />
 
             <div className="flex gap-2 items-center">
               <h1 className="font-normal text-lg">Quantity:</h1>
-              <span className="font-normal text-lg">
-                {selectedProduct.stock}
-              </span>
+              <span className="font-normal text-lg">{product.stock}</span>
             </div>
           </>
         ) : null}

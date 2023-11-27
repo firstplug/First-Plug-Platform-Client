@@ -1,5 +1,6 @@
+"use client";
 import React, { useState } from "react";
-import Button from "@/common/Button";
+import { Button } from "@/common";
 import TeamDetails from "./TeamDeatils";
 import { TeamServices } from "../services/team.services";
 import { observer } from "mobx-react-lite";
@@ -7,14 +8,16 @@ import { useStore } from "@/models/root.store";
 
 interface EditTeamsAsideDetailsProps {
   className?: string | "";
-  members?: string[]
+  members?: string[];
 }
 
 export default observer(function EditTeamsAsideDetails({
   className,
   members,
 }: EditTeamsAsideDetailsProps) {
-  const { teams: { setTeams, teams } } = useStore();
+  const {
+    teams: { setTeams, teams },
+  } = useStore();
 
   const [selectedTeams, setSelectedTeams] = useState<any[]>([]);
 

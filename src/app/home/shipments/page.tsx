@@ -1,6 +1,4 @@
-import CustomLink from "@/common/CustomLink";
-import EmptyCard from "@/common/EmptyCard";
-import Layout from "@/common/Layout";
+import { Layout, EmptyCard, CustomLink } from "@/common";
 
 export default function Shipments() {
   return (

@@ -1,13 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import TableEquipment from "@/components/TableEquipment";
-import Layout from "@/common/Layout";
-import Header from "@/common/Header";
-import Aside from "@/components/Aside";
-import ProductDetail from "@/common/ProductDetail";
-import Button from "@/common/Button";
-import { DownloadIcon } from "@/common/Icons";
-import useModal from "@/hooks/useModal";
+import { Layout, Header } from "@/common";
 import { OrderServices } from "@/services/orders.services";
 import { useStore } from "@/models/root.store";
 

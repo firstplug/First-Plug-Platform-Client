@@ -1,13 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import Button from "@/common/Button";
+import { Button, TeamCard } from "@/common";
 import { DropDownArrow } from "@/common/Icons";
-import TeamCard from "@/common/TeamCard";
 import TeamInfo from "./TeamInfo";
-import { Team } from "@/models/teams.store";
+import { Team } from "@/types";
 
 interface TeamDetailsProps {
-  team: Team
+  team: Team;
   className?: string;
   handleSelectedTeams: (selectedTeam: Team) => void;
   members: string[];
@@ -34,8 +33,9 @@ export default function TeamDetails({
           onClick={() => setShowDetails(!showDetails)}
         >
           <DropDownArrow
-            className={`${showDetails ? "rotate-180 " : " rotate-360"
-              } transition-all duration-300`}
+            className={`${
+              showDetails ? "rotate-180 " : " rotate-360"
+            } transition-all duration-300`}
           />
         </Button>
       </div>

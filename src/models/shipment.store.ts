@@ -1,20 +1,34 @@
 import { ShimpentModel } from "@/types";
+import { types } from "mobx-state-tree";
 
-const { types } = require("mobx-state-tree");
+export const ShipmentStore = types
+  .model({
+    shipments: types.array(ShimpentModel),
+    shipmentId: types.optional(types.string, ""),
+  })
+  .views((store) => ({
+    get selectedShipment() {
+      return store.shipments.find(
+        (shipment) => shipment._id === store.shipmentId
+      );
+    },
+    get shipmentDetails() {
+      const shipment = store.shipments.find(
+        (shipment) => shipment._id === store.shipmentId
+      );
 
-const Shipments = types.model({
-  _id: types.string,
-  fullname: types.optional(types.string, ""),
-  date: types.Date,
-  QuantityProducts: types.optional(types.string, ""),
-  types: types.optional(types.string, ""),
-  trackingNumber: types.optional(types.string, ""),
-  trackingURL: types.optional(types.string, ""),
-  price: types.optional(types.string, ""),
-  orders: types.optional(types.array(types.string), []),
-  shipmentDetails: types.optional(types.string, ""),
-});
+      return shipment.products;
+    },
+    shipmentByProduct(productId: string) {
+      return store.shipments.filter((shipment) =>
+        shipment.products.some((product) => product._id === productId)
+      );
+    },
+    shipmentByMember(memberId: string) {
+      const shipment = store.shipments.find(
+        (shipment) => shipment.memberId === memberId
+      );
 
-export const ShipmentStore = types.model({
-  shipments: types.array(ShimpentModel),
-});
+      return shipment.products;
+    },
+  }));

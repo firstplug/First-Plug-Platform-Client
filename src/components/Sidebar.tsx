@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import Button from "@/common/Button";
+import { Button, SidebarLink } from "@/common";
 import {
   ComputerIcon,
   DashboardIcon,
@@ -12,7 +12,6 @@ import {
   ArrowLeft,
   ArrowRight,
 } from "@/common/Icons";
-import SidebarLink from "@/common/SidebarLink";
 import { usePathname } from "next/navigation";
 
 export default function Sidebar() {

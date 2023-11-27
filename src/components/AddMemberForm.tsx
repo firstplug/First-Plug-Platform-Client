@@ -1,8 +1,9 @@
+"use client";
 import React from "react";
-import SearchInput from "@/common/SearchInput";
+import { SearchInput } from "@/common";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
-import { TeamMember } from "@/models/member.store";
+import { TeamMember } from "@/types";
 interface AddMemberFormProps {
   handleSelectedMembers: (member: TeamMember) => void;
 }

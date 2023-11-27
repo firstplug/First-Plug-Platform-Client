@@ -19,6 +19,9 @@ export const RootStore = types.model({
   aside: types.late(() => AsideStore),
 });
 
+export type RootStoreInstance = Instance<typeof RootStore>;
+export type RootStoreSnapshot = SnapshotOut<typeof RootStore>;
+
 export const useStore = () => {
   const store = useContext(RootStoreContext);
   if (!store) {
@@ -27,8 +30,4 @@ export const useStore = () => {
   return store;
 };
 
-export const RootStoreContext = createContext<Instance<
-  typeof RootStore
-> | null>(null);
-export type RootStoreInstance = Instance<typeof RootStore>;
-export type RootStoreSnapshot = SnapshotOut<typeof RootStore>;
+export const RootStoreContext = createContext<RootStoreInstance | null>(null);

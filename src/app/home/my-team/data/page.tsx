@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Layout from "@/common/Layout";
-import Button from "@/common/Button";
+import { Layout, Button, DropFilter, CustomLink } from "@/common";
 import {
   AddIcon,
   UpLoadIcon,
@@ -10,16 +9,15 @@ import {
   GridLayoutIcon,
 } from "@/common/Icons";
 import FitlerModal from "@/components/FitlerModal";
-import DropFilter from "@/common/DropFilter";
-import CustomLink from "@/common/CustomLink";
 import { observer } from "mobx-react-lite";
 import TeamMembers from "@/components/TeamMembers";
 import { TeamServices } from "@/services/team.services";
 import { useStore } from "@/models/root.store";
+import { AsideType } from "@/types";
 
 export default observer(function MyTeamData() {
   const {
-    aside: { openAside, setAside },
+    aside: { setAside },
     teams: { setTeams, teams },
   } = useStore();
   const [display, setDisplay] = useState("grid");
@@ -30,9 +28,8 @@ export default observer(function MyTeamData() {
     });
   }, []);
 
-  const handleAside = (type) => {
+  const handleAside = (type: AsideType) => {
     setAside(type);
-    openAside();
   };
 
   return (
@@ -69,14 +66,14 @@ export default observer(function MyTeamData() {
             variant={"text"}
             icon={<AddIcon className={"w-[1rem]"} />}
             className={"p-2 text-sm rounded-md"}
-            onClick={() => handleAside("newTeam")}
+            onClick={() => handleAside("NewTeam")}
           />
           <Button
             body="Edit Team"
             variant={"text"}
             icon={<PenIcon className={"w-[1rem]"} />}
             className={"p-2 text-sm rounded-md"}
-            onClick={() => handleAside("editTeam")}
+            onClick={() => handleAside("EditTeam")}
           />
           <span className="text-gray-400"> |</span>
 

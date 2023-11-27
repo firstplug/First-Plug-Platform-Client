@@ -1,6 +1,7 @@
-import LogisticsRow from "@/common/LogisticsRow";
+import { LogisticsRow } from "@/common";
 
 export default function TableEquipment() {
+  //TODO: Esta fake-data. Es una vista de shipments supongo. Que representa?
   const fakeDataLogistics = [
     {
       id: 1234,

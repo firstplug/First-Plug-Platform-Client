@@ -1,8 +1,7 @@
 "use client";
-import { useState, Fragment, MouseEvent } from "react";
-import TableDetails, { Detail } from "./TableDetails";
-import ButtonMyStock from "@/common/ButtonMyStock";
-import useModal from "@/hooks/useModal";
+import { useState, Fragment } from "react";
+import TableDetails from "./TableDetails";
+import { ButtonMyStock } from "@/common";
 import Image from "next/image";
 import defaultPhoto from "../../public/Isotipo.png";
 import { useStore } from "@/models/root.store";
@@ -13,56 +12,16 @@ type TableProps = {
 };
 
 export default observer(function Table({ className }: TableProps) {
-  const { openModal } = useModal();
   const {
     products: { products },
   } = useStore();
-  // TODO: Consumir la data de "details shipment" de la store. como se hace con los member details.
-  // Y elmininar fake data.
-
-  const info: Detail[] = [
-    {
-      serial: "#3248",
-      name: "Braian",
-      lastName: "Barrientos",
-      status: "DELIVERED",
-      actions: "Return",
-    },
-    {
-      serial: "#3249",
-      name: "Esteban Rodriguez",
-      lastName: "Sucari",
-      status: "MISSGING DATA",
-      actions: "Assign To",
-    },
-    {
-      serial: "#3250",
-      name: "Agustin",
-      lastName: "Sandoval",
-      status: "PREPARING",
-      actions: "Return",
-    },
-    {
-      serial: "#3251",
-      name: "Francisco",
-      lastName: "Villanueva",
-      status: "DELIVERED",
-      actions: "Return",
-    },
-    {
-      serial: "#3252",
-      name: "Rafa",
-      lastName: "Mojica",
-      status: "AVAILABLE",
-      actions: "Return",
-    },
-  ];
 
   const [rowOpenState, setRowOpenState] = useState(
     Array(products.length).fill(false)
   );
 
-  const toggleRow = (index) => {
+  //TODO:  to toggle by rowId instead of index
+  const toggleRow = (index: number) => {
     const updatedRowOpenState = [...rowOpenState];
     updatedRowOpenState[index] = !updatedRowOpenState[index];
     setRowOpenState(updatedRowOpenState);
@@ -96,7 +55,7 @@ export default observer(function Table({ className }: TableProps) {
                 <br />
                 {product.description}{" "}
               </td>
-              <td className="py-4 px-3 items-center">{product.quantity}</td>
+              <td className="py-4 px-3 items-center">{product.stock}</td>
               <td className="flex-col items-center">
                 <div>
                   <ButtonMyStock
@@ -109,7 +68,7 @@ export default observer(function Table({ className }: TableProps) {
             {rowOpenState[index] && (
               <tr>
                 <td colSpan={4}>
-                  <TableDetails details={info} openModal={openModal} />
+                  <TableDetails productId={product._id} />
                 </td>
               </tr>
             )}

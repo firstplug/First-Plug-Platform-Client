@@ -7,14 +7,15 @@ export const ProductsStore = types
     products: types.array(ProductModel),
   })
   .views((store) => ({
-    get productCount() {
-      return store.products.length;
-    },
+    get uniqueProducts() {
+      const groupedProducts = store.products.reduce((result, product) => {
+        if (!result[product.category]) {
+          result[product.category] = product;
+        }
+        return result;
+      }, {});
 
-    get selectedProduct() {
-      return store.products.find(
-        (product) => product._id === store.selectedProductId
-      );
+      return Object.values(groupedProducts) as Product[];
     },
   }))
   .actions((store) => ({

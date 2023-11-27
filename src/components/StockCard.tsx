@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import DoughnutChart from "@/common/Graphs";
+import { DoughnutChart } from "@/common";
 import { MonitorIcon, DeviceTablet, PencilAccesories } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
@@ -9,26 +9,10 @@ type classNameProps = {
   className?: string;
 };
 
-type Product = {
-  _id: string;
-  category: string;
-  name: string;
-};
-
 export default observer(function StockCard({ className }: classNameProps) {
   const {
-    products: { products },
+    products: { products, uniqueProducts },
   } = useStore();
-
-  // TODO:llevar este "groupedProducts" a las views de product.store
-  const groupedProducts = products.reduce((result, product) => {
-    if (!result[product.category]) {
-      result[product.category] = product;
-    }
-    return result;
-  }, {});
-
-  const uniqueProducts = Object.values(groupedProducts) as Product[];
 
   const [info, setInfo] = useState({ ...products[0] } || {});
 

@@ -1,10 +1,9 @@
-import { TeamMember } from "@/models/member.store";
-import { Team } from "@/models/teams.store";
+import { TeamMember, Team } from "@/types";
 import axios, { AxiosResponse } from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-type TeamCreation = Omit<Team, "_id" | "__v">
+type TeamCreation = Omit<Team, "_id" | "__v">;
 
 export class TeamServices {
   static async getAllTeams(): Promise<Team[]> {

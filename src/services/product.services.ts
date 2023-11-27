@@ -1,9 +1,7 @@
-import { Product } from "@/models/products.store";
+import { Product } from "@/types";
 import axios, { AxiosResponse } from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
-const ProductStatus = ["Available", "Delivered"] as const;
 
 type CreationProduct = Omit<Omit<Product, "_id">, "__v">;
 

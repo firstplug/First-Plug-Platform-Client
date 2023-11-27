@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import logo from "../../../public/logo1.png";
-import SearchInput from "@/common/SearchInput";
+import { SearchInput, CustomLink } from "@/common";
 import Navbar from "@/components/Navbar";
 import { ChevronRight } from "@/common/Icons";
 import waveBottom from "../../../public/waves/Header shape 1.svg";
@@ -10,7 +10,6 @@ import girlPc from "../../../public/svg/Frame 427321382.svg";
 import bagImage from "../../../public/svg/Frame 2608568.svg";
 import arrowIcon from "../../../public/svg/Frame 427321381.svg";
 import rectangle from "../../../public/svg/Rectangle 518.svg";
-import CustomLink from "@/common/CustomLink";
 
 export default function Shop() {
   return (

@@ -1,7 +1,7 @@
 export interface StateProps {
   status?: OrderStatus;
   className?: string;
-  message?: string
+  message?: string;
 }
 
 const Colors = {
@@ -43,12 +43,14 @@ const StateColors: Record<OrderStatus, Color> = {
 } as const;
 
 export function State({ status, className }: StateProps) {
-  const color = StateColors[status] || ""; 
+  const color = StateColors[status] || "";
 
   return (
     <p
       className={`${Colors[color]} ${className} py-1 rounded-full text-sm font-medium text-center whitespace-nowrap bg-disabled`}
-      style={{ width: `${status.length + 2}ch` }}
+      //TODO:  view this "status.length" (this is breaking the build)
+      // PREV : style={{ width: `${status.length + 2}ch` }}
+      /*NEW*/ style={{ width: "10px" }}
     >
       {status}
     </p>

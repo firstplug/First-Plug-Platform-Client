@@ -1,10 +1,9 @@
 "use client";
 
-import { RootStore, RootStoreContext } from "@/models/root.store";
+import { RootStore, RootStoreContext } from "@/models";
 import { SessionProvider } from "next-auth/react";
-import { ReactNode, useCallback, useEffect } from "react";
-import { TeamMemberServices } from "@/services/teamMember.services";
-import { ProductServices } from "@/services/product.services";
+import { ReactNode, useEffect } from "react";
+import { ProductServices, TeamMemberServices } from "@/services";
 
 type ProvidersProps = {
   children: ReactNode;
@@ -20,17 +19,15 @@ export default function Providers({ children }: ProvidersProps) {
     aside: {},
   });
 
-  const setData = useCallback(async () => {
-    TeamMemberServices.getAllMembers().then((res) => {
-      store.members.setMembers(res);
-    });
-    ProductServices.getAllProducts().then((res) => {
-      store.products.setProducts(res);
-    });
-  }, [store]);
-
   useEffect(() => {
-    setData();
+    (async () => {
+      TeamMemberServices.getAllMembers().then((res) => {
+        store.members.setMembers(res);
+      });
+      ProductServices.getAllProducts().then((res) => {
+        store.products.setProducts(res);
+      });
+    })()
   }, [store]);
 
   return (

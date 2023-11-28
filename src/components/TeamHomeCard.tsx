@@ -1,3 +1,4 @@
+"use client";
 import { AddIcon } from "@/common/Icons";
 import { JoinerRow, CustomLink } from "@/common";
 import team1 from "../../public/employees/Rectangle 459.png";

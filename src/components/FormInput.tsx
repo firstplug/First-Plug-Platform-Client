@@ -36,7 +36,7 @@ export const FormInput = function ({
 
       handleInput(prop, value);
     }
-  }, [input.value, input.selectedOption, clear]);
+  }, [input.value, input.selectedOption, input.clearInput]);
 
   return (
     <>

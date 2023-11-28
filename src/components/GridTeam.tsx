@@ -1,4 +1,4 @@
-import ColaboratorCard from "./ColaboratorCard";
+import { ColaboratorCard } from "./";
 
 interface GridTeamProps {
   members: any[];

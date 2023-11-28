@@ -7,8 +7,6 @@ import { useState } from "react";
 import { AccessForm, BillingForm, CompanyForm } from "@/components";
 
 export default function UserRegister() {
-  //TODO: User los FormInputs y reemplazar los Inputs
-
   const [state, setState] = useState<CreationTeamMember>({
     firstName: "",
     img: "",

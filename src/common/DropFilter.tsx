@@ -10,7 +10,7 @@ interface DropFilterProps {
 
 export function DropFilter({ children, body, className }: DropFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
-  // TODO: Implementar filtro por "teams" sobre members store, en la views. Preguntar si hacerlo asi, o en el back.
+
   return (
     <div className="relative inline-block text-left">
       <button

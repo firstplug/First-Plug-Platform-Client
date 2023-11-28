@@ -4,7 +4,6 @@ import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 
 export const TableLogistics = observer(function () {
-  //TODO: Esta fake-data. Es una vista de shipments supongo. Que representa?
   const {
     shipments: { shipmentsByMonth },
   } = useStore();

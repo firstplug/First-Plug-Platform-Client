@@ -1,4 +1,9 @@
-import { ShimpentByMonthModel, ShimpentModel } from "@/types";
+import {
+  ShimpentByMonthModel,
+  ShimpentModel,
+  Shimpent,
+  ShimpentByMonth,
+} from "@/types";
 import { types } from "mobx-state-tree";
 
 export const ShipmentStore = types
@@ -32,5 +37,13 @@ export const ShipmentStore = types
       );
 
       return shipment.products;
+    },
+  }))
+  .actions((store) => ({
+    setShipments(shipments: Shimpent[]) {
+      store.shipments.push(...shipments);
+    },
+    setShipmentsByMonth(shipments: ShimpentByMonth[]) {
+      store.shipmentsByMonth.push(...shipments);
     },
   }));

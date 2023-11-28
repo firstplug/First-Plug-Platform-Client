@@ -4,7 +4,7 @@ interface GridTeamProps {
   members: any[];
 }
 
-export default (function GridTeam({ members } : GridTeamProps) {
+export const GridTeam = function ({ members }: GridTeamProps) {
   return (
     <div className="grid w-full grid-cols-3 gap-2  ">
       {members?.map((member) => (
@@ -17,4 +17,4 @@ export default (function GridTeam({ members } : GridTeamProps) {
       ))}
     </div>
   );
-});
+};

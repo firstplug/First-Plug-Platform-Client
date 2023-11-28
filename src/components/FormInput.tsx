@@ -15,7 +15,7 @@ interface FormInputProps {
   clear?: boolean;
 }
 
-export default function FormInput({
+export const FormInput = function ({
   title,
   placeholder,
   type,
@@ -59,4 +59,4 @@ export default function FormInput({
       )}
     </>
   );
-}
+};

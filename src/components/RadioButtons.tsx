@@ -12,11 +12,11 @@ interface RadioButtonsProps {
   className?: string;
 }
 
-export default function RadioButtons({
+export const RadioButtons = function ({
   options,
   onSelectedChange,
   className = "",
-} : RadioButtonsProps) {
+}: RadioButtonsProps) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleClick = (opcion: Options) => {
@@ -47,4 +47,4 @@ export default function RadioButtons({
       ))}
     </div>
   );
-}
+};

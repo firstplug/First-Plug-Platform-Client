@@ -13,7 +13,7 @@ interface FormProps {
   className?: string | "";
 }
 
-export default function Form({
+export const Form = function ({
   title,
   children,
   login = false,
@@ -83,4 +83,4 @@ export default function Form({
       </div>
     </form>
   );
-}
+};

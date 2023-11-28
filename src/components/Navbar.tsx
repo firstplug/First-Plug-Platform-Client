@@ -14,7 +14,7 @@ type NavbarProps = {
   hasNotification?: boolean;
 };
 
-export default function Navbar({
+export const Navbar = function ({
   title,
   searchInput,
   placeholder,
@@ -62,4 +62,4 @@ export default function Navbar({
       </div>
     </nav>
   );
-}
+};

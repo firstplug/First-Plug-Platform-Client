@@ -3,7 +3,7 @@ import Photo from "../../public/employees/member.jpg";
 import Image from "next/image";
 import { Button, TeamCard } from "@/common";
 import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
-import { TeamMemberServices } from "@/services/teamMember.services";
+import { TeamMemberServices } from "@/services";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 import { AsideType, TeamMember } from "@/types";
@@ -22,7 +22,7 @@ interface ColaboratorCardProps {
 
 const status = ["incomplete", "complete"] as const;
 
-export default observer(function ColaboratorCard({
+export const ColaboratorCard = observer(function ({
   member,
   firstName,
   lastName,
@@ -116,7 +116,7 @@ export default observer(function ColaboratorCard({
           <div className="flex  items-center gap-3">
             <h2 className="font-semibold">Shipment Details:</h2>
             <p className="flex items-center gap-2">
-              <StatusCircleIcon status={shimentsDetails} />
+              <StatusCircleIcon />
 
               {shimentsDetails
                 .slice(0, 1)

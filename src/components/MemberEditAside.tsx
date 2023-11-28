@@ -10,7 +10,7 @@ interface MemberEditAsideProps {
   className?: string;
 }
 
-export default observer(function MemberEditAside({
+export const MemberEditAside = observer(function ({
   className,
 }: MemberEditAsideProps) {
   const { members } = useStore();

@@ -1,38 +1,12 @@
 import { LogisticsRow } from "@/common";
+import { useStore } from "@/models";
+import { observer } from "mobx-react-lite";
 
-export default function TableEquipment() {
+export const TableLogistics = observer(function () {
   //TODO: Esta fake-data. Es una vista de shipments supongo. Que representa?
-  const fakeDataLogistics = [
-    {
-      id: 1234,
-      month: "05/2023",
-      shipmentQuantity: 10,
-      state: "CLOSED",
-      total: 1000,
-    },
-    {
-      id: 2345,
-      month: "06/2023",
-      shipmentQuantity: 1,
-      state: "CLOSED",
-      total: 1000,
-    },
-    {
-      id: 6998,
-      month: "07/2023",
-      shipmentQuantity: 3,
-      state: "PAYMENT PENDING",
-      total: 1000,
-    },
-    {
-      id: 1642,
-      month: "08/2023",
-      shipmentQuantity: 6,
-      state: "OPEN",
-      total: 1000,
-    },
-  ];
-
+  const {
+    shipments: { shipmentsByMonth },
+  } = useStore();
   return (
     <table className="flex-col\ border border-border divide-y divide-gray-200 font-inter text-black">
       <thead className="py-4 px-5">
@@ -79,18 +53,10 @@ export default function TableEquipment() {
       </thead>
 
       <tbody className="font-medium text-md divide-y divide-gray-200 ">
-        {fakeDataLogistics.map(
-          ({ id, month, shipmentQuantity, state, total }) => (
-            <LogisticsRow
-              key={id}
-              month={month}
-              shipmentQuantity={shipmentQuantity}
-              state={state}
-              total={total}
-            />
-          )
-        )}
+        {shipmentsByMonth.map((shipment) => (
+          <LogisticsRow key={shipment._id} shipment={shipment} />
+        ))}
       </tbody>
     </table>
   );
-}
+});

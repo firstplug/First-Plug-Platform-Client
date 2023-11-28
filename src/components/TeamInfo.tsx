@@ -2,18 +2,18 @@
 import React, { useState } from "react";
 import { Button } from "@/common";
 import { AddIcon, IconX, TrashIcon } from "@/common/Icons";
-import AddMemberForm from "./AddMemberForm";
+import { AddMemberForm } from "./";
 import { TeamServices } from "@/services/team.services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
-import { TeamMemberServices } from "@/services/teamMember.services";
+import { TeamMemberServices } from "@/services";
 import { TeamMember, Team } from "@/types";
 
 interface TeamInfoProps {
   team: Team;
 }
 
-export default observer(function TeamInfo({ team }: TeamInfoProps) {
+export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
   const {
     members: { setMembers },
     teams: { setTeams },

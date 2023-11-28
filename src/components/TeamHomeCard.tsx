@@ -1,52 +1,22 @@
 import { AddIcon } from "@/common/Icons";
 import { JoinerRow, CustomLink } from "@/common";
-import user from "../../public/UserLogo.jpeg";
 import team1 from "../../public/employees/Rectangle 459.png";
 import team2 from "../../public/employees/Rectangle 460.png";
 import team3 from "../../public/employees/Rectangle 461.png";
 import team4 from "../../public/employees/Rectangle 462.png";
 import Image from "next/image";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/models";
+import { TeamMember } from "@/types";
 
 interface TeamCardProps {
   className?: string;
 }
 
-const team = [
-  {
-    id: "1",
-    name: "Francisco",
-    lastname: "Villanueva",
-    jobPosition: "dev",
-    image: user,
-    date: "1",
-  },
-  {
-    id: "2",
-    name: "Esteban ",
-    lastname: "Rodriguez",
-    jobPosition: "dev",
-    image: user,
-    date: "2",
-  },
-  {
-    id: "3",
-    name: "Agustin ",
-    lastname: "Sandoval",
-    jobPosition: "dev",
-    image: user,
-    date: "3",
-  },
-  {
-    id: "4",
-    name: "Braian",
-    lastname: "Barrientos",
-    jobPosition: "design",
-    image: user,
-    date: "4",
-  },
-];
-
-export default function TeamHomeCard({ className }: TeamCardProps) {
+export const TeamHomeCard = observer(function ({ className }: TeamCardProps) {
+  const {
+    members: { members },
+  } = useStore();
   return (
     <div className={`flex h-full ${className || ""}`}>
       <div className=" h-full  flex flex-col justify-between w-1/3 mx-2 px-4 py-6 rounded-lg bg-light-grey">
@@ -101,11 +71,11 @@ export default function TeamHomeCard({ className }: TeamCardProps) {
           <h1 className="text-2xl text-black font-semibold">New Joiners</h1>
         </div>
         <div className="flex flex-col overflow-y-auto max-h-[20rem] min-h-[20rem] ">
-          {team.map((member) => (
-            <JoinerRow key={member.id} joiner={member} />
+          {members.map((member: TeamMember) => (
+            <JoinerRow key={member._id} joiner={member} />
           ))}
         </div>
       </div>
     </div>
   );
-}
+});

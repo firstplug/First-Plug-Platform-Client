@@ -1,9 +1,10 @@
-import { ShimpentModel } from "@/types";
+import { ShimpentByMonthModel, ShimpentModel } from "@/types";
 import { types } from "mobx-state-tree";
 
 export const ShipmentStore = types
   .model({
     shipments: types.array(ShimpentModel),
+    shipmentsByMonth: types.array(ShimpentByMonthModel),
     shipmentId: types.optional(types.string, ""),
   })
   .views((store) => ({
@@ -12,6 +13,7 @@ export const ShipmentStore = types
         (shipment) => shipment._id === store.shipmentId
       );
     },
+
     get shipmentDetails() {
       const shipment = store.shipments.find(
         (shipment) => shipment._id === store.shipmentId

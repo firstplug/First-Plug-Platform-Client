@@ -1,18 +1,17 @@
 "use client";
-import React, { useState, ReactNode } from "react";
+import React, { useState } from "react";
 import { Button } from "@/common";
-import AddMemberForm from "./AddMemberForm";
-import { TeamServices } from "../services/team.services";
+import { AddMemberForm } from "./";
+import { TeamServices, TeamMemberServices } from "../services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
-import { TeamMemberServices } from "@/services/teamMember.services";
 import { TeamMember, TeamModel } from "@/types";
 
 interface CreateTeamAsideProps {
   className?: string;
 }
 
-export default observer(function CreateTeamAside({
+export const CreateTeamAside = observer(function ({
   className = "",
 }: CreateTeamAsideProps) {
   const {

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button, TeamCard } from "@/common";
 import { DropDownArrow } from "@/common/Icons";
-import TeamInfo from "./TeamInfo";
+import { TeamInfo } from "./";
 import { Team } from "@/types";
 
 interface TeamDetailsProps {
@@ -13,7 +13,7 @@ interface TeamDetailsProps {
   onDelete: (teamId: string) => Promise<void>;
 }
 
-export default function TeamDetails({
+export const TeamDetails = function ({
   team,
   className,
   handleSelectedTeams,
@@ -43,4 +43,4 @@ export default function TeamDetails({
       {showDetails && <TeamInfo team={team} />}
     </section>
   );
-}
+};

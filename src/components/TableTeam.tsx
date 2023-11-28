@@ -1,13 +1,13 @@
 import { Button, TeamCard } from "@/common";
 import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
-import { AsideType, SHIPMENT_STATUS } from "@/types";
+import { AsideType } from "@/types";
 
 interface TableTeamProps {
   className?: string;
 }
 
-export default (function TableTeam({ className }: TableTeamProps) {
+export const TableTeam = function ({ className }: TableTeamProps) {
   const {
     aside: { setAside },
     members: { members },
@@ -19,8 +19,9 @@ export default (function TableTeam({ className }: TableTeamProps) {
 
   return (
     <table
-      className={` flex-col w-full rounded-lg overflow-hidden ${className || ""
-        }`}
+      className={` flex-col w-full rounded-lg overflow-hidden ${
+        className || ""
+      }`}
     >
       <thead>
         <tr className="border-b-2 border-gray-200 bg-light-grey text-black text-left">
@@ -84,4 +85,4 @@ export default (function TableTeam({ className }: TableTeamProps) {
       </tbody>
     </table>
   );
-});
+};

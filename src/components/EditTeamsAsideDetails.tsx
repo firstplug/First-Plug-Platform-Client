@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/common";
-import TeamDetails from "./TeamDeatils";
-import { TeamServices } from "../services/team.services";
+import { TeamDetails } from "./";
+import { TeamServices } from "../services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 
@@ -11,7 +11,7 @@ interface EditTeamsAsideDetailsProps {
   members?: string[];
 }
 
-export default observer(function EditTeamsAsideDetails({
+export const EditTeamsAsideDetails = observer(function ({
   className,
   members,
 }: EditTeamsAsideDetailsProps) {

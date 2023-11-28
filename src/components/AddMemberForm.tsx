@@ -8,7 +8,7 @@ interface AddMemberFormProps {
   handleSelectedMembers: (member: TeamMember) => void;
 }
 
-export default observer(function AddMemberForm({
+export const AddMemberForm = observer(function ({
   handleSelectedMembers,
 }: AddMemberFormProps) {
   const {

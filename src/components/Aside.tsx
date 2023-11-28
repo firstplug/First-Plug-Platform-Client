@@ -1,6 +1,6 @@
 "use client";
 import { IconX } from "@/common/Icons";
-import AsideContent from "./AsideContent";
+import { AsideContent } from "./";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { AsideTitle } from "@/common";
@@ -9,7 +9,7 @@ interface AsideProps {
   className?: string;
 }
 
-export default observer(function Aside({ className = "" }: AsideProps) {
+export const Aside = observer(function ({ className = "" }: AsideProps) {
   const {
     aside: { type, setAside },
   } = useStore();

@@ -12,7 +12,7 @@ interface FilterItem {
   name: string;
 }
 
-export default function FitlerModal({ array, className }: FilterModalProps) {
+export const FitlerModal = function ({ array, className }: FilterModalProps) {
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const [checkboxes, setCheckboxes] = useState<boolean[]>([]);
   const [filterTeams, setFilterTeams] = useState<string[]>([]);
@@ -76,4 +76,4 @@ export default function FitlerModal({ array, className }: FilterModalProps) {
       </div>
     </div>
   );
-}
+};

@@ -19,7 +19,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const responseNextAuth = await signIn("credentials", {
+      await signIn("credentials", {
         email: emailInput.value,
         password: passWordInput.value,
         redirect: false,

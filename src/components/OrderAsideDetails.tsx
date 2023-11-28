@@ -5,7 +5,7 @@ import ProductDetail from "@/common/ProductDetail";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 
-export default observer(function OrderAsideDetails() {
+export const OrderAsideDetails = observer(function () {
   const {
     orders: { selectedOrder },
   } = useStore();

@@ -1,14 +1,13 @@
 "use client";
 import { observer } from "mobx-react-lite";
-import TableTeam from "@/components/TableTeam";
-import GridTeam from "./GridTeam";
 import { useStore } from "@/models/root.store";
+import { GridTeam, TableTeam } from "./";
 
 interface TeamMembersProps {
   display?: string;
 }
 
-export default observer(function TeamMembers({ display }: TeamMembersProps) {
+export const TeamMembers = observer(function ({ display }: TeamMembersProps) {
   const {
     members: { members },
   } = useStore();

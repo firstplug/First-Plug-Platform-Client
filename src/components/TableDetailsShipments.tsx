@@ -7,7 +7,7 @@ interface TableDetailsShipmentsProps {
   className?: string;
 }
 
-export default observer(function TableDetailsShipments({
+export const TableDetailsShipments = observer(function ({
   className,
 }: TableDetailsShipmentsProps) {
   const {

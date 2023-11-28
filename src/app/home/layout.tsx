@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
-import { Aside, Navbar, Sidebar } from "@/components";
+import { Navbar, Sidebar } from "@/components";
+import Aside from "@/components/Aside";
 
 interface RootLayoutProps {
   children: ReactNode;

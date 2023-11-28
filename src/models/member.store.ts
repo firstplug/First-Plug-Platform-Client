@@ -16,8 +16,8 @@ export const MemberStore = types
     },
   }))
   .actions((store) => ({
-    setMembers(members) {
-      store.members = members;
+    setMembers(members: TeamMember[]) {
+      store.members.push(...members);
     },
     addMember(member: TeamMember) {
       store.members.push(member);

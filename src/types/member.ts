@@ -21,3 +21,4 @@ export const TeamMemberModel = types.model({
 });
 
 export type TeamMember = Instance<typeof TeamMemberModel>;
+export type CreationTeamMember = Omit<TeamMember, "_id" | "teams">;

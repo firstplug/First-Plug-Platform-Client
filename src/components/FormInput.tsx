@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 interface FormInputProps {
   title: string;
   placeholder: string;
-  type: string;
+  type: "text" | "number" | "password" | "options" | "date" | "email";
   className?: string;
   prop: string;
   handleInput: (prop: string, value: string) => void;
@@ -50,7 +50,7 @@ export const FormInput = function ({
       ) : (
         <Input
           type={type}
-          value={type === "optiones" ? input.selectedOption : input.value}
+          value={input.value}
           className={` w-full ${className}`}
           placeholder={placeholder}
           title={title}

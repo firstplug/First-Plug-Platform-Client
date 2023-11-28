@@ -1,57 +1,44 @@
-import Image from "next/image";
-import { Card } from "@/components";
-import Group from "../../../../public/svg/Group 133544.svg";
-import { Input, Layout, CustomLink, Button } from "@/common";
+"use client";
+import { BillingForm, Card, CompanyForm, AccessForm } from "@/components";
+import { Layout, Button } from "@/common";
 import { VisaIcon } from "@/common/Icons";
-
+import { useState } from "react";
+import { CreationTeamMember } from "@/types";
 export default function Settings() {
-  //TODO: User los FormInputs y reemplazar los Inputs
-
+  //TODO: CONSULTAR QUE ES LO QUE SE COMPELTA EN EL FORMULARIO DE SETTINGS.
+  const [state, setState] = useState<CreationTeamMember>({
+    firstName: "",
+    img: "",
+    lastName: "",
+    dateOfBirth: "",
+    phone: "",
+    email: "",
+    jobPosition: "",
+    city: "",
+    zipCode: "",
+    address: "",
+    appartment: "",
+    joiningDate: "",
+    timeSlotForDelivery: "",
+    additionalInfo: "",
+    image: "",
+  });
+  const handleInput = (key: string, value: string) => {
+    setState((prev: CreationTeamMember) => ({
+      ...prev,
+      [key]: value,
+    }));
+    console.log(state);
+  };
   return (
     <Layout className="flex flex-col gap-6 pb-16 overflow-auto">
       <div className="flex w-full gap-6">
-        <Card Title="User" className="w-1/2 flex flex-col gap-5 px-8">
-          <div className="flex gap-8">
-            <div className="flex ">
-              <Image src={Group} alt="empty image" height={180} width={180} />
-            </div>
+        <CompanyForm handleInput={handleInput} />
 
-            <div className="w-3/4 flex flex-col gap-4">
-              <Input title="Company Name" placeholder="Company Name" />
-              <Input
-                title="Contact Phone Number"
-                placeholder="+54 11 11111111"
-              />
-            </div>
-          </div>
-        </Card>
-
-        <Card Title="Access" className="w-1/2 flex flex-col gap-5">
-          <Input title="Email Address" placeholder="user@workemail.com" />
-          <div className="flex items-center gap-8">
-            <Input className="w-3/4" title="Password" type="password" />
-            <CustomLink href="#">Change Password</CustomLink>
-          </div>
-        </Card>
+        <AccessForm handleInput={handleInput} />
       </div>
 
-      <Card
-        Title="Billing Information"
-        className="flex flex-col gap-4 px-8 pb-8"
-      >
-        <div className="flex gap-4">
-          <div className="w-1/4 flex flex-col gap-4">
-            <Input title="Country" />
-            <Input title="Apparment, Suite, etc." />
-          </div>
-          <div className="w-1/4 flex flex-col gap-4">
-            <Input title="City" />
-            <Input title="Address" />
-          </div>
-          <Input title="State" className="w-1/4" />
-          <Input title="Zip Code" className="w-1/4" />
-        </div>
-      </Card>
+      <BillingForm handleInput={handleInput} />
 
       <div className="flex gap-6">
         <Card

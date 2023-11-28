@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Button, CustomLink, Input } from "@/common";
-import Form from "@/components/Form";
+import { Form } from "@/components";
 import { useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
 import { signIn } from "next-auth/react";

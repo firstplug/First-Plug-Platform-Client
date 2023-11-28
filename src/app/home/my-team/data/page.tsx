@@ -8,11 +8,10 @@ import {
   TableDisplayIcon,
   GridLayoutIcon,
 } from "@/common/Icons";
-import FitlerModal from "@/components/FitlerModal";
+import { FitlerModal, TeamMembers } from "@/components";
 import { observer } from "mobx-react-lite";
-import TeamMembers from "@/components/TeamMembers";
-import { TeamServices } from "@/services/team.services";
-import { useStore } from "@/models/root.store";
+import { TeamServices } from "@/services";
+import { useStore } from "@/models";
 import { AsideType } from "@/types";
 
 export default observer(function MyTeamData() {

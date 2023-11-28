@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Input } from "@/common";
-import Form from "@/components/Form";
+import { Form } from "@/components";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { AuthServices } from "@/services/auth.services";

@@ -2,7 +2,7 @@
 import { Button, Layout, CustomLink, EmptyCard } from "@/common";
 import { ShopIcon, UpLoadIcon } from "@/common/Icons";
 import { observer } from "mobx-react-lite";
-import { useStore } from "@/models/root.store";
+import { useStore } from "@/models";
 
 export default observer(function MyStock() {
   const {

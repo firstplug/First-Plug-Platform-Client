@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-import TableLogistics from "@/components/TableLogistics";
+import { TableLogistics } from "@/components";
 import { Layout, Header } from "@/common";
 
 export default function Logistics() {

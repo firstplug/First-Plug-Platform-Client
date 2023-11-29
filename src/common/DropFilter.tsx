@@ -1,6 +1,8 @@
 "use client";
 import { ReactNode, useState } from "react";
 import { DropDownArrow } from "./Icons";
+import { useStore } from "@/models";
+
 
 interface DropFilterProps {
   children?: ReactNode;
@@ -10,7 +12,8 @@ interface DropFilterProps {
 
 export function DropFilter({ children, body, className }: DropFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
-  // TODO: Implementar filtro por "teams" sobre members store, en la views. Preguntar si hacerlo asi, o en el back.
+  const {members: {filteredMember} } = useStore()
+
   return (
     <div className="relative inline-block text-left">
       <button

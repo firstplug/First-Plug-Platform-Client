@@ -1,56 +1,20 @@
+import { StateColors, OrderStatus } from "./StatusColors";
+
 export interface StateProps {
   status?: OrderStatus;
   className?: string;
   message?: string;
 }
 
-const Colors = {
-  info: "bg-lightPurple",
-  pending: "bg-lightYellow",
-  warn: "bg-lightRed",
-  confirmed: "bg-lightGreen",
-  closed: "bg-disabled",
-  success: "bg-lightBlue",
-} as const;
-
-type Color = keyof typeof Colors;
-
-export type OrderStatus =
-  | "CONFIRMATION PENDING"
-  | "PAYMENT PENDING"
-  | "ORDER CANCELED"
-  | "ORDER CONFIRMED"
-  | "CLOSED"
-  | "OPEN"
-  | "DELIVERED"
-  | "MISSING DATA"
-  | "PREPARING"
-  | "AVAILABLE"
-  | "SHIPPED";
-
-const StateColors: Record<OrderStatus, Color> = {
-  "CONFIRMATION PENDING": "info",
-  "PAYMENT PENDING": "pending",
-  "ORDER CANCELED": "warn",
-  "ORDER CONFIRMED": "confirmed",
-  CLOSED: "closed",
-  OPEN: "success",
-  DELIVERED: "confirmed",
-  "MISSING DATA": "warn",
-  PREPARING: "pending",
-  AVAILABLE: "info",
-  SHIPPED: "success",
-} as const;
-
 export function State({ status, className }: StateProps) {
-  const color = StateColors[status] || "";
+  const Color = StateColors[status] || "";
+  //This line broke the build because dont've data, length was undefined or null. Now, we validate length.
+  const statusLength = status ? status.length : 0
 
   return (
     <p
-      className={`${Colors[color]} ${className} py-1 rounded-full text-sm font-medium text-center whitespace-nowrap bg-disabled`}
-      //TODO:  view this "status.length" (this is breaking the build)
-      // PREV : style={{ width: `${status.length + 2}ch` }}
-      /*NEW*/ style={{ width: "10px" }}
+      className={`${Color} ${className} py-1 rounded-full text-sm font-medium text-center whitespace-nowrap bg-disabled`}
+      style={{ width: `${statusLength + 2}ch` }}
     >
       {status}
     </p>

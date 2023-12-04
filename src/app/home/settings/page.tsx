@@ -28,7 +28,6 @@ export default function Settings() {
       ...prev,
       [key]: value,
     }));
-    console.log(state);
   };
   return (
     <Layout className="flex flex-col gap-6 pb-16 overflow-auto">

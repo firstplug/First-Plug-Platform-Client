@@ -70,6 +70,7 @@ export default observer(function MyTeamData() {
           <Button
             body="Edit Team"
             variant={"text"}
+            disabled={teams.length === 0}
             icon={<PenIcon className={"w-[1rem]"} />}
             className={"p-2 text-sm rounded-md"}
             onClick={() => handleAside("EditTeam")}
@@ -78,11 +79,11 @@ export default observer(function MyTeamData() {
 
           <div className="flex gap-2">
             {display === "table" ? (
-              <Button onClick={() => setDisplay("grid")}>
+              <Button onClick={() => setDisplay("grid")} variant="text">
                 <GridLayoutIcon className={"text-black hover:shadow-md"} />
               </Button>
             ) : (
-              <Button onClick={() => setDisplay("table")}>
+              <Button onClick={() => setDisplay("table")} variant="text">
                 <TableDisplayIcon className={"text-black hover:shadow-md"} />
               </Button>
             )}

@@ -12,7 +12,7 @@ interface DropFilterProps {
 
 export function DropFilter({ children, body, className }: DropFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const {members: {filteredMember} } = useStore()
+  const {members: {membersByTeam} } = useStore()
 
   return (
     <div className="relative inline-block text-left">

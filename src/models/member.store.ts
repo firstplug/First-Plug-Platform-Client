@@ -14,8 +14,7 @@ export const MemberStore = types
     get selectedMember() {
       return store.members.find((member) => member._id === store.memberId);
     },
-    //check this
-    filteredMember(team: string) {
+    membersByTeam(team: string) {
       return store.members.filter((member) => member.teams.includes(team))
     }
   }))

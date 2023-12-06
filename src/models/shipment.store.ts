@@ -1,15 +1,9 @@
-import {
-  ShimpentByMonthModel,
-  ShimpentModel,
-  Shimpent,
-  ShimpentByMonth,
-} from "@/types";
+import { ShimpentModel, Shipment, ShipmentStatus } from "@/types";
 import { types } from "mobx-state-tree";
 
 export const ShipmentStore = types
   .model({
     shipments: types.array(ShimpentModel),
-    shipmentsByMonth: types.array(ShimpentByMonthModel),
     shipmentId: types.optional(types.string, ""),
   })
   .views((store) => ({
@@ -19,6 +13,26 @@ export const ShipmentStore = types
       );
     },
 
+    get shipmentsByMonth() {
+      const months = Array.from({ length: 12 }).map(() => ({
+        month: null,
+        shipments: [] as Shipment[],
+        status: "" as ShipmentStatus,
+        price: 0,
+      }));
+
+      store.shipments.forEach((shipment) => {
+        const shipmentMonth = shipment.date.getUTCMonth();
+        months[shipmentMonth].month = shipmentMonth;
+        months[shipmentMonth].shipments.push(shipment);
+        months[shipmentMonth].price = shipment.products.reduce(
+          (a, b) => parseInt(b.price) + a,
+          0
+        );
+      });
+
+      return months;
+    },
     get shipmentDetails() {
       const shipment = store.shipments.find(
         (shipment) => shipment._id === store.shipmentId
@@ -26,6 +40,7 @@ export const ShipmentStore = types
 
       return shipment.products;
     },
+
     shipmentByProduct(productId: string) {
       return store.shipments.filter((shipment) =>
         shipment.products.some((product) => product._id === productId)
@@ -40,10 +55,7 @@ export const ShipmentStore = types
     },
   }))
   .actions((store) => ({
-    setShipments(shipments: Shimpent[]) {
-      store.shipments.push(...shipments);
-    },
-    setShipmentsByMonth(shipments: ShimpentByMonth[]) {
-      store.shipmentsByMonth.push(...shipments);
+    setShipments(shipments: Shipment[]) {
+      store.shipments.replace(shipments);
     },
   }));

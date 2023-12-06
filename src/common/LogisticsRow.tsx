@@ -1,9 +1,16 @@
-import { ShimpentByMonth } from "@/types";
+import { Shipment, ShipmentStatus } from "@/types";
 import { State } from "./State";
 
 interface LogisticsRowProps {
-  shipment: ShimpentByMonth;
+  shipment: ShipmentByMonthProps;
   className?: string;
+}
+
+interface ShipmentByMonthProps {
+  month: string;
+  shipments: Shipment[];
+  status: ShipmentStatus;
+  price: number;
 }
 
 export function LogisticsRow({ shipment, className }: LogisticsRowProps) {

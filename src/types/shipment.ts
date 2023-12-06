@@ -25,3 +25,9 @@ export const ShimpentModel = types.model({
   products: types.optional(types.array(ProductModel), []),
 });
 export type Shipment = Instance<typeof ShimpentModel>;
+export const SHIPMENT_BY_MONTH_STATUS = [
+  "Open",
+  "Closed",
+  "PaymentPending",
+] as const;
+export type ShipmentByMonthStatus = (typeof SHIPMENT_BY_MONTH_STATUS)[number];

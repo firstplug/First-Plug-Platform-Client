@@ -1,4 +1,4 @@
-import { ShimpentModel, Shipment, ShipmentStatus } from "@/types";
+import { ShimpentModel, Shipment, ShipmentByMonthStatus } from "@/types";
 import { types } from "mobx-state-tree";
 
 export const ShipmentStore = types
@@ -17,7 +17,7 @@ export const ShipmentStore = types
       const months = Array.from({ length: 12 }).map(() => ({
         month: null,
         shipments: [] as Shipment[],
-        status: "" as ShipmentStatus,
+        status: "" as ShipmentByMonthStatus,
         price: 0,
       }));
 

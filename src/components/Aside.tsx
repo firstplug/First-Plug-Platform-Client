@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { AsideTitle } from "@/common";
 
-export default observer(function Aside() {
+export const Aside = observer(function Aside() {
   const {
     aside: { type, setAside },
   } = useStore();

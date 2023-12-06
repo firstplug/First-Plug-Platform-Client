@@ -20,7 +20,7 @@ export const ProductsStore = types
   }))
   .actions((store) => ({
     setProducts(products: Product[]) {
-      store.products.push(...products);
+      store.products.replace(products);
     },
     addProduct(product: Product) {
       store.products.push(product);

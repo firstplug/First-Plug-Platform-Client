@@ -7,7 +7,7 @@ export const TeamStore = types
   })
   .actions((store) => ({
     setTeams(teams: Team[]) {
-      store.teams.push(...teams);
+      store.teams.replace(teams);
     },
 
     addTeam(team: Team) {

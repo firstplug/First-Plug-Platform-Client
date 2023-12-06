@@ -27,7 +27,6 @@ function validator(type: ValidatorType) {
   };
 
   const fullNameValidator = (value: string) => {
-    console.log("ENTRA  LA VALIDACION!", { value });
     if (value.length < 1) {
       return "This field is required";
     }

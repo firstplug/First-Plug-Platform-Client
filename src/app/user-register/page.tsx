@@ -29,7 +29,6 @@ export default function UserRegister() {
       ...prev,
       [key]: value,
     }));
-    console.log(state);
   };
   return (
     <section className="flex flex-col overflow-auto max-h-[100vh]">

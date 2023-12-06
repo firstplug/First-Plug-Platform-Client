@@ -33,12 +33,9 @@ export default function Settings() {
     <Layout className="flex flex-col gap-6 pb-16 overflow-auto">
       <div className="flex w-full gap-6">
         <CompanyForm handleInput={handleInput} />
-
         <AccessForm handleInput={handleInput} />
       </div>
-
       <BillingForm handleInput={handleInput} />
-
       <div className="flex gap-6">
         <Card
           Title="Plan"

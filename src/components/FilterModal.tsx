@@ -12,8 +12,8 @@ interface FilterItem {
   name: string;
 }
 
-export const FitlerModal = function ({ array, className }: FilterModalProps) {
-  // TODO: Implementar filtro por "teams" sobre members store, en la views. Preguntar si hacerlo asi, o en el back.
+export const FilterModal = function ({ array, className }: FilterModalProps) {
+  //TODO: Ver cómo hacer esto genértico. Este modal puede  puede usarse para filtrar teams, products, etc.
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const [checkboxes, setCheckboxes] = useState<boolean[]>([]);
   const [filterTeams, setFilterTeams] = useState<string[]>([]);

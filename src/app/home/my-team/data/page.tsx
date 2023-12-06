@@ -8,7 +8,7 @@ import {
   TableDisplayIcon,
   GridLayoutIcon,
 } from "@/common/Icons";
-import { FitlerModal, TeamMembers } from "@/components";
+import { FilterModal, TeamMembers } from "@/components";
 import { observer } from "mobx-react-lite";
 import { TeamServices } from "@/services";
 import { useStore } from "@/models";
@@ -55,7 +55,7 @@ export default observer(function MyTeamData() {
           body={"Filter by team:"}
           className="rounded-md border font-medium"
         >
-          <FitlerModal
+          <FilterModal
             array={teams.map((team) => ({ id: team._id, name: team.name }))}
           />
         </DropFilter>

@@ -6,7 +6,7 @@ export * from "./ColaboratorCard";
 export * from "./CreateTeamAside";
 export * from "./EditMemberAside";
 export * from "./EditTeamsAsideDetails";
-export * from "./FitlerModal";
+export * from "./FilterModal";
 export * from "./Form";
 export * from "./FormInput";
 export * from "./GridTeam";

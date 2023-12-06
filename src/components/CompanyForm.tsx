@@ -2,10 +2,10 @@ import Image from "next/image";
 import { FormInput, Card } from "./";
 import Group from "public/svg/Group 133544.svg";
 
-interface Props {
+interface CompanyProps {
   handleInput: (prop: string, value: string) => void;
 }
-export const CompanyForm = function ({ handleInput }: Props) {
+export const CompanyForm = function ({ handleInput }: CompanyProps) {
   return (
     <Card Title="User" className="w-1/2 flex flex-col gap-5 px-8">
       <div className="flex gap-8">

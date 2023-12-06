@@ -3,7 +3,7 @@ import { FormInput, Card } from "./";
 import Group from "public/svg/Group 133544.svg";
 
 interface CompanyProps {
-  handleInput: (prop: string, value: string) => void;
+  handleInput: (key: string, value: string) => void;
 }
 export const CompanyForm = function ({ handleInput }: CompanyProps) {
   return (

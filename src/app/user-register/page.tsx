@@ -31,18 +31,25 @@ export default function UserRegister() {
     }));
   };
   return (
-    <section className="flex flex-col overflow-auto max-h-[100vh]">
-      <header className="relative  flex justify-between p-4 px-10 items-center">
-        <Image src="/logo1.png" alt="logoFirstPlug" width={200} height={100} />
+    <section className="flex flex-col justify-between   ">
+      <header className="  py-4 px-6  flex justify-between items-center  ">
+        <div className="relative">
+          <Image
+            src="/logo1.png"
+            alt="logoFirstPlug"
+            width={200}
+            height={100}
+          />
+        </div>
         <Button
           icon={<IconX />}
           variant="primary"
-          className=" w-[30px] h-[10px] rounded-full  "
+          className=" rounded-full  w-[10px]  h-[10px] outline"
         />
       </header>
 
-      <section className="px-6">
-        <div className="w-[100%] p-6 flex flex-col gap-4 rounded-xl shadow-lg border border-grey-200 ">
+      <section className="   px-6">
+        <div className="  flex flex-col gap-4 rounded-xl shadow-lg border border-grey-200 p-5 ">
           <section className="  ">
             <h1 className="font-montserrat text-[32px] font-bold text-black ">
               Welcome!
@@ -51,7 +58,7 @@ export default function UserRegister() {
               Please complete all the required fields to create your account.
             </p>
           </section>
-          <section className=" flex flex-col gap-4 ">
+          <section className=" flex flex-col gap-4    ">
             <div className="flex gap-4">
               <CompanyForm handleInput={handleInput} />
               <AccessForm handleInput={handleInput} />
@@ -62,17 +69,12 @@ export default function UserRegister() {
         </div>
       </section>
 
-      <div className="  py-4 px-10 flex items-center justify-between bg-white">
+      <footer className=" absolute  bottom-0  w-full border p-4 flex items-center justify-between bg-white">
         <p className="text-error font-inter font-semibold ml-[20px]">
           *Required fields
         </p>
-        <Button
-          body="Continue"
-          variant="primary"
-          disabled={true}
-          className="mr-[20px] w-[210px] h-[48px]"
-        />
-      </div>
+        <Button body="Continue" variant="primary" disabled={true} />
+      </footer>
     </section>
   );
 }

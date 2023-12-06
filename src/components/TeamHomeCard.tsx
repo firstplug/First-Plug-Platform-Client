@@ -72,7 +72,7 @@ export const TeamHomeCard = observer(function ({ className }: TeamCardProps) {
           <h1 className="text-2xl text-black font-semibold">New Joiners</h1>
         </div>
         <div className="flex flex-col overflow-y-auto max-h-[20rem] min-h-[20rem] ">
-          {members.map((member: TeamMember) => (
+          {members.map((member) => (
             <JoinerRow key={member._id} joiner={member} />
           ))}
         </div>

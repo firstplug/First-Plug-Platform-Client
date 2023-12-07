@@ -22,7 +22,7 @@ interface ColaboratorCardProps {
 
 const status = ["incomplete", "complete"] as const;
 
-export const ColaboratorCard = observer(function ({
+export const TeamMemberCard = observer(function ({
   member,
   firstName,
   lastName,
@@ -83,6 +83,7 @@ export const ColaboratorCard = observer(function ({
           </div>
           <div className="flex gap-1">
             <Button
+              variant="text"
               icon={
                 <PenIcon
                   strokeWidth={2}
@@ -92,6 +93,7 @@ export const ColaboratorCard = observer(function ({
               onClick={() => handleModal("EditMember")}
             />
             <Button
+              variant="text"
               onClick={handleDeleteMember}
               body={
                 <TrashIcon

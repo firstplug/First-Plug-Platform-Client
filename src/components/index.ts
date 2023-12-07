@@ -2,7 +2,7 @@ export * from "./AddMemberForm";
 export * from "./Aside";
 export * from "./AsideContent";
 export * from "./Card";
-export * from "./ColaboratorCard";
+export * from "./TeamMemberCard";
 export * from "./CreateTeamAside";
 export * from "./EditMemberAside";
 export * from "./EditTeamsAsideDetails";

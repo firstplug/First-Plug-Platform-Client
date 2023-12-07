@@ -8,7 +8,7 @@ import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 import { AsideType, TeamMember } from "@/types";
 
-interface ColaboratorCardProps {
+interface TeamMemberCardProps {
   member: TeamMember;
   firstName: string;
   lastName: string;
@@ -32,7 +32,7 @@ export const TeamMemberCard = observer(function ({
   shimentsDetails = "incomplete",
   teams,
   className,
-}: ColaboratorCardProps) {
+}: TeamMemberCardProps) {
   const {
     aside: { setAside },
     members: { setMembers, setSelectedMember },

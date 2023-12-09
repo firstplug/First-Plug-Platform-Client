@@ -1,7 +1,7 @@
 "use client";
 import { CustomLink, Button, Layout, FormLayout, SectionTitle } from "@/common";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import memberImage from "../../../../public/member.png";
 import { IconX } from "../../../common/Icons";
 import { observer } from "mobx-react-lite";
@@ -26,12 +26,12 @@ export default observer(function AddTeam() {
     TeamServices.getAllTeams().then((res) => setTeams(res));
   }, [setTeams]);
 
-  const handleInput = (prop, value) => {
+  const handleInput = useCallback((key: string, value: string) => {
     setMemberData((prev) => ({
       ...prev,
-      [prop]: isDate(value) ? (value as Date).toISOString() : value,
+      [key]: value,
     }));
-  };
+  }, []);
 
   const handleAddTeamMember = () => {
     TeamMemberServices.createMember(memberData)

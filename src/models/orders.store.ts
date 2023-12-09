@@ -25,7 +25,7 @@ export const OrderStore = types
 
   .actions((store) => ({
     setOrders(orders: Order[]) {
-      store.orders.push(orders);
+      store.orders.replace(orders);
     },
     setSelectedOrder(orderId: Order["_id"]) {
       store.selectedOrderId = orderId;

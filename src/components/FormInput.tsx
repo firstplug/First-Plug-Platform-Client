@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 interface FormInputProps {
   title: string;
   placeholder: string;
-  type: string;
+  type: "text" | "number" | "password" | "options" | "date" | "email";
   className?: string;
   prop: string;
   handleInput: (prop: string, value: string) => void;
@@ -15,7 +15,7 @@ interface FormInputProps {
   clear?: boolean;
 }
 
-export default function FormInput({
+export const FormInput = function ({
   title,
   placeholder,
   type,
@@ -50,7 +50,7 @@ export default function FormInput({
       ) : (
         <Input
           type={type}
-          value={type === "optiones" ? input.selectedOption : input.value}
+          value={input.value}
           className={` w-full ${className}`}
           placeholder={placeholder}
           title={title}
@@ -59,4 +59,4 @@ export default function FormInput({
       )}
     </>
   );
-}
+};

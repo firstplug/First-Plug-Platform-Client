@@ -1,18 +1,12 @@
 import Image from "next/image";
 import photo from "../../public/employees/Photo-2.png";
+import { TeamMember } from "@/types";
 
 interface joinerProps {
-  joiner: joinerOptions;
+  joiner: TeamMember;
 }
 
-interface joinerOptions {
-  name: string;
-  lastname: string;
-  jobPosition: string;
-  date: string;
-}
-
-export function JoinerRow({ joiner } : joinerProps) {
+export function JoinerRow({ joiner }: joinerProps) {
   return (
     <div className="border-b rounded-md border-border flex items-center gap-2 justify-between p-2 ">
       <div className="flex gap-2 ">
@@ -23,11 +17,11 @@ export function JoinerRow({ joiner } : joinerProps) {
         />
         <div>
           <h2 className="text-black font-bold">
-            {joiner.name} {joiner.lastname}
+            {joiner.firstName} {joiner.lastName}
           </h2>
           <div className="flex gap-2 justify-start">
             <span className="font-medium text-dark-grey">Joining Date:</span>
-            <span className=" text-dark-grey">{joiner.date}</span>
+            <span className=" text-dark-grey">{joiner.joiningDate}</span>
           </div>
         </div>
       </div>

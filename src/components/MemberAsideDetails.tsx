@@ -9,7 +9,7 @@ interface MemberAsideDetailsProps {
   className?: string;
 }
 
-export default observer(function MemberAsideDetails({
+export const MemberAsideDetails = observer(function ({
   className,
 }: MemberAsideDetailsProps) {
   const {

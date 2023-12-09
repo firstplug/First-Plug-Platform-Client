@@ -1,15 +1,13 @@
 "use client";
 import Image from "next/image";
 import { Button, CustomLink, Input } from "@/common";
-import Form from "@/components/Form";
+import { Form } from "@/components";
 import { useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
 import { signIn } from "next-auth/react";
 import { FormEvent } from "react";
 
 export default function Login() {
-  //TODO: User los FormInputs y reemplazar los Inputs
-
   const emailInput = useInput("", "email");
   const passWordInput = useInput("", "password");
 
@@ -19,7 +17,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const responseNextAuth = await signIn("credentials", {
+      await signIn("credentials", {
         email: emailInput.value,
         password: passWordInput.value,
         redirect: false,

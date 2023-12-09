@@ -5,11 +5,11 @@ import Image from "next/image";
 import { observer } from "mobx-react-lite";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
-import FormInput from "./FormInput";
+import { FormInput } from "./";
 import { useState } from "react";
 import { TeamMember } from "@/types";
 
-export default observer(function EditMemberAside() {
+export const EditMemberAside = observer(function () {
   const [finish, setFinished] = useState(false);
   const [memberData, setMemberData] = useState<TeamMember | undefined>();
   const {

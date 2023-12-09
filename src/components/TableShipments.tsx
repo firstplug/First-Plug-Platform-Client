@@ -1,7 +1,7 @@
 "use client";
 import { CustomLink, Button } from "@/common";
 import { useState } from "react";
-import TableDetailsShipments from "./TableDetailsShipments";
+import { TableDetailsShipments } from "./";
 import { ArrowLeft } from "@/common/Icons";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models";
@@ -10,11 +10,11 @@ interface TableDetailsShipmentsProps {
   className?: string;
 }
 
-export default observer(function TableShipments({
+export const TableShipments = observer(function ({
   className,
 }: TableDetailsShipmentsProps) {
   const {
-    orders: { orders, orderPrice },
+    orders: { orderPrice },
     shipments: { shipments },
   } = useStore();
   const [rowOpenState, setRowOpenState] = useState(

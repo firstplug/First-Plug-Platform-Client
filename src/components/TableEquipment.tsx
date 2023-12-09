@@ -1,10 +1,10 @@
 "use client";
-import { EquipmentRow, State } from "@/common";
+import { EquipmentRow } from "@/common";
 import { ChevronDown } from "@/common/Icons";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 
-export default observer(function TableEquipment() {
+export const TableEquipment = observer(function () {
   const {
     orders: { orders },
   } = useStore();

@@ -8,11 +8,10 @@ import {
   TableDisplayIcon,
   GridLayoutIcon,
 } from "@/common/Icons";
-import FitlerModal from "@/components/FitlerModal";
+import { FilterModal, TeamMembers } from "@/components";
 import { observer } from "mobx-react-lite";
-import TeamMembers from "@/components/TeamMembers";
-import { TeamServices } from "@/services/team.services";
-import { useStore } from "@/models/root.store";
+import { TeamServices } from "@/services";
+import { useStore } from "@/models";
 import { AsideType } from "@/types";
 
 export default observer(function MyTeamData() {
@@ -56,7 +55,7 @@ export default observer(function MyTeamData() {
           body={"Filter by team:"}
           className="rounded-md border font-medium"
         >
-          <FitlerModal
+          <FilterModal
             array={teams.map((team) => ({ id: team._id, name: team.name }))}
           />
         </DropFilter>
@@ -71,6 +70,7 @@ export default observer(function MyTeamData() {
           <Button
             body="Edit Team"
             variant={"text"}
+            disabled={teams.length === 0}
             icon={<PenIcon className={"w-[1rem]"} />}
             className={"p-2 text-sm rounded-md"}
             onClick={() => handleAside("EditTeam")}
@@ -79,11 +79,11 @@ export default observer(function MyTeamData() {
 
           <div className="flex gap-2">
             {display === "table" ? (
-              <Button onClick={() => setDisplay("grid")}>
+              <Button onClick={() => setDisplay("grid")} variant="text">
                 <GridLayoutIcon className={"text-black hover:shadow-md"} />
               </Button>
             ) : (
-              <Button onClick={() => setDisplay("table")}>
+              <Button onClick={() => setDisplay("table")} variant="text">
                 <TableDisplayIcon className={"text-black hover:shadow-md"} />
               </Button>
             )}

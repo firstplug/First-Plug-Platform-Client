@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { DoughnutChart } from "@/common";
 import { MonitorIcon, DeviceTablet, PencilAccesories } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
@@ -9,7 +9,7 @@ type classNameProps = {
   className?: string;
 };
 
-export default observer(function StockCard({ className }: classNameProps) {
+export const StockCard = observer(function ({ className }: classNameProps) {
   const {
     products: { products, uniqueProducts },
   } = useStore();

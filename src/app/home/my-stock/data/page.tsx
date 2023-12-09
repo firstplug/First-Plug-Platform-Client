@@ -1,6 +1,6 @@
 "use client";
 
-import Table from "@/components/Table";
+import { Table } from "@/components";
 import { Layout, Button } from "@/common";
 import { ShopIcon, UpLoadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";

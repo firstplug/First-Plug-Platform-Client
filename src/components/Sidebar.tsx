@@ -14,7 +14,7 @@ import {
 } from "@/common/Icons";
 import { usePathname } from "next/navigation";
 
-export default function Sidebar() {
+export const Sidebar = function () {
   const path = usePathname();
   const pathArray = path.split("/");
   const [showLogo, setShowLogo] = useState<boolean>(true);
@@ -114,4 +114,4 @@ export default function Sidebar() {
       </section>
     </aside>
   );
-}
+};

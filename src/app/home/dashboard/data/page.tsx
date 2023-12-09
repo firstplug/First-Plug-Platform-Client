@@ -1,9 +1,7 @@
 "use client";
 import { Layout } from "@/common";
-import Card from "@/components/Card";
+import { Card, TeamHomeCard, StockCard } from "@/components";
 import { ShopIcon } from "@/common/Icons";
-import TeamHomeCard from "@/components/TeamHomeCard";
-import StockCard from "@/components/StockCard";
 import { useRouter } from "next/navigation";
 
 export default function DashboardData() {

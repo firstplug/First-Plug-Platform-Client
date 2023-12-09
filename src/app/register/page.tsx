@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Input } from "@/common";
-import Form from "@/components/Form";
+import { Form } from "@/components";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { AuthServices } from "@/services/auth.services";
@@ -9,8 +9,6 @@ import useInput from "@/hooks/useInput";
 import { FormEvent } from "react";
 
 export default function Register() {
-  //TODO: User los FormInputs y reemplazar los Inputs
-
   const nameInput = useInput("", "required");
   const emailInput = useInput("", "email");
   const passWordInput = useInput("", "password");

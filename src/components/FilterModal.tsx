@@ -12,10 +12,10 @@ interface FilterItem {
   name: string;
 }
 
-export default function FitlerModal({ array, className }: FilterModalProps) {
+export const FilterModal = function ({ array, className }: FilterModalProps) {
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const [checkboxes, setCheckboxes] = useState<boolean[]>([]);
-  const [filterTeams, setFilterTeams] = useState<string[]>([]);
+  const [appliedFilters, setAppliedFilters] = useState<FilterItem[]>([]);
 
   useEffect(() => {
     setCheckboxes(Array(array.length).fill(false));
@@ -33,17 +33,21 @@ export default function FitlerModal({ array, className }: FilterModalProps) {
     setAllChecked(newCheckboxes.every((isChecked) => isChecked));
   };
 
-  const handleSelectFilter = (team: string, index: number) => {
+  const handleSelectFilter = (filter: FilterItem, index: number) => {
     handleCheckboxChange(index);
-    setFilterTeams((prevState) => {
-      const isSelected = prevState.some((selected) => selected === team);
+    setAppliedFilters((prevState) => {
+      const isSelected = prevState.some(
+        (appliedFilter) => appliedFilter === filter
+      );
 
       if (isSelected) {
-        return prevState.filter((selected) => selected !== team);
+        return prevState.filter((appliedFilter) => appliedFilter !== filter);
       } else {
-        return [...prevState, team];
+        return [...prevState, filter];
       }
     });
+
+    //TODO: implement function to 'send' filters to  correspondent componenet ==> onFilterChange(filters)
   };
 
   return (
@@ -68,7 +72,7 @@ export default function FitlerModal({ array, className }: FilterModalProps) {
               type="checkbox"
               className="w-5 h-5"
               checked={checkboxes[index]}
-              onChange={() => handleSelectFilter(filter.name, index)}
+              onChange={() => handleSelectFilter(filter, index)}
             />
             <label>{filter.name}</label>
           </div>
@@ -76,4 +80,4 @@ export default function FitlerModal({ array, className }: FilterModalProps) {
       </div>
     </div>
   );
-}
+};

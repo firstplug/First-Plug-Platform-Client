@@ -1,5 +1,5 @@
 import { Layout } from "@/common";
-import TableShipments from "@/components/TableShipments";
+import { TableShipments } from "@/components";
 
 export default function ShipmentsData() {
   return (

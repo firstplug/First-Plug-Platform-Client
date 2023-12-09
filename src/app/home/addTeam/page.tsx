@@ -3,13 +3,12 @@ import { CustomLink, Button, Layout, FormLayout, SectionTitle } from "@/common";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import memberImage from "../../../../public/member.png";
-
 import { IconX } from "../../../common/Icons";
 import { observer } from "mobx-react-lite";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
 import { TeamServices } from "@/services/team.services";
-import FormInput from "@/components/FormInput";
+import { FormInput } from "@/components";
 import { TeamMember } from "@/types";
 
 const isDate = (value: unknown) =>

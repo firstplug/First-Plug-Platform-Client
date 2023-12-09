@@ -1,7 +1,7 @@
 import { CustomLink, Layout } from "@/common";
 import Image from "next/image";
 import notFound from "../../public/svg/not-found.svg";
-import Navbar from "@/components/Navbar";
+import { Navbar } from "@/components";
 
 export default function NotFount() {
   return (

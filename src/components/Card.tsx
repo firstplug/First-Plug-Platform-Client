@@ -15,7 +15,7 @@ interface CardProps {
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function Card({
+export const Card = function ({
   children,
   Title,
   titleButton,
@@ -64,4 +64,4 @@ export default function Card({
       </div>
     </article>
   );
-}
+};

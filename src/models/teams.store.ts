@@ -6,8 +6,8 @@ export const TeamStore = types
     teams: types.array(TeamModel),
   })
   .actions((store) => ({
-    setTeams(teams) {
-      store.teams = teams;
+    setTeams(teams: Team[]) {
+      store.teams.replace(teams);
     },
 
     addTeam(team: Team) {

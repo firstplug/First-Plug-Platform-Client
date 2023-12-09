@@ -1,14 +1,16 @@
 "use client";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
-import MemberAsideDetails from "./MemberAsideDetails";
-import EditTeamsAsideDetails from "./EditTeamsAsideDetails";
-import MemberEditAside from "./MemberEditAside";
-import CreateTeamAside from "./CreateTeamAside";
-import LoadStock from "./LoadStock";
-import OrderAsideDetails from "./OrderAsideDetails";
+import {
+  MemberAsideDetails,
+  CreateTeamAside,
+  MemberEditAside,
+  LoadStock,
+  OrderAsideDetails,
+  EditTeamsAsideDetails,
+} from "./";
 
-export default observer(function AsideContent() {
+export const AsideContent = observer(function () {
   const { aside } = useStore();
   switch (aside.type) {
     case "MemberDetails":

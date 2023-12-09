@@ -3,7 +3,6 @@ import { ReactNode, useState } from "react";
 import { DropDownArrow } from "./Icons";
 import { useStore } from "@/models";
 
-
 interface DropFilterProps {
   children?: ReactNode;
   body?: string;
@@ -12,7 +11,6 @@ interface DropFilterProps {
 
 export function DropFilter({ children, body, className }: DropFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const {members: {membersByTeam} } = useStore()
 
   return (
     <div className="relative inline-block text-left">

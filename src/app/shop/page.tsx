@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import logo from "../../../public/logo1.png";
 import { SearchInput, CustomLink } from "@/common";
-import Navbar from "@/components/Navbar";
+import { Navbar } from "@/components";
 import { ChevronRight } from "@/common/Icons";
 import waveBottom from "../../../public/waves/Header shape 1.svg";
 import waveTop from "../../../public/waves/Header shape 2.svg";

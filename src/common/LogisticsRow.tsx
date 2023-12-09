@@ -1,28 +1,27 @@
-import {State} from "./State";
+import { Shipment, ShipmentByMonthStatus } from "@/types";
+import { State } from "./State";
 
-interface LogisticsRowProps{
-  month: string;
-  shipmentQuantity: number;
-  state: string;
-  total: number;
+interface LogisticsRowProps {
+  shipment: ShipmentByMonthProps;
   className?: string;
 }
 
-export function LogisticsRow({
-  month,
-  shipmentQuantity,
-  state,
-  total,
-  className,
-} : LogisticsRowProps) {
+interface ShipmentByMonthProps {
+  month: string;
+  shipments: Shipment[];
+  status: ShipmentByMonthStatus;
+  price: number;
+}
+
+export function LogisticsRow({ shipment, className }: LogisticsRowProps) {
   return (
     <tr className={`border-gray-200 text-left ${className}`}>
-      <td className="pl-5 py-3 ">{month}</td>
-      <td className="pl-3 py-3">{shipmentQuantity}</td>
+      <td className="pl-5 py-3 ">{shipment.month}</td>
+      <td className="pl-3 py-3">{shipment.shipments.length}</td>
       <td className="pl-3 py-3">
-        <State message={state} />
+        <State message={shipment.status} />
       </td>
-      <td className="pl-3 py-3">USD {total}</td>
+      <td className="pl-3 py-3">USD {shipment.price}</td>
     </tr>
   );
 }

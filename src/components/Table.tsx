@@ -1,17 +1,17 @@
 "use client";
 import { useState, Fragment } from "react";
-import TableDetails from "./TableDetails";
 import { ButtonMyStock } from "@/common";
 import Image from "next/image";
 import defaultPhoto from "../../public/Isotipo.png";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
+import { TableDetails } from "./";
 
 type TableProps = {
   className?: string;
 };
 
-export default observer(function Table({ className }: TableProps) {
+export const Table = observer(function ({ className }: TableProps) {
   const {
     products: { products },
   } = useStore();

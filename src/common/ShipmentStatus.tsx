@@ -4,20 +4,20 @@ import { ShipmentStatus } from "@/types";
 import { StatusColor } from "./StatusColors";
 
 interface ShipmentStatusProps {
-  status: ShipmentStatus
+  status: ShipmentStatus;
 }
 
 export function ShipmentStatus({ status }: ShipmentStatusProps) {
   const statusColor: StatusColor =
-    status === 'Avaliable'
-      ? 'info'
-      : status === 'Delivered'
-        ? 'success'
-        : status === 'Missing Data'
-          ? 'error'
-          : status === 'Preparing'
-            ? 'warn'
-            : 'pending'
+    status === "Avaliable"
+      ? "info"
+      : status === "Delivered"
+      ? "success"
+      : status === "Missing Data"
+      ? "error"
+      : status === "Preparing"
+      ? "warn"
+      : "pending";
 
   return (
     <span className="flex items-center gap-1 font-light">

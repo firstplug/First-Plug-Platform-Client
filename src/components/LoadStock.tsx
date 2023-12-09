@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import Card from "./Card";
+import { Card } from "./";
 import { AddStockCard, CustomLink } from "@/common";
 
-export default function LoadStock() {
+export const LoadStock = function () {
   return (
     <div>
       <div className="flex flex-col gap-6">
@@ -45,4 +45,4 @@ export default function LoadStock() {
       </div>
     </div>
   );
-}
+};

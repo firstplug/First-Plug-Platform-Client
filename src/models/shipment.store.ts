@@ -29,6 +29,7 @@ export const ShipmentStore = types
           (a, b) => parseInt(b.price) + a,
           0
         );
+        //TODO: consultar la forma en la que se define el status, y definirlo
       });
 
       return months;

@@ -7,6 +7,7 @@ import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 import { AsideType, TeamMember } from "@/types";
+import { StatusColor } from "@/common/StatusColors";
 
 interface ColaboratorCardProps {
   member: TeamMember;
@@ -50,6 +51,11 @@ export default observer(function ColaboratorCard({
       });
     });
   };
+
+  const shipmentStatusColor: StatusColor =
+    shipmentsDetails === 'complete'
+      ? 'success'
+      : 'error'
 
   return (
     <>
@@ -115,13 +121,9 @@ export default observer(function ColaboratorCard({
           </div>
           <div className="flex  items-center gap-3">
             <h2 className="font-semibold">Shipment Details:</h2>
-            <p className="flex items-center gap-2">
-              <StatusCircleIcon status={shimentsDetails} />
-
-              {shimentsDetails
-                .slice(0, 1)
-                .toUpperCase()
-                .concat(shimentsDetails.slice(1))}
+            <p className="flex items-center gap-2" style={{ textTransform: 'capitalize' }}>
+              <StatusCircleIcon color={shipmentStatusColor} />
+              {shipmentsDetails}
             </p>
           </div>
         </section>

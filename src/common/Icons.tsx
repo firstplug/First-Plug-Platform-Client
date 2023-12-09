@@ -1,3 +1,5 @@
+import { StatusColor } from "./StatusColors";
+
 export function FileIcon() {
   return (
     <svg
@@ -696,10 +698,10 @@ export function PenIcon({ className, strokeWidth }: PenIconProps) {
 }
 
 type StatusCircleIcon = {
-  className?: string;
+  color: StatusColor;
 };
 
-export function StatusCircleIcon({ className }: StatusCircleIcon) {
+export function StatusCircleIcon({ color }: StatusCircleIcon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -707,15 +709,12 @@ export function StatusCircleIcon({ className }: StatusCircleIcon) {
       height="8"
       viewBox="0 0 8 8"
       fill="none"
-      className={`${className || ""}`}
     >
       <circle
         cx="4"
         cy="4"
         r="4"
-        // TODO: This should depend on the level of the icon (info - warn - success - error).
-        // fill={status.toLowerCase() === "complete" ? "#15CC8A" : "#FA1048"}
-        fill="#FA1048"
+        fill={color}
       />
     </svg>
   );

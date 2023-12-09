@@ -24,7 +24,7 @@ export default observer(function AddTeam() {
 
   useEffect(() => {
     TeamServices.getAllTeams().then((res) => setTeams(res));
-  }, []);
+  }, [setTeams]);
 
   const handleInput = (prop, value) => {
     setMemberData((prev) => ({

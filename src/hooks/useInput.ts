@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 
 type ValidatorType = "required" | "password" | "email";
 
@@ -72,14 +72,15 @@ export default function useInput<T>(
   const [error, setError] = useState(null);
   const [touched, setTouched] = useState(false);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value as T);
-  };
-  const handleOption = (option: T) => {
-    setSelectedOption(option);
-  };
+  }, []);
 
-  const onBlur = () => {
+  const handleOption = useCallback((option: T) => {
+    setSelectedOption(option);
+  }, []);
+
+  const onBlur = useCallback(() => {
     setTouched(true);
 
     if (validateFunction) {
@@ -87,16 +88,18 @@ export default function useInput<T>(
         ? setError(validateFunction(value as string))
         : setError(validateFunction(selectedOption as string));
     }
-  };
+  }, [validateFunction, isOptionInput, value, selectedOption]);
 
-  const onFocus = () => {
+  const onFocus = useCallback(() => {
     setTouched(false);
     setError(null);
-  };
-  const clearInput = () => {
+  }, []);
+
+  const clearInput = useCallback(() => {
     setValue(initialValue);
     setSelectedOption(initialValue);
-  };
+  }, [initialValue]);
+
   return {
     value,
     error,

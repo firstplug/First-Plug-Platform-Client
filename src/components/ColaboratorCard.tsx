@@ -15,7 +15,7 @@ interface ColaboratorCardProps {
   _id: string;
   img: string;
   jobPosition: string;
-  shimentsDetails: (typeof status)[number];
+  shipmentsDetails: (typeof status)[number];
   teams: string[];
   className?: string;
 }
@@ -29,7 +29,7 @@ export default observer(function ColaboratorCard({
   _id,
   img,
   jobPosition,
-  shimentsDetails = "incomplete",
+  shipmentsDetails = "incomplete",
   teams,
   className,
 }: ColaboratorCardProps) {

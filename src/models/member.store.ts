@@ -14,6 +14,9 @@ export const MemberStore = types
     get selectedMember() {
       return store.members.find((member) => member._id === store.memberId);
     },
+    membersByTeam(team: string) {
+      return store.members.filter((member) => member.teams.includes(team))
+    }
   }))
   .actions((store) => ({
     setMembers(members) {

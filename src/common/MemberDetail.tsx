@@ -43,7 +43,6 @@ export function MemberDetail({ className }: MemberDetailProps) {
           <div className="flex items-center gap-1 ">
             <span className="font-semibold "> Date Of Birth: </span>
             <span className="font-normal">
-              {" "}
               {dateTo_DDMMYY(selectedMember.dateOfBirth)}{" "}
             </span>
           </div>

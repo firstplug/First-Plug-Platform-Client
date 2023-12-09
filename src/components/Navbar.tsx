@@ -25,7 +25,7 @@ export default function Navbar({
     <nav className="flex justify-between items-center pt-6 px-10 pb-3">
       <div className="flex gap-6 items-center">
         {title === "logo" ? (
-          <Image src={Logo} alt="Logo" width={140} height="auto" />
+          <Image src={Logo} alt="Logo" width={140} height={300} />
         ) : (
           <h1 className="font-bold text-2xl text-black">{title || ""}</h1>
         )}

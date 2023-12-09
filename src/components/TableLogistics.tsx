@@ -53,10 +53,8 @@ export const TableLogistics = observer(function () {
       </thead>
 
       <tbody className="font-medium text-md divide-y divide-gray-200 ">
-        {/* //TODO : Entiendo que no esta bien pasar el index dentro de la 'key', pero como los elementos de cada
-        shipmentsByMonth son arreglos no puedo acceder un  '_id' o algo único */}
-        {shipmentsByMonth.map((shipment, index) => (
-          <LogisticsRow key={index} shipment={shipment} />
+        {shipmentsByMonth.map((shipment) => (
+          <LogisticsRow key={shipment.month} shipment={shipment} />
         ))}
       </tbody>
     </table>

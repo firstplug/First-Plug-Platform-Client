@@ -1,4 +1,4 @@
-import { Shipment, ShipmentStatus } from "@/types";
+import { Shipment, ShipmentByMonthStatus } from "@/types";
 import { State } from "./State";
 
 interface LogisticsRowProps {
@@ -9,7 +9,7 @@ interface LogisticsRowProps {
 interface ShipmentByMonthProps {
   month: string;
   shipments: Shipment[];
-  status: ShipmentStatus;
+  status: ShipmentByMonthStatus;
   price: number;
 }
 

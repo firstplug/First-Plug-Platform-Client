@@ -66,7 +66,7 @@ export default (function TableTeam({ className }: TableTeamProps) {
             <td className=" py-4 px-3 ">
               <div className="flex items-center gap-1">
                 {/* TODO: Use shipment status component? */}
-                <StatusCircleIcon />
+                <StatusCircleIcon color='pending' /> Pending
               </div>
             </td>
             <td className=" py-4 px-3 ">

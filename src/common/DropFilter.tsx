@@ -1,6 +1,7 @@
 "use client";
 import { ReactNode, useState } from "react";
 import { DropDownArrow } from "./Icons";
+import { useStore } from "@/models";
 
 interface DropFilterProps {
   children?: ReactNode;

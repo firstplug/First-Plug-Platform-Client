@@ -1,42 +1,16 @@
 "use client";
 import React from "react";
 import { TrashIcon } from "@/common/Icons";
-import {Button} from "./Button";
-
-// TODO: move all status and colors to type file because we use it in State.tsx too
+import { Button } from "./Button";
+import { StateColors, OrderStatus } from "./StatusColors";
 
 interface TableRowProps {
   id: string;
   name: string;
-  status: Status;
+  status: OrderStatus;
   className?: string;
   actions: string;
 }
-
-type Status =
-  | "MISSING DATA"
-  | "DELIVERED"
-  | "PREPARING"
-  | "AVAILABLE"
-  | "SHIPPED";
-
-const StatusColors = {
-  missingData: "bg-lightRed",
-  delivered: "bg-lightGreen",
-  preparing: "bg-lightYellow",
-  available: "bg-lightPurple",
-  shipped: "bg-lightBlue",
-} as const;
-
-type Color = keyof typeof StatusColors;
-
-const StateColors: Record<Status, Color> = {
-  "MISSING DATA": "missingData",
-  DELIVERED: "delivered",
-  PREPARING: "preparing",
-  AVAILABLE: "available",
-  SHIPPED: "shipped",
-} as const;
 
 export  function TableRow({
   id,

@@ -27,16 +27,16 @@ export default function FormInput({
   clear,
 }: FormInputProps) {
   const input = useInput("", (required = "required"), type === "options");
+  const { value, selectedOption, clearInput } = input
 
   useEffect(() => {
     if (clear) {
-      input.clearInput();
+      clearInput();
     } else {
-      const value = type === "options" ? input.selectedOption : input.value;
-
-      handleInput(prop, value);
+      const newValue = type === "options" ? selectedOption : value;
+      handleInput(prop, newValue);
     }
-  }, [input.value, input.selectedOption, clear]);
+  }, [value, selectedOption, clearInput, clear, handleInput, prop, type]);
 
   return (
     <>

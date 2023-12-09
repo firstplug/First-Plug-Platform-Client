@@ -26,7 +26,7 @@ export default observer(function MyTeamData() {
     TeamServices.getAllTeams().then((res) => {
       setTeams(res);
     });
-  }, []);
+  }, [setTeams]);
 
   const handleAside = (type: AsideType) => {
     setAside(type);

@@ -99,7 +99,7 @@ export const LoadStock = function () {
       </div>
 
       <div className="fixed bottom-5 w-[85%] flex">
-        //Here post data to db 
+       {/* Here post data to db  */}
         <CustomLink
           href="/home/my-team/data"
           className="rounded-md flex-grow text-center"

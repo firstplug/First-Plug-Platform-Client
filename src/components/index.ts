@@ -32,3 +32,4 @@ export * from "./TeamMembers";
 export * from "./BillingForm";
 export * from "./CompanyForm";
 export * from "./AccessForm";
+export * from "./MyTeamHeader";

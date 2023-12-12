@@ -24,7 +24,7 @@ export function DropdownButton({ className }: DropdownButtonProps) {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2  rounded-md shadow-lg bg-white ring-1 ">
+        <div className="absolute right-0 mt-2  rounded-md shadow-lg bg-white ring-1 z-10">
           <div
             className="py-1"
             role="menu"

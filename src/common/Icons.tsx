@@ -32,7 +32,7 @@ export function IconX({ className = "", strokeWidth }: IconXProps) {
       viewBox="0 0 24 24"
       strokeWidth={strokeWidth}
       stroke="currentColor"
-      className={`w-6 h-6 ${className}`}
+      className={`w-5 h-5 ${className}`}
     >
       <path
         strokeLinecap="round"
@@ -443,17 +443,19 @@ export function DashboardIcon({ className }: DashboardIconProps) {
 
 type ArrowRightProps = {
   className?: string;
+  color?: string
+  strokeWidth?: number
 }
 
-export function ArrowRight({ className }: ArrowRightProps) {
+export function ArrowRight({ className, color, strokeWidth }: ArrowRightProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className={`w-6 h-6 ${className || ""}`}
+      strokeWidth={ strokeWidth || 1.5}
+      stroke={color || "currentColor"}
+      className={`w-5 h-5 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -465,18 +467,20 @@ export function ArrowRight({ className }: ArrowRightProps) {
 }
 type ArrowLeftProps = {
   className?: string;
+  color?: string
+  strokeWidth?:number
 }
 
 
-export function ArrowLeft({ className }: ArrowLeftProps) {
+export function ArrowLeft({ className,color, strokeWidth }: ArrowLeftProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className={`w-6 h-6 ${className || ""}`}
+      strokeWidth={strokeWidth || 1.5}
+      stroke={color || "currentColor"}
+      className={`w-5 h-5 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -498,9 +502,9 @@ export function AddIcon({ className, strokeWidth }: AddIconProps) {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={strokeWidth}
+      strokeWidth={strokeWidth || 2.0}
       stroke="currentColor"
-      className={`w-6 h-6 ${className || ""}`}
+      className={`w-5 h-5 ${className || ""}`}
     >
       <path
         strokeLinecap="round"

@@ -63,12 +63,12 @@ export function DropdownInput({
           <p className=" ml-4  text-error text-sm  ">{error}</p>
         ) : null}
         <Button
-          icon={<ChevronDown stroke={3} />}
-          className="absolute right-5 top-0 bottom-0 m-auto"
+          icon={<ChevronDown stroke={2} color="grey"/>}
+          className="absolute right-5 top-0 bottom-0 m-auto bg-transparent"
           onClick={toggleDropdown}
         />
         {isOpen && (
-          <ul className="absolute z-10 mt-2 w-full border border-gray-300 bg-white rounded-lg shadow-lg">
+          <ul className="absolute z-10 mt-0 w-full border border-gray-300 bg-white rounded-lg shadow-lg">
             {options.map((option) => (
               <li
                 key={option}

@@ -45,6 +45,7 @@ export const FormInput = function ({
           options={options}
           placeholder={placeholder}
           title={title}
+          className="w-full"
           {...input}
         />
       ) : (

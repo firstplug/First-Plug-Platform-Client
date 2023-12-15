@@ -4,7 +4,7 @@ import React from "react";
 
 export function MyTeamHeader({ members }: { members: TeamMember[] }) {
   return (
-    <>
+    <header className="flex justify-between items-center  ">
       <h1 className="text-2xl text-black font-semibold">My Team</h1>
       <div className="flex">
         {members.slice(0, 3).map((member) => (
@@ -18,6 +18,6 @@ export function MyTeamHeader({ members }: { members: TeamMember[] }) {
           </div>
         )}
       </div>
-    </>
+    </header>
   );
 }

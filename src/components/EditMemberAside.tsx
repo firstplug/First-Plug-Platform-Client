@@ -29,10 +29,12 @@ export const EditMemberAside = observer(function () {
       .catch((err) => alert("error"));
   };
 
-  const handleInput = useCallback((key: string, value: string) => {
+  const isDate = (value: unknown) =>
+    value instanceof Date && !isNaN(value.valueOf());
+  const handleInput = useCallback((key: string, value: unknown) => {
     setMemberData((prev) => ({
       ...prev,
-      [key]: value,
+      [key]: isDate(value) ? (value as Date).toISOString() : value,
     }));
   }, []);
 

@@ -26,7 +26,7 @@ export default observer(function AddTeam() {
     TeamServices.getAllTeams().then((res) => setTeams(res));
   }, [setTeams]);
 
-  const handleInput = useCallback((key: string, value: string) => {
+  const handleInput = useCallback((key: string, value: unknown) => {
     setMemberData((prev) => ({
       ...prev,
       [key]: value,

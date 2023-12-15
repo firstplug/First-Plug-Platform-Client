@@ -19,7 +19,7 @@ export default function MyTeam() {
             body="Load Team Members"
             icon={<AddIcon />}
             onClick={() => {
-              setAside("LoadStock", "my-team");
+              setAside("LoadStock", "my-team");//add context to use it 
             }}
             variant="secondary"
             size="big"

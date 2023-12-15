@@ -8,7 +8,7 @@ import { useStore } from "@/models/root.store";
 
 export const LoadStock = function () {
 
-  const {aside: {context} } = useStore() // llamo a context del store
+  const {aside: {context} } = useStore()
 
   type CsvInfo = {
     title: string;
@@ -30,17 +30,17 @@ export const LoadStock = function () {
 
   const { title, file, currentDate } = csvInfo;
 
-  const postCsvToDatabase = (csvData: any) => { //typar csvData
+  const postCsvToDatabase = (csvData: any) => { //add type 
     const apiUrl = context === 'my-team' ? '/api/my-team/upload' : '/api/my-stock/upload';
     
-    // Agregar mensajes de consola para probar el contexto
+    // logs to test context 
     if (context === 'my-team') {
       console.log("Estamos en my-team");
     } else if (context === 'my-stock') {
       console.log("Estamos en my-stock");
     }
 
-    // Aquí iría el código para realizar el POST a la base de datos
+    // post csv to db
     console.log(`Posting to ${apiUrl}`, csvData);
   };
 

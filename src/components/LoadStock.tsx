@@ -4,23 +4,45 @@ import React, { ChangeEvent, DragEvent, useState } from "react";
 import { Card } from "./";
 import { AddStockCard, CustomLink } from "@/common";
 import Papa from "papaparse";
+import { useStore } from "@/models/root.store";
 
 export const LoadStock = function () {
-  const [csvInfo, setCsvInfo] = useState({
+
+  const {aside: {context} } = useStore() // llamo a context del store
+
+  type CsvInfo = {
+    title: string;
+    file: string;
+    currentDate: string;
+  };
+
+  const EMPTY_FILE_INFO = {
     title: "",
     file: "",
     currentDate: "",
-  });
+  } as const;
+
+  const [csvInfo, setCsvInfo] = useState<CsvInfo>(EMPTY_FILE_INFO);
 
   const handleDeleteCard = () => {
-    setCsvInfo({
-      title: "",
-      file: "",
-      currentDate: "",
-    });
+    setCsvInfo(EMPTY_FILE_INFO);
   };
 
   const { title, file, currentDate } = csvInfo;
+
+  const postCsvToDatabase = (csvData: any) => { //typar csvData
+    const apiUrl = context === 'my-team' ? '/api/my-team/upload' : '/api/my-stock/upload';
+    
+    // Agregar mensajes de consola para probar el contexto
+    if (context === 'my-team') {
+      console.log("Estamos en my-team");
+    } else if (context === 'my-stock') {
+      console.log("Estamos en my-stock");
+    }
+
+    // Aquí iría el código para realizar el POST a la base de datos
+    console.log(`Posting to ${apiUrl}`, csvData);
+  };
 
   const onFileChangeHandler = (csvFile: File) => {
     Papa.parse(csvFile, {
@@ -33,7 +55,8 @@ export const LoadStock = function () {
           file: `${(size / 1024).toFixed(2)}kb`,
           currentDate: new Date().toLocaleString(),
         });
-        //console.log("Data:", results.data); <- log for check data file
+       // console.log("Data:", results.data); //<- log for check data file
+       //postCsvToDatabase(results.data);
       },
     });
   };
@@ -56,7 +79,6 @@ export const LoadStock = function () {
       onFileChangeHandler(csvFile);
     }
   };
-
 
   return (
     <div onDrop={handleDrop} onDragOver={handleDragOver} className="drop-area">

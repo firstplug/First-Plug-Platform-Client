@@ -1,13 +1,12 @@
-import { Shipment } from "@/types";
+import { Shipment, ShipmentCreation } from "@/types";
 import axios, { AxiosResponse } from "axios";
 
-type ShipmentCreation = Omit<Shipment, "_id" | "__v">;
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 export class ShipmentServices {
-  static async getAllShipments(): Promise<AxiosResponse> {
+  static async getAllShipments() {
     return await axios.get(`${BASE_URL}/api/shipments`);
   }
-  static async createShipment(data): Promise<AxiosResponse> {
+  static async createShipment(data: ShipmentCreation) {
     return await axios.post(`${BASE_URL}/api/shipments`, data);
   }
   static async getShipmentById(

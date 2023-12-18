@@ -2,7 +2,7 @@ import { FormInput, Card } from "./";
 import { CustomLink } from "@/common";
 
 interface Props {
-  handleInput: (prop: string, value: string) => void;
+  handleInput: (prop: string, value: unknown) => void;
 }
 export const AccessForm = function ({ handleInput }: Props) {
   return (

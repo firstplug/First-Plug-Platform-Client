@@ -2,7 +2,7 @@
 import { BillingForm, Card, CompanyForm, AccessForm } from "@/components";
 import { Layout, Button } from "@/common";
 import { VisaIcon } from "@/common/Icons";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { CreationTeamMember } from "@/types";
 export default function Settings() {
   //TODO: CONSULTAR QUE ES LO QUE SE COMPELTA EN EL FORMULARIO DE SETTINGS.
@@ -23,12 +23,13 @@ export default function Settings() {
     additionalInfo: "",
     image: "",
   });
-  const handleInput = (key: string, value: string) => {
-    setState((prev: CreationTeamMember) => ({
+  const handleInput = useCallback((key: string, value: unknown) => {
+    setState((prev) => ({
       ...prev,
       [key]: value,
     }));
-  };
+  }, []);
+
   return (
     <Layout className="flex flex-col gap-6 pb-16 overflow-auto">
       <div className="flex w-full gap-6">

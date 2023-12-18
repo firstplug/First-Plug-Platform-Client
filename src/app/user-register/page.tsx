@@ -24,7 +24,7 @@ export default function UserRegister() {
     additionalInfo: "",
     image: "",
   });
-  const handleInput = useCallback((key: string, value: string) => {
+  const handleInput = useCallback((key: string, value: unknown) => {
     setState((prev) => ({
       ...prev,
       [key]: value,

@@ -8,6 +8,7 @@ import { useStore } from "@/models/root.store";
 import { FormInput } from "./";
 import { useCallback, useState } from "react";
 import { TeamMember } from "@/types";
+import { isDate } from "@/utils/isDate";
 
 export const EditMemberAside = observer(function () {
   const [finish, setFinished] = useState(false);
@@ -29,8 +30,6 @@ export const EditMemberAside = observer(function () {
       .catch((err) => alert("error"));
   };
 
-  const isDate = (value: unknown) =>
-    value instanceof Date && !isNaN(value.valueOf());
   const handleInput = useCallback((key: string, value: unknown) => {
     setMemberData((prev) => ({
       ...prev,

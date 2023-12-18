@@ -9,7 +9,7 @@ interface FormInputProps {
   type: "text" | "number" | "password" | "options" | "date" | "email";
   className?: string;
   prop: string;
-  handleInput: (prop: string, value: string) => void;
+  handleInput: (prop: string, value: unknown) => void;
   options?: any[];
   required?: string;
   clear?: boolean;
@@ -27,7 +27,7 @@ export const FormInput = function ({
   clear,
 }: FormInputProps) {
   const input = useInput("", (required = "required"), type === "options");
-  const { value, selectedOption, clearInput } = input
+  const { value, selectedOption, clearInput } = input;
 
   useEffect(() => {
     if (clear) {

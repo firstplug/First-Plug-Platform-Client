@@ -1,8 +1,12 @@
 import { CircleMemberImg } from "@/common";
-import { TeamMember } from "@/types";
+import { useStore } from "@/models";
+import { observer } from "mobx-react-lite";
 import React from "react";
 
-export function MyTeamHeader({ members }: { members: TeamMember[] }) {
+export const MyTeamHeader = observer(function () {
+  const {
+    members: { members },
+  } = useStore();
   return (
     <header className="flex justify-between items-center  ">
       <h1 className="text-2xl text-black font-semibold">My Team</h1>
@@ -20,4 +24,4 @@ export function MyTeamHeader({ members }: { members: TeamMember[] }) {
       </div>
     </header>
   );
-}
+});

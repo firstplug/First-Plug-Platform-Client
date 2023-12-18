@@ -4,25 +4,32 @@ import React, { ChangeEvent, DragEvent, useState } from "react";
 import { Card } from "./";
 import { AddStockCard, CustomLink } from "@/common";
 import Papa from "papaparse";
-import { useStore } from "@/models/root.store";
 
-export const LoadStock = function () {
+const EMPTY_FILE_INFO: CsvInfo= {
+  title: "",
+  file: "",
+  currentDate: "",
+} as const;
 
-  const {aside: {context} } = useStore()
+type CsvInfo = {
+  title: string;
+  file: string;
+  currentDate: string;
+};
 
-  type CsvInfo = {
-    title: string;
-    file: string;
-    currentDate: string;
-  };
+const CSVUrls = {
+  MyTeam: '/api/....',
+  Stock: '/api/....'
+} as const
 
-  const EMPTY_FILE_INFO = {
-    title: "",
-    file: "",
-    currentDate: "",
-  } as const;
+type CSVUrl = keyof typeof CSVUrls 
 
-  const [csvInfo, setCsvInfo] = useState<CsvInfo>(EMPTY_FILE_INFO);
+interface LoadStockProps {
+  type: CSVUrl
+}
+
+export const LoadStock = function ({type}): LoadStockProps {
+  const [csvInfo, setCsvInfo] = useState(EMPTY_FILE_INFO);
 
   const handleDeleteCard = () => {
     setCsvInfo(EMPTY_FILE_INFO);
@@ -30,18 +37,9 @@ export const LoadStock = function () {
 
   const { title, file, currentDate } = csvInfo;
 
-  const postCsvToDatabase = (csvData: any) => { //add type 
-    const apiUrl = context === 'my-team' ? '/api/my-team/upload' : '/api/my-stock/upload';
-    
-    // logs to test context 
-    if (context === 'my-team') {
-      console.log("Estamos en my-team");
-    } else if (context === 'my-stock') {
-      console.log("Estamos en my-stock");
-    }
-
-    // post csv to db
-    console.log(`Posting to ${apiUrl}`, csvData);
+  const postCsvToDatabase = () => { 
+    const apiUrl = CSVUrls[type]
+    //post logic here
   };
 
   const onFileChangeHandler = (csvFile: File) => {

@@ -19,11 +19,7 @@ export function AddStockCard({
   onDeleteClick,
 }: AddStockCardProps) {
 
-  const handleDeleteClick = () => {
-    if (onDeleteClick) {
-      onDeleteClick();
-    }
-  };
+  const handleDeleteClick = () => onDeleteClick?.();
 
   return (
     <article

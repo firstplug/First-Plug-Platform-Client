@@ -1,3 +1,4 @@
+"use client";
 import { CircleMemberImg } from "@/common";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";

@@ -21,16 +21,15 @@ export const LoadStock = function () {
             <h2>Select a File</h2>
           </CustomLink>
         </Card>
+        {/* // TODO: Acá iría los componentes de carga de archvios 'AddStockCard'. 
+        
+        
         <AddStockCard
           title="Team_2023.cvs"
           file="443kb"
           currentDate="04/04/2023 12:41"
         />
-        <AddStockCard
-          title="Team_2023.cvs"
-          file="443kb"
-          currentDate="04/04/2023 12:41"
-        />
+        */}
       </div>
 
       <div className="fixed bottom-5 w-[85%] flex">

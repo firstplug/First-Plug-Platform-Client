@@ -5,7 +5,7 @@ import React from 'react'
 import DataOrders from './DataOrders'
 import EmptyOrders from './EmptyOrders'
 
-export default observer( function orderPage() {
+export default observer( function OrderPage() {
   const {orders:{orders}} =  useStore()
   return (
     <div>

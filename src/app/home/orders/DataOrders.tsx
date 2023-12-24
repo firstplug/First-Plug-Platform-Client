@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { TableEquipment, TableLogistics } from "@/components";
-import { Layout, Header } from "@/common";
+import { Layout, HeaderOrders } from "@/common";
 import { useStore } from "@/models";
 import { OrderServices } from "@/services";
 export default function DataOrders() {
@@ -18,7 +18,7 @@ export default function DataOrders() {
   
     return (
       <Layout className="flex flex-col gap-8">
-        <Header selectedTab={selectedTab} handleTab={handleTabClick} />
+        <HeaderOrders selectedTab={selectedTab} handleTab={handleTabClick} />
         {selectedTab === "Logistics" ? 
     
         <TableLogistics />

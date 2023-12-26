@@ -1,7 +1,5 @@
 "use client";
-import { useState } from "react";
 import { IconX, FileIcon, AlertCheck } from "./Icons";
-import { ProgressBar } from "./ProgressBar";
 
 interface AddStockCardProps {
   title: string;
@@ -9,6 +7,8 @@ interface AddStockCardProps {
   currentDate: string;
   className?: string;
   onDeleteClick?: () => void;
+  isLoading: boolean;
+  uploadProgress: number;
 }
 
 export function AddStockCard({
@@ -17,8 +17,9 @@ export function AddStockCard({
   currentDate,
   className,
   onDeleteClick,
+  isLoading,
+  uploadProgress,
 }: AddStockCardProps) {
-
   const handleDeleteClick = () => onDeleteClick?.();
 
   return (
@@ -31,24 +32,38 @@ export function AddStockCard({
         <div className="flex">
           <div className="flex gap-2">
             <FileIcon />
+
             <div className="flex-col">
               <h2 className="font-bold text-black">{title}</h2>
               <p className="text-grey">{file}</p>
             </div>
           </div>
         </div>
-        <button className="bg-transparent border-none cursor-pointer" onClick={handleDeleteClick}>
+        <button
+          className="bg-transparent border-none cursor-pointer"
+          onClick={handleDeleteClick}
+        >
           <IconX />
         </button>
       </header>
-      <footer className="flex flex-col items-end flex-1">
-        <>
-          <p className="text-grey flex gap-2 items-center">
-            {currentDate}
-            <AlertCheck className="text-green" />
-          </p>
-        </>
-      </footer>
+      {isLoading && (
+        <div className="w-full bg-gray-200 rounded-full h-1.5 mt-4">
+          <div
+            className="bg-green h-1.5 rounded-full transition-all duration-300 ease-in-out "
+            style={{ width: `${uploadProgress}%` }}
+          ></div>
+        </div>
+      )}
+      {!isLoading && (
+        <footer className="flex flex-col items-end flex-1">
+          <>
+            <p className="text-grey flex gap-2 items-center">
+              {currentDate}
+              <AlertCheck className="text-green" />
+            </p>
+          </>
+        </footer>
+      )}
     </article>
   );
 }

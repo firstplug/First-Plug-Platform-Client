@@ -10,7 +10,7 @@ export * from "./FilterModal";
 export * from "./Form";
 export * from "./FormInput";
 export * from "./GridTeam";
-export * from "./LoadStock";
+export * from "./LoadAside";
 export * from "./MemberAsideDetails";
 export * from "./MemberEditAside";
 export * from "./Navbar";

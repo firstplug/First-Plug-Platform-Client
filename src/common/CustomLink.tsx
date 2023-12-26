@@ -12,8 +12,8 @@ interface CustomLinkProps  {
   disabled?: Disabled;
   variant?: Variant;
   size?: Size;
+  onClick?: () => void
 }
-
 
 const customLinkStyle = {
   variant: {
@@ -43,6 +43,7 @@ export function CustomLink({
   disabled,
   variant,
   size,
+  onClick
 } : CustomLinkProps) {
 
   return (

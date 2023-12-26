@@ -6,6 +6,7 @@ import { useStore } from "@/models/root.store";
 export default function MyTeam() {
   const {
     aside: { setAside },
+    
   } = useStore();
   return (
     <Layout className="border-2 shadow-sm border-border rounded-md grid place-items-center w-[98%] ">
@@ -19,7 +20,7 @@ export default function MyTeam() {
             body="Load Team Members"
             icon={<AddIcon />}
             onClick={() => {
-              setAside("LoadStock");
+              setAside("LoadStock", "MyStock");
             }}
             variant="secondary"
             size="big"

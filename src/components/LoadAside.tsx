@@ -34,7 +34,6 @@ export const LoadStock = function () {
     aside: { csvContext },
   } = useStore();
 
-  console.log("LoadStock type:", CSVUrls[csvContext]);
 
   const handleDeleteCard = () => {
     setCsvInfo(EMPTY_FILE_INFO);
@@ -42,51 +41,29 @@ export const LoadStock = function () {
 
   const { title, file, currentDate } = csvInfo;
 
-  ///////////
 
-  const postCsvToDatabaseMock = async (parsedData: unknown) => {
-    setIsLoading(true);
-  
-    const totalDuration = 2000; // Duración total de la simulación
-    const updateInterval = 100; // Intervalo de actualización
-  
-    for (let elapsed = 0; elapsed <= totalDuration; elapsed += updateInterval) {
-      await new Promise(resolve => setTimeout(resolve, updateInterval));
-      const progress = Math.round((elapsed / totalDuration) * 100);
-      setUploadProgress(progress);
+  const postCsvToDatabase = async (parsedData: unknown) => {
+    try {
+      setIsLoading(true);
+      const apiUrl = CSVUrls[csvContext];
+      //post logic here
+
+      const config = {
+        onUploadProgress: (progressEvent: ProgressEvent) => {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setUploadProgress(percentCompleted);
+        }
+      };
+
+      //await axios.post(apiUrl, parsedData, config);
+      setIsLoading(false);
+      setUploadProgress(0);
+    } catch (error) {
+      setIsLoading(false);
+      console.error("Error ->", error);
+      setUploadProgress(0);
     }
-  
-    // Esperar un poco antes de restablecer para ver el progreso completo
-    await new Promise(resolve => setTimeout(resolve, 500));
-    setIsLoading(false);
-    setUploadProgress(0);
   };
-
-  
-  ///////////
-
-  // const postCsvToDatabase = async (parsedData: unknown) => {
-  //   try {
-  //     setIsLoading(true);
-  //     const apiUrl = CSVUrls[csvContext];
-  //     //post logic here
-
-  //     const config = {
-  //       onUploadProgress: progressEvent => {
-  //         const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-  //         setUploadProgress(percentCompleted);
-  //       }
-  //     };
-
-  //     //await axios.post(apiUrl, parsedData, config);
-  //     setIsLoading(false);
-  //     setUploadProgress(0);
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     console.error("Error ->", error);
-  //     setUploadProgress(0);
-  //   }
-  // };
 
   const onFileChangeHandler = (csvFile: File) => {
     setCsvFile(csvFile);
@@ -101,16 +78,14 @@ export const LoadStock = function () {
           file: `${(size / 1024).toFixed(2)}kb`,
           currentDate: new Date().toLocaleString(),
         });
-        ///console.log("Data:", results.data); //<- log for check data file
-        //postCsvToDatabase(results.data);
-        postCsvToDatabaseMock(results.data);
+        postCsvToDatabase(results.data);
       },
     });
   };
 
-  // const handleAttachFileClick = () => {
-  //   csvFile ? postCsvToDatabase(csvFile) : console.log("No CSV file selected.");
-  // };
+  const handleAttachFileClick = () => {
+    csvFile ? postCsvToDatabase(csvFile) : console.log("No CSV file selected.");
+  };
 
   const handleDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -178,7 +153,7 @@ export const LoadStock = function () {
           size="big"
           className="p-3 rounded-md w-full"
           onClick={() => {
-           // handleAttachFileClick();
+           handleAttachFileClick();
           }}
         />
       </div>

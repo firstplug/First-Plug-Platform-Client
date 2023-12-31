@@ -16,17 +16,13 @@ export default function Login() {
   const handleSumbit = async (e: FormEvent) => {
     e.preventDefault();
 
-    try {
-      await signIn("credentials", {
-        email: emailInput.value,
-        password: passWordInput.value,
-        redirect: false,
-      });
+    await signIn("credentials", {
+      email: emailInput.value,
+      password: passWordInput.value,
+      redirect: false,
+    });
 
-      router.push("/home/dashboard");
-    } catch (error) {
-      console.error(error);
-    }
+    router.push("/home/dashboard");
   };
 
   return (

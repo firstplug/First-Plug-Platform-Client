@@ -8,9 +8,13 @@ export const SHIPMENT_STATUS = [
   "Avaliable",
   "Shipped",
 ] as const;
+
 export type ShipmentStatus = (typeof SHIPMENT_STATUS)[number];
+
 export const SHIPMENT_TYPE = ["Courrier", "Internal"] as const;
+
 export type ShipmentType = (typeof SHIPMENT_TYPE)[number];
+
 export const ShimpentModel = types.model({
   _id: types.string,
   memberId: types.string,
@@ -23,11 +27,15 @@ export const ShimpentModel = types.model({
   trackingURL: types.optional(types.string, ""),
   products: types.optional(types.array(ProductModel), []),
 });
+
 export type Shipment = Instance<typeof ShimpentModel>;
+
 export const SHIPMENT_BY_MONTH_STATUS = [
   "Open",
   "Closed",
   "PaymentPending",
 ] as const;
+
 export type ShipmentByMonthStatus = (typeof SHIPMENT_BY_MONTH_STATUS)[number];
+
 export type ShipmentCreation = Omit<Shipment, "_id" | "__v">;

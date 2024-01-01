@@ -39,7 +39,7 @@ export const ShipmentStore = types
         (shipment) => shipment._id === store.shipmentId
       );
 
-      return shipment.products;
+      return shipment?.products || [];
     },
 
     shipmentByProduct(productId: string) {

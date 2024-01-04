@@ -12,13 +12,13 @@ import { FilterModal, TeamMembers } from "@/components";
 import { observer } from "mobx-react-lite";
 import { TeamServices } from "@/services";
 import { useStore } from "@/models";
-import { AsideType } from "@/types";
+import { AsideType, displayView } from "@/types";
 export default observer( function DataTeam() {
     const {
         aside: { setAside },
         teams: { setTeams, teams },
       } = useStore();
-      const [display, setDisplay] = useState("grid");
+      const [display, setDisplay] = useState<displayView>("grid");
     
       useEffect(() => {
         TeamServices.getAllTeams().then((res) => {
@@ -29,7 +29,8 @@ export default observer( function DataTeam() {
       const handleAside = (type: AsideType) => {
         setAside(type);
       };
-    
+      const toggleView = () => setDisplay(prev => prev === 'grid' ? 'table' : "grid")
+      const Icon = display === 'grid' ? GridLayoutIcon : TableDisplayIcon
       return (
         <Layout className="flex flex-col gap-4">
           <div className="w-full flex  justify-end gap-2 ">
@@ -77,15 +78,9 @@ export default observer( function DataTeam() {
               <span className="text-gray-400"> |</span>
     
               <div className="flex gap-2">
-                {display === "table" ? (
-                  <Button onClick={() => setDisplay("grid")} variant="text">
-                    <GridLayoutIcon className={"text-black hover:shadow-md"} />
-                  </Button>
-                ) : (
-                  <Button onClick={() => setDisplay("table")} variant="text">
-                    <TableDisplayIcon className={"text-black hover:shadow-md"} />
-                  </Button>
-                )}
+                <Button onClick={toggleView} variant="text">
+                   <Icon className={"text-black hover:shadow-md"} />
+                 </Button>
               </div>
             </div>
           </div>

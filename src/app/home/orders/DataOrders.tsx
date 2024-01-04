@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import { TableEquipment, TableLogistics } from "@/components";
-import { Layout, HeaderOrders } from "@/common";
+import { Layout, HeaderOrders, tabs } from "@/common";
 import { useStore } from "@/models";
 import { OrderServices } from "@/services";
 export default function DataOrders() {
-    const [selectedTab, setSelectedTab] = useState<"Logistics" | "Equipment">("Equipment");
+    const [selectedTab, setSelectedTab] = useState<tabs>("Equipment");
     const { orders } = useStore();
-    const handleTabClick = (tabName: "Logistics" | "Equipment") => {
+    const handleTabClick = (tabName: tabs) => {
       setSelectedTab(tabName);
     };
     useEffect(() => {

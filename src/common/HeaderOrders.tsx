@@ -1,16 +1,16 @@
 "use client";
 import {Button} from "@/common";
+export type tabs =  "Equipment" | "Logistics";
 
 interface selectedTabProps {
-  selectedTab: "Equipment" | "Logistics";
+  selectedTab: tabs;
   handleTab: (e:  "Equipment" | "Logistics")=>void
 }
-
 export function HeaderOrders({ selectedTab , handleTab} : selectedTabProps) {
   return (
     <header className="flex gap-5 border-b-4 border-gray-300 ">
         <Button
-                  variant="text"
+        variant="text"
         onClick={()=> handleTab("Equipment")}
           body="Equipment"
           className={` font-inter text-xl font-bold p-4 rounded-none  ${

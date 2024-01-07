@@ -28,6 +28,7 @@ const handler = NextAuth({
           password: credentials?.password,
         });
 
+        // TODO: Handle authorization failure
         if (user) {
           return user;
         } else {
@@ -37,15 +38,15 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async signIn(credentials) {
-      const user = {
-        email: credentials.user.email,
-        image: credentials.user.image,
-        name: credentials.user.name,
+    async signIn({user, account}) {
+      const authenticatedUser = {
+        email: user.email,
+        image: user.image,
+        name: user.name,
       };
 
-      if (credentials.account.provider !== "credentials") {
-        await AuthServices.createIfNotExists(user);
+      if (account.provider !== "credentials") {
+        await AuthServices.createIfNotExists(authenticatedUser);
       }
 
       return true;

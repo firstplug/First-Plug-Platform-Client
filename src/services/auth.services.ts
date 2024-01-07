@@ -18,7 +18,7 @@ export class AuthServices {
 
   static async createIfNotExists(data: RegisterUserPlatforms) {
     const user = await axios.post(
-      `${BASE_URL}/api/auth/registerplatform`,
+      `${BASE_URL}/api/auth/registerAuthenticationProvider`,
       data
     );
     return user.data;

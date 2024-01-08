@@ -57,7 +57,7 @@ export const TableShipments = observer(function ({
             >
               <td className="  py-4 px-3 ">{shipment._id}</td>
               <td className="  py-4 px-3">
-                <b>{shipment.date.toISOString()}</b>
+                <b>{shipment.date}</b>
               </td>
               <td className="  py-4 px-3">{shipment.products.length}</td>
               <td className=" py-4 px-3">{shipment.type}</td>

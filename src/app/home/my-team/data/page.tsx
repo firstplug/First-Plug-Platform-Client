@@ -19,6 +19,7 @@ export default observer(function MyTeamData() {
     aside: { setAside },
     teams: { setTeams, teams },
   } = useStore();
+  
   const [display, setDisplay] = useState("grid");
 
   // useEffect(() => {

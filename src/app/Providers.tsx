@@ -48,12 +48,9 @@ export default function Providers({ children }: ProvidersProps) {
 
       //Shipments
       const shipmentsResponse = await ShipmentServices.getAllShipments(); //Here received an Axiosresponse Object with shipments
-      
       const shipmentsData = shipmentsResponse.data.map((shipment:  Shipment) => ({ //Here we've only Shipment data to hydrate store
-        ...shipment,
-        date: new Date(shipment.date), // Check how received Date from API, if dont use this line, we've an error with Model
+        ...shipment
       }));
-      
       store.shipments.setShipments(shipmentsData);
 
     })();

@@ -24,7 +24,7 @@ export class OrderServices {
   }
   static async updateOrder(id: Order["_id"], data: Order): Promise<Order> {
     const response: AxiosResponse = await axios.put(
-      `${BASE_URL}/api/orders${id}`,
+      `${BASE_URL}/api/orders/${id}`,
       data
     );
     return response.data;
@@ -32,14 +32,14 @@ export class OrderServices {
 
   static async deleteOrder(id: Order["_id"]): Promise<DeleteOrderResponse> {
     const response: AxiosResponse = await axios.delete(
-      `${BASE_URL}/api/orders${id}`
+      `${BASE_URL}/api/orders/${id}`
     );
     return response.data;
   }
 
   static async getOneOrder(orderId: Order["_id"]): Promise<Order> {
     const response: AxiosResponse = await axios.get(
-      `${BASE_URL}/api/orders${orderId}`
+      `${BASE_URL}/api/orders/${orderId}`
     );
     return response.data;
   }

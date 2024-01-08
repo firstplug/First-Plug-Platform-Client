@@ -1,21 +1,17 @@
 "use client";
-import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import Image from "next/image";
-import { ShimpentModel } from "@/types/shipment";
-
+import { Product } from "@/types/product";
 
 interface TableDetailsShipmentsProps {
-  shipments: any
+  shipments: any;
   className?: string;
 }
 
 export const TableDetailsShipments = observer(function ({
   className,
-  shipments
+  shipments,
 }: TableDetailsShipmentsProps) {
- 
-
   return (
     <table
       className={`flex-col w-full rounded-lg overflow-hidden ${
@@ -31,7 +27,7 @@ export const TableDetailsShipments = observer(function ({
         </tr>
       </thead>
       <tbody>
-        {shipments.map((item:any) => (
+        {shipments.map((item: Product) => (
           <tr
             key={item._id}
             className="bg-white text-black border-b-2 border-gray-200 text-left"

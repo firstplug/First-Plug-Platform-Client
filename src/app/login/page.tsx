@@ -22,9 +22,10 @@ export default function Login() {
       redirect: false,
     });
 
+    // TODO: Handle signin failure
     if (!res.ok) {
-      console.error(res.error)
-      return
+      console.error(res.error);
+      return;
     }
 
     router.push("/home/dashboard");

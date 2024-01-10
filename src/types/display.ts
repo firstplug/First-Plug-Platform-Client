@@ -1,1 +1,1 @@
-export type displayView = "grid" | "table"
+export type DisplayView = "grid" | "table"

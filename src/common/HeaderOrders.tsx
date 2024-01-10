@@ -1,10 +1,10 @@
 "use client";
 import {Button} from "@/common";
-export type tabs =  "Equipment" | "Logistics";
+export type Tabs =  "Equipment" | "Logistics";
 
 interface selectedTabProps {
-  selectedTab: tabs;
-  handleTab: (e:  "Equipment" | "Logistics")=>void
+  selectedTab: Tabs;
+  handleTab: (e:  Tabs)=>void
 }
 export function HeaderOrders({ selectedTab , handleTab} : selectedTabProps) {
   return (

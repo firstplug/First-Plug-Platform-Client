@@ -12,13 +12,13 @@ import { FilterModal, TeamMembers } from "@/components";
 import { observer } from "mobx-react-lite";
 import { TeamServices } from "@/services";
 import { useStore } from "@/models";
-import { AsideType, displayView } from "@/types";
+import { AsideType, DisplayView } from "@/types";
 export default observer( function DataTeam() {
     const {
         aside: { setAside },
         teams: { setTeams, teams },
       } = useStore();
-      const [display, setDisplay] = useState<displayView>("grid");
+      const [display, setDisplay] = useState<DisplayView>("grid");
     
       useEffect(() => {
         TeamServices.getAllTeams().then((res) => {

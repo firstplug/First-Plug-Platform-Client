@@ -47,11 +47,8 @@ export default function Providers({ children }: ProvidersProps) {
       store.orders.setOrders(ordersResponse);
 
       //Shipments
-      const shipmentsResponse = await ShipmentServices.getAllShipments(); //Here received an Axiosresponse Object with shipments
-      const shipmentsData = shipmentsResponse.data.map((shipment:  Shipment) => ({ //Here we've only Shipment data to hydrate store
-        ...shipment
-      }));
-      store.shipments.setShipments(shipmentsData);
+      const shipmentsResponse = await ShipmentServices.getAllShipments();
+      store.shipments.setShipments(shipmentsResponse.data);
 
     })();
   }, [store]);

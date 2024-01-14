@@ -103,13 +103,13 @@ export const TeamMemberCard = observer(function ({
         </header>
         <section className="flex flex-col gap-2 justify-start">
           <div className="flex   items-center gap-3">
-            <h2 className="font-semibold text-lg">Job Position: </h2>
+            <h2 className="font-semibold text-lg">Job Position:</h2>
             <p>{member.jobPosition}</p>
           </div>
           <div className="flex items-center  gap-3">
             <h2 className="font-semibold text-lg">Products</h2>
             <p className="bg-border  rounded-full h-6 w-6 text-center  grid place-items-center items text-sm">
-              {/* {member.products.length} check this, because member dont've product field in types*/} 
+              {/* //TODO: Check and fix this data, not hardcode */}
               {2}
             </p>
           </div>

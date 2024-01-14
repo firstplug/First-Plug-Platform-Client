@@ -1,6 +1,5 @@
 import { useStore } from "@/models";
 import { TeamMemberCard } from "./";
-import { TeamMember } from "@/types/member";
 
 export const GridTeam = function () {
   
@@ -10,7 +9,7 @@ export const GridTeam = function () {
 
   return (
     <div className="grid w-full grid-cols-3 gap-2  ">
-      {members.map((member: TeamMember) => (
+      {members.map((member) => (
         <TeamMemberCard
           key={member._id}
           {...member}

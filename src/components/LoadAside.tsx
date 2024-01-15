@@ -24,16 +24,18 @@ const CSVUrls = {
   MyStock: "/api/my-stock",
 } as const;
 
+type CSVUrl = keyof typeof CSVUrls;
+
+const CSVUrlsArray: CSVUrl[] = Object.keys(CSVUrls) as CSVUrl[];
+
 export const LoadStock = function () {
   const [csvInfo, setCsvInfo] = useState(EMPTY_FILE_INFO);
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
 
   const {
     aside: { csvContext },
   } = useStore();
-
 
   const handleDeleteCard = () => {
     setCsvInfo(EMPTY_FILE_INFO);
@@ -41,28 +43,22 @@ export const LoadStock = function () {
 
   const { title, file, currentDate } = csvInfo;
 
-
   const postCsvToDatabase = async (parsedData: unknown) => {
+    setIsLoading(true);
+
     try {
-      setIsLoading(true);
+
       const apiUrl = CSVUrls[csvContext];
-      //post logic here
 
-      const config = {
-        onUploadProgress: (progressEvent: ProgressEvent) => {
-          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          setUploadProgress(percentCompleted);
-        }
-      };
-
-      //await axios.post(apiUrl, parsedData, config);
+      const response = await axios.post(apiUrl, parsedData)
       setIsLoading(false);
-      setUploadProgress(0);
+
     } catch (error) {
+      console.error(error);
+    } finally {
       setIsLoading(false);
-      console.error("Error ->", error);
-      setUploadProgress(0);
     }
+
   };
 
   const onFileChangeHandler = (csvFile: File) => {
@@ -141,7 +137,6 @@ export const LoadStock = function () {
             currentDate={currentDate}
             onDeleteClick={handleDeleteCard}
             isLoading={isLoading}
-            uploadProgress={uploadProgress}
           />
         )}
       </div>

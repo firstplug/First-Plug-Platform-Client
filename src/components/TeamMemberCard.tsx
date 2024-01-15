@@ -2,27 +2,25 @@
 import Photo from "../../public/employees/member.jpg";
 import Image from "next/image";
 import { Button, TeamCard } from "@/common";
-import { PenIcon, StatusCircleIcon, StatusCircleIconShipment, TrashIcon } from "@/common/Icons";
+import { PenIcon, StatusCircleIconShipment, TrashIcon } from "@/common/Icons";
 import { Memberservices } from "@/services";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
-import { AsideType, TeamMember } from "@/types";
+import { AsideType, TeamMember, ShipmentStatus} from "@/types";
 import { StatusColor } from "@/common/StatusColors";
 
 interface TeamMemberCardProps {
   member: TeamMember;
   _id: string;
-  shipmentDetails?: (typeof status)[number];
+  shipmentDetails?: ShipmentStatus;
   teams: string[];
   className?: string;
 }
 
-const status = ["incomplete", "complete"] as const;
-
 export const TeamMemberCard = observer(function ({
   member,
   _id,
-  shipmentDetails = "incomplete",
+  shipmentDetails,
   teams,
   className,
 }: TeamMemberCardProps) {
@@ -44,7 +42,7 @@ export const TeamMemberCard = observer(function ({
     });
   };
   const shipmentStatusColor: StatusColor =
-    shipmentDetails === "complete" ? "success" : "error";
+    shipmentDetails === "Complete" ? "success" : "error";
 
   return (
     <>

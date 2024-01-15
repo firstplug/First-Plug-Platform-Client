@@ -7,6 +7,7 @@ export const SHIPMENT_STATUS = [
   "Preparing",
   "Avaliable",
   "Shipped",
+  "Complete"
 ] as const;
 
 export type ShipmentStatus = (typeof SHIPMENT_STATUS)[number];

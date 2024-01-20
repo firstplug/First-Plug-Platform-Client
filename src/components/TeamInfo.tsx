@@ -6,7 +6,7 @@ import { AddMemberForm } from "./";
 import { TeamServices } from "@/services/team.services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
-import { TeamMemberServices } from "@/services";
+import { Memberservices } from "@/services";
 import { TeamMember, Team } from "@/types";
 
 interface TeamInfoProps {
@@ -24,11 +24,12 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
 
   const handleAddTeam = () => {
     selectedMembers.forEach((member) => {
+      //TODO: check addToTeam if we use it 
       TeamServices.addToTeam(team._id, member._id).then((res) => {
         TeamServices.getAllTeams().then((res) => {
           setTeams(res);
         });
-        TeamMemberServices.getAllMembers().then((res) => {
+        Memberservices.getAllMembers().then((res) => {
           setMembers(res);
         });
       });
@@ -36,11 +37,12 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
   };
 
   const handleDeleteMember = (member: { _id: string }) => {
+    //TODO: check deleteFromTeam if we use it 
     TeamServices.deleteFromTeam(team._id, member._id).then((res) => {
       TeamServices.getAllTeams().then((res) => {
         setTeams(res);
       });
-      TeamMemberServices.getAllMembers().then((res) => {
+      Memberservices.getAllMembers().then((res) => {
         setMembers(res);
       });
     });

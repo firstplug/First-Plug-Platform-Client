@@ -1,19 +1,17 @@
 "use client";
-import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import Image from "next/image";
+import { Product } from "@/types/product"
 
 interface TableDetailsShipmentsProps {
+  shipments: Product[];
   className?: string;
 }
 
 export const TableDetailsShipments = observer(function ({
   className,
+  shipments,
 }: TableDetailsShipmentsProps) {
-  const {
-    shipments: { shipmentDetails },
-  } = useStore();
-
   return (
     <table
       className={`flex-col w-full rounded-lg overflow-hidden ${
@@ -29,25 +27,28 @@ export const TableDetailsShipments = observer(function ({
         </tr>
       </thead>
       <tbody>
-        {shipmentDetails.map((item) => (
+        {shipments.map((shipment) => (
+   
           <tr
-            key={item._id}
+            key={shipment._id}
             className="bg-white text-black border-b-2 border-gray-200 text-left"
           >
             <td className="py-4 px-3 flex gap-2">
               <Image
-                src={item.imgUrl}
-                alt={item.category}
+                src={shipment.imgUrl}
+                alt={shipment.category}
                 className="h-12 w-12"
+                width={60}
+                height={60}
               />
-              <span>{item.category}</span>
+              <span>{shipment.category}</span>
             </td>
             <td className="py-4 px-3">
-              {item.model}
+              {shipment.model}
               <br />
-              {item.description}
+              {shipment.description}
             </td>
-            <td className="py-4 px-3">{item.serialNumber}</td>
+            <td className="py-4 px-3">{shipment.serialNumber}</td>
           </tr>
         ))}
       </tbody>

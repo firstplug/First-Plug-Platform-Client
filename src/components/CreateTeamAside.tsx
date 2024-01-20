@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/common";
 import { AddMemberForm } from "./";
-import { TeamServices, TeamMemberServices } from "../services";
+import { TeamServices, Memberservices } from "../services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMember, TeamModel } from "@/types";
@@ -22,14 +22,15 @@ export const CreateTeamAside = observer(function ({
   const [name, setName] = useState("");
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
+  // TODO: check and make createTeam in Services 
   const handleCreateTeam = async () => {
     try {
       const team = TeamModel.create({ name, teamMembers });
-      TeamServices.createTeam(team).then((res) => {
+      TeamServices.createTeam().then((res) => {
         TeamServices.getAllTeams().then((res) => {
           setTeams(res);
         });
-        TeamMemberServices.getAllMembers().then((res) => {
+        Memberservices.getAllMembers().then((res) => {
           setMembers(res);
         });
       });

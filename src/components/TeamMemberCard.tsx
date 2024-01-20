@@ -2,35 +2,25 @@
 import Photo from "../../public/employees/member.jpg";
 import Image from "next/image";
 import { Button, TeamCard } from "@/common";
-import { PenIcon, StatusCircleIcon, TrashIcon } from "@/common/Icons";
-import { TeamMemberServices } from "@/services";
+import { PenIcon, StatusCircleIconShipment, TrashIcon } from "@/common/Icons";
+import { Memberservices } from "@/services";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
-import { AsideType, TeamMember } from "@/types";
+import { AsideType, TeamMember, ShipmentStatus} from "@/types";
 import { StatusColor } from "@/common/StatusColors";
 
 interface TeamMemberCardProps {
   member: TeamMember;
-  firstName: string;
-  lastName: string;
   _id: string;
-  img: string;
-  jobPosition: string;
-  shipmentDetails: (typeof status)[number];
+  shipmentDetails?: ShipmentStatus;
   teams: string[];
   className?: string;
 }
 
-const status = ["incomplete", "complete"] as const;
-
 export const TeamMemberCard = observer(function ({
   member,
-  firstName,
-  lastName,
   _id,
-  img,
-  jobPosition,
-  shipmentDetails = "incomplete",
+  shipmentDetails,
   teams,
   className,
 }: TeamMemberCardProps) {
@@ -45,14 +35,14 @@ export const TeamMemberCard = observer(function ({
   };
 
   const handleDeleteMember = () => {
-    TeamMemberServices.deleteMember(_id).then((res) => {
-      TeamMemberServices.getAllMembers().then((res) => {
+    Memberservices.deleteMember(_id).then((res) => {
+      Memberservices.getAllMembers().then((res) => {
         setMembers(res);
       });
     });
   };
   const shipmentStatusColor: StatusColor =
-    shipmentDetails === "complete" ? "success" : "error";
+    shipmentDetails === "Complete" ? "success" : "error";
 
   return (
     <>
@@ -62,9 +52,11 @@ export const TeamMemberCard = observer(function ({
         <header className="flex justify-between items-start">
           <div className="flex gap-2">
             <Image
-              src={img || Photo}
+              src={member.img || Photo}
               alt="colabPhoto"
               className="w-1/3 object-cover rounded-md"
+              width={50}
+              height={50}
             />
 
             <div className="ml-1 flex flex-col  items-start">
@@ -79,9 +71,9 @@ export const TeamMemberCard = observer(function ({
                 className="text-black font-bold cursor-pointer"
                 onClick={() => handleModal("MemberDetails")}
               >
-                {firstName} {lastName}
+                {member.firstName} {member.lastName}
               </h2>
-              <b className="text-dark-grey">#00{_id.slice(0, 6)}</b>
+              <b className="text-dark-grey">#00{member._id.slice(0, 6)}</b>
             </div>
           </div>
           <div className="flex gap-1">
@@ -109,13 +101,14 @@ export const TeamMemberCard = observer(function ({
         </header>
         <section className="flex flex-col gap-2 justify-start">
           <div className="flex   items-center gap-3">
-            <h2 className="font-semibold text-lg">Job Position: </h2>
-            <p>{jobPosition}</p>
+            <h2 className="font-semibold text-lg">Job Position:</h2>
+            <p>{member.jobPosition}</p>
           </div>
           <div className="flex items-center  gap-3">
             <h2 className="font-semibold text-lg">Products</h2>
             <p className="bg-border  rounded-full h-6 w-6 text-center  grid place-items-center items text-sm">
-              {/* {products.length} */}
+              {/* //TODO: Check and fix this data, not hardcode */}
+              {2}
             </p>
           </div>
           <div className="flex  items-center gap-3">
@@ -124,7 +117,7 @@ export const TeamMemberCard = observer(function ({
               className="flex items-center gap-2"
               style={{ textTransform: "capitalize" }}
             >
-              <StatusCircleIcon color={shipmentStatusColor} />
+              <StatusCircleIconShipment color={shipmentStatusColor} />
 
               {shipmentDetails}
             </p>

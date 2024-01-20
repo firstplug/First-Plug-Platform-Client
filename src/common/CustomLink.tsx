@@ -14,7 +14,6 @@ interface CustomLinkProps  {
   size?: Size;
 }
 
-
 const customLinkStyle = {
   variant: {
     primary:

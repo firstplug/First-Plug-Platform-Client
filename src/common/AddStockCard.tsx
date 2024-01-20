@@ -1,22 +1,24 @@
 "use client";
-import { useState } from "react";
 import { IconX, FileIcon, AlertCheck } from "./Icons";
-import {ProgressBar} from "./ProgressBar";
 
-interface AddStockCardProps  {
+interface AddStockCardProps {
   title: string;
   file: string;
   currentDate: string;
+  isLoading: boolean;
   className?: string;
+  onDeleteClick?: () => void;
 }
 
-export function AddStockCard({ title, file, currentDate, className } : AddStockCardProps) {
-  const [showProgress, setShowProgress] = useState<Boolean>(true);
-
-
-  const handleProgressComplete = () => {
-    setShowProgress(false);
-  };
+export function AddStockCard({
+  title,
+  file,
+  currentDate,
+  className,
+  onDeleteClick,
+  isLoading,
+}: AddStockCardProps) {
+  const handleDeleteClick = () => onDeleteClick?.();
 
   return (
     <article
@@ -34,24 +36,25 @@ export function AddStockCard({ title, file, currentDate, className } : AddStockC
             </div>
           </div>
         </div>
-        <button className="bg-transparent border-none cursor-pointer">
+        <button
+          className="bg-transparent border-none cursor-pointer"
+          onClick={handleDeleteClick}
+        >
           <IconX />
         </button>
       </header>
-      <footer className="flex flex-col items-end flex-1">
-        {showProgress ? (
-          <div className="w-full relative bottom-0">
-            <ProgressBar onComplete={handleProgressComplete} />
-          </div>
-        ) : (
-          <>
-            <p className="text-grey flex gap-2 items-center">
-              {currentDate}
-              <AlertCheck className="text-green" />
-            </p>
-          </>
-        )}
-      </footer>
+      {isLoading ? (
+        <div className="w-full bg-gray-200 rounded-full h-1.5 mt-4">
+          <div className="bg-green h-1.5 rounded-full transition-all duration-300 ease-in-out"></div>
+        </div>
+      ) : (
+        <footer className="flex flex-col items-end flex-1">
+          <p className="text-grey flex gap-2 items-center">
+            {currentDate}
+            <AlertCheck className="text-green" />
+          </p>
+        </footer>
+      )}
     </article>
   );
 }

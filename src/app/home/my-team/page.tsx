@@ -2,10 +2,13 @@
 import { Layout, Button, CustomLink, EmptyCard } from "@/common";
 import { AddIcon, UpLoadIcon } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
+import DataTeam from "./DataTeam";
+import EmptyTeam from "./EmptyTeam";
 
 export default function MyTeam() {
   const {
     aside: { setAside },
+    
   } = useStore();
   return (
     <Layout className="border-2 shadow-sm border-border rounded-md grid place-items-center w-[98%] ">
@@ -19,7 +22,7 @@ export default function MyTeam() {
             body="Load Team Members"
             icon={<AddIcon />}
             onClick={() => {
-              setAside("LoadStock");
+              setAside("LoadStock", "MyStock");
             }}
             variant="secondary"
             size="big"

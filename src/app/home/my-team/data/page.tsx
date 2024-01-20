@@ -10,7 +10,7 @@ import {
 } from "@/common/Icons";
 import { FilterModal, TeamMembers } from "@/components";
 import { observer } from "mobx-react-lite";
-//import { TeamServices } from "@/services";
+import { TeamServices } from "@/services";
 import { useStore } from "@/models";
 import { AsideType } from "@/types";
 
@@ -22,11 +22,11 @@ export default observer(function MyTeamData() {
   
   const [display, setDisplay] = useState("grid");
 
-  // useEffect(() => {
-  //   TeamServices.getAllTeams().then((res) => {
-  //     setTeams(res);
-  //   });
-  // }, [setTeams]);
+  useEffect(() => {
+    TeamServices.getAllTeams().then((res) => {
+      setTeams(res);
+    });
+  }, [setTeams]);
 
   const handleAside = (type: AsideType) => {
     setAside(type);

@@ -11,7 +11,6 @@ export const SHIPMENT_STATUS = [
 export type ShipmentStatus = (typeof SHIPMENT_STATUS)[number];
 export const SHIPMENT_TYPE = ["Courrier", "Internal"] as const;
 export type ShipmentType = (typeof SHIPMENT_TYPE)[number];
-
 export const ShimpentModel = types.model({
   _id: types.string,
   memberId: types.string,
@@ -31,3 +30,4 @@ export const SHIPMENT_BY_MONTH_STATUS = [
   "PaymentPending",
 ] as const;
 export type ShipmentByMonthStatus = (typeof SHIPMENT_BY_MONTH_STATUS)[number];
+export type ShipmentCreation = Omit<Shipment, "_id" | "__v">;

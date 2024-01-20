@@ -6,24 +6,9 @@ type ProgressBarProps = {
 };
 
 export function ProgressBar({ onComplete }: ProgressBarProps) {
-  // TODO: We need add logic to update csv file
-
   const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prevProgress) => {
-        if (prevProgress < 100) {
-          return prevProgress + 1;
-        }
-        clearInterval(interval);
-        onComplete();
-        return prevProgress;
-      });
-    }, 20);
-
-    return () => clearInterval(interval);
-  }, [onComplete]);
+  // TODO: Ver como implementar la carga de los archivos y su  porcentaje
 
   return (
     <div className="flex items-center gap-2">

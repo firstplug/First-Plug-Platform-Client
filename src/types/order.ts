@@ -3,8 +3,8 @@ import { ProductModel } from "./product";
 import { TeamMemberModel } from "./member";
 
 export const ORDER_STATUSES = [
-  "OrderConfirmed",
-  "OrderCanceled",
+  "Confirmed",
+  "Canceled",
   "ConfirmationPending",
   "PaymentPending",
 ] as const;

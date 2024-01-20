@@ -1,7 +1,7 @@
 "use client";
 import { CustomLink, Button, Layout, FormLayout, SectionTitle } from "@/common";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import memberImage from "../../../../public/member.png";
 import { IconX } from "../../../common/Icons";
 import { observer } from "mobx-react-lite";
@@ -26,12 +26,12 @@ export default observer(function AddTeam() {
     TeamServices.getAllTeams().then((res) => setTeams(res));
   }, [setTeams]);
 
-  const handleInput = (prop, value) => {
+  const handleInput = useCallback((key: string, value: unknown) => {
     setMemberData((prev) => ({
       ...prev,
-      [prop]: isDate(value) ? (value as Date).toISOString() : value,
+      [key]: value,
     }));
-  };
+  }, []);
 
   const handleAddTeamMember = () => {
     TeamMemberServices.createMember(memberData)
@@ -53,7 +53,7 @@ export default observer(function AddTeam() {
           <SectionTitle className="text-[20px]">Add Team Member</SectionTitle>
 
           <section className="flex flex-col gap-4 ">
-            <div className="  flex items-center  gap-7  ">
+            <div className="  flex items-center gap-7  ">
               <section className=" h-full rounded-[30px] relative">
                 <Image
                   src={memberImage}
@@ -61,9 +61,9 @@ export default observer(function AddTeam() {
                   className="object-cover  h-full"
                 />
                 <Button
-                  icon={<IconX />}
+                  icon={<IconX strokeWidth={2.0} />}
                   variant="primary"
-                  className="rounded-3xl w-[30px] h-[30px] absolute bottom-0 left-[110px] z-[1] "
+                  className="w-1 h-5 absolute bottom-0 left-[110px] z-[1] py-4 px-4 rounded-full"
                 />
               </section>
               <section className="  w-full ">

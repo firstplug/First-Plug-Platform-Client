@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Button, Layout } from "@/common";
 import { IconX } from "../../common/Icons";
 import { CreationTeamMember } from "@/types";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { AccessForm, BillingForm, CompanyForm } from "@/components";
 
 export default function UserRegister() {
@@ -24,12 +24,12 @@ export default function UserRegister() {
     additionalInfo: "",
     image: "",
   });
-  const handleInput = (key: string, value: string) => {
-    setState((prev: CreationTeamMember) => ({
+  const handleInput = useCallback((key: string, value: unknown) => {
+    setState((prev) => ({
       ...prev,
       [key]: value,
     }));
-  };
+  }, []);
   return (
     <section className="flex flex-col justify-between   ">
       <header className="  py-4 px-6  flex justify-between items-center  ">

@@ -6,19 +6,17 @@ import { observer } from "mobx-react-lite";
 import { TeamMemberServices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
 import { FormInput } from "./";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { TeamMember } from "@/types";
+import { isDate } from "@/utils/isDate";
 
 export const EditMemberAside = observer(function () {
   const [finish, setFinished] = useState(false);
   const [memberData, setMemberData] = useState<TeamMember | undefined>();
   const {
     members: { setMembers, selectedMember },
-    teams: { setTeams, teams },
+    teams: { teams },
   } = useStore();
-
-  const isDate = (value: unknown) =>
-    value instanceof Date && !isNaN(value.valueOf());
 
   const handleEditMember = () => {
     TeamMemberServices.updateMember(selectedMember._id, memberData)
@@ -32,12 +30,13 @@ export const EditMemberAside = observer(function () {
       .catch((err) => alert("error"));
   };
 
-  const handleInput = (prop, value) => {
+  const handleInput = useCallback((key: string, value: unknown) => {
     setMemberData((prev) => ({
       ...prev,
-      [prop]: isDate(value) ? (value as Date).toISOString() : value,
+      [key]: isDate(value) ? (value as Date).toISOString() : value,
     }));
-  };
+  }, []);
+
   return (
     <div className="flex flex-col gap-6 pr-4 pb-10">
       <div className="flex gap-4">

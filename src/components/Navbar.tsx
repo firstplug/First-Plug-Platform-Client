@@ -4,7 +4,6 @@ import { Button, SearchInput, DropdownButton, ImgPorfile } from "@/common";
 import Image from "next/image";
 import Logo from "../../public/logo1.png";
 import { ShopIcon, NotificationIcon } from "@/common/Icons";
-
 import { useRouter } from "next/navigation";
 
 type NavbarProps = {
@@ -57,7 +56,7 @@ export const Navbar = function ({
           <div className="relative w-10 h-10 ">
             <ImgPorfile />
           </div>
-          <DropdownButton className="py-0 px-2 m-0 " />
+          <DropdownButton className="py-0 px-2 m-0"  />
         </div>
       </div>
     </nav>

@@ -39,7 +39,7 @@ export class TeamServices {
 
   static async deleteFromTeam(
     teamId: Team["_id"],
-    memberId: string
+    memberId: TeamMember["_id"]
   ): Promise<Team> {
     return await axios.delete(
       `${BASE_URL}/api/teams/deleteMember/${teamId}/${memberId}`

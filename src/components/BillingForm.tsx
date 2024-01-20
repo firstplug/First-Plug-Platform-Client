@@ -1,6 +1,6 @@
 import { FormInput, Card } from "./";
 interface Props {
-  handleInput: (prop: string, value: string) => void;
+  handleInput: (prop: string, value: unknown) => void;
 }
 export const BillingForm = function ({ handleInput }: Props) {
   return (

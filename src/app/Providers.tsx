@@ -8,9 +8,9 @@ import {
   Memberservices,
   ShipmentServices,
   OrderServices,
+  TeamServices,
 } from "@/services";
 
-import { Shipment } from "./../types/shipment"
 
 type ProvidersProps = {
   children: ReactNode;
@@ -34,10 +34,9 @@ export default function Providers({ children }: ProvidersProps) {
       store.members.setMembers(membersResponse)
 
       //Teams
-      // const teamsResponse = await TeamServices.getAllTeams();
-      // store.teams.setTeams(teamsResponse)
-      // We dont've mock data teams from API
-
+      const teamsResponse = await TeamServices.getAllTeams();
+      store.teams.setTeams(teamsResponse)
+      
       //Products
       const productsResponse = await ProductServices.getAllProducts();
       store.products.setProducts(productsResponse);
@@ -52,6 +51,8 @@ export default function Providers({ children }: ProvidersProps) {
 
     })();
   }, [store]);
+
+
 
   return (
     <RootStoreContext.Provider value={store}>

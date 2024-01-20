@@ -6,11 +6,13 @@ export const TeamStore = types
     teams: types.array(TeamModel),
   })
   .actions((store) => ({
+    //TODO: Check and fix this
     setTeams(teams: Team[]) {
-      store.teams.replace(teams);
+      //store.teams.replace(teams);
     },
 
+    //TODO: Check and fix this
     addTeam(team: Team) {
-      store.teams.push(team);
+     // store.teams.push(team);
     },
   }));

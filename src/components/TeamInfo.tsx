@@ -24,6 +24,7 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
 
   const handleAddTeam = () => {
     selectedMembers.forEach((member) => {
+      //TODO: check addToTeam if we use it 
       TeamServices.addToTeam(team._id, member._id).then((res) => {
         TeamServices.getAllTeams().then((res) => {
           setTeams(res);
@@ -36,6 +37,7 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
   };
 
   const handleDeleteMember = (member: { _id: string }) => {
+    //TODO: check deleteFromTeam if we use it 
     TeamServices.deleteFromTeam(team._id, member._id).then((res) => {
       TeamServices.getAllTeams().then((res) => {
         setTeams(res);

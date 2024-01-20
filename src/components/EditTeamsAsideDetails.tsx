@@ -38,6 +38,7 @@ export const EditTeamsAsideDetails = observer(function ({
   };
 
   const handleDeleteSelectedTeams = async (teamId: string) => {
+    //TODO: check and make deleteTeam 
     try {
       await Promise.all(
         selectedTeams.map((team) => TeamServices.deleteTeam(team._id))

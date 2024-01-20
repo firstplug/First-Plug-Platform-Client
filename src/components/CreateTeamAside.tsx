@@ -22,10 +22,11 @@ export const CreateTeamAside = observer(function ({
   const [name, setName] = useState("");
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
+  // TODO: check and make createTeam in Services 
   const handleCreateTeam = async () => {
     try {
       const team = TeamModel.create({ name, teamMembers });
-      TeamServices.createTeam(team).then((res) => {
+      TeamServices.createTeam().then((res) => {
         TeamServices.getAllTeams().then((res) => {
           setTeams(res);
         });

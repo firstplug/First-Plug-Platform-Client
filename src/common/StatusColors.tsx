@@ -36,3 +36,13 @@ export const StateColors: Record<OrderStatus, StatusColor> = {
   AVAILABLE: "pending",
   SHIPPED: "success",
 } as const;
+
+export const JobPositionColors: Record<string, string> = {
+  HR: "bg-pink-400",
+  DEV: "bg-green", 
+  QA: "bg-purple",
+  SALES: "bg-yellow-200",
+  DESIGN: "bg-red-200",
+};
+
+export type JobPosition = keyof typeof JobPositionColors;

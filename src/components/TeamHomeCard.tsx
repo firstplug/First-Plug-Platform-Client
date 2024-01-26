@@ -15,7 +15,7 @@ export const TeamHomeCard = observer(function ({ className }: TeamCardProps) {
   } = useStore();
   return (
     <div className={`flex h-full ${className || ""}`}>
-      <div className=" h-full  flex flex-col justify-between w-1/3 mx-2 px-4 py-6 rounded-lg bg-light-grey">
+      <div className="   flex flex-col justify-between w-1/3 mx-2 px-4 py-6 rounded-lg bg-light-grey">
         <MyTeamHeader />
         <div className="flex gap-2 items-center w-[30%]">
           <h1 className="text-[6rem] font-bold text-black font-montserrat">

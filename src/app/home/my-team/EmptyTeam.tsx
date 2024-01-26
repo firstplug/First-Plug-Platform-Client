@@ -7,7 +7,7 @@ export default function EmptyTeam() {
         aside: { setAside },
       } = useStore();
       return (
-        <Layout className="border-2 shadow-sm border-border rounded-md grid place-items-center w-[98%] ">
+        <Layout className="border-2 shadow-sm border-border rounded-md grid place-items-center w-[98%]  ">
           <EmptyCard
             imageBottom="/girl.svg"
             paragraph="You havnet't loaded any  employees yet."

@@ -32,7 +32,7 @@ export default function MyTeam() {
             variant="primary"
             size="big"
             className="rounded-md flex gap-2"
-            href="#"
+            href=""
           >
             <UpLoadIcon /> Add Team Memeber
           </CustomLink>

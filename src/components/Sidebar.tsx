@@ -27,7 +27,7 @@ export const Sidebar = function () {
 
   return (
     <aside
-      className={`h-[99.83vh] flex flex-col shadow-sm shadow-grey transition-all ${
+      className={` min-h-screen  flex flex-col shadow-sm shadow-grey transition-all ${
         isSidebarSmall ? "w-20" : "w-64"
       }`}
     >

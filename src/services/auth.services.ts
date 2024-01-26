@@ -1,26 +1,37 @@
-import { LoginUser, RegisterUser, RegisterUserPlatforms } from "@/types";
-import axios, { AxiosResponse } from "axios";
+import { LoginUser, RegisterUser } from "@/types";
+import axios from "axios";
+import { JWT } from "next-auth/jwt";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export class AuthServices {
-  static async register(data: RegisterUser): Promise<AxiosResponse> {
+  static async register(data: RegisterUser) {
     return await axios.post(`${BASE_URL}/api/auth/register`, data);
   }
 
-  static async login(data: LoginUser): Promise<any> {
-    const user: AxiosResponse = await axios.post(
-      `${BASE_URL}/api/auth/login`,
-      data
-    );
-    return user.data;
+  static async login(data: LoginUser) {
+    return await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 
-  static async createIfNotExists(data: RegisterUserPlatforms) {
-    const user = await axios.post(
-      `${BASE_URL}/api/auth/registerAuthenticationProvider`,
-      data
+  static async refreshToken(token: JWT): Promise<JWT> {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_API_URL + "/api/auth/refresh",
+      {
+        method: "POST",
+        headers: {
+          authorization: `Refresh ${token.backendTokens.refreshToken}`,
+        },
+      }
     );
-    return user.data;
+
+    const response = await res.json();
+
+    return { ...token, backendTokens: response };
   }
 }

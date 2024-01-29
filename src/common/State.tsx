@@ -7,13 +7,14 @@ export interface StateProps {
 }
 
 export function State({ status, className }: StateProps) {
-  const Color = StateColors[status] || "";
-  //This line broke the build because dont've data, length was undefined or null. Now, we validate length.
-  const statusLength = status ? status.length : 0
+  const colorClass = status ? StateColors[status] : "bg-disabled"; // Si no hay estado, usa un color por defecto
+
+  
+  const statusLength = status ? status.length : 0;
 
   return (
     <p
-      className={`${Color} ${className} py-1 rounded-full text-sm font-medium text-center whitespace-nowrap bg-disabled`}
+      className={`${colorClass} ${className} py-1 rounded-full text-sm font-medium text-center whitespace-nowrap`}
       style={{ width: `${statusLength + 2}ch` }}
     >
       {status}

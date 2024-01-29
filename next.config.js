@@ -11,7 +11,7 @@ const nextConfig = {
   },
   images: {
     //this domains is only rendering mock data in components
-    domains: ["lh3.googleusercontent.com", "loremflickr.com", "picsum.photos", "cloudflare-ipfs.com", "avatars.githubusercontent.com"],
+    domains: ["lh3.googleusercontent.com", "loremflickr.com", "picsum.photos", "cloudflare-ipfs.com", "avatars.githubusercontent.com", "example.com"],
   },
 };
 

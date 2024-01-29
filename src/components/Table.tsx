@@ -14,6 +14,7 @@ type TableProps = {
 export const Table = observer(function ({ className }: TableProps) {
   const {
     products: { products },
+    shipments: { shipments },
   } = useStore();
 
   const [rowOpenState, setRowOpenState] = useState({});
@@ -26,7 +27,7 @@ export const Table = observer(function ({ className }: TableProps) {
     setRowOpenState(newState);
   }, [products]);
 
-  const toggleRow = (productId:any) => {
+  const toggleRow = (productId: any) => {
     setRowOpenState((prevState) => ({
       ...prevState,
       [productId]: !prevState[productId],
@@ -44,44 +45,51 @@ export const Table = observer(function ({ className }: TableProps) {
           <th className="py-3 px-3">Category</th>
           <th className="py-3 px-3">Model</th>
           <th className="py-3 px-3 ">Quantity</th>
-          <th></th>
+          <th className="py-3 px-3">Details</th>
         </tr>
       </thead>
       <tbody>
-        {products.map((product) => (
-          <Fragment key={product._id}>
-            <tr className="bg-white text-black  border-gray-200 text-left h-[6rem] border-y-2 ">
-              <td className="py-4 px-3 flex gap-9 items-center">
-                <Image
-                  src={product.imgUrl ? product.imgUrl : defaultPhoto}
-                  alt={product.category}
-                  width={48}
-                  height={48}
-                />
-                <span>{product.category}</span>
-              </td>
-              <td className="py-4 px-3 items-center">
-                {product.model}
-                <br />
-                {product.description}{" "}
-              </td>
-              <td className="py-4 px-3 items-center ">{product.stock}</td>
-              <td className="flex-col items-center">
-                <div>
-                  <ButtonMyStock
-                    body="Detail"
-                    onClick={() => toggleRow(product._id)}
+        {shipments.map((shipment) => (
+          <Fragment key={shipment._id}>
+            {shipment.products.map((product) => (
+              <Fragment key={product._id}>
+              <tr
+                key={product._id}
+                className="bg-white text-black border-gray-200 text-left h-[6rem] border-y-2 "
+              >
+                <td className="py-4 px-3 flex gap-9 items-center">
+                  <Image
+                    src={product.imgUrl ? product.imgUrl : defaultPhoto}
+                    alt={product.category}
+                    width={48}
+                    height={48}
                   />
-                </div>
-              </td>
-            </tr>
-            {rowOpenState[product._id] && ( // Use product._id to check the state
-              <tr>
-                <td colSpan={4}>
-                  <TableDetails productId={product._id} />
+                  <span>{product.category}</span>
                 </td>
-              </tr>
-            )}
+                <td className="py-4 px-3 items-center">
+                  {product.model}
+                  <br />
+                  {product.description}{" "}
+                </td>
+                <td className="py-4 px-3 items-center ">{product.stock}</td>
+                <td className="flex-col items-center">
+                  <div>
+                    <ButtonMyStock
+                      body="Detail"
+                      onClick={() => toggleRow(product._id)}
+                    />
+                  </div>
+                </td>
+                </tr>
+                {rowOpenState[product._id] && (
+                  <tr>
+                    <td colSpan={4}>
+                      <TableDetails productId={product._id} />
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
+            ))}
           </Fragment>
         ))}
       </tbody>

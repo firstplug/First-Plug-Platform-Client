@@ -46,3 +46,22 @@ export const JobPositionColors: Record<string, string> = {
 };
 
 export type JobPosition = keyof typeof JobPositionColors;
+
+
+export function mapStatusToOrderStatus(status: string): OrderStatus | undefined {
+  const statusMap: Record<string, OrderStatus> = {
+    "Confirmation Pending": "CONFIRMATION PENDING",
+    "Payment Pending": "PAYMENT PENDING",
+    "Order Canceled": "ORDER CANCELED",
+    "Order Confirmed": "ORDER CONFIRMED",
+    "Closed": "CLOSED",
+    "Open": "OPEN",
+    "Delivered": "DELIVERED",
+    "Missing Data": "MISSING DATA",
+    "Preparing": "PREPARING",
+    "Available": "AVAILABLE",
+    "Shipped": "SHIPPED",
+  };
+
+  return statusMap[status] || undefined;
+}

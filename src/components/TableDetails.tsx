@@ -1,6 +1,7 @@
 "use client";
 import { Button, State } from "@/common";
 import { TrashIcon } from "@/common/Icons";
+import { mapStatusToOrderStatus } from "@/common/StatusColors";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 
@@ -8,7 +9,6 @@ type TableDetailsProps = {
   className?: string;
   productId: string;
 };
-// TODO: Review with @SEBA
 export const TableDetails = observer(function ({
   className,
   productId,
@@ -16,7 +16,6 @@ export const TableDetails = observer(function ({
 
   const {
     shipments: { shipmentByProduct },
-
   } = useStore();
 
   const SHIPMENT_ACTION = {
@@ -26,6 +25,8 @@ export const TableDetails = observer(function ({
     Avaliable: "Assing To",
     Shipped: "Track >",
   };
+
+  
 
   return (
     <table
@@ -56,9 +57,9 @@ export const TableDetails = observer(function ({
                 {shipment.name} {shipment.lastName}
               </b>
             </td>
-            <td className="  py-4 px-3">
-              <State message={shipment.status} className="p-1" />
-            </td>
+            <td className="py-4 px-3">
+            <State status={mapStatusToOrderStatus(shipment.status)} className="p-1" />
+          </td>
             <td className=" py-4 px-3">
               <Button>{SHIPMENT_ACTION[shipment.status]}</Button>
             </td>

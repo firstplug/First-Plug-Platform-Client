@@ -7,7 +7,7 @@ export interface StateProps {
 }
 
 export function State({ status, className }: StateProps) {
-  const colorClass = status ? StateColors[status] : "bg-disabled"; // Si no hay estado, usa un color por defecto
+  const colorClass = status ? StateColors[status] : "bg-disabled"; // If we dont've state, use a default bg
 
   
   const statusLength = status ? status.length : 0;

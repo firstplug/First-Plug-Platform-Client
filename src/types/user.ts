@@ -1,9 +1,13 @@
-type User = {
-  name: string;
-  email: string;
-  password: string;
-  image: string;
-};
+import { Instance, types } from "mobx-state-tree";
+export const UserModel = types.model({
+  _id: types.string,
+  name: types.string,
+  email: types.string,
+  password: types.string,
+  image: types.string,
+});
+
+export type User = Instance<typeof UserModel>;
 
 export type RegisterUser = Pick<User, "name" | "email" | "password">;
 

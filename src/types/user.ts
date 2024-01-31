@@ -1,10 +1,12 @@
 import { Instance, types } from "mobx-state-tree";
+
 export const UserModel = types.model({
   _id: types.string,
   name: types.string,
   email: types.string,
-  password: types.string,
-  image: types.string,
+  password: types.maybeNull(types.string),
+  image: types.maybeNull(types.string),
+  accessToken: types.string,
 });
 
 export type User = Instance<typeof UserModel>;

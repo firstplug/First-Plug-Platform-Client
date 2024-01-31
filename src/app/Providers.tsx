@@ -11,7 +11,6 @@ import {
   TeamServices,
 } from "@/services";
 
-
 type ProvidersProps = {
   children: ReactNode;
 };
@@ -24,35 +23,28 @@ export default function Providers({ children }: ProvidersProps) {
     teams: {},
     members: {},
     aside: {},
+    user: {},
   });
 
   useEffect(() => {
     (async () => {
-
-      //Members
+      // Members;
       const membersResponse = await Memberservices.getAllMembers();
-      store.members.setMembers(membersResponse)
-
+      store.members.setMembers(membersResponse);
       //Teams
       const teamsResponse = await TeamServices.getAllTeams();
-      store.teams.setTeams(teamsResponse)
-      
+      store.teams.setTeams(teamsResponse);
       //Products
       const productsResponse = await ProductServices.getAllProducts();
       store.products.setProducts(productsResponse);
-
       //Orders
       const ordersResponse = await OrderServices.getAllOrders();
       store.orders.setOrders(ordersResponse);
-
       //Shipments
       const shipmentsResponse = await ShipmentServices.getAllShipments();
       store.shipments.setShipments(shipmentsResponse.data);
-
     })();
   }, [store]);
-
-
 
   return (
     <RootStoreContext.Provider value={store}>

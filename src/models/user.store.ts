@@ -1,12 +1,12 @@
 import { types } from "mobx-state-tree";
-import { User, UserModel } from "@/types";
+import { LoggedInUser, LoggedInUserModel } from "@/types";
 
 export const UserStore = types
   .model({
-    user: types.maybe(UserModel),
+    user: types.maybe(LoggedInUserModel),
   })
   .actions((store) => ({
-    setUser(user: User) {
+    setUser(user: LoggedInUser) {
       store.user = user;
     },
   }));

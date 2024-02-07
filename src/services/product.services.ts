@@ -1,5 +1,5 @@
 import { Product } from "@/types";
-import axios from "@/config/axios.config";
+import { HTTPRequests } from "@/config/axios.config";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -7,30 +7,38 @@ type CreationProduct = Omit<Omit<Product, "_id">, "__v">;
 
 export class ProductServices {
   static async getAllProducts(): Promise<Product[]> {
-    const response = await axios.get(`${BASE_URL}/api/products`);
+    const response = await HTTPRequests.get(`${BASE_URL}/api/products`);
     return response.data;
   }
 
   static async getProductById(id: Product["_id"]): Promise<Product> {
-    const response = await axios.get(`${BASE_URL}/api/products/${id}`);
+    const response = await HTTPRequests.get(`${BASE_URL}/api/products/${id}`);
     return response.data;
   }
 
   static async createProduct(productData: CreationProduct): Promise<Product> {
-    const response = await axios.post(`${BASE_URL}/apí/products`, productData);
+    const response = await HTTPRequests.post(
+      `${BASE_URL}/apí/products`,
+      productData
+    );
     return response.data;
   }
 
   static async updateProduct(
     id: Product["_id"],
-    newData: Product
+    data: Partial<Product>
   ): Promise<Product> {
-    const response = await axios.put(`${BASE_URL}/api/products/${id}`, newData);
+    const response = await HTTPRequests.put(
+      `${BASE_URL}/api/products/${id}`,
+      data
+    );
     return response.data;
   }
 
   static async deleteProduct(id: Product["_id"]): Promise<Product> {
-    const response = await axios.delete(`${BASE_URL}/api/products/${id}`);
+    const response = await HTTPRequests.delete(
+      `${BASE_URL}/api/products/${id}`
+    );
     return response.data;
   }
 }

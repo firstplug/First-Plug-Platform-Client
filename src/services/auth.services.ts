@@ -1,3 +1,4 @@
+import { HTTPRequests } from "@/config/axios.config";
 import { LoginUser, RegisterUser } from "@/types";
 import axios from "axios";
 import { JWT } from "next-auth/jwt";
@@ -10,28 +11,23 @@ export class AuthServices {
   }
 
   static async login(data: LoginUser) {
-    return await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    return await HTTPRequests.post(`${BASE_URL}/api/auth/login`, data);
   }
 
   static async refreshToken(token: JWT): Promise<JWT> {
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_API_URL + "/api/auth/refresh",
-      {
-        method: "POST",
-        headers: {
-          authorization: `Refresh ${token.backendTokens.refreshToken}`,
-        },
-      }
-    );
-
-    const response = await res.json();
-
-    return { ...token, backendTokens: response };
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/api/auth/refresh`,
+        {},
+        {
+          headers: {
+            authorization: `Refresh ${token.backendTokens.refreshToken}`,
+          },
+        }
+      );
+      return { ...token, backendTokens: response.data };
+    } catch (error) {
+      throw error;
+    }
   }
 }

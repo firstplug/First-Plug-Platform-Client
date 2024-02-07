@@ -17,5 +17,20 @@ axiosInstance.interceptors.request.use(
     Promise.reject(error);
   }
 );
-
 export default axiosInstance;
+export class HTTPRequests {
+  static async get(url: string) {
+    return await axiosInstance.get(url);
+  }
+
+  static async post<T>(url: string, payload: T) {
+    return await axiosInstance.post(url, payload);
+  }
+
+  static async put<T>(url: string, payload: T) {
+    return await axiosInstance.put(url, payload);
+  }
+  static async delete(url: string) {
+    return await axiosInstance.put(url);
+  }
+}

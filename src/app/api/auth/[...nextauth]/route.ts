@@ -32,8 +32,6 @@ export const authOptions: NextAuthOptions = {
         const res = await AuthServices.login(credentials);
 
         if (res.status === 401) {
-          console.log(res.statusText);
-
           return null;
         }
 

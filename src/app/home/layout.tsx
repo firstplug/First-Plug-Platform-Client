@@ -28,9 +28,6 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
 
   useEffect(() => {
     if (session.data) {
-      console.log("Data enviada a sessionStorage ==>", {
-        session_accessToken: session.data.backendTokens.accessToken,
-      });
       sessionStorage.setItem(
         "accessToken",
         session.data.backendTokens.accessToken
@@ -45,21 +42,8 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
 
       if (sessionStorage.getItem("accessToken")) {
         Memberservices.getAllMembers().then((res) => {
-          console.log("GET ALL MEMBERS => ", { res });
           store.members.setMembers(res);
         });
-        // Teams;
-        // const teamsResponse = await TeamServices.getAllTeams();
-        // store.teams.setTeams(teamsResponse);
-        // //Products
-        // const productsResponse = await ProductServices.getAllProducts();
-        // store.products.setProducts(productsResponse);
-        // //Orders
-        // const ordersResponse = await OrderServices.getAllOrders();
-        // store.orders.setOrders(ordersResponse);
-        // //Shipments
-        // const shipmentsResponse = await ShipmentServices.getAllShipments();
-        // store.shipments.setShipments(shipmentsResponse.data);
       }
     }
   }, [session]);

@@ -11,11 +11,7 @@ export class AuthServices {
 
   static async login(data: LoginUser) {
     const loginRes = await axios.post(`${BASE_URL}/api/auth/login`, data);
-    //TODO: En "loginRes.data.backendTokens.accessToken" estoy recibiendo el token que tengo que enviar por headers.
-    //  Por alguna razon no es el mismo que se está mandande en "/home/layout.tsx"
 
-    // El valor que se guarda en "session.data.backendTokens.accessToken" NO ES IGUAL A ¨loginRes.data.backendTokens.accessToken¨
-    console.log("accessToken OK ==> ", loginRes.data);
     return loginRes;
   }
 

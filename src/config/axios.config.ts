@@ -9,8 +9,9 @@ axiosInstance.interceptors.request.use(
     const token = sessionStorage.getItem("accessToken");
 
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => {

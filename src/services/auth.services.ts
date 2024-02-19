@@ -15,7 +15,7 @@ export class AuthServices {
     //  Por alguna razon no es el mismo que se está mandande en "/home/layout.tsx"
 
     // El valor que se guarda en "session.data.backendTokens.accessToken" NO ES IGUAL A ¨loginRes.data.backendTokens.accessToken¨
-    console.log("accessToken OK ==> ", loginRes);
+    console.log("accessToken OK ==> ", loginRes.data);
     return loginRes;
   }
 

@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const axiosInstance = axios.create({
-  baseURL: API_URL,
-});
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
+const axiosInstance = axios.create({ baseURL });
+
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = sessionStorage.getItem("accessToken");
@@ -18,7 +18,7 @@ axiosInstance.interceptors.request.use(
     Promise.reject(error);
   }
 );
-export default axiosInstance;
+
 export class HTTPRequests {
   static async get(url: string) {
     return await axiosInstance.get(url);

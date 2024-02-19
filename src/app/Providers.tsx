@@ -2,15 +2,7 @@
 
 import { RootStore, RootStoreContext } from "@/models";
 import { SessionProvider } from "next-auth/react";
-import { ReactNode, useEffect } from "react";
-import {
-  ProductServices,
-  Memberservices,
-  ShipmentServices,
-  OrderServices,
-  TeamServices,
-} from "@/services";
-
+import { ReactNode } from "react";
 
 type ProvidersProps = {
   children: ReactNode;
@@ -24,35 +16,8 @@ export default function Providers({ children }: ProvidersProps) {
     teams: {},
     members: {},
     aside: {},
+    user: {},
   });
-
-  useEffect(() => {
-    (async () => {
-
-      //Members
-      const membersResponse = await Memberservices.getAllMembers();
-      store.members.setMembers(membersResponse)
-
-      //Teams
-      const teamsResponse = await TeamServices.getAllTeams();
-      store.teams.setTeams(teamsResponse)
-      
-      //Products
-      const productsResponse = await ProductServices.getAllProducts();
-      store.products.setProducts(productsResponse);
-
-      //Orders
-      const ordersResponse = await OrderServices.getAllOrders();
-      store.orders.setOrders(ordersResponse);
-
-      //Shipments
-      const shipmentsResponse = await ShipmentServices.getAllShipments();
-      store.shipments.setShipments(shipmentsResponse.data);
-
-    })();
-  }, [store]);
-
-
 
   return (
     <RootStoreContext.Provider value={store}>

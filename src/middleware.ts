@@ -12,7 +12,7 @@ export const middleware: NextMiddleware = async (req) => {
   }
 
   return NextResponse.next();
-}
+};
 
 export const config = {
   matcher: "/home/:path*",

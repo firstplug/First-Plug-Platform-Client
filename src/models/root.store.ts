@@ -8,6 +8,7 @@ import {
   TeamStore,
   ProductsStore,
   MemberStore,
+  UserStore,
 } from "./";
 
 export const RootStore = types.model({
@@ -17,6 +18,7 @@ export const RootStore = types.model({
   products: types.late(() => ProductsStore),
   members: types.late(() => MemberStore),
   aside: types.late(() => AsideStore),
+  user: types.late(() => UserStore),
 });
 
 export type RootStoreInstance = Instance<typeof RootStore>;

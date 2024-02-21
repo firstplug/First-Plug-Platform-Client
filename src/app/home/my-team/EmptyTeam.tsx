@@ -1,5 +1,5 @@
 "use client";
-import { Layout, Button, CustomLink, EmptyCard } from "@/common";
+import { Button, CustomLink, EmptyCard } from "@/common";
 import { AddIcon, UpLoadIcon } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
 export default function EmptyTeam() {

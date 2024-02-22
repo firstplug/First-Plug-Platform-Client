@@ -1,5 +1,5 @@
 "use client";
-import { CustomLink, Button } from "@/common";
+import { CustomLink, Button, ButtonMyStock } from "@/common";
 import { Fragment, useState } from "react";
 import { TableDetailsShipments } from "./";
 import { ArrowLeft } from "@/common/Icons";
@@ -63,9 +63,7 @@ export const TableShipments = observer(function ({
               <td className=" py-4 px-3">{shipment.type}</td>
               <td className="py-4 px-3">
                 {shipment.trackingURL ? (
-                  <CustomLink
-                    href={shipment.trackingURL}
-                  >
+                  <CustomLink href={shipment.trackingURL}>
                     Track {">"}
                   </CustomLink>
                 ) : (
@@ -74,9 +72,7 @@ export const TableShipments = observer(function ({
               </td>
               <td className=" py-4 px-3">$ {orderPrice(index)}</td>
               <td className="  " onClick={() => toggleRow(index)}>
-                <Button className="p-2  rounded-md">
-                  Details <ArrowLeft className="rotate-[-90deg]" />
-                </Button>
+                <ButtonMyStock body="Detail" onClick={() => toggleRow(index)} />
               </td>
             </tr>
 

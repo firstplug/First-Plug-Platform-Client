@@ -23,8 +23,8 @@ export default function Login() {
     });
 
     if (!res.ok) {
-      console.error(res.error)
-      return
+      console.error(res.error);
+      return;
     }
 
     router.push("/home/dashboard");

@@ -13,7 +13,6 @@ export const TableDetails = observer(function ({
   className,
   productId,
 }: TableDetailsProps) {
-
   const {
     shipments: { shipmentByProduct },
   } = useStore();
@@ -25,8 +24,6 @@ export const TableDetails = observer(function ({
     Avaliable: "Assing To",
     Shipped: "Track >",
   };
-
-  
 
   return (
     <table
@@ -58,8 +55,11 @@ export const TableDetails = observer(function ({
               </b>
             </td>
             <td className="py-4 px-3">
-            <State status={mapStatusToOrderStatus(shipment.status)} className="p-1" />
-          </td>
+              <State
+                status={mapStatusToOrderStatus(shipment.status)}
+                className="p-1 uppercase"
+              />
+            </td>
             <td className=" py-4 px-3">
               <Button>{SHIPMENT_ACTION[shipment.status]}</Button>
             </td>

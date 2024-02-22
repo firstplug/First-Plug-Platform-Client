@@ -6,6 +6,7 @@ import defaultPhoto from "../../public/Isotipo.png";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 import { TableDetails } from "./";
+import { Product } from "@/types";
 
 type TableProps = {
   className?: string;
@@ -27,7 +28,7 @@ export const Table = observer(function ({ className }: TableProps) {
     setRowOpenState(newState);
   }, [products]);
 
-  const toggleRow = (productId: any) => {
+  const toggleRow = (productId: Product["_id"]) => {
     setRowOpenState((prevState) => ({
       ...prevState,
       [productId]: !prevState[productId],
@@ -53,33 +54,33 @@ export const Table = observer(function ({ className }: TableProps) {
           <Fragment key={shipment._id}>
             {shipment.products.map((product) => (
               <Fragment key={product._id}>
-              <tr
-                key={product._id}
-                className="bg-white text-black border-gray-200 text-left h-[6rem] border-y-2 "
-              >
-                <td className="py-4 px-3 flex gap-9 items-center">
-                  <Image
-                    src={product.imgUrl ? product.imgUrl : defaultPhoto}
-                    alt={product.category}
-                    width={48}
-                    height={48}
-                  />
-                  <span>{product.category}</span>
-                </td>
-                <td className="py-4 px-3 items-center">
-                  {product.model}
-                  <br />
-                  {product.description}{" "}
-                </td>
-                <td className="py-4 px-3 items-center ">{product.stock}</td>
-                <td className="flex-col items-center">
-                  <div>
-                    <ButtonMyStock
-                      body="Detail"
-                      onClick={() => toggleRow(product._id)}
+                <tr
+                  key={product._id}
+                  className="bg-white text-black border-gray-200 text-left h-[6rem] border-y-2 "
+                >
+                  <td className="py-4 px-3 flex gap-9 items-center">
+                    <Image
+                      src={product.imgUrl ? product.imgUrl : defaultPhoto}
+                      alt={product.category}
+                      width={48}
+                      height={48}
                     />
-                  </div>
-                </td>
+                    <span>{product.category}</span>
+                  </td>
+                  <td className="py-4 px-3 items-center">
+                    {product.model}
+                    <br />
+                    {product.description}{" "}
+                  </td>
+                  <td className="py-4 px-3 items-center ">{product.stock}</td>
+                  <td className="flex-col items-center">
+                    <div>
+                      <ButtonMyStock
+                        body="Detail"
+                        onClick={() => toggleRow(product._id)}
+                      />
+                    </div>
+                  </td>
                 </tr>
                 {rowOpenState[product._id] && (
                   <tr>

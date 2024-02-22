@@ -9,7 +9,7 @@ export default function MyTeam() {
     members: { members },
   } = useStore();
   return (
-    <Layout className="border shadow-sm border-border rounded-md grid place-items-center w-[98%] ">
+    <Layout className="border shadow-sm border-border rounded-md flex-grow grid place-items-center  ">
       {members.length ? <DataTeam /> : <EmptyTeam />}
     </Layout>
   );

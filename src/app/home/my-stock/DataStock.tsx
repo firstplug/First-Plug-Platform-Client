@@ -8,7 +8,7 @@ export default function DataStock() {
   const router = useRouter();
 
   return (
-    <Layout className="flex flex-col gap-5 overflow-auto pb-1">
+    <div className="flex flex-col gap-5 overflow-auto pb-1">
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
           <input type="checkbox" />
@@ -43,6 +43,6 @@ export default function DataStock() {
       <div className="mt-10">
         <Table />
       </div>
-    </Layout>
+    </div>
   );
 }

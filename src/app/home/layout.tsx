@@ -4,14 +4,7 @@ import { Navbar, Sidebar, Aside } from "@/components";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { useSession } from "next-auth/react";
-import { LoggedInUser } from "@/types";
-import {
-  Memberservices,
-  OrderServices,
-  ProductServices,
-  ShipmentServices,
-  TeamServices,
-} from "@/services";
+import { Memberservices } from "@/services";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -46,7 +39,7 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
         });
       }
     }
-  }, [session]);
+  }, [session, store.members]);
 
   if (!store) return null;
   return (
@@ -54,9 +47,7 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
       <Sidebar />
       <div className="flex flex-col w-full">
         <Navbar />
-        <div className="flex-grow overflow-auto">
-          {children}
-        </div>
+        <div className="flex-grow overflow-auto  p-4">{children}</div>
         <Aside />
       </div>
     </div>

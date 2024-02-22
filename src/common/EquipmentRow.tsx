@@ -36,7 +36,7 @@ export function EquipmentRow({
         {order._id}
       </td>
       <td className="pl-3 py-3">
-        {selectedMember.firstName} {selectedMember.lastName}
+        {selectedMember?.firstName} {selectedMember?.lastName}
       </td>
       <td className="pl-3 py-3">{order.date}</td>
       <td className="pl-3 py-3 ">

@@ -1,8 +1,7 @@
-import { Layout, EmptyCard, CustomLink } from "@/common";
+import { EmptyCard, CustomLink } from "@/common";
 
 export default function EmptyShipments() {
   return (
-    <Layout className="border-2 shadow-sm border-border rounded-md grid place-items-center w-[98%] ">
     <EmptyCard
       imageBottom="/world.svg"
       paragraph="You haven't made any shipment yet."
@@ -17,6 +16,5 @@ export default function EmptyShipments() {
         Got to My Stock
       </CustomLink>
     </EmptyCard>
-  </Layout>
-  )
+  );
 }

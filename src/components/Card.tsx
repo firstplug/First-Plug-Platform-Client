@@ -23,17 +23,15 @@ export const Card = function ({
   paragraph,
   icon,
   altImage,
-  className,
+  className = "",
   onClick,
 }: CardProps) {
   return (
     <article
-      className={`bg-white rounded-[16px] p-6 border border-grey ${
-        className || ""
-      }`}
+      className={` felx flex-col  rounded-xl p-4  border border-grey  relative ${className}`}
     >
       {Title && (
-        <header className="flex justify-between items-center text-white">
+        <header className="flex justify-between items-center text-white  ">
           <h2 className="text-[20px] text-black font-montserrat font-bold flex-1 md:text-sm lg:text-xl">
             {Title}
           </h2>
@@ -49,18 +47,27 @@ export const Card = function ({
           )}
         </header>
       )}
-      <div
-        className={`flex flex-col ${
-          !children && "items-center"
-        }  gap-y-[.5rem] `}
-      >
-        {imageBottom && (
-          <div className="w-52 h-52 relative">
-            <Image src={imageBottom} alt={altImage} fill priority />
+      <div>
+        {children ? (
+          <div
+            className={` ${
+              Title ? "" : "absolute"
+            }  w-full  h-full  grid  place-items-center  left-0 top-0   `}
+          >
+            {children}
           </div>
+        ) : (
+          imageBottom && (
+            <div className="absolute top-0 right-0 h-full w-full -z-10  grid place-items-center">
+              <div className="flex flex-col ">
+                <div className="w-52 h-52 relative">
+                  <Image src={imageBottom} alt={altImage} fill priority />
+                </div>
+                <p className="text-dark-grey">{paragraph}</p>
+              </div>
+            </div>
+          )
         )}
-        <p className="text-dark-grey">{paragraph}</p>
-        {children && children}
       </div>
     </article>
   );

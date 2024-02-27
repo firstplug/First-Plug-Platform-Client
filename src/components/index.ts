@@ -17,6 +17,7 @@ export * from "./LoadAside";
 export * from "./MemberAsideDetails";
 export * from "./MemberEditAside";
 export * from "./MyTeamHeader";
+export * from "./MyTeamViewHeader";
 export * from "./Navbar";
 export * from "./OrderAsideDetails";
 export * from "./RadioButtons";

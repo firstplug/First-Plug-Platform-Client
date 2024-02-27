@@ -8,7 +8,7 @@ import {
   TableDisplayIcon,
   GridLayoutIcon,
 } from "@/common/Icons";
-import { FilterModal, TeamMembers } from "@/components";
+import { FilterModal, MyTeamViewHeader, TeamMembers } from "@/components";
 import { observer } from "mobx-react-lite";
 import { TeamServices } from "@/services";
 import { useStore } from "@/models";
@@ -34,22 +34,7 @@ export default observer(function DataTeam() {
   const Icon = display === "grid" ? GridLayoutIcon : TableDisplayIcon;
   return (
     <div className="flex flex-col gap-4 w-full h-full p-4">
-      <div className="w-full flex  justify-end gap-2 ">
-        <CustomLink
-          className={"rounded-md text-sm p-2 flex items-center gap-2"}
-          variant={"secondary"}
-          href="/home/addTeam"
-        >
-          <AddIcon className={"h-4 w-4"} /> Add Team Member
-        </CustomLink>
-
-        <Button
-          body={"Load Team Member"}
-          icon={<UpLoadIcon className={"h-4 w-4"} />}
-          className={"rounded-md text-sm p-2"}
-          variant={"primary"}
-        />
-      </div>
+      <MyTeamViewHeader />
       <hr />
       <div className="w-full flex justify-between   gap-2  ">
         <DropFilter

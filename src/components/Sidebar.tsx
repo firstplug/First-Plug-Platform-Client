@@ -31,7 +31,7 @@ export const Sidebar = function () {
         isSidebarSmall ? "w-20" : "w-64"
       }`}
     >
-      <header className={`py-8 flex flex-[-1] h-[80px] mx-6`}>
+      <header className={`py-8 flex flex-[-1] h-[8vh] mx-6`}>
         <div>
           {isSidebarSmall ? (
             <Image
@@ -42,7 +42,13 @@ export const Sidebar = function () {
               className="w-10"
             />
           ) : (
-            <Image src="/logo1.png" alt="Logo" width={144.2} height={48} priority />
+            <Image
+              src="/logo1.png"
+              alt="Logo"
+              width={144.2}
+              height={48}
+              priority
+            />
           )}
         </div>
       </header>
@@ -51,7 +57,13 @@ export const Sidebar = function () {
         <hr />
 
         <Button
-          icon={isSidebarSmall ? <ArrowRight color="grey" strokeWidth={2.5} /> : <ArrowLeft color="grey" strokeWidth={2.5}  />}
+          icon={
+            isSidebarSmall ? (
+              <ArrowRight color="grey" strokeWidth={2.5} />
+            ) : (
+              <ArrowLeft color="grey" strokeWidth={2.5} />
+            )
+          }
           onClick={toggleSidebarSize}
           className={`w-10 h-10 bg-white border border-grey rounded-full relative bottom-5 ${
             isSidebarSmall ? "left-[70%]" : "left-[90%]"

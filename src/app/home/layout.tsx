@@ -5,6 +5,7 @@ import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { useSession } from "next-auth/react";
 import { Memberservices } from "@/services";
+import { Layout } from "@/common";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -15,8 +16,8 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
 
   const {
     user: { setUser },
+    members: { setMembers },
   } = store;
-
   const session = useSession();
 
   useEffect(() => {
@@ -35,21 +36,21 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
 
       if (sessionStorage.getItem("accessToken")) {
         Memberservices.getAllMembers().then((res) => {
-          store.members.setMembers(res);
+          setMembers(res);
         });
       }
     }
-  }, [session, store.members]);
+  }, [session]);
 
   if (!store) return null;
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar />
-      <div className="flex flex-col w-full">
+      <aside className="flex flex-col flex-grow  max-h-[100vh] ">
         <Navbar />
-        <div className="flex-grow overflow-auto  p-4">{children}</div>
-        <Aside />
-      </div>
+        <Layout>{children}</Layout>
+      </aside>
+      <Aside />
     </div>
   );
 });

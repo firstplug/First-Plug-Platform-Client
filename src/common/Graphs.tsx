@@ -71,7 +71,7 @@ export function DoughnutChart({ className, data }: DoughnutChartProps) {
             style={{ backgroundColor: assignedColor }}
           ></div>
           <p>
-            Assigned | <b> {quantity + 20} </b>
+            Assigned | <b> {quantity} </b>
           </p>
         </div>
         <div className="flex gap-1 items-center pt-8">

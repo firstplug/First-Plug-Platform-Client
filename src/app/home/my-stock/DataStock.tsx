@@ -1,15 +1,94 @@
 "use client";
 import { Table } from "@/components";
-import { Layout, Button } from "@/common";
-import { ShopIcon, UpLoadIcon } from "@/common/Icons";
+import { Button } from "@/common";
+import { ArrowRight, ShopIcon, UpLoadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";
+import { useStore } from "@/models";
+import { observer } from "mobx-react-lite";
+import { Product } from "@/types";
+import { ColumnDef } from "@tanstack/react-table";
 
-export default function DataStock() {
+const productsColumns: ColumnDef<Product>[] = [
+  {
+    accessorKey: "category",
+    header: "Category",
+    size: 100,
+    cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
+    footer: (props) => props.column.id,
+  },
+  {
+    accessorKey: "model",
+    header: () => "Model",
+    size: 0,
+    cell: (info) => info.getValue(),
+  },
+  {
+    accessorKey: "stock",
+    header: "Quantity",
+    size: 2,
+    cell: (info) => info.getValue<string>(),
+  },
+  {
+    id: "expander",
+    header: () => null,
+    size: 2,
+    cell: ({ row }) => {
+      return (
+        row.getCanExpand() && (
+          <div className=" flex justify-end">
+            <Button
+              variant="text"
+              onClick={() => row.getToggleExpandedHandler()}
+              className="p-2 rounded-lg cursor-pointer "
+            >
+              <span>Details</span>
+              <ArrowRight
+                className={`transition-all duration-200 ${
+                  row.getIsExpanded() ? "rotate-[90deg]" : "rotate-[0]"
+                }`}
+              />
+            </Button>
+          </div>
+        )
+      );
+    },
+  },
+];
+const InternalProductsColumns: ColumnDef<Product>[] = [
+  {
+    accessorKey: "serialNumber",
+    header: "Serial",
+    cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
+    footer: (props) => props.column.id,
+  },
+  {
+    accessorKey: "name",
+    id: "lastName",
+    cell: (info) => info.getValue(),
+    header: () => <span>Currently with</span>,
+    footer: (props) => props.column.id,
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ getValue }) => (
+      <span className={`p-1 bg-lightYellow rounded-md text-sm`}>
+        {getValue<string>().toString()}
+      </span>
+    ),
+  },
+];
+
+export default observer(function DataStock() {
   const router = useRouter();
+  const {
+    products: { products },
+    aside: { setAside },
+  } = useStore();
 
   return (
-    <Layout className="flex flex-col gap-5 overflow-auto pb-1">
-      <div className="flex justify-between items-center">
+    <div className="flex flex-col gap-5 overflow-auto  w-full     ">
+      <aside className="flex justify-between items-center   ">
         <div className="flex gap-2">
           <input type="checkbox" />
           <label className="ml-2 text-gray-500">
@@ -17,32 +96,37 @@ export default function DataStock() {
           </label>
         </div>
 
-        <div className="flex  gap-5 mr-3">
-          <div>
-            <Button
-              variant="secondary"
-              body="Load Stock"
-              icon={<UpLoadIcon />}
-              className="p-3 rounded-md"
-            />
-          </div>
-          <div>
-            <Button
-              variant="primary"
-              icon={<ShopIcon />}
-              body="Shop Now"
-              className="p-3 rounded-md"
-              onClick={() => {
-                router.push("/shop");
-              }}
-            />
-          </div>
-        </div>
-      </div>
+        <div className="flex gap-2   ">
+          <Button
+            className="rounded-md py-2 px-4"
+            variant="secondary"
+            body="Load Stock"
+            icon={<UpLoadIcon />}
+            onClick={() => setAside("LoadStock")}
+          />
 
-      <div className="mt-10">
-        <Table />
+          <Button
+            className="rounded-md py-2 px-4"
+            variant="primary"
+            icon={<ShopIcon />}
+            body="Shop Now"
+            onClick={() => {
+              router.push("/shop");
+            }}
+          />
+        </div>
+      </aside>
+
+      <div className="max-w-full  w-full overflow-x-auto ">
+        <Table
+          data={products}
+          columns={productsColumns}
+          getRowCanExpand={() => true}
+          subComponent={
+            <Table data={products} columns={InternalProductsColumns} />
+          }
+        />
       </div>
-    </Layout>
+    </div>
   );
-}
+});

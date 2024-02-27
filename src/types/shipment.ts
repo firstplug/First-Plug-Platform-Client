@@ -1,5 +1,6 @@
 import { ISimpleType, Instance, types } from "mobx-state-tree";
 import { ProductModel } from "./product";
+import { number } from "mobx-state-tree/dist/internal";
 
 export const SHIPMENT_STATUS = [
   "Missing Data",
@@ -7,7 +8,7 @@ export const SHIPMENT_STATUS = [
   "Preparing",
   "Avaliable",
   "Shipped",
-  "Complete"
+  "Complete",
 ] as const;
 
 export type ShipmentStatus = (typeof SHIPMENT_STATUS)[number];
@@ -33,7 +34,7 @@ const ISOStringType: ISimpleType<string> = types.custom<string, string>({
       return "Invalid ISO String format";
     }
     return "";
-  }
+  },
 });
 
 export const ShimpentModel = types.model({
@@ -48,9 +49,6 @@ export const ShimpentModel = types.model({
   trackingURL: types.optional(types.string, ""),
   products: types.optional(types.array(ProductModel), []),
 });
-
-export type Shipment = Instance<typeof ShimpentModel>;
-
 export const SHIPMENT_BY_MONTH_STATUS = [
   "Open",
   "Closed",
@@ -58,5 +56,19 @@ export const SHIPMENT_BY_MONTH_STATUS = [
 ] as const;
 
 export type ShipmentByMonthStatus = (typeof SHIPMENT_BY_MONTH_STATUS)[number];
-
+export type Shipment = Instance<typeof ShimpentModel>;
 export type ShipmentCreation = Omit<Shipment, "_id" | "__v">;
+
+export type ShipmentByMonth = {
+  month: number;
+  status: ShipmentByMonthStatus;
+  price: number;
+  shipments: Shipment[];
+};
+
+export type ShipmentByMonthTable = {
+  month: number;
+  status: string;
+  price: number;
+  shipments: number;
+};

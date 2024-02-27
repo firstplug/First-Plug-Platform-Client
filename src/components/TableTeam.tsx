@@ -32,7 +32,6 @@ export const TableTeam = function ({ className }: TableTeamProps) {
           <th className="py-3 px-3">Team</th>
           <th className="py-3 px-3">Job Position</th>
           <th className="py-3 px-3">Shipment Details</th>
-
           <th></th>
         </tr>
       </thead>
@@ -67,7 +66,7 @@ export const TableTeam = function ({ className }: TableTeamProps) {
             <td className=" py-4 px-3 ">
               <div className="flex items-center gap-1">
                 {/* TODO: Use shipment status component? */}
-                <StatusCircleIcon color='pending' /> Pending
+                <StatusCircleIcon color="pending" /> Pending
               </div>
             </td>
             <td className=" py-4 px-3 ">

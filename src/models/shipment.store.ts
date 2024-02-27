@@ -1,4 +1,10 @@
-import { ShimpentModel, Shipment, ShipmentByMonthStatus } from "@/types";
+import {
+  ShimpentModel,
+  Shipment,
+  ShipmentByMonth,
+  ShipmentByMonthStatus,
+  ShipmentByMonthTable,
+} from "@/types";
 import { types } from "mobx-state-tree";
 
 export const ShipmentStore = types
@@ -13,8 +19,8 @@ export const ShipmentStore = types
       );
     },
 
-    get shipmentsByMonth() {
-      const months = Array.from({ length: 12 }).map(() => ({
+    get shipmentsByMonth(): ShipmentByMonthTable[] {
+      const months: ShipmentByMonth[] = Array.from({ length: 12 }).map(() => ({
         month: null,
         shipments: [] as Shipment[],
         status: "" as ShipmentByMonthStatus,
@@ -23,7 +29,7 @@ export const ShipmentStore = types
 
       store.shipments.forEach((shipment) => {
         const date = new Date(shipment.date);
-      
+
         const shipmentMonth = date.getUTCMonth();
         months[shipmentMonth].month = shipmentMonth;
         months[shipmentMonth].shipments.push(shipment);
@@ -31,10 +37,14 @@ export const ShipmentStore = types
           (a, b) => parseInt(b.price) + a,
           0
         );
-        //TODO: consultar la forma en la que se define el status, y definirlo
       });
 
-      return months
+      return months.map(({ month, price, shipments, status }) => ({
+        month,
+        price,
+        shipments: shipments.length,
+        status,
+      }));
     },
     get shipmentDetails() {
       const shipment = store.shipments.find(
@@ -47,7 +57,7 @@ export const ShipmentStore = types
     //TODO: check this because dont filter data // It could be due to a problem in the product IDs
     shipmentByProduct(productId: string) {
       return store.shipments.filter((shipment) =>
-        shipment.products.some((product) => product._id === productId) 
+        shipment.products.some((product) => product._id === productId)
       );
     },
 

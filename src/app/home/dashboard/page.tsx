@@ -12,12 +12,10 @@ export default observer(function Dashboard() {
 
   return (
     <PageLayout>
-      <div className="flex flex-col gap-4 w-full h-full  ">
-        <section className="flex-grow  ">
+      <div className="flex flex-col gap-4 w-full h-full max-h-full  ">
+        <section className="flex-grow max-h-1/2 h-1/2 ">
           {members.length ? (
-            <Card className="h-full   ">
-              <TeamHomeCard />
-            </Card>
+            <TeamHomeCard />
           ) : (
             <Card
               Title="My Team"
@@ -30,7 +28,7 @@ export default observer(function Dashboard() {
             />
           )}
         </section>
-        <section className="grid grid-cols-2 gap-4 h-1/2">
+        <section className="grid grid-cols-2 gap-4 h-1/2 ">
           {products.length ? (
             <Card Title="My Stock" titleButton="Shop Now" icon={<ShopIcon />}>
               <StockCard className="my-4" />

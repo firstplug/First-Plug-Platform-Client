@@ -46,7 +46,7 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar />
-      <aside className="flex flex-col flex-grow  max-h-[100vh] ">
+      <aside className="flex flex-col flex-grow  max-h-[100vh] pb-2 ">
         <Navbar />
         <Layout>{children}</Layout>
       </aside>

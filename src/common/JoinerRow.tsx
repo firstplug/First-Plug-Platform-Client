@@ -8,15 +8,14 @@ interface joinerProps {
 }
 
 export function JoinerRow({ joiner }: joinerProps) {
-  const backgroundColorClass =
-    JobPositionColors[joiner.jobPosition] ;
+  const backgroundColorClass = JobPositionColors[joiner.jobPosition];
 
   return (
-    <div className="border-b rounded-md border-border flex items-center gap-2 justify-between p-2 ">
+    <div className=" flex items-center gap-2 justify-between p-2 border-b rounded-md border-border   ">
       <div className="flex gap-2 ">
         <Image
           src={photo}
-          alt=""
+          alt={joiner.lastName}
           className="w-[3rem] object-cover rounded-md"
         />
         <div>
@@ -30,7 +29,9 @@ export function JoinerRow({ joiner }: joinerProps) {
         </div>
       </div>
       <div>
-        <span className={`${backgroundColorClass} bg-opacity-70 p-[.4rem] text-sm text-gray-800 rounded-md`}>
+        <span
+          className={`${backgroundColorClass} bg-opacity-70 p-2 text-sm text-gray-800 rounded-md`}
+        >
           {joiner.jobPosition}
         </span>
       </div>

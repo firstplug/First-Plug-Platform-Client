@@ -1,7 +1,7 @@
 "use client";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
-import { GridTeam, Table, TableTeam } from "./";
+import { GridTeam, Table } from "./";
 import { DisplayView, TeamMember } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
@@ -78,7 +78,7 @@ export const TeamMembers = observer(function ({ display }: TeamMembersProps) {
   } = useStore();
 
   return (
-    <section className="flex flex-col gap-4 w-full">
+    <section className="flex flex-col gap-4 w-full absolute  bottom-0 left-0 overflow-auto  h-[80%] ">
       {display === "grid" ? (
         <GridTeam />
       ) : (

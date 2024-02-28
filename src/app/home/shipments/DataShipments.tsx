@@ -1,12 +1,12 @@
 import { Table } from "@/components";
 import { useStore } from "@/models";
-import { Shipment } from "@/types";
+import { Product, ShipmentTable } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { observer } from "mobx-react-lite";
-const shipmentsColumns: ColumnDef<Shipment>[] = [
+const shipmentsColumns: ColumnDef<ShipmentTable>[] = [
   {
-    accessorKey: "_id",
+    accessorKey: "orderId",
     header: "Order ID",
     cell: ({ getValue }) => getValue<string>(),
   },
@@ -16,9 +16,9 @@ const shipmentsColumns: ColumnDef<Shipment>[] = [
     cell: ({ getValue }) => format(getValue<string>().toString(), "dd/MM/yyyy"),
   },
   {
-    accessorKey: "products",
+    accessorKey: "productsQuantity",
     header: "Quantity Prodcuts",
-    cell: ({ getValue }) => getValue<string>().length,
+    cell: ({ getValue }) => getValue<Product[]>(),
   },
   {
     accessorKey: "type",
@@ -31,19 +31,22 @@ const shipmentsColumns: ColumnDef<Shipment>[] = [
     cell: ({ getValue }) => getValue<string>(),
   },
   {
-    accessorKey: "products",
+    accessorKey: "price",
     header: "Price",
-    cell: ({ getValue }) => <strong> USD {getValue<string>().length} </strong>,
+    cell: ({ getValue }) => <strong>USD {getValue<string>()}</strong>,
   },
 ];
+const columns = {
+  shipments: shipmentsColumns,
+};
 export default observer(function DataShipments() {
   const {
-    shipments: { shipments },
+    shipments: { shipmentsTable },
   } = useStore();
 
   return (
     <div className=" overflow-y-auto">
-      <Table columns={shipmentsColumns} data={shipments} />
+      <Table columns={columns.shipments} data={shipmentsTable} />
     </div>
   );
 });

@@ -1,21 +1,85 @@
 import Image from "next/image";
 import { ReactNode } from "react";
+import { Button } from "./Button";
+import { AddIcon, ShopIcon, UpLoadIcon } from "./Icons";
+import { CustomLink } from "./CustomLink";
 
-interface EmptyCardProps  {
+type childrenTypes = "stock" | "members" | "shipments" | "orders";
+
+interface EmptyCardProps {
   className?: string;
   imageBottom: string;
   altImage: string;
   paragraph: string;
-  children: ReactNode
+  children: childrenTypes;
 }
+function EmptyCardChildren({ children }: { children: childrenTypes }) {
+  switch (children) {
+    case "stock":
+      return (
+        <div className="flex gap-2 ">
+          <Button
+            variant="secondary"
+            body="Load Stock"
+            size="big"
+            icon={<UpLoadIcon />}
+            className="p-3 rounded-md"
+            onClick={() => {}}
+          />
 
+          <CustomLink
+            variant="primary"
+            size="big"
+            className="rounded-md flex   gap-2"
+            href="/shop"
+          >
+            <ShopIcon /> Shop Now
+          </CustomLink>
+        </div>
+      );
+    case "members":
+      return (
+        <div className="flex gap-2 ">
+          <Button
+            body="Load Team Members"
+            icon={<AddIcon />}
+            onClick={() => {}}
+            variant="secondary"
+            size="big"
+            className="rounded-md"
+          />
+          <CustomLink
+            variant="primary"
+            size="big"
+            className="rounded-md flex gap-2"
+            href="home/addTeam"
+          >
+            <UpLoadIcon /> Add Team Memeber
+          </CustomLink>
+        </div>
+      );
+
+    case "shipments":
+    case "orders":
+      return (
+        <CustomLink
+          variant="primary"
+          size="big"
+          className="rounded-md flex gap-2"
+          href="/home/orders/equipment"
+        >
+          <ShopIcon /> Shop Now
+        </CustomLink>
+      );
+  }
+}
 export function EmptyCard({
   imageBottom,
   altImage,
   paragraph,
   children,
   className,
-} : EmptyCardProps) {
+}: EmptyCardProps) {
   return (
     <div className={`${className || ""} flex flex-col items-center gap-3 `}>
       <div className="flex flex-col items-center">
@@ -26,7 +90,7 @@ export function EmptyCard({
         )}
         <p className="text-dark-grey">{paragraph}</p>
       </div>
-      {children && children}
+      <EmptyCardChildren children={children} />
     </div>
   );
 }

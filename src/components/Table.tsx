@@ -10,8 +10,8 @@ import { Fragment, ReactNode, useState } from "react";
 import {
   Order,
   Product,
-  Shipment,
   ShipmentByMonthTable,
+  ShipmentTable,
   TeamMember,
 } from "@/types";
 
@@ -27,7 +27,9 @@ export const Table = function ({
   data,
   getRowCanExpand = () => false,
   subComponent,
-}: TableProps<Product | Shipment | Order | TeamMember | ShipmentByMonthTable>) {
+}: TableProps<
+  Product | ShipmentTable | Order | TeamMember | ShipmentByMonthTable
+>) {
   const [tableData, setTableData] = useState(() => [...data]);
 
   const table = useReactTable({
@@ -39,8 +41,8 @@ export const Table = function ({
   });
 
   return (
-    <table className="w-full ">
-      <thead className="  ">
+    <table className="w-full relative ">
+      <thead className="">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr
             key={headerGroup.id}

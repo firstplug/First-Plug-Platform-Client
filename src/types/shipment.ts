@@ -72,3 +72,11 @@ export type ShipmentByMonthTable = {
   price: number;
   shipments: number;
 };
+export type ShipmentTable = {
+  orderId: string;
+  date: string;
+  productsQuantity: number;
+  price: number;
+  type: string;
+  trackingURL: string;
+};

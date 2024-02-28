@@ -1,8 +1,6 @@
 "use client";
-import { ReactElement, useState, useEffect } from "react";
 import { useStore } from "@/models/root.store";
-import { Order, TeamMember } from "@/types";
-import axios from "axios";
+import { Order } from "@/types";
 import { State } from "./State";
 
 interface EquipmentRowProps {
@@ -36,7 +34,7 @@ export function EquipmentRow({
         {order._id}
       </td>
       <td className="pl-3 py-3">
-        {selectedMember.firstName} {selectedMember.lastName}
+        {selectedMember?.firstName} {selectedMember?.lastName}
       </td>
       <td className="pl-3 py-3">{order.date}</td>
       <td className="pl-3 py-3 ">

@@ -1,19 +1,19 @@
-import { StateColors, OrderStatus } from "./StatusColors";
+import { OrderStatus } from "@/types";
+import { StateColors } from "./StatusColors";
 
 export interface StateProps {
   status?: OrderStatus;
-  className?: string;
   message?: string;
 }
 
-export function State({ status, className }: StateProps) {
-  const Color = StateColors[status] || "";
-  //This line broke the build because dont've data, length was undefined or null. Now, we validate length.
-  const statusLength = status ? status.length : 0
+export function OrderState({ status }: StateProps) {
+  const colorClass = status ? `bg-${StateColors[status]}` : "bg-disabled"; // If we dont've state, use a default bg
+
+  const statusLength = status ? status.length : 0;
 
   return (
     <p
-      className={`${Color} ${className} py-1 rounded-full text-sm font-medium text-center whitespace-nowrap bg-disabled`}
+      className={`${colorClass}  py-1 rounded-full text-sm font-medium  border px-2`}
       style={{ width: `${statusLength + 2}ch` }}
     >
       {status}

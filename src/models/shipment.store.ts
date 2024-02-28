@@ -4,6 +4,7 @@ import {
   ShipmentByMonth,
   ShipmentByMonthStatus,
   ShipmentByMonthTable,
+  ShipmentTable,
 } from "@/types";
 import { types } from "mobx-state-tree";
 
@@ -18,14 +19,28 @@ export const ShipmentStore = types
         (shipment) => shipment._id === store.shipmentId
       );
     },
+    get shipmentsTable() {
+      return store.shipments.map(
+        (shipment): ShipmentTable => ({
+          orderId: shipment._id,
+          date: shipment.date,
+          type: shipment.type,
+          productsQuantity: shipment.products.length,
+          price: shipment.products.reduce((a, b) => parseInt(b.price) + a, 0),
+          trackingURL: shipment.trackingURL,
+        })
+      );
+    },
 
     get shipmentsByMonth(): ShipmentByMonthTable[] {
-      const months: ShipmentByMonth[] = Array.from({ length: 12 }).map(() => ({
-        month: null,
-        shipments: [] as Shipment[],
-        status: "" as ShipmentByMonthStatus,
-        price: 0,
-      }));
+      const months: ShipmentByMonth[] = Array.from({ length: 12 }).map(
+        (m, i) => ({
+          month: i,
+          shipments: [] as Shipment[],
+          status: "" as ShipmentByMonthStatus,
+          price: 0,
+        })
+      );
 
       store.shipments.forEach((shipment) => {
         const date = new Date(shipment.date);
@@ -38,7 +53,6 @@ export const ShipmentStore = types
           0
         );
       });
-
       return months.map(({ month, price, shipments, status }) => ({
         month,
         price,
@@ -54,7 +68,6 @@ export const ShipmentStore = types
       return shipment?.products || [];
     },
 
-    //TODO: check this because dont filter data // It could be due to a problem in the product IDs
     shipmentByProduct(productId: string) {
       return store.shipments.filter((shipment) =>
         shipment.products.some((product) => product._id === productId)

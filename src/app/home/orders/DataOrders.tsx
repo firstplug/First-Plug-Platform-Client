@@ -1,15 +1,23 @@
 "use client";
 import { useState } from "react";
 import { Table } from "@/components";
-import { HeaderOrders, Tabs } from "@/common";
+import { HeaderOrders, OrderState, Tabs } from "@/common";
+import { useDate } from "@/hooks/useDate";
 import { useStore } from "@/models";
-import { Order, ShipmentByMonthTable } from "@/types";
+import {
+  Order,
+  OrderStatus,
+  Product,
+  ShipmentByMonthTable,
+  TeamMember,
+} from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
+const { DMY_Date } = useDate();
 const ordersLogisticColumns: ColumnDef<ShipmentByMonthTable>[] = [
   {
     accessorKey: "month",
     header: "Month",
-    cell: ({ getValue }) => getValue<string>(),
+    cell: ({ getValue }) => getValue(),
   },
   {
     accessorKey: "status",
@@ -19,29 +27,46 @@ const ordersLogisticColumns: ColumnDef<ShipmentByMonthTable>[] = [
   {
     accessorKey: "shipments",
     header: "Shipmetns Quantity",
-    cell: ({ getValue }) => getValue<string>(),
+    cell: ({ getValue }) => getValue<number>(),
   },
   {
     accessorKey: "price",
     header: "Total",
-    cell: ({ getValue }) => getValue<string>(),
+    cell: ({ getValue }) => <b> $USD {getValue<number>()} </b>,
   },
 ];
 const ordersEquipmentColumns: ColumnDef<Order>[] = [
   {
-    accessorKey: "month",
+    accessorKey: "_id",
     header: "Order ID",
-    cell: ({ getValue }) => <b>#{getValue<string>()}</b>,
+    cell: ({ getValue }) => (
+      <b className="uppercase">#{getValue<string>().slice(0, 5)}</b>
+    ),
   },
   {
     accessorKey: "teamMember",
-    header: "Team Memer",
-    cell: (info) => info.getValue(),
+    header: "Team Member",
+    cell: ({ getValue }) => getValue<TeamMember>(),
   },
   {
     accessorKey: "date",
     header: "Order Date",
-    cell: (info) => info.getValue(),
+    cell: ({ getValue }) => DMY_Date(getValue<string>()),
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ getValue }) => <OrderState status={getValue<OrderStatus>()} />,
+  },
+  {
+    accessorKey: "products",
+    header: "Total",
+    cell: ({ getValue }) => (
+      <b>
+        USD
+        {getValue<Product[]>().reduce((a, b) => parseInt(b.price) + a, 0)}
+      </b>
+    ),
   },
 ];
 export default function DataOrders() {
@@ -54,10 +79,10 @@ export default function DataOrders() {
   const handleTabClick = (tabName: Tabs) => {
     setSelectedTab(tabName);
   };
+
   return (
     <div className="flex flex-col gap-8">
       <HeaderOrders selectedTab={selectedTab} handleTab={handleTabClick} />
-
       {selectedTab === "Logistics" ? (
         <Table columns={ordersLogisticColumns} data={shipmentsByMonth} />
       ) : (

@@ -1,24 +1,17 @@
 "use client";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
+import React from "react";
 import DataOrders from "./DataOrders";
 import EmptyOrders from "./EmptyOrders";
-import { OrderServices, ShipmentServices } from "@/services";
+import { PageLayout } from "@/common";
 
 export default observer(function OrderPage() {
   const {
-    orders: { orders, setOrders },
-    shipments: { setShipments, shipments },
+    orders: { orders },
   } = useStore();
 
-  useEffect(() => {
-    OrderServices.getAllOrders().then((res) => {
-      setOrders(res);
-    });
-    ShipmentServices.getAllShipments().then((res) => {
-      setShipments(res.data);
-    });
-  }, []);
-  return <div>{shipments.length ? <DataOrders /> : <EmptyOrders />}</div>;
+  return (
+    <PageLayout>{orders.length ? <DataOrders /> : <EmptyOrders />}</PageLayout>
+  );
 });

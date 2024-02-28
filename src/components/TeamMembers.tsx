@@ -9,10 +9,9 @@ interface TeamMembersProps {
 }
 
 export const TeamMembers = observer(function ({ display }: TeamMembersProps) {
-
   return (
-    <section className="flex flex-col gap-4">
-      {display === "grid" ? <GridTeam  /> : <TableTeam />}
+    <section className="flex flex-col gap-4 absolute  bottom-0 left-0 overflow-auto  h-[80%] w-full ">
+      {display === "grid" ? <GridTeam /> : <TableTeam />}
     </section>
   );
 });

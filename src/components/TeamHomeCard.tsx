@@ -32,12 +32,12 @@ export const TeamHomeCard = observer(function ({}: TeamCardProps) {
         </CustomLink>
       </section>
       <section className="  flex   w-2/3 h-full  relative ">
-        <div className=" flex flex-col justify-top h-full w-full absolute">
-          <h2 className="text-2xl text-black font-semibold h-[10%]">
+        <div className=" flex flex-col gap-2 h-full w-full absolute">
+          <h2 className="text-xl text-black font-semibold h-[10%]  p-0 m-0">
             New Joiners
           </h2>
 
-          <div className="flex flex-col overflow-y-auto max-h-[90%] h-[90%] w-full   gap-1 absolute bottom-0">
+          <div className="flex flex-col overflow-y-auto max-h-[85%] h-[85%] w-full   gap-1  bottom-0">
             {members.map((member) => (
               <JoinerRow key={member._id} joiner={member} />
             ))}

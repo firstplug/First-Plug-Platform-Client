@@ -1,7 +1,5 @@
-"use client";
 import { EmptyCard, EmptyCardLayout } from "@/common";
-import { observer } from "mobx-react-lite";
-export default observer(function EmptyStock() {
+export default function EmptyStock() {
   return (
     <EmptyCardLayout>
       <EmptyCard
@@ -12,4 +10,4 @@ export default observer(function EmptyStock() {
       />
     </EmptyCardLayout>
   );
-});
+}

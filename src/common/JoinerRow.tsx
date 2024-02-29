@@ -1,14 +1,14 @@
 import Image from "next/image";
 import photo from "../../public/employees/Photo-2.png";
 import { TeamMember } from "@/types";
-import { JobPositionColors } from "./StatusColors";
+import { JOB_POSITION_COLORS } from "./StatusColors";
 
 interface joinerProps {
   joiner: TeamMember;
 }
 
 export function JoinerRow({ joiner }: joinerProps) {
-  const backgroundColorClass = JobPositionColors[joiner.jobPosition];
+  const backgroundColorClass = JOB_POSITION_COLORS[joiner.jobPosition];
 
   return (
     <div className=" flex items-center gap-2 justify-between p-2 border-b rounded-md border-border   ">
@@ -30,7 +30,7 @@ export function JoinerRow({ joiner }: joinerProps) {
       </div>
       <div>
         <span
-          className={`${backgroundColorClass} bg-opacity-70 p-2 text-sm text-gray-800 rounded-md`}
+          className={` ${backgroundColorClass} bg-opacity-70 p-2 text-sm text-gray-800 rounded-md`}
         >
           {joiner.jobPosition}
         </span>

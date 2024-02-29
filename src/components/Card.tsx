@@ -28,40 +28,43 @@ export const Card = function ({
 }: CardProps) {
   return (
     <article
-      className={` felx flex-col  rounded-xl p-4  border border-border  relative ${className}`}
+      className={` felx flex-col  rounded-xl p-4   border border-border  relative ${className}`}
     >
-      {Title && (
-        <header className="flex justify-between items-center text-white  ">
-          <h2 className="text-[20px] text-black font-montserrat font-bold flex-1 md:text-sm lg:text-xl">
-            {Title}
-          </h2>
-          {titleButton && (
-            <Button
-              icon={icon}
-              className="p-2 whitespace-nowrap rounded-md"
-              body={titleButton}
-              size="small"
-              variant="secondary"
-              onClick={onClick}
-            />
-          )}
-        </header>
-      )}
-      <div>
+      <div className={`${Title ? "h-[14%] " : "h-0"}`}>
+        {Title && (
+          <header className="  flex justify-between  items-center h-full  text-white   ">
+            <h2 className="text-[20px]  text-black font-montserrat font-bold flex-1 md:text-sm lg:text-xl">
+              {Title}
+            </h2>
+            {titleButton && (
+              <Button
+                icon={icon}
+                className=" p-2 whitespace-nowrap rounded-md"
+                body={titleButton}
+                size="small"
+                variant="secondary"
+                onClick={onClick}
+              />
+            )}
+          </header>
+        )}
+      </div>
+      <div className=" max-h-[85%] h-[85%] flex-grow  overflow-y-auto relative ">
         {children ? (
-          <div
-            className={` ${
-              Title ? "" : "absolute"
-            }  w-full  h-full  grid  place-items-center  left-0 top-0   `}
-          >
-            {children}
-          </div>
+          <div className={`absolute    w-full   h-full     `}>{children}</div>
         ) : (
           imageBottom && (
             <div className="absolute top-0 right-0 h-full w-full -z-10  grid place-items-center">
               <div className="flex flex-col ">
-                <div className="w-52 h-52 relative">
-                  <Image src={imageBottom} alt={altImage} fill priority />
+                <div className="h-52  relative">
+                  <Image
+                    src={imageBottom}
+                    alt={altImage}
+                    fill
+                    priority
+                    className="aspec"
+                    objectFit="contain"
+                  />
                 </div>
                 <p className="text-dark-grey">{paragraph}</p>
               </div>

@@ -4,7 +4,7 @@ import { Navbar, Sidebar, Aside } from "@/components";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { useSession } from "next-auth/react";
-import { Memberservices } from "@/services";
+import { Memberservices, ProductServices } from "@/services";
 import { Layout } from "@/common";
 
 interface RootLayoutProps {
@@ -17,6 +17,7 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
   const {
     user: { setUser },
     members: { setMembers },
+    products: { setProducts },
   } = store;
   const session = useSession();
 
@@ -35,8 +36,8 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
       });
 
       if (sessionStorage.getItem("accessToken")) {
-        Memberservices.getAllMembers().then((res) => {
-          setMembers(res);
+        ProductServices.getAllProducts().then((res) => {
+          setProducts(res);
         });
       }
     }

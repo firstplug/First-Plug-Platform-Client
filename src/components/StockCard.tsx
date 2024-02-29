@@ -5,13 +5,9 @@ import { MonitorIcon, DeviceTablet, PencilAccesories } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 
-type classNameProps = {
-  className?: string;
-};
+type classNameProps = {};
 
-export const StockCard = observer(function ({
-  className = "",
-}: classNameProps) {
+export const StockCard = observer(function ({}: classNameProps) {
   const {
     products: { products, uniqueProducts },
   } = useStore();
@@ -19,10 +15,8 @@ export const StockCard = observer(function ({
   const [info, setInfo] = useState({ ...products[0] } || {});
 
   return (
-    <div
-      className={`flex p-4 gap-4 items-center justify-between w-full h-full     ${className} `}
-    >
-      <div className=" flex flex-col justify-between  w-full  max-h-[90%] overflow-y-auto  ">
+    <div className={`flex p-4 gap-4 justify-between w-full h-full  `}>
+      <div className="  flex flex-col justify-between  w-full   h-full overflow-y-auto  ">
         {uniqueProducts.map((equipment) => (
           <div
             key={equipment._id}
@@ -45,8 +39,8 @@ export const StockCard = observer(function ({
           </div>
         ))}
       </div>
-      <div className="w-full">
-        <DoughnutChart data={info} className={" max-h-[15rem] border"} />
+      <div className=" w-1/2  h-full ">
+        <DoughnutChart data={info} />
       </div>
     </div>
   );

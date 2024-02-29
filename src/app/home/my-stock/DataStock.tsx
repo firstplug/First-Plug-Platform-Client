@@ -10,20 +10,20 @@ import { ColumnDef } from "@tanstack/react-table";
 
 const productsColumns: ColumnDef<Product>[] = [
   {
-    accessorKey: "category",
+    accessorFn: (row) => row.category,
     header: "Category",
     size: 100,
     cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
     footer: (props) => props.column.id,
   },
   {
-    accessorKey: "model",
-    header: () => "Model",
+    accessorFn: (row) => row.model,
+    header: "Model",
     size: 0,
     cell: (info) => info.getValue(),
   },
   {
-    accessorKey: "stock",
+    accessorFn: (row) => row.stock,
     header: "Quantity",
     size: 2,
     cell: (info) => info.getValue<string>(),
@@ -56,20 +56,20 @@ const productsColumns: ColumnDef<Product>[] = [
 ];
 const InternalProductsColumns: ColumnDef<Product>[] = [
   {
-    accessorKey: "serialNumber",
+    accessorFn: (row) => row.serialNumber,
     header: "Serial",
     cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
     footer: (props) => props.column.id,
   },
   {
-    accessorKey: "name",
+    accessorFn: (row) => row.name,
     id: "lastName",
     cell: (info) => info.getValue(),
     header: () => <span>Currently with</span>,
     footer: (props) => props.column.id,
   },
   {
-    accessorKey: "status",
+    accessorFn: (row) => row.status,
     header: "Status",
     cell: ({ getValue }) => (
       <span className={`p-1 bg-lightYellow rounded-md text-sm`}>

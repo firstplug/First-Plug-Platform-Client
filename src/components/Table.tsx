@@ -10,6 +10,7 @@ import { Fragment, ReactNode, useState } from "react";
 import {
   Order,
   Product,
+  Shipment,
   ShipmentByMonthTable,
   ShipmentTable,
   TeamMember,
@@ -28,7 +29,7 @@ export const Table = function ({
   getRowCanExpand = () => false,
   subComponent,
 }: TableProps<
-  Product | ShipmentTable | Order | TeamMember | ShipmentByMonthTable
+  Product | ShipmentTable | Order | TeamMember | ShipmentByMonthTable | Shipment
 >) {
   const [tableData, setTableData] = useState(() => [...data]);
 
@@ -68,7 +69,9 @@ export const Table = function ({
           <Fragment>
             <tr
               key={row.id}
-              className="bg-white text-black border-b-2 border-gray-200 text-left  "
+              className={`bg-white text-black border-b-2 border-gray-200 text-left  ${
+                row.getIsExpanded() && "bg-black"
+              } `}
             >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className=" p-2 ">

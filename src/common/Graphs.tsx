@@ -11,15 +11,25 @@ interface DoughnutChartProps {
   };
 }
 
+interface IDoughnutInfo {
+  labels: string[];
+  datasets: [
+    {
+      data: number[];
+      backgroundColor: string[];
+      hoverBackgroundColor: string[];
+    }
+  ];
+}
+
 export function DoughnutChart({ data }: DoughnutChartProps) {
   const stock = data.stock || 0;
-  //TODO: check this, where are assigned and available values?
-  const quantity = data.quantity;
+  const quantity = data.quantity || 0;
 
   const assignedColor = "#9747FF";
   const availableColor = "#4FE8B7";
 
-  const info = {
+  const info: IDoughnutInfo = {
     labels: ["Assigned", "Available"],
     datasets: [
       {
@@ -43,7 +53,6 @@ export function DoughnutChart({ data }: DoughnutChartProps) {
     },
   };
 
-  const total = quantity || 0 + stock || 0;
   return (
     <figure
       className={`relative mx-auto flex flex-col items-center    h-full  max-h-full`}
@@ -58,7 +67,7 @@ export function DoughnutChart({ data }: DoughnutChartProps) {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="flex flex-col items-center">
               <span className="text-dark-grey font-medium">Total</span>
-              <span className="font-bold text-2xl">{total}</span>
+              <span className="font-bold text-2xl">{quantity + stock}</span>
             </div>
           </div>
         </div>

@@ -5,28 +5,45 @@ import { ArrowRight, ShopIcon, UpLoadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
-import { Product } from "@/types";
+import { Product, ProductTable } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
+import Image from "next/image";
 
-const productsColumns: ColumnDef<Product>[] = [
+type aux = {
+  category: string;
+  url: string;
+};
+const productsColumns: ColumnDef<ProductTable>[] = [
   {
     accessorFn: (row) => row.category,
     header: "Category",
     size: 100,
-    cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
+    cell: ({ getValue }) => (
+      <div className="flex gap-2 items-center">
+        <div className="relative w-[15%]   aspect-square   ">
+          <Image
+            src={getValue<{ url: string }>().url}
+            alt={getValue<{ category: string }>().category}
+            fill
+            className=" aspect-video rounded-md shadow-md h-full"
+          />
+        </div>
+        <strong>{getValue<{ category: string }>().category}</strong>
+      </div>
+    ),
     footer: (props) => props.column.id,
   },
   {
     accessorFn: (row) => row.model,
     header: "Model",
     size: 0,
-    cell: (info) => info.getValue(),
+    cell: ({ getValue }) => getValue<string>(),
   },
   {
-    accessorFn: (row) => row.stock,
+    accessorFn: (row) => row.quantity,
     header: "Quantity",
     size: 2,
-    cell: (info) => info.getValue<string>(),
+    cell: ({ getValue }) => <strong>{getValue<number>()}</strong>,
   },
   {
     id: "expander",
@@ -37,8 +54,11 @@ const productsColumns: ColumnDef<Product>[] = [
         row.getCanExpand() && (
           <div className=" flex justify-end">
             <Button
+              {...{
+                onClick: row.getToggleExpandedHandler(),
+                style: { cursor: "pointer" },
+              }}
               variant="text"
-              onClick={() => row.getToggleExpandedHandler()}
               className="p-2 rounded-lg cursor-pointer "
             >
               <span>Details</span>
@@ -82,7 +102,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
 export default observer(function DataStock() {
   const router = useRouter();
   const {
-    products: { products },
+    products: { productsTable, products },
     aside: { setAside },
   } = useStore();
 
@@ -118,12 +138,12 @@ export default observer(function DataStock() {
       </aside>
 
       <div className="max-w-full  w-full overflow-x-auto ">
-        <Table
-          data={products}
+        <Table<ProductTable>
+          data={productsTable}
           columns={productsColumns}
           getRowCanExpand={() => true}
           subComponent={
-            <Table data={products} columns={InternalProductsColumns} />
+            <Table<Product> data={products} columns={InternalProductsColumns} />
           }
         />
       </div>

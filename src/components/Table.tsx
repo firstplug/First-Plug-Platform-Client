@@ -7,14 +7,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Fragment, ReactNode, useState } from "react";
-import {
-  Order,
-  Product,
-  Shipment,
-  ShipmentByMonthTable,
-  ShipmentTable,
-  TeamMember,
-} from "@/types";
 
 type TableProps<T> = {
   columns: ColumnDef<T>[];
@@ -23,14 +15,12 @@ type TableProps<T> = {
   getRowCanExpand?: () => boolean;
 };
 
-export const Table = function ({
+export const Table = function <T>({
   columns,
   data,
-  getRowCanExpand = () => false,
+  getRowCanExpand,
   subComponent,
-}: TableProps<
-  Product | ShipmentTable | Order | TeamMember | ShipmentByMonthTable | Shipment
->) {
+}: TableProps<T>) {
   const [tableData, setTableData] = useState(() => [...data]);
 
   const table = useReactTable({
@@ -42,18 +32,18 @@ export const Table = function ({
   });
 
   return (
-    <table className="w-full relative ">
+    <table className="w-full relative border rounded-md ">
       <thead className="">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr
             key={headerGroup.id}
-            className="border-b-2  border-gray-200 bg-light-grey"
+            className="border-b-2  border-gray-200 bg-light-grey "
           >
             {headerGroup.headers.map((header) => (
               <th
                 key={header.id}
                 style={{ width: `${header.getSize()}px` }}
-                className={` py-3 px-2 border-r border-l text-start  text-black font-semibold w-[${header.getSize()}px]`}
+                className={` py-3 px-4 border-r  text-start  text-black font-semibold   `}
               >
                 {flexRender(
                   header.column.columnDef.header,
@@ -69,18 +59,18 @@ export const Table = function ({
           <Fragment>
             <tr
               key={row.id}
-              className={`bg-white text-black border-b-2 border-gray-200 text-left  ${
-                row.getIsExpanded() && "bg-black"
-              } `}
+              className={` text-black border-b  border-gray-200 text-left  ${
+                row.getIsExpanded() && "border-l-2 border-l-black bg-hoverBlue"
+              }`}
             >
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className=" p-2 ">
+                <td key={cell.id} className=" p-2  px-4 ">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
             </tr>
             {row.getIsExpanded() && (
-              <tr>
+              <tr className="border-l-2 border-l-black">
                 <td colSpan={row.getVisibleCells().length}>{subComponent}</td>
               </tr>
             )}

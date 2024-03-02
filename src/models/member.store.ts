@@ -1,5 +1,5 @@
 import { types } from "mobx-state-tree";
-import { TeamMemberModel, TeamMember } from "@/types";
+import { TeamMemberModel, TeamMember, TeamMemberTable } from "@/types";
 
 export const MemberStore = types
   .model({
@@ -7,6 +7,16 @@ export const MemberStore = types
     memberId: types.optional(types.string, ""),
   })
   .views((store) => ({
+    get membersTable(): TeamMemberTable[] {
+      return store.members.map((member) => ({
+        fullName: `${member.firstName}, ${member.lastName}`,
+        dateOfBirth: member.dateOfBirth,
+        jobPosition: member.jobPosition,
+        joiningDate: member.joiningDate,
+        shipmentDetails: "Complete",
+        teams: member.teams,
+      }));
+    },
     get memberCount() {
       return store.members.length;
     },
@@ -15,8 +25,8 @@ export const MemberStore = types
       return store.members.find((member) => member._id === store.memberId);
     },
     membersByTeam(team: string) {
-      return store.members.filter((member) => member.teams.includes(team))
-    }
+      return store.members.filter((member) => member.teams.includes(team));
+    },
   }))
   .actions((store) => ({
     setMembers(members: TeamMember[]) {

@@ -46,7 +46,7 @@ export default observer(function DataShipments() {
 
   return (
     <div className=" overflow-y-auto">
-      <Table columns={columns.shipments} data={shipmentsTable} />
+      <Table<ShipmentTable> columns={columns.shipments} data={shipmentsTable} />
     </div>
   );
 });

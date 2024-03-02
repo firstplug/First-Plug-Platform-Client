@@ -2,25 +2,32 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { GridTeam, Table } from "./";
-import { DisplayView, TeamMember } from "@/types";
+import {
+  DisplayView,
+  Product,
+  ShipmentStatus,
+  TeamMember,
+  TeamMemberTable,
+} from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { useDate } from "@/hooks/useDate";
-import { Button, PenIcon, TeamCard, TrashIcon } from "@/common";
+import {
+  Button,
+  PenIcon,
+  ShipmentStatus as ShipmentStatusCard,
+  TeamCard,
+  TrashIcon,
+} from "@/common";
 
 interface TeamMembersProps {
   display?: DisplayView;
 }
-const membersColumns: ColumnDef<TeamMember>[] = [
+const membersColumns: ColumnDef<TeamMemberTable>[] = [
   {
-    accessorKey: "firstName",
-    header: "First Name",
-    cell: (info) => info.getValue(),
-  },
-  {
-    accessorKey: "lastName",
-    header: "Last Name",
-    cell: (info) => info.getValue(),
+    accessorKey: "fullName",
+    header: "FullName",
+    cell: ({ getValue }) => <strong>{getValue<string>()}</strong>,
   },
   {
     accessorKey: "dateOfBirth",
@@ -37,12 +44,19 @@ const membersColumns: ColumnDef<TeamMember>[] = [
   {
     accessorKey: "teams",
     header: "Team",
-    cell: (info) => <TeamCard team={info.getValue<string>()} />,
+    cell: (info) => <TeamCard team={info.getValue<string[]>()[0]} />,
   },
   {
     accessorKey: "jobPosition",
     header: "Job Position",
-    cell: (info) => info.getValue(),
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
+  {
+    accessorKey: "shipmentDetails",
+    header: "Shipment Details",
+    cell: ({ getValue }) => (
+      <ShipmentStatusCard status={getValue<ShipmentStatus>()} />
+    ),
   },
   {
     accessorKey: "",
@@ -74,7 +88,7 @@ const membersColumns: ColumnDef<TeamMember>[] = [
 ];
 export const TeamMembers = observer(function ({ display }: TeamMembersProps) {
   const {
-    members: { members },
+    members: { members, membersTable },
   } = useStore();
 
   return (
@@ -82,7 +96,7 @@ export const TeamMembers = observer(function ({ display }: TeamMembersProps) {
       {display === "grid" ? (
         <GridTeam />
       ) : (
-        <Table data={members} columns={membersColumns} />
+        <Table<TeamMemberTable> data={membersTable} columns={membersColumns} />
       )}
     </section>
   );

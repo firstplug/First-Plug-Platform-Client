@@ -32,3 +32,12 @@ export const ProductModel = types.compose(
 );
 
 export type Product = Instance<typeof ProductModel>;
+
+export type ProductTable = {
+  category: {
+    category: string;
+    img: string;
+  };
+  model: string;
+  quantity: number;
+};

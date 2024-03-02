@@ -84,9 +84,12 @@ export default function DataOrders() {
     <div className="flex flex-col gap-8">
       <HeaderOrders selectedTab={selectedTab} handleTab={handleTabClick} />
       {selectedTab === "Logistics" ? (
-        <Table columns={ordersLogisticColumns} data={shipmentsByMonth} />
+        <Table<ShipmentByMonthTable>
+          columns={ordersLogisticColumns}
+          data={shipmentsByMonth}
+        />
       ) : (
-        <Table columns={ordersEquipmentColumns} data={orders} />
+        <Table<Order> columns={ordersEquipmentColumns} data={orders} />
       )}
     </div>
   );

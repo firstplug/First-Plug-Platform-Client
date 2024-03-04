@@ -28,6 +28,7 @@ export const ShipmentStore = types
           productsQuantity: shipment.products.length,
           price: shipment.products.reduce((a, b) => parseInt(b.price) + a, 0),
           trackingURL: shipment.trackingURL,
+          products: shipment.products,
         })
       );
     },
@@ -35,7 +36,7 @@ export const ShipmentStore = types
     get shipmentsByMonth(): ShipmentByMonthTable[] {
       const months: ShipmentByMonth[] = Array.from({ length: 12 }).map(
         (m, i) => ({
-          month: i,
+          month: `${i + 1}`,
           shipments: [] as Shipment[],
           status: "" as ShipmentByMonthStatus,
           price: 0,
@@ -46,7 +47,8 @@ export const ShipmentStore = types
         const date = new Date(shipment.date);
 
         const shipmentMonth = date.getUTCMonth();
-        months[shipmentMonth].month = shipmentMonth;
+        const shipmentYear = date.getUTCFullYear();
+        months[shipmentMonth].month = `${shipmentMonth + 1}/${shipmentYear}`;
         months[shipmentMonth].shipments.push(shipment);
         months[shipmentMonth].price = shipment.products.reduce(
           (a, b) => parseInt(b.price) + a,

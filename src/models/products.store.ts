@@ -15,6 +15,7 @@ export const ProductsStore = types
         },
         quantity: product.stock,
         model: product.model,
+        serialNumber: product.serialNumber,
       }));
     },
     get uniqueProducts() {

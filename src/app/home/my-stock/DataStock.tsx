@@ -9,11 +9,7 @@ import { Product, ProductTable } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 
-type aux = {
-  category: string;
-  url: string;
-};
-const productsColumns: ColumnDef<ProductTable>[] = [
+export const PRODUCTS_COLUMNS: ColumnDef<ProductTable>[] = [
   {
     accessorFn: (row) => row.category,
     header: "Category",
@@ -22,13 +18,13 @@ const productsColumns: ColumnDef<ProductTable>[] = [
       <div className="flex gap-2 items-center">
         <div className="relative w-[15%]   aspect-square   ">
           <Image
-            src={getValue<{ url: string }>().url}
+            src={getValue<{ img: string }>().img}
             alt={getValue<{ category: string }>().category}
             fill
-            className=" aspect-video rounded-md shadow-md h-full"
+            className=" aspect-video rounded-md shadow-md "
           />
         </div>
-        <strong>{getValue<{ category: string }>().category}</strong>
+        <span>{getValue<{ category: string }>().category}</span>
       </div>
     ),
     footer: (props) => props.column.id,
@@ -43,7 +39,7 @@ const productsColumns: ColumnDef<ProductTable>[] = [
     accessorFn: (row) => row.quantity,
     header: "Quantity",
     size: 2,
-    cell: ({ getValue }) => <strong>{getValue<number>()}</strong>,
+    cell: ({ getValue }) => <span>{getValue<number>()}</span>,
   },
   {
     id: "expander",
@@ -78,21 +74,22 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.serialNumber,
     header: "Serial",
-    cell: ({ row, getValue }) => <div>{getValue<string>()}</div>,
-    footer: (props) => props.column.id,
+    cell: ({ getValue }) => <div>{getValue<string>()}</div>,
   },
   {
     accessorFn: (row) => row.name,
-    id: "lastName",
-    cell: (info) => info.getValue(),
-    header: () => <span>Currently with</span>,
-    footer: (props) => props.column.id,
+    header: "Currently with",
+    cell: ({ getValue }) => (
+      <span className="text-sm">
+        Aca va nombre de la persona que tiene este producto
+      </span>
+    ),
   },
   {
     accessorFn: (row) => row.status,
     header: "Status",
     cell: ({ getValue }) => (
-      <span className={`p-1 bg-lightYellow rounded-md text-sm`}>
+      <span className={`p-1  rounded-md text-sm`}>
         {getValue<string>().toString()}
       </span>
     ),
@@ -140,7 +137,7 @@ export default observer(function DataStock() {
       <div className="max-w-full  w-full overflow-x-auto ">
         <Table<ProductTable>
           data={productsTable}
-          columns={productsColumns}
+          columns={PRODUCTS_COLUMNS}
           getRowCanExpand={() => true}
           subComponent={
             <Table<Product> data={products} columns={InternalProductsColumns} />

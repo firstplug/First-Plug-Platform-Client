@@ -11,7 +11,7 @@ export function DropFilter({ children, contentText }: DropFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative inline-block text-left w-full h-full z-50">
+    <div className="relative inline-block text-left w-full h-full z-10">
       <button
         onClick={() => setIsOpen(!isOpen)}
         type="button"

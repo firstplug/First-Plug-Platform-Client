@@ -40,4 +40,5 @@ export type ProductTable = {
   };
   model: string;
   quantity: number;
+  serialNumber: string;
 };

@@ -455,9 +455,9 @@ export function ArrowRight({ className, color, strokeWidth }: ArrowRightProps) {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={strokeWidth || 1.5}
+      strokeWidth={strokeWidth || 2}
       stroke={color || "currentColor"}
-      className={`w-5 h-5 ${className || ""}`}
+      className={`w-3 ${className}`}
     >
       <path
         strokeLinecap="round"

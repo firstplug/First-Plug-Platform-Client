@@ -32,7 +32,7 @@ export const Table = function <T>({
   });
 
   return (
-    <table className="w-full relative border rounded-md ">
+    <table className="w-full relative border rounded-md font-semibold ">
       <thead className="">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr

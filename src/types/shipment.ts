@@ -1,6 +1,5 @@
 import { ISimpleType, Instance, types } from "mobx-state-tree";
-import { ProductModel } from "./product";
-import { number } from "mobx-state-tree/dist/internal";
+import { Product, ProductModel } from "./product";
 
 export const SHIPMENT_STATUS = [
   "Missing Data",
@@ -60,14 +59,14 @@ export type Shipment = Instance<typeof ShimpentModel>;
 export type ShipmentCreation = Omit<Shipment, "_id" | "__v">;
 
 export type ShipmentByMonth = {
-  month: number;
+  month: string;
   status: ShipmentByMonthStatus;
   price: number;
   shipments: Shipment[];
 };
 
 export type ShipmentByMonthTable = {
-  month: number;
+  month: string;
   status: string;
   price: number;
   shipments: number;
@@ -79,4 +78,5 @@ export type ShipmentTable = {
   price: number;
   type: string;
   trackingURL: string;
+  products: Product[];
 };

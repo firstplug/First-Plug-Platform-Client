@@ -1,5 +1,5 @@
 import { OrderStatus } from "@/types";
-import { StateColors } from "./StatusColors";
+import { StateColors, StatusColors } from "./StatusColors";
 
 export interface StateProps {
   status?: OrderStatus;
@@ -7,7 +7,9 @@ export interface StateProps {
 }
 
 export function OrderState({ status }: StateProps) {
-  const colorClass = status ? `bg-${StateColors[status]}` : "bg-disabled"; // If we dont've state, use a default bg
+  const colorClass = status
+    ? `${StatusColors[StateColors[status]]}`
+    : "bg-disabled"; // If we dont've state, use a default bg
 
   const statusLength = status ? status.length : 0;
 

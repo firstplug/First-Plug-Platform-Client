@@ -17,5 +17,23 @@ export function useDate() {
     return day2 + "/" + month2 + "/" + year;
   }
 
-  return { DMY_Date };
+  function getMonth(index: number) {
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    return months[index];
+  }
+  return { DMY_Date, getMonth };
 }

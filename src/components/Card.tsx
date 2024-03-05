@@ -28,7 +28,7 @@ export const Card = function ({
 }: CardProps) {
   return (
     <article
-      className={` felx flex-col  rounded-xl p-4  border border-border  relative ${className}`}
+      className={` flex flex-col  rounded-xl p-4  border border-border outline  relative ${className}`}
     >
       {Title && (
         <header className="flex justify-between items-center text-white  ">

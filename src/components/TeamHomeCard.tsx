@@ -5,9 +5,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/models";
 import { MyTeamHeader } from "./MyTeamHeader";
 
-interface TeamCardProps {}
-
-export const TeamHomeCard = observer(function ({}: TeamCardProps) {
+export const TeamHomeCard = observer(function () {
   const {
     members: { members },
   } = useStore();

@@ -9,6 +9,7 @@ export const MemberStore = types
   .views((store) => ({
     get membersTable(): TeamMemberTable[] {
       return store.members.map((member) => ({
+        _id: member._id,
         fullName: `${member.firstName}, ${member.lastName}`,
         dateOfBirth: member.dateOfBirth,
         jobPosition: member.jobPosition,

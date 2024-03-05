@@ -1,11 +1,9 @@
 "use client";
 import { Table } from "@/components";
-import { useDate } from "@/hooks/useDate";
 import { useStore } from "@/models";
 import { ShipmentByMonthTable } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { observer } from "mobx-react-lite";
-const { getMonth } = useDate();
 const ordersLogisticColumns: ColumnDef<ShipmentByMonthTable>[] = [
   {
     accessorKey: "month",

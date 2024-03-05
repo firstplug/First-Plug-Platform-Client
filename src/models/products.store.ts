@@ -14,7 +14,12 @@ export const ProductsStore = types
           img: product.imgUrl,
         },
         quantity: product.stock,
-        model: product.model,
+        model: {
+          model: product.model,
+          processor: product.processor || undefined,
+          ram: product.ram || undefined,
+          storage: product.storage || undefined,
+        },
         serialNumber: product.serialNumber,
       }));
     },

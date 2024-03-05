@@ -9,7 +9,7 @@ import { Product, ProductTable } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 
-export const PRODUCTS_COLUMNS: ColumnDef<ProductTable>[] = [
+export const prodcutColumns: () => ColumnDef<ProductTable>[] = () => [
   {
     accessorFn: (row) => row.category,
     header: "Category",
@@ -33,7 +33,17 @@ export const PRODUCTS_COLUMNS: ColumnDef<ProductTable>[] = [
     accessorFn: (row) => row.model,
     header: "Model",
     size: 0,
-    cell: ({ getValue }) => getValue<string>(),
+    cell: ({ getValue }) => (
+      <div className="flex flex-col gap-2">
+        <span>{getValue<{ model: string }>().model}</span>
+        <span className=" flex gap-2  items-center text-dark-grey text-md ">
+          {getValue<{ processor: string }>().processor}
+          <span>|</span>
+          {getValue<{ ram: string }>().ram} |<span>|</span>
+          {getValue<{ storage: string }>().storage}
+        </span>
+      </div>
+    ),
   },
   {
     accessorFn: (row) => row.quantity,
@@ -137,7 +147,7 @@ export default observer(function DataStock() {
       <div className="max-w-full  w-full overflow-x-auto ">
         <Table<ProductTable>
           data={productsTable}
-          columns={PRODUCTS_COLUMNS}
+          columns={prodcutColumns()}
           getRowCanExpand={() => true}
           subComponent={
             <Table<Product> data={products} columns={InternalProductsColumns} />

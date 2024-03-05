@@ -481,7 +481,7 @@ export function ArrowLeft({ className, color, strokeWidth }: ArrowLeftProps) {
       viewBox="0 0 24 24"
       strokeWidth={strokeWidth || 1.5}
       stroke={color || "currentColor"}
-      className={`w-5 h-5 ${className || ""}`}
+      className={`w-3 ${className || ""}`}
     >
       <path
         strokeLinecap="round"

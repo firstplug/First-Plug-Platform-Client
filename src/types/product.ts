@@ -38,7 +38,12 @@ export type ProductTable = {
     category: string;
     img: string;
   };
-  model: string;
+  model: {
+    model: string;
+    processor?: string;
+    ram?: string;
+    storage?: string;
+  };
   quantity: number;
   serialNumber: string;
 };

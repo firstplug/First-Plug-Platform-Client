@@ -23,6 +23,7 @@ export const TeamMemberModel = types.model({
 export type TeamMember = Instance<typeof TeamMemberModel>;
 
 export type TeamMemberTable = {
+  _id: string;
   fullName: string;
   joiningDate: string;
   dateOfBirth: string;

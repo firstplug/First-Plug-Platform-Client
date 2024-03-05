@@ -30,7 +30,7 @@ export function JoinerRow({ joiner }: joinerProps) {
       </div>
       <div>
         <span
-          className={`${backgroundColorClass} bg-opacity-70 p-2 text-sm text-gray-800 rounded-md`}
+          className={` ${backgroundColorClass} bg-opacity-70 p-2 text-sm text-gray-800 rounded-md`}
         >
           {joiner.jobPosition}
         </span>

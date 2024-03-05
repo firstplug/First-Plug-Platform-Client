@@ -92,40 +92,42 @@ export const Table = function <T>({
           ))}
         </tbody>
       </table>
-      <div className="flex items-center gap-6 mt-2  justify-center ">
-        <Button
-          variant="text"
-          className="rounded-full"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          <ArrowLeft />
-        </Button>
-        <span className="flex items-center gap-1">
-          {new Array(table.getPageCount()).fill(1).map((e, i) => (
-            <Button
-              className="rounded-full"
-              onClick={() => table.setPageIndex(i)}
-              variant={`${
-                table.getState().pagination.pageIndex === i
-                  ? "secondary"
-                  : "text"
-              }`}
-            >
-              {" "}
-              {e + i}{" "}
-            </Button>
-          ))}
-        </span>
-        <Button
-          variant="text"
-          className="rounded-full"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          <ArrowRight />
-        </Button>
-      </div>
+      {data.length > pagination.pageSize && (
+        <div className="flex items-center gap-6 mt-2  justify-center ">
+          <Button
+            variant="text"
+            className="rounded-full"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <ArrowLeft />
+          </Button>
+          <span className="flex items-center gap-1">
+            {new Array(table.getPageCount()).fill(1).map((e, i) => (
+              <Button
+                className="rounded-full"
+                onClick={() => table.setPageIndex(i)}
+                variant={`${
+                  table.getState().pagination.pageIndex === i
+                    ? "secondary"
+                    : "text"
+                }`}
+              >
+                {" "}
+                {e + i}{" "}
+              </Button>
+            ))}
+          </span>
+          <Button
+            variant="text"
+            className="rounded-full"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <ArrowRight />
+          </Button>
+        </div>
+      )}
     </>
   );
 };

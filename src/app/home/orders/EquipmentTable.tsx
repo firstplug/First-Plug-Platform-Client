@@ -13,7 +13,11 @@ const ordersEquipmentColumns: (
     accessorKey: "_id",
     header: "Order ID",
     cell: ({ getValue }) => (
-      <Button variant="text" onClick={() => handleClick(getValue<string>())}>
+      <Button
+        variant="text"
+        size="small"
+        onClick={() => handleClick(getValue<string>())}
+      >
         #{getValue<string>()}
       </Button>
     ),

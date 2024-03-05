@@ -7,13 +7,13 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
-import Image from "next/image";
+import { prodcutColumns } from "../my-stock/DataStock";
 const shipmentsColumns: ColumnDef<ShipmentTable>[] = [
   {
     accessorKey: "orderId",
     header: "Order ID",
     cell: ({ getValue }) => (
-      <span className="uppercase"> #{getValue<string>().slice(0, 5)}</span>
+      <span className="uppercase text-sm"> #{getValue<string>()}</span>
     ),
   },
   {
@@ -80,69 +80,7 @@ const shipmentsColumns: ColumnDef<ShipmentTable>[] = [
     },
   },
 ];
-const PRODUCTS_COLUMNS: ColumnDef<ProductTable>[] = [
-  {
-    accessorFn: (row) => row.category,
-    header: "Category",
-    size: 100,
-    cell: ({ getValue }) => (
-      <div className="flex gap-2 items-center">
-        <div className="relative w-[15%]   aspect-square   ">
-          <Image
-            src={getValue<{ img: string }>().img}
-            alt={getValue<{ category: string }>().category}
-            fill
-            className=" aspect-video rounded-md shadow-md h-full"
-          />
-        </div>
-        <span>{getValue<{ category: string }>().category}</span>
-      </div>
-    ),
-    footer: (props) => props.column.id,
-  },
-  {
-    accessorFn: (row) => row.model,
-    header: "Model",
-    size: 0,
-    cell: ({ getValue }) => getValue<string>(),
-  },
-  {
-    accessorFn: (row) => row.serialNumber,
-    header: "Serial",
-    size: 0,
-    cell: ({ getValue }) => (
-      <span className="  text-sm">{getValue<string>()}</span>
-    ),
-  },
-  {
-    id: "expander",
-    header: () => null,
-    size: 2,
-    cell: ({ row }) => {
-      return (
-        row.getCanExpand() && (
-          <div className=" flex justify-end">
-            <Button
-              {...{
-                onClick: row.getToggleExpandedHandler(),
-                style: { cursor: "pointer" },
-              }}
-              variant="text"
-              className="p-2 rounded-lg cursor-pointer "
-            >
-              <span>Details</span>
-              <ArrowRight
-                className={`transition-all duration-200 ${
-                  row.getIsExpanded() ? "rotate-[90deg]" : "rotate-[0]"
-                }`}
-              />
-            </Button>
-          </div>
-        )
-      );
-    },
-  },
-];
+
 export default observer(function DataShipments() {
   const {
     shipments: { shipmentsTable },
@@ -158,7 +96,7 @@ export default observer(function DataShipments() {
         getRowCanExpand={() => true}
         subComponent={
           <Table<ProductTable>
-            columns={PRODUCTS_COLUMNS}
+            columns={prodcutColumns({ serial: true })}
             data={productsTable}
           />
         }

@@ -13,7 +13,7 @@ import { DMY_Date } from "@/utils";
 import {
   Button,
   PenIcon,
-  ShipmentStatus as ShipmentStatusCard,
+  ShipmentStatusCard,
   TeamCard,
   TrashIcon,
 } from "@/common";

@@ -45,10 +45,12 @@ export const ShipmentStore = types
 
       store.shipments.forEach((shipment) => {
         const date = new Date(shipment.date);
-
+        //
         const shipmentMonth = date.getUTCMonth();
         const shipmentYear = date.getUTCFullYear();
-        months[shipmentMonth].month = `${shipmentMonth + 1}/${shipmentYear}`;
+        months[shipmentMonth].month = `${shipmentMonth + 1 < 10 && "0"}${
+          shipmentMonth + 1
+        }/${shipmentYear}`;
         months[shipmentMonth].shipments.push(shipment);
         months[shipmentMonth].price = shipment.products.reduce(
           (a, b) => parseInt(b.price) + a,

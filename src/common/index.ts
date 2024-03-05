@@ -10,7 +10,6 @@ export * from "./DropdownInput";
 export * from "./DropFilter";
 export * from "./EmptyCard";
 export * from "./EmptyCardLayout";
-export * from "./EquipmentRow";
 export * from "./FormLayout";
 export * from "./Graphs";
 export * from "./HeaderOrders";

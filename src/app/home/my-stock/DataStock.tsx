@@ -1,19 +1,37 @@
 "use client";
 import { Table } from "@/components";
-import { Button } from "@/common";
-import { ArrowRight, ShopIcon, UpLoadIcon } from "@/common/Icons";
+import { Button, ShipmentStatusCard } from "@/common";
+import { ArrowRight, ShopIcon, TrashIcon, UpLoadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
-import { Product, ProductTable } from "@/types";
+import { Product, ProductTable, ShipmentStatus } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 
-export const prodcutColumns: () => ColumnDef<ProductTable>[] = () => [
+function setAction(status: string) {
+  switch (status) {
+    case "Available":
+      return "Assign To";
+    case "Delivered":
+      return "Return";
+    case "Missing Data":
+      return "Fill Data";
+    case "Preparing":
+      return "Reasign";
+    case "Shipped":
+      return "Track >";
+  }
+}
+export const prodcutColumns: ({
+  serial,
+}: {
+  serial?: boolean;
+}) => ColumnDef<ProductTable>[] = ({ serial = false }) => [
   {
     accessorFn: (row) => row.category,
     header: "Category",
-    size: 100,
+    size: 200,
     cell: ({ getValue }) => (
       <div className="flex gap-2 items-center">
         <div className="relative w-[15%]   aspect-square   ">
@@ -32,29 +50,49 @@ export const prodcutColumns: () => ColumnDef<ProductTable>[] = () => [
   {
     accessorFn: (row) => row.model,
     header: "Model",
-    size: 0,
+    size: 200,
     cell: ({ getValue }) => (
-      <div className="flex flex-col gap-2">
-        <span>{getValue<{ model: string }>().model}</span>
-        <span className=" flex gap-2  items-center text-dark-grey text-md ">
-          {getValue<{ processor: string }>().processor}
-          <span>|</span>
-          {getValue<{ ram: string }>().ram} |<span>|</span>
-          {getValue<{ storage: string }>().storage}
+      <div className="flex flex-col gap-">
+        <span className="text-xl">{getValue<{ model: string }>().model}</span>
+        <span className=" flex gap-2 text-dark-grey text-md ">
+          <div className="flex gap-1 items-center">
+            <span>Proccesor </span>
+            <p className="font-normal">
+              {getValue<{ processor: string }>().processor}{" "}
+            </p>
+          </div>
+          <div className="flex gap-1 items-center">
+            <span>RAM </span>
+            <p className="font-normal">{getValue<{ ram: string }>().ram}</p>
+          </div>
+          <div className="flex gap-1 items-center">
+            <span>SDD </span>
+
+            <p className="font-normal">
+              {getValue<{ storage: string }>().storage}{" "}
+            </p>
+          </div>
         </span>
       </div>
     ),
   },
-  {
-    accessorFn: (row) => row.quantity,
-    header: "Quantity",
-    size: 2,
-    cell: ({ getValue }) => <span>{getValue<number>()}</span>,
-  },
+  !serial
+    ? {
+        accessorFn: (row) => row.quantity,
+        header: "Quantity",
+        size: 200,
+        cell: ({ getValue }) => <span>{getValue<number>()}</span>,
+      }
+    : {
+        accessorFn: (row) => row.serialNumber,
+        header: "Serial",
+        size: 200,
+        cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+      },
   {
     id: "expander",
     header: () => null,
-    size: 2,
+    size: 10,
     cell: ({ row }) => {
       return (
         row.getCanExpand() && (
@@ -99,9 +137,25 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     accessorFn: (row) => row.status,
     header: "Status",
     cell: ({ getValue }) => (
-      <span className={`p-1  rounded-md text-sm`}>
-        {getValue<string>().toString()}
-      </span>
+      <ShipmentStatusCard status={getValue<ShipmentStatus>()} />
+    ),
+  },
+  {
+    accessorFn: (row) => row.status,
+    header: "Actions",
+    cell: ({ row, getValue }) => (
+      <Button variant="text">{setAction(row.original.status)}</Button>
+    ),
+  },
+  {
+    id: "actiondelete",
+    header: "",
+    cell: () => (
+      <div className="flex justify-end">
+        <Button variant="text">
+          <TrashIcon color="red" strokeWidth={2} />
+        </Button>
+      </div>
     ),
   },
 ];
@@ -147,7 +201,7 @@ export default observer(function DataStock() {
       <div className="max-w-full  w-full overflow-x-auto ">
         <Table<ProductTable>
           data={productsTable}
-          columns={prodcutColumns()}
+          columns={prodcutColumns({ serial: false })}
           getRowCanExpand={() => true}
           subComponent={
             <Table<Product> data={products} columns={InternalProductsColumns} />

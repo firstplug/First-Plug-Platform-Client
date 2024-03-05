@@ -5,9 +5,7 @@ import { MonitorIcon, DeviceTablet, PencilAccesories } from "@/common/Icons";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 
-type classNameProps = {};
-
-export const StockCard = observer(function ({}: classNameProps) {
+export const StockCard = observer(function () {
   const {
     products: { products, uniqueProducts },
   } = useStore();

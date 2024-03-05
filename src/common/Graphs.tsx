@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
-import { Chart, ArcElement, ChartOptions } from "chart.js";
+import { Chart, ArcElement, ChartOptions, ChartData } from "chart.js";
 Chart.register(ArcElement);
 
 interface DoughnutChartProps {
@@ -11,17 +11,6 @@ interface DoughnutChartProps {
   };
 }
 
-interface IDoughnutInfo {
-  labels: string[];
-  datasets: [
-    {
-      data: number[];
-      backgroundColor: string[];
-      hoverBackgroundColor: string[];
-    }
-  ];
-}
-
 export function DoughnutChart({ data }: DoughnutChartProps) {
   const stock = data.stock || 0;
   const quantity = data.quantity || 0;
@@ -29,7 +18,7 @@ export function DoughnutChart({ data }: DoughnutChartProps) {
   const assignedColor = "#9747FF";
   const availableColor = "#4FE8B7";
 
-  const info: IDoughnutInfo = {
+  const info: ChartData<"doughnut"> = {
     labels: ["Assigned", "Available"],
     datasets: [
       {
@@ -45,7 +34,6 @@ export function DoughnutChart({ data }: DoughnutChartProps) {
       tooltip: {
         callbacks: {
           label: function (context) {
-            console.log({ context });
             return context.label + ": " + context.parsed + " units";
           },
         },

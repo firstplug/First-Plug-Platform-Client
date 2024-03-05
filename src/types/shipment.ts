@@ -5,9 +5,9 @@ export const SHIPMENT_STATUS = [
   "Missing Data",
   "Delivered",
   "Preparing",
-  "Avaliable",
+  "Available",
   "Shipped",
-  "Complete"
+  "Complete",
 ] as const;
 
 export type ShipmentStatus = (typeof SHIPMENT_STATUS)[number];
@@ -33,7 +33,7 @@ const ISOStringType: ISimpleType<string> = types.custom<string, string>({
       return "Invalid ISO String format";
     }
     return "";
-  }
+  },
 });
 
 export const ShimpentModel = types.model({

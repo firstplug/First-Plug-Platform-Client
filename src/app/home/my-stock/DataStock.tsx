@@ -9,6 +9,7 @@ import { Product, ProductTable, ShipmentStatus } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 
+//TODO: review this.
 function setAction(status: string) {
   switch (status) {
     case "Available":
@@ -27,22 +28,22 @@ export const prodcutColumns: ({
   serial,
 }: {
   serial?: boolean;
-}) => ColumnDef<ProductTable>[] = ({ serial = false }) => [
+}) => ColumnDef<Product>[] = ({ serial = false }) => [
   {
     accessorFn: (row) => row.category,
     header: "Category",
     size: 200,
-    cell: ({ getValue }) => (
+    cell: ({ row, getValue }) => (
       <div className="flex gap-2 items-center">
         <div className="relative w-[15%]   aspect-square   ">
           <Image
-            src={getValue<{ img: string }>().img}
-            alt={getValue<{ category: string }>().category}
+            src={row.original.imgUrl}
+            alt={getValue<string>()}
             fill
             className=" aspect-video rounded-md shadow-md "
           />
         </div>
-        <span>{getValue<{ category: string }>().category}</span>
+        <span>{getValue<string>()}</span>
       </div>
     ),
     footer: (props) => props.column.id,
@@ -51,25 +52,23 @@ export const prodcutColumns: ({
     accessorFn: (row) => row.model,
     header: "Model",
     size: 200,
-    cell: ({ getValue }) => (
+    cell: ({ row, getValue }) => (
       <div className="flex flex-col gap-">
-        <span className="text-xl">{getValue<{ model: string }>().model}</span>
+        <span className="text-xl">{getValue<string>()}</span>
         <span className=" flex gap-2 text-dark-grey text-md ">
           <div className="flex gap-1 items-center">
             <span>Proccesor </span>
-            <p className="font-normal">
-              {getValue<{ processor: string }>().processor}{" "}
-            </p>
+            <p className="font-normal">{row.original.processor}</p>
           </div>
           <div className="flex gap-1 items-center">
             <span>RAM </span>
-            <p className="font-normal">{getValue<{ ram: string }>().ram}</p>
+            <p className="font-normal">{row.original.ram}</p>
           </div>
           <div className="flex gap-1 items-center">
             <span>SDD </span>
 
             <p className="font-normal">
-              {getValue<{ storage: string }>().storage}{" "}
+              <p className="font-normal">{row.original.storage}</p>
             </p>
           </div>
         </span>
@@ -78,7 +77,7 @@ export const prodcutColumns: ({
   },
   !serial
     ? {
-        accessorFn: (row) => row.quantity,
+        accessorFn: (row) => row.stock,
         header: "Quantity",
         size: 200,
         cell: ({ getValue }) => <span>{getValue<number>()}</span>,
@@ -122,16 +121,14 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.serialNumber,
     header: "Serial",
-    cell: ({ getValue }) => <div>{getValue<string>()}</div>,
+    cell: ({ getValue }) => (
+      <span className="text-sm">{getValue<string>()}</span>
+    ),
   },
   {
     accessorFn: (row) => row.name,
     header: "Currently with",
-    cell: ({ getValue }) => (
-      <span className="text-sm">
-        Aca va nombre de la persona que tiene este producto
-      </span>
-    ),
+    cell: ({ getValue }) => <span className="text-md">Name & LastName</span>,
   },
   {
     accessorFn: (row) => row.status,
@@ -168,8 +165,8 @@ export default observer(function DataStock() {
   } = useStore();
 
   return (
-    <div className="flex flex-col gap-5 overflow-auto  w-full     ">
-      <aside className="flex justify-between items-center   ">
+    <div className="h-full w-full flex flex-col gap-4 relative  ">
+      <aside className="flex justify-between items-center h-[6%]   ">
         <div className="flex gap-2">
           <input type="checkbox" />
           <label className="ml-2 text-gray-500">
@@ -198,9 +195,9 @@ export default observer(function DataStock() {
         </div>
       </aside>
 
-      <div className="max-w-full  w-full overflow-x-auto ">
-        <Table<ProductTable>
-          data={productsTable}
+      <div className="h-[90%] top-[8%] w-full overflow-y-auto  absolute ">
+        <Table<Product>
+          data={products}
           columns={prodcutColumns({ serial: false })}
           getRowCanExpand={() => true}
           subComponent={

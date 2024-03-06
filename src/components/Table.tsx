@@ -113,8 +113,7 @@ export const Table = function <T>({
                     : "text"
                 }`}
               >
-                {" "}
-                {e + i}{" "}
+                {e + i}
               </Button>
             ))}
           </span>

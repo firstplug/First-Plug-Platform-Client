@@ -6,9 +6,11 @@ import { Product, ProductTable, Shipment, ShipmentTable } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { observer } from "mobx-react-lite";
-import { useState } from "react";
 import { prodcutColumns } from "../my-stock/DataStock";
-const shipmentsColumns: ColumnDef<ShipmentTable>[] = [
+import { useState } from "react";
+const shipmentsColumns: (
+  handleSelect: (prdocuts: Product[]) => void
+) => ColumnDef<ShipmentTable>[] = (handleSelect) => [
   {
     accessorKey: "orderId",
     header: "Order ID",
@@ -58,12 +60,12 @@ const shipmentsColumns: ColumnDef<ShipmentTable>[] = [
     cell: ({ row }) => {
       return (
         row.getCanExpand() && (
-          <div className=" flex justify-end">
+          <div className=" flex justify-end ">
             <Button
-              {...{
-                onClick: row.getToggleExpandedHandler(),
-                style: { cursor: "pointer" },
-              }}
+              onClick={(function () {
+                handleSelect(row.original.products);
+                return row.getToggleExpandedHandler();
+              })()}
               variant="text"
               className="p-2 rounded-lg cursor-pointer "
             >
@@ -84,23 +86,27 @@ const shipmentsColumns: ColumnDef<ShipmentTable>[] = [
 export default observer(function DataShipments() {
   const {
     shipments: { shipmentsTable },
-    products: { productsTable },
   } = useStore();
-  const [selectedShipment, setSelectedShipment] = useState<Shipment>();
 
+  const [products, setProducts] = useState<Product[]>([]);
+  const handleSelectShipment = (newProdcuts: Product[]) => {
+    setProducts(newProdcuts);
+  };
   return (
-    <div className=" overflow-y-auto">
-      <Table<ShipmentTable>
-        columns={shipmentsColumns}
-        data={shipmentsTable}
-        getRowCanExpand={() => true}
-        subComponent={
-          <Table<ProductTable>
-            columns={prodcutColumns({ serial: true })}
-            data={productsTable}
-          />
-        }
-      />
+    <div className="  relative h-full w-full">
+      <div className="overflow-y-auto absolute h-full w-full ">
+        <Table<ShipmentTable>
+          columns={shipmentsColumns(handleSelectShipment)}
+          data={shipmentsTable}
+          getRowCanExpand={() => true}
+          subComponent={
+            <Table<Product>
+              columns={prodcutColumns({ serial: true })}
+              data={products}
+            />
+          }
+        />
+      </div>
     </div>
   );
 });

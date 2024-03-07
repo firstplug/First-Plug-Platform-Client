@@ -7,9 +7,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { observer } from "mobx-react-lite";
 import { prodcutColumns } from "../my-stock/DataStock";
-import { useState } from "react";
 const shipmentsColumns: (
-  handleSelect: (prdocuts: Product[]) => void
+  handleSelect: (shipmentId: Shipment["_id"]) => void
 ) => ColumnDef<ShipmentTable>[] = (handleSelect) => [
   {
     accessorKey: "orderId",
@@ -62,10 +61,7 @@ const shipmentsColumns: (
         row.getCanExpand() && (
           <div className=" flex justify-end ">
             <Button
-              onClick={(function () {
-                handleSelect(row.original.products);
-                return row.getToggleExpandedHandler();
-              })()}
+              onClick={row.getToggleExpandedHandler()}
               variant="text"
               className="p-2 rounded-lg cursor-pointer "
             >
@@ -85,13 +81,13 @@ const shipmentsColumns: (
 
 export default observer(function DataShipments() {
   const {
-    shipments: { shipmentsTable },
+    shipments: { shipmentsTable, setSelectedShipmentId, selectedShipment },
   } = useStore();
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const handleSelectShipment = (newProdcuts: Product[]) => {
-    setProducts(newProdcuts);
+  const handleSelectShipment = (shipmentId: Shipment["_id"]) => {
+    setSelectedShipmentId(shipmentId);
   };
+
   return (
     <div className="  relative h-full w-full">
       <div className="overflow-y-auto absolute h-full w-full ">
@@ -100,10 +96,12 @@ export default observer(function DataShipments() {
           data={shipmentsTable}
           getRowCanExpand={() => true}
           subComponent={
-            <Table<Product>
-              columns={prodcutColumns({ serial: true })}
-              data={products}
-            />
+            selectedShipment && (
+              <Table<Product>
+                columns={prodcutColumns({ serial: true })}
+                data={selectedShipment.products}
+              />
+            )
           }
         />
       </div>

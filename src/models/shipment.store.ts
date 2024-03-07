@@ -11,12 +11,12 @@ import { types } from "mobx-state-tree";
 export const ShipmentStore = types
   .model({
     shipments: types.array(ShimpentModel),
-    shipmentId: types.optional(types.string, ""),
+    selectedShipmentId: types.optional(types.string, ""),
   })
   .views((store) => ({
     get selectedShipment() {
       return store.shipments.find(
-        (shipment) => shipment._id === store.shipmentId
+        (shipment) => shipment._id === store.selectedShipmentId
       );
     },
     get shipmentsTable() {
@@ -45,7 +45,6 @@ export const ShipmentStore = types
 
       store.shipments.forEach((shipment) => {
         const date = new Date(shipment.date);
-        //
         const shipmentMonth = date.getUTCMonth();
         const shipmentYear = date.getUTCFullYear();
         months[shipmentMonth].month = `${shipmentMonth + 1 < 10 && "0"}${
@@ -66,7 +65,7 @@ export const ShipmentStore = types
     },
     get shipmentDetails() {
       const shipment = store.shipments.find(
-        (shipment) => shipment._id === store.shipmentId
+        (shipment) => shipment._id === store.selectedShipmentId
       );
 
       return shipment?.products || [];
@@ -89,5 +88,8 @@ export const ShipmentStore = types
   .actions((store) => ({
     setShipments(shipments: Shipment[]) {
       store.shipments.replace(shipments);
+    },
+    setSelectedShipmentId(shipmentId: Shipment["_id"]) {
+      store.selectedShipmentId = shipmentId;
     },
   }));

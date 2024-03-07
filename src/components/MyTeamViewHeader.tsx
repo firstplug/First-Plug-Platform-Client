@@ -1,4 +1,4 @@
-import { AddIcon, Button, CustomLink, UpLoadIcon } from "@/common";
+import { AddIcon, Button, CustomLink, UploadIcon } from "@/common";
 import React from "react";
 
 export function MyTeamViewHeader() {
@@ -9,12 +9,12 @@ export function MyTeamViewHeader() {
         variant={"secondary"}
         href="/home/addTeam"
       >
-        <AddIcon className={"h-4 w-4"} /> Add Team Member
+        <AddIcon /> Add Team Member
       </CustomLink>
 
       <Button
         body={"Load Team Member"}
-        icon={<UpLoadIcon className={"h-4 w-4"} />}
+        icon={<UploadIcon />}
         className={"rounded-md text-sm p-2"}
         variant={"primary"}
       />

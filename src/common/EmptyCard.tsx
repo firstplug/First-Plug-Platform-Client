@@ -1,96 +1,92 @@
 import Image from "next/image";
-import { ReactNode } from "react";
 import { Button } from "./Button";
-import { AddIcon, ShopIcon, UpLoadIcon } from "./Icons";
+import { AddIcon, ShopIcon, UploadIcon } from "./Icons";
 import { CustomLink } from "./CustomLink";
 
-type childrenTypes = "stock" | "members" | "shipments" | "orders";
+type EmptyCardType = "stock" | "members" | "shipments" | "orders";
+type TConfig = {
+  image: string;
+  paragraph: string;
+  ButtonIcon?: () => JSX.Element;
+  buttonText?: string;
+  LinkIcon?: () => JSX.Element;
+  linkText?: string;
+  link?: string;
+};
+
+const Config: Record<EmptyCardType, TConfig> = {
+  stock: {
+    image: "/office.svg",
+    paragraph: "You don't have any items.",
+    ButtonIcon: UploadIcon,
+    buttonText: "Load Stock",
+    LinkIcon: ShopIcon,
+    link: "/shop",
+    linkText: "Shop Now",
+  },
+  members: {
+    image: "/girl.svg",
+    paragraph: "You haven't loaded any employees yet.",
+    ButtonIcon: UploadIcon,
+    buttonText: "Load Team Members",
+    LinkIcon: AddIcon,
+    link: "/home/addTeam",
+    linkText: "Add Team Memeber",
+  },
+  orders: {
+    image: "/orders.svg",
+    paragraph: "You don't have any orders.",
+    LinkIcon: ShopIcon,
+    link: "/shop",
+    linkText: "Shop Now",
+  },
+  shipments: {
+    image: "/world.svg",
+    paragraph: "You haven't made any shipments yet.",
+    LinkIcon: UploadIcon,
+    link: "/home/my-stock",
+    linkText: "Shop Now",
+  },
+};
 
 interface EmptyCardProps {
-  className?: string;
-  imageBottom: string;
-  altImage: string;
-  paragraph: string;
-  children: childrenTypes;
+  type: EmptyCardType;
 }
-function EmptyCardChildren({ children }: { children: childrenTypes }) {
-  switch (children) {
-    case "stock":
-      return (
-        <div className="flex gap-2 ">
+
+export function EmptyCard({ type }: EmptyCardProps) {
+  const { ButtonIcon, LinkIcon, buttonText, image, link, linkText, paragraph } =
+    Config[type];
+  return (
+    <div className="flex flex-col items-center gap-3 ">
+      <div className="flex flex-col items-center">
+        <div className="w-52 h-52 relative">
+          <Image src={image} alt={paragraph} fill />
+        </div>
+        <p className="text-dark-grey">{paragraph}</p>
+      </div>
+      <div className="flex gap-2 ">
+        {ButtonIcon && (
           <Button
             variant="secondary"
-            body="Load Stock"
+            body={buttonText}
             size="big"
-            icon={<UpLoadIcon />}
+            icon={<ButtonIcon />}
             className="p-3 rounded-md"
             onClick={() => {}}
           />
+        )}
 
+        {LinkIcon && (
           <CustomLink
             variant="primary"
             size="big"
             className="rounded-md flex   gap-2"
-            href="/shop"
+            href={link}
           >
-            <ShopIcon /> Shop Now
+            <LinkIcon /> {linkText}
           </CustomLink>
-        </div>
-      );
-    case "members":
-      return (
-        <div className="flex gap-2 ">
-          <Button
-            body="Load Team Members"
-            icon={<AddIcon />}
-            onClick={() => {}}
-            variant="secondary"
-            size="big"
-            className="rounded-md"
-          />
-          <CustomLink
-            variant="primary"
-            size="big"
-            className="rounded-md flex gap-2"
-            href="home/addTeam"
-          >
-            <UpLoadIcon /> Add Team Memeber
-          </CustomLink>
-        </div>
-      );
-
-    case "shipments":
-    case "orders":
-      return (
-        <CustomLink
-          variant="primary"
-          size="big"
-          className="rounded-md flex gap-2"
-          href="/home/orders/equipment"
-        >
-          <ShopIcon /> Shop Now
-        </CustomLink>
-      );
-  }
-}
-export function EmptyCard({
-  imageBottom,
-  altImage,
-  paragraph,
-  children,
-  className,
-}: EmptyCardProps) {
-  return (
-    <div className={`${className || ""} flex flex-col items-center gap-3 `}>
-      <div className="flex flex-col items-center">
-        {imageBottom && (
-          <div className="w-52 h-52 relative">
-            <Image src={imageBottom} alt={altImage} fill />
-          </div>
         )}
-        <p className="text-dark-grey">{paragraph}</p>
       </div>
-      <EmptyCardChildren children={children} />
     </div>
   );
 }

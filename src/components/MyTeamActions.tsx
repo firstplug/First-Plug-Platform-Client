@@ -38,7 +38,7 @@ export function MyTeamActions({ toggleView, display }: MyTeamActionsProps) {
         <Button
           body="Create Team"
           variant={"text"}
-          icon={<AddIcon className={"w-[1rem]"} />}
+          icon={<AddIcon />}
           className={"p-2 text-sm rounded-md"}
           onClick={() => handleAside("NewTeam")}
         />
@@ -46,7 +46,7 @@ export function MyTeamActions({ toggleView, display }: MyTeamActionsProps) {
           body="Edit Team"
           variant={"text"}
           disabled={teams.length === 0}
-          icon={<PenIcon className={"w-[1rem]"} />}
+          icon={<PenIcon />}
           className={"p-2 text-sm rounded-md"}
           onClick={() => handleAside("EditTeam")}
         />

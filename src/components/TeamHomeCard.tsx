@@ -26,7 +26,7 @@ export const TeamHomeCard = observer(function () {
             " flex justify-center items-center rounded-md w-full   text-xl py-4  border border-blue text-blue "
           }
         >
-          <AddIcon strokeWidth={1.5} /> Add Team Member
+          <AddIcon /> Add Team Member
         </CustomLink>
       </section>
       <section className="  flex   w-2/3 h-full  relative ">

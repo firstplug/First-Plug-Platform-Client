@@ -18,15 +18,11 @@ export function DropFilter({ children, contentText }: DropFilterProps) {
         className="text-sm px-3 flex items-center gap-3 font-medium rounded-md bg-white border active:bg-gray-100 w-full h-full  "
       >
         {contentText}
-        {isOpen ? (
-          <DropDownArrow
-            className={"w-3 rotate-180 transition-all duration-300"}
-          />
-        ) : (
-          <DropDownArrow
-            className={"w-3 rotate-360 transition-all duration-300"}
-          />
-        )}
+        <DropDownArrow
+          className={`w-3 ${
+            isOpen ? "rotate-180" : "rotate-360"
+          } rotate-180 transition-all duration-300`}
+        />
       </button>
       {isOpen && children}
     </div>

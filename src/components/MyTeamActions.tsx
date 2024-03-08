@@ -30,7 +30,7 @@ export function MyTeamActions({ toggleView, display }: MyTeamActionsProps) {
       <div>
         <DropFilter contentText={"Filter by team:"}>
           <FilterModal
-            array={teams.map((team) => ({ id: team._id, name: team.name }))}
+            items={teams.map((team) => ({ id: team._id, name: team.name }))}
           />
         </DropFilter>
       </div>

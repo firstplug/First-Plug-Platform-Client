@@ -56,6 +56,7 @@ export function EyeIcon({ className }: EyeSlashIconProps) {
       strokeWidth={1.5}
       stroke="currentColor"
       className={`w-6 h-6 ${className || ""}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -83,6 +84,7 @@ export function EyeSlashIcon({ className }: EyeSlashIconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
+      className={`w-6 h-6 ${className || ""}`}
       className={`w-6 h-6 ${className || ""}`}
     >
       <path
@@ -272,7 +274,7 @@ type ShopIconProps = {
   className?: string;
 };
 
-export function ShopIcon({ className = "" }: ShopIconProps) {
+export function ShopIcon({ className }: ShopIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -280,7 +282,7 @@ export function ShopIcon({ className = "" }: ShopIconProps) {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="currentColor"
-      className={`w-4  ${className} `}
+      className={`w-6 h-6 ${className || ""} `}
     >
       <path
         strokeLinecap="round"
@@ -455,7 +457,7 @@ export function ArrowRight({ className, color, strokeWidth }: ArrowRightProps) {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={strokeWidth || 2}
+      strokeWidth={strokeWidth || 1.5}
       stroke={color || "currentColor"}
       className={`w-3 ${className}`}
     >
@@ -492,20 +494,15 @@ export function ArrowLeft({ className, color, strokeWidth }: ArrowLeftProps) {
   );
 }
 
-type AddIconProps = {
-  className?: string;
-  strokeWidth?: number;
-};
-
-export function AddIcon({ className, strokeWidth }: AddIconProps) {
+export function AddIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={strokeWidth || 2.0}
+      strokeWidth={2}
       stroke="currentColor"
-      className={`w-5 h-5 ${className || ""}`}
+      className="w-4"
     >
       <path
         strokeLinecap="round"
@@ -541,7 +538,7 @@ export function TrashIcon({ className, color, strokeWidth }: TrashIconProps) {
   );
 }
 
-type UpLoadIcoProps = {
+type UploadIconProps = {
   className?: string;
 };
 
@@ -553,7 +550,7 @@ export function UpLoadIcon({ className = "" }: UpLoadIcoProps) {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="currentColor"
-      className={`w-4 ${className}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"

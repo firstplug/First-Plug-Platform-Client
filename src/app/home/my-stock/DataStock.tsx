@@ -1,7 +1,7 @@
 "use client";
 import { Table } from "@/components";
 import { Button, ShipmentStatusCard } from "@/common";
-import { ArrowRight, ShopIcon, TrashIcon, UpLoadIcon } from "@/common/Icons";
+import { ArrowRight, ShopIcon, TrashIcon, UploadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
@@ -179,7 +179,7 @@ export default observer(function DataStock() {
             className="rounded-md py-2 px-4"
             variant="secondary"
             body="Load Stock"
-            icon={<UpLoadIcon />}
+            icon={<UploadIcon />}
             onClick={() => setAside("LoadStock")}
           />
 

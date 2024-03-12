@@ -28,10 +28,10 @@ export default observer(function Dashboard() {
             />
           )}
         </section>
-        <section className="grid grid-cols-2 gap-4 h-1/2 ">
+        <section className="grid grid-cols-2 gap-4  max-h-1/2 h-1/2  ">
           {products.length ? (
             <Card Title="My Stock" titleButton="Shop Now" icon={<ShopIcon />}>
-              <StockCard className="my-4" />
+              <StockCard />
             </Card>
           ) : (
             <Card

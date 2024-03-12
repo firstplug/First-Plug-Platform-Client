@@ -43,8 +43,17 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
       });
 
       if (sessionStorage.getItem("accessToken")) {
-        Memberservices.getAllMembers().then((res) => {
-          setMembers(res);
+        ProductServices.getAllProducts().then((res) => {
+          setProducts(res);
+        });
+        ProductServices.getAllProducts().then((res) => {
+          setProducts(res);
+        });
+        OrderServices.getAllOrders().then((res) => {
+          setOrders(res);
+        });
+        ShipmentServices.getAllShipments().then((res) => {
+          setShipments(res.data);
         });
         ProductServices.getAllProducts().then((res) => {
           setProducts(res);

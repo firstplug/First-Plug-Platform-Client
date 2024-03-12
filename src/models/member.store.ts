@@ -5,6 +5,7 @@ export const MemberStore = types
   .model({
     members: types.array(TeamMemberModel),
     memberId: types.optional(types.string, ""),
+    teamFilterItems: types.array(types.string),
   })
   .views((store) => ({
     get membersTable(): TeamMemberTable[] {
@@ -32,6 +33,9 @@ export const MemberStore = types
   .actions((store) => ({
     setMembers(members: TeamMember[]) {
       store.members.replace(members);
+    },
+    setFilter(filterTeams: string[]) {
+      store.teamFilterItems.replace(filterTeams);
     },
     addMember(member: TeamMember) {
       store.members.push(member);

@@ -1,24 +1,29 @@
+"use client";
 import {
   AddIcon,
   Button,
-  DropFilter,
   GridLayoutIcon,
   PenIcon,
   TableDisplayIcon,
+  TeamCard,
 } from "@/common";
-import React from "react";
 import { FilterModal } from "./FilterModal";
 import { useStore } from "@/models";
 import { AsideType, DisplayView } from "@/types";
+import { observer } from "mobx-react-lite";
 
 interface MyTeamActionsProps {
   toggleView: () => void;
   display: DisplayView;
 }
-export function MyTeamActions({ toggleView, display }: MyTeamActionsProps) {
+export const MyTeamActions = observer(function ({
+  toggleView,
+  display,
+}: MyTeamActionsProps) {
   const {
     teams: { teams },
     aside: { setAside },
+    members: { teamFilterItems, filterMembersByTeam, setFilter },
   } = useStore();
   const handleAside = (type: AsideType) => {
     setAside(type);
@@ -27,13 +32,24 @@ export function MyTeamActions({ toggleView, display }: MyTeamActionsProps) {
 
   return (
     <div className="w-full flex justify-between   h-[6%]  gap-2  ">
-      <div>
-        <DropFilter contentText={"Filter by team:"}>
-          <FilterModal
-            array={teams.map((team) => ({ id: team._id, name: team.name }))}
-          />
-        </DropFilter>
+      <div className="flex gap-2 items-center ">
+        <FilterModal
+          title="Filter By Teams"
+          items={teams.map((t) => t.toString())}
+          handleFilter={setFilter}
+        />
+        <div className="flex gap-4 items-center  ">
+          <span className="font-semibold text-black opacity-70">
+            ({filterMembersByTeam.length})
+          </span>
+          <div className="flex items-center gap-1  p-2 flex-grow ">
+            {teamFilterItems.map((team) => (
+              <TeamCard team={team} />
+            ))}
+          </div>
+        </div>
       </div>
+
       <div className="flex gap-2 items-center">
         <Button
           body="Create Team"
@@ -60,4 +76,4 @@ export function MyTeamActions({ toggleView, display }: MyTeamActionsProps) {
       </div>
     </div>
   );
-}
+});

@@ -8,26 +8,30 @@ interface DoughnutChartProps {
   className?: string;
   data: {
     quantity?: number;
+    stock?: number;
   };
 }
 
 export function DoughnutChart({ className, data }: DoughnutChartProps) {
-  const number = 10;
-  const quantity = data && data.quantity ? data.quantity : 0;
+  const stock = data.stock || 0;
+  //TODO: check this, where are assigned and available values?
+  const quantity = data.quantity;
+
+  const assignedColor = "#9747FF";
+  const availableColor = "#4FE8B7";
+
   const info = {
     labels: ["Assigned", "Available"],
-    color: "white",
     datasets: [
       {
-        data: [quantity, number],
-        backgroundColor: ["#9747FF", "#4FE8B7"],
-        hoverBackgroundColor: ["#fff"],
-        border: "none",
+        data: [quantity, stock],
+        backgroundColor: [assignedColor, availableColor],
+        hoverBackgroundColor: ["#fff", "#fff"],
       },
     ],
   };
 
-  const options: ChartOptions<'doughnut'> = {
+  const options: ChartOptions<"doughnut"> = {
     plugins: {
       legend: {
         position: "bottom",
@@ -57,20 +61,26 @@ export function DoughnutChart({ className, data }: DoughnutChartProps) {
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="flex flex-col items-center">
           <span className="text-dark-grey font-medium">Total</span>
-          <span className="font-bold text-2xl">{quantity + number}</span>
+          <span className="font-bold text-2xl">{quantity + stock}</span>
         </div>
       </div>
       <figcaption className="flex gap-2 w-full justify-center">
-        <div className="flex gap-1 items-center">
-          <div className="h-[1rem] w-[1rem] bg-purple rounded-full"></div>
+        <div className="flex gap-1 items-center pt-8">
+          <div
+            className="h-[1rem] w-[1rem]"
+            style={{ backgroundColor: assignedColor }}
+          ></div>
           <p>
             Assigned | <b> {quantity} </b>
           </p>
         </div>
-        <div className="flex gap-1 items-center">
-          <div className="h-[1rem] w-[1rem] bg-green rounded-full"></div>
+        <div className="flex gap-1 items-center pt-8">
+          <div
+            className="h-[1rem] w-[1rem]"
+            style={{ backgroundColor: availableColor }}
+          ></div>
           <p>
-            Avaliable | <b> {number} </b>
+            Available | <b> {stock} </b>
           </p>
         </div>
       </figcaption>

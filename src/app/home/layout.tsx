@@ -4,14 +4,8 @@ import { Navbar, Sidebar, Aside } from "@/components";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { useSession } from "next-auth/react";
-import { LoggedInUser } from "@/types";
-import {
-  Memberservices,
-  OrderServices,
-  ProductServices,
-  ShipmentServices,
-  TeamServices,
-} from "@/services";
+import { Memberservices } from "@/services";
+import { Layout } from "@/common";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -22,8 +16,8 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
 
   const {
     user: { setUser },
+    members: { setMembers },
   } = store;
-
   const session = useSession();
 
   useEffect(() => {
@@ -42,7 +36,7 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
 
       if (sessionStorage.getItem("accessToken")) {
         Memberservices.getAllMembers().then((res) => {
-          store.members.setMembers(res);
+          setMembers(res);
         });
       }
     }
@@ -50,13 +44,13 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
 
   if (!store) return null;
   return (
-    <div className="flex">
+    <div className="flex h-screen overflow-hidden">
       <Sidebar />
-      <div className="w-full">
+      <aside className="flex flex-col flex-grow  max-h-[100vh] pb-2 ">
         <Navbar />
-        {children}
-        <Aside />
-      </div>
+        <Layout>{children}</Layout>
+      </aside>
+      <Aside />
     </div>
   );
 });

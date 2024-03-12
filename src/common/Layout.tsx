@@ -1,16 +1,9 @@
 import React, { ReactNode } from "react";
 
-interface LayoutProps  {
+interface LayoutProps {
   children: ReactNode;
-  className?: string;
-};
+}
 
-export function Layout({ children, className }: LayoutProps) {
-  return (
-    <section
-      className={`h-[calc(98vh-100px)] w-[96%] mx-auto py-6 mt-6 ${className}`}
-    >
-      {children}
-    </section>
-  );
+export function Layout({ children }: LayoutProps) {
+  return <section className={`   flex-grow p-4 `}>{children}</section>;
 }

@@ -1,14 +1,14 @@
 "use client";
 import { Table } from "@/components";
-import { Layout, Button } from "@/common";
-import { ShopIcon, UpLoadIcon } from "@/common/Icons";
+import { Button } from "@/common";
+import { ShopIcon, UploadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";
 
 export default function DataStock() {
   const router = useRouter();
 
   return (
-    <Layout className="flex flex-col gap-5 overflow-auto pb-1">
+    <div className="flex flex-col gap-5 overflow-auto pb-1">
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
           <input type="checkbox" />
@@ -22,7 +22,7 @@ export default function DataStock() {
             <Button
               variant="secondary"
               body="Load Stock"
-              icon={<UpLoadIcon />}
+              icon={<UploadIcon />}
               className="p-3 rounded-md"
             />
           </div>
@@ -43,6 +43,6 @@ export default function DataStock() {
       <div className="mt-10">
         <Table />
       </div>
-    </Layout>
+    </div>
   );
 }

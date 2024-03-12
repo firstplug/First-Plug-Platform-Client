@@ -44,10 +44,9 @@ export const ShipmentStore = types
       return shipment?.products || [];
     },
 
-    //TODO: check this because dont filter data // It could be due to a problem in the product IDs
     shipmentByProduct(productId: string) {
       return store.shipments.filter((shipment) =>
-        shipment.products.some((product) => product._id === productId) 
+        shipment.products.some((product) => product._id === productId)
       );
     },
 

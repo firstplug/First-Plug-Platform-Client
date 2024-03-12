@@ -21,7 +21,7 @@ export const Navbar = function ({
 }: NavbarProps) {
   const router = useRouter();
   return (
-    <nav className="flex justify-between items-center pt-6 px-10 pb-3">
+    <nav className="flex justify-between items-center h-[8vh] px-4  ">
       <div className="flex gap-6 items-center">
         {title === "logo" ? (
           <Image src={Logo} alt="Logo" width={140} height={300} priority />
@@ -43,20 +43,11 @@ export const Navbar = function ({
             }}
           />
         </div>
-        <div>
-          <Button
-            icon={
-              <NotificationIcon stroke={2} hasNotification={hasNotification} />
-            }
-            variant={"text"}
-            className={"py-2 px-2 hover:bg-none "}
-          />
-        </div>
         <div className="flex items-center rounded-md hover:bg-light-grey ">
           <div className="relative w-10 h-10 ">
             <ImgPorfile />
           </div>
-          <DropdownButton className="py-0 px-2 m-0"  />
+          <DropdownButton className="py-0 px-2 m-0" />
         </div>
       </div>
     </nav>

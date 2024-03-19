@@ -3,21 +3,17 @@ import axios from "axios";
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 const axiosInstance = axios.create({ baseURL });
-
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = sessionStorage.getItem("accessToken");
-
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
-  },
-  (error) => {
-    Promise.reject(error);
-  }
-);
+export const setAuthInterceptor = (token: string | null) => {
+  return axiosInstance.interceptors.request.use(
+    (config) => {
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
+};
 
 export class HTTPRequests {
   static async get(url: string) {

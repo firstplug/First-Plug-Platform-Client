@@ -49,7 +49,7 @@ export const prodcutColumns: ({
     footer: (props) => props.column.id,
   },
   {
-    accessorFn: (row) => row.model,
+    accessorFn: (row) => row.name,
     header: "Model",
     size: 200,
     cell: ({ row, getValue }) => (

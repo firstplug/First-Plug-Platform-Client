@@ -26,8 +26,12 @@ export const MemberStore = types
     get selectedMember() {
       return store.members.find((member) => member._id === store.memberId);
     },
-    membersByTeam(team: string) {
-      return store.members.filter((member) => member.teams.includes(team));
+    get filterMembersByTeam() {
+      if (!store.teamFilterItems.length) return store.members;
+
+      return store.members.filter(({ teams }) =>
+        store.teamFilterItems.some((value) => teams.includes(value.toString()))
+      );
     },
   }))
   .actions((store) => ({

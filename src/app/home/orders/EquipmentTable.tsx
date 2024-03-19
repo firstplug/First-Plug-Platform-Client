@@ -54,8 +54,8 @@ export default observer(function EquipmentTable() {
   } = useStore();
 
   const handleClick = (orderId: Order["_id"]) => {
-    setAside("OrderDetails");
     setSelectedOrder(orderId);
+    setAside("OrderDetails");
   };
   return (
     <Table<Order> columns={ordersEquipmentColumns(handleClick)} data={orders} />

@@ -53,9 +53,9 @@ export const prodcutColumns: ({
     header: "Model",
     size: 200,
     cell: ({ row, getValue }) => (
-      <div className="flex flex-col gap-">
-        <span className="text-xl">{getValue<string>()}</span>
-        <span className=" flex gap-2 text-dark-grey text-md ">
+      <div className="flex flex-col ">
+        <section className="text-xl "> {getValue<string>()}</section>
+        <section className=" flex gap-2 text-dark-grey text-md ">
           <div className="flex gap-1 items-center">
             <span>Proccesor </span>
             <p className="font-normal">{row.original.processor}</p>
@@ -71,7 +71,7 @@ export const prodcutColumns: ({
               <p className="font-normal">{row.original.storage}</p>
             </p>
           </div>
-        </span>
+        </section>
       </div>
     ),
   },

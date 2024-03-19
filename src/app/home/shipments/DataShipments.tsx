@@ -7,6 +7,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { observer } from "mobx-react-lite";
 import { prodcutColumns } from "../my-stock/DataStock";
+import ShipmentDetailsRow from "./ShipmentDetailsRow";
 const shipmentsColumns: (
   handleSelect: (shipmentId: Shipment["_id"]) => void
 ) => ColumnDef<ShipmentTable>[] = (handleSelect) => [
@@ -59,11 +60,14 @@ const shipmentsColumns: (
     cell: ({ row }) => {
       return (
         row.getCanExpand() && (
-          <div className=" flex justify-end ">
+          <div
+            className=" flex   "
+            onClick={() => handleSelect(row.original.orderId)}
+          >
             <Button
               onClick={row.getToggleExpandedHandler()}
               variant="text"
-              className="p-2 rounded-lg cursor-pointer "
+              className="p-2 rounded-lg cursor-pointer w-full "
             >
               <span>Details</span>
               <ArrowRight
@@ -84,25 +88,17 @@ export default observer(function DataShipments() {
     shipments: { shipmentsTable, setSelectedShipmentId, selectedShipment },
   } = useStore();
 
-  const handleSelectShipment = (shipmentId: Shipment["_id"]) => {
+  const handleSelectShipment = (shipmentId: Shipment["_id"]) =>
     setSelectedShipmentId(shipmentId);
-  };
 
   return (
-    <div className="  relative h-full w-full">
-      <div className="overflow-y-auto absolute h-full w-full ">
+    <div className="overflow-y-auto h-full w-full relative  ">
+      <div className="absolute w-full h-full ">
         <Table<ShipmentTable>
           columns={shipmentsColumns(handleSelectShipment)}
           data={shipmentsTable}
           getRowCanExpand={() => true}
-          subComponent={
-            selectedShipment && (
-              <Table<Product>
-                columns={prodcutColumns({ serial: true })}
-                data={selectedShipment.products}
-              />
-            )
-          }
+          subComponent={<ShipmentDetailsRow />}
         />
       </div>
     </div>

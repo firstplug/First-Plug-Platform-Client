@@ -1,15 +1,15 @@
 "use client";
 import { Table } from "../Table";
-import { Product, Shipment, ShipmentTable } from "@/types";
+import { Product, Shipment, IShipmentTable } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { DMY_Date } from "@/utils";
 import { ArrowRight, Button, CustomLink } from "@/common";
 import { useStore } from "@/models";
-import { TableProducts } from "./TableProducts";
+import { ProdcutsTable } from ".";
 import { observer } from "mobx-react-lite";
 const shipmentsColumns: (
   handleSelect: (shipmentId: Shipment["_id"]) => void
-) => ColumnDef<ShipmentTable>[] = (handleSelect) => [
+) => ColumnDef<IShipmentTable>[] = (handleSelect) => [
   {
     accessorKey: "orderId",
     header: "Order ID",
@@ -82,9 +82,9 @@ const shipmentsColumns: (
   },
 ];
 interface TableShipmentsProps {
-  shipments: ShipmentTable[];
+  shipments: IShipmentTable[];
 }
-export const TableShipments = observer(function ({
+export const ShipmentsTable = observer(function ({
   shipments,
 }: TableShipmentsProps) {
   const {
@@ -95,13 +95,13 @@ export const TableShipments = observer(function ({
     setSelectedShipmentId(shipmentId);
 
   return (
-    <Table<ShipmentTable>
+    <Table<IShipmentTable>
       columns={shipmentsColumns(handleSelectShipment)}
       data={shipments}
       getRowCanExpand={() => true}
       subComponent={
         selectedShipment ? (
-          <TableProducts products={selectedShipment.products} />
+          <ProdcutsTable products={selectedShipment.products} />
         ) : null
       }
     />

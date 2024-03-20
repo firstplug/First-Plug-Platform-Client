@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { HeaderOrders, Tabs } from "@/common";
 import { observer } from "mobx-react-lite";
-import { TableEquipment, TableLogistics } from "@/components/Tables";
+import { EquipmentTable, LogisticsTable } from "@/components/Tables";
 import { useStore } from "@/models";
 export default observer(function DataOrders() {
   const {
@@ -19,9 +19,9 @@ export default observer(function DataOrders() {
     <div className="flex flex-col gap-8">
       <HeaderOrders selectedTab={selectedTab} handleTab={handleTabClick} />
       {selectedTab === "Logistics" ? (
-        <TableLogistics shipmentsByMonth={shipmentsByMonth} />
+        <LogisticsTable shipmentsByMonth={shipmentsByMonth} />
       ) : (
-        <TableEquipment orders={orders} />
+        <EquipmentTable orders={orders} />
       )}
     </div>
   );

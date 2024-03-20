@@ -29,7 +29,7 @@ const ordersLogisticColumns: ColumnDef<ShipmentByMonthTable>[] = [
 interface TableLogisticsProps {
   shipmentsByMonth: ShipmentByMonthTable[];
 }
-export function TableLogistics({ shipmentsByMonth }: TableLogisticsProps) {
+export function LogisticsTable({ shipmentsByMonth }: TableLogisticsProps) {
   return (
     <Table<ShipmentByMonthTable>
       columns={ordersLogisticColumns}

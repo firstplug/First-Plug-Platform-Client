@@ -50,7 +50,7 @@ const ordersEquipmentColumns: (
 interface TableEquipmentProps {
   orders: Order[];
 }
-export function TableEquipment({ orders }: TableEquipmentProps) {
+export function EquipmentTable({ orders }: TableEquipmentProps) {
   const {
     orders: { setSelectedOrder },
     aside: { setAside },

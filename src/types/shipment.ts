@@ -71,7 +71,7 @@ export type ShipmentByMonthTable = {
   price: number;
   shipments: number;
 };
-export type ShipmentTable = {
+export type IShipmentTable = {
   orderId: string;
   date: string;
   productsQuantity: number;

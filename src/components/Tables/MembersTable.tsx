@@ -89,7 +89,7 @@ const membersColumns: (
 interface TableMembersProps {
   members: TeamMemberTable[];
 }
-export function TableMembers({ members }: TableMembersProps) {
+export function MembersTable({ members }: TableMembersProps) {
   const {
     members: { setSelectedMember, setMembers },
     aside: { setAside },

@@ -3,8 +3,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { GridTeam } from "./";
 import { DisplayView } from "@/types";
-
-import { TableMembers } from "./Tables";
+import { MembersTable } from "./Tables";
 
 interface TeamMembersProps {
   display?: DisplayView;
@@ -20,7 +19,7 @@ export const TeamMembers = observer(function ({ display }: TeamMembersProps) {
       {display === "grid" ? (
         <GridTeam />
       ) : (
-        <TableMembers members={membersTable} />
+        <MembersTable members={membersTable} />
       )}
     </section>
   );

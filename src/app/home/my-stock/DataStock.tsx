@@ -4,7 +4,7 @@ import { ShopIcon, UploadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
-import { TableProducts } from "@/components/Tables";
+import { ProdcutsTable } from "@/components/Tables";
 
 export default observer(function DataStock() {
   const router = useRouter();
@@ -45,7 +45,7 @@ export default observer(function DataStock() {
       </aside>
 
       <div className="h-[90%] top-[8%] w-full overflow-y-auto  absolute ">
-        <TableProducts products={products} internalProducts={products} />
+        <ProdcutsTable products={products} internalProducts={products} />
       </div>
     </div>
   );

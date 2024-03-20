@@ -4,7 +4,7 @@ import {
   ShipmentByMonth,
   ShipmentByMonthStatus,
   ShipmentByMonthTable,
-  ShipmentTable,
+  IShipmentTable,
 } from "@/types";
 import { types } from "mobx-state-tree";
 
@@ -21,7 +21,7 @@ export const ShipmentStore = types
     },
     get shipmentsTable() {
       return store.shipments.map(
-        (shipment): ShipmentTable => ({
+        (shipment): IShipmentTable => ({
           orderId: shipment._id,
           date: shipment.date,
           type: shipment.type,

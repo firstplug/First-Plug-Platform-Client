@@ -11,6 +11,7 @@ import {
   ShipmentServices,
 } from "@/services";
 import { Layout } from "@/common";
+import { setAuthInterceptor } from "@/config/axios.config";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -43,6 +44,7 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
       });
 
       if (sessionStorage.getItem("accessToken")) {
+        setAuthInterceptor(sessionStorage.getItem("accessToken"));
         Memberservices.getAllMembers().then((res) => {
           setMembers(res);
         });

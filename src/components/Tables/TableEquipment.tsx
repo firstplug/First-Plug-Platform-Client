@@ -1,11 +1,10 @@
-"use client";
 import { Button, OrderState } from "@/common";
-import { Table } from "@/components";
+import { Order, OrderStatus, Product } from "@/types";
 import { DMY_Date } from "@/utils";
-import { useStore } from "@/models";
-import { Order, OrderStatus, Product, TeamMember } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { observer } from "mobx-react-lite";
+import React from "react";
+import { Table } from "../Table";
+import { useStore } from "@/models";
 const ordersEquipmentColumns: (
   handleClick: (orderId: Order["_id"]) => void
 ) => ColumnDef<Order>[] = (handleClick) => [
@@ -25,7 +24,7 @@ const ordersEquipmentColumns: (
   {
     accessorKey: "teamMember",
     header: "Team Member",
-    cell: ({ getValue }) => getValue<TeamMember>(),
+    cell: ({ getValue }) => getValue(),
   },
   {
     accessorKey: "date",
@@ -47,9 +46,13 @@ const ordersEquipmentColumns: (
     ),
   },
 ];
-export default observer(function EquipmentTable() {
+
+interface TableEquipmentProps {
+  orders: Order[];
+}
+export function TableEquipment({ orders }: TableEquipmentProps) {
   const {
-    orders: { orders, setSelectedOrder },
+    orders: { setSelectedOrder },
     aside: { setAside },
   } = useStore();
 
@@ -60,4 +63,4 @@ export default observer(function EquipmentTable() {
   return (
     <Table<Order> columns={ordersEquipmentColumns(handleClick)} data={orders} />
   );
-});
+}

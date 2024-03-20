@@ -1,23 +1,17 @@
 "use client";
-
-import { Table } from "@/components";
 import { useStore } from "@/models";
-import { Product } from "@/types";
 import { observer } from "mobx-react-lite";
-import { prodcutColumns } from "../my-stock/DataStock";
+import { TableProducts } from "@/components/Tables";
 
 export default observer(function ShipmentDetailsRow() {
   const {
-    shipments: { selectedShipment, setSelectedShipmentId, selectedShipmentId },
+    shipments: { selectedShipment },
   } = useStore();
 
   return (
     <div>
       {selectedShipment && (
-        <Table<Product>
-          columns={prodcutColumns({ serial: true })}
-          data={selectedShipment.products}
-        />
+        <TableProducts products={selectedShipment.products} />
       )}
     </div>
   );

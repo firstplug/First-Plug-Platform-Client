@@ -16,9 +16,9 @@ export const ProductsStore = types
         quantity: product.stock,
         model: {
           model: product.model,
-          processor: product.processor || undefined,
-          ram: product.ram || undefined,
-          storage: product.storage || undefined,
+          processor: product.processor,
+          ram: product.ram,
+          storage: product.storage,
         },
         serialNumber: product.serialNumber,
       }));

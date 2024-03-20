@@ -1,9 +1,7 @@
-"use client";
-import { Table } from "@/components";
-import { useStore } from "@/models";
 import { ShipmentByMonthTable } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { observer } from "mobx-react-lite";
+import React from "react";
+import { Table } from "../Table";
 const ordersLogisticColumns: ColumnDef<ShipmentByMonthTable>[] = [
   {
     accessorKey: "month",
@@ -27,14 +25,15 @@ const ordersLogisticColumns: ColumnDef<ShipmentByMonthTable>[] = [
     cell: ({ getValue }) => <span> USD {getValue<number>()} </span>,
   },
 ];
-export default observer(function LogisticTable() {
-  const {
-    shipments: { shipmentsByMonth },
-  } = useStore();
+
+interface TableLogisticsProps {
+  shipmentsByMonth: ShipmentByMonthTable[];
+}
+export function TableLogistics({ shipmentsByMonth }: TableLogisticsProps) {
   return (
     <Table<ShipmentByMonthTable>
       columns={ordersLogisticColumns}
       data={shipmentsByMonth}
     />
   );
-});
+}

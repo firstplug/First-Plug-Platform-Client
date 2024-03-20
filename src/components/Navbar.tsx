@@ -19,23 +19,22 @@ export const Navbar = function ({
 }: NavbarProps) {
   const router = useRouter();
   const pathName = usePathname();
-  const checkPath = (path: string) => pathName.split("/").includes(path);
-  const TITLE = checkPath("shipments")
-    ? "Shipments"
-    : checkPath("my-stock")
-    ? "My Stock"
-    : checkPath("my-team")
-    ? "My Team"
-    : checkPath("orders")
-    ? "Orders"
-    : "";
+
+  const Titles = {
+    "my-stock": "My Stock",
+    "my-team": "My Team",
+    shipments: "Shipments",
+  } as const;
+
   return (
     <nav className="flex justify-between items-center h-[8vh] px-4  ">
       <div className="flex gap-6 items-center">
         {title === "logo" ? (
           <Image src={Logo} alt="Logo" width={140} height={300} priority />
         ) : (
-          <h1 className="font-bold text-2xl text-black">{TITLE}</h1>
+          <h2 className="font-bold text-2xl text-black">
+            {Titles[pathName.split("/")[2]] ?? ""}
+          </h2>
         )}
 
         {searchInput && <SearchInput placeholder={placeholder} />}

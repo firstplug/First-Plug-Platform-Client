@@ -19,11 +19,7 @@ function setAction(status: string) {
       return "Track >";
   }
 }
-export const prodcutColumns: ({
-  serial,
-}: {
-  serial?: boolean;
-}) => ColumnDef<Product>[] = ({ serial = false }) => [
+export const prodcutColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.category,
     header: "Category",
@@ -70,19 +66,18 @@ export const prodcutColumns: ({
       </div>
     ),
   },
-  !serial
-    ? {
-        accessorFn: (row) => row.stock,
-        header: "Quantity",
-        size: 200,
-        cell: ({ getValue }) => <span>{getValue<number>()}</span>,
-      }
-    : {
-        accessorFn: (row) => row.serialNumber,
-        header: "Serial",
-        size: 200,
-        cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-      },
+  {
+    accessorFn: (row) => row.stock,
+    header: "Quantity",
+    size: 200,
+    cell: ({ getValue }) => <span>{getValue<number>()}</span>,
+  },
+  {
+    accessorFn: (row) => row.serialNumber,
+    header: "Serial",
+    size: 200,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+  },
   {
     id: "expander",
     header: () => null,
@@ -163,7 +158,7 @@ export function ProdcutsTable({
   return (
     <Table<Product>
       data={products}
-      columns={prodcutColumns({ serial: false })}
+      columns={prodcutColumns}
       getRowCanExpand={() => true}
       subComponent={
         internalProducts ? (

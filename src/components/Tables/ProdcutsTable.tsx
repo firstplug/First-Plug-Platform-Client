@@ -19,6 +19,10 @@ function setAction(status: string) {
       return "Track >";
   }
 }
+
+// TODO :  Agregar lógica que defina que columnas se muestran y cuales no. Por ejmeplo en la tabla que se despliega desde TableShipments,
+// las columnas que deberian verse son Category, Model y Serial.
+
 export const prodcutColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.category,
@@ -26,7 +30,7 @@ export const prodcutColumns: ColumnDef<Product>[] = [
     size: 200,
     cell: ({ row, getValue }) => (
       <div className="flex gap-2 items-center">
-        <div className="relative w-[15%]   aspect-square   ">
+        <div className="relative w-[25%]   aspect-square   ">
           <Image
             src={row.original.imgUrl}
             alt={getValue<string>()}
@@ -42,24 +46,23 @@ export const prodcutColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.name,
     header: "Model",
-    size: 200,
+    size: 400,
     cell: ({ row, getValue }) => (
       <div className="flex flex-col ">
-        <section className="text-xl "> {getValue<string>()}</section>
-        <section className=" flex gap-2 text-dark-grey text-md ">
-          <div className="flex gap-1 items-center">
+        <section className="text-lg "> {getValue<string>()}</section>
+        <section className=" flex gap-2 text-dark-grey text-xs ">
+          <div className="flex  items-center">
             <span>Proccesor </span>
-            <p className="font-normal">{row.original.processor}</p>
+            <p className="font-normal"> {row.original.processor}</p>
           </div>
-          <div className="flex gap-1 items-center">
+          <div className="flex  items-center">
             <span>RAM </span>
-            <p className="font-normal">{row.original.ram}</p>
+            <p className="font-normal"> {row.original.ram}</p>
           </div>
-          <div className="flex gap-1 items-center">
+          <div className="flex  items-center">
             <span>SDD </span>
-
             <p className="font-normal">
-              <p className="font-normal">{row.original.storage}</p>
+              <p className="font-normal"> {row.original.storage}</p>
             </p>
           </div>
         </section>
@@ -107,6 +110,10 @@ export const prodcutColumns: ColumnDef<Product>[] = [
     },
   },
 ];
+
+/* TODO:  esta tabla deberia ser una lista de Shipments en base al prodcuto que se hace click?.
+ Es decir si un producto tiene en quantity 5. Deberian figurar 5 shipments con sus correspondientes status e informacion? */
+
 const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.serialNumber,
@@ -118,7 +125,12 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.name,
     header: "Currently with",
-    cell: ({ getValue }) => <span className="text-md">Name & LastName</span>,
+    cell: ({ row }) => (
+      <span className="text-md">
+        {/* // TODO: nombre de la persona a la que se dirige el producto */}
+        Name & LastName
+      </span>
+    ),
   },
   {
     accessorFn: (row) => row.status,

@@ -72,7 +72,7 @@ export const Table = function <T>({
             <Fragment key={row.id}>
               <tr
                 key={row.id}
-                className={` text-black border-b  border-gray-200 text-left  ${
+                className={` text-black border-b text-md border-gray-200 text-left  ${
                   row.getIsExpanded() &&
                   "border-l-2 border-l-black bg-hoverBlue"
                 }`}

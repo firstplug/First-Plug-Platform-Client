@@ -163,7 +163,7 @@ interface ProductTableProps {
   products: Product[];
   internalProducts?: Product[];
 }
-export function ProdcutsTable({
+export function ProductsTable({
   internalProducts,
   products,
 }: ProductTableProps) {

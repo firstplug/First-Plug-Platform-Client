@@ -10,7 +10,7 @@ const ordersLogisticColumns: ColumnDef<ShipmentByMonthTable>[] = [
   },
   {
     accessorKey: "shipments",
-    header: "Shipmetns Quantity",
+    header: "Shipments Quantity",
     cell: ({ getValue }) => getValue<number>(),
   },
   {

@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DMY_Date } from "@/utils";
 import { ArrowRight, Button, CustomLink } from "@/common";
 import { useStore } from "@/models";
-import { ProdcutsTable } from ".";
+import { ProductsTable } from ".";
 import { observer } from "mobx-react-lite";
 const shipmentsColumns: (
   handleSelect: (shipmentId: Shipment["_id"]) => void
@@ -101,7 +101,7 @@ export const ShipmentsTable = observer(function ({
       getRowCanExpand={() => true}
       subComponent={
         selectedShipment ? (
-          <ProdcutsTable products={selectedShipment.products} />
+          <ProductsTable products={selectedShipment.products} />
         ) : null
       }
     />

@@ -23,6 +23,7 @@ export const Navbar = function ({
   const Titles = {
     "my-stock": "My Stock",
     "my-team": "My Team",
+    orders: "Orders",
     shipments: "Shipments",
   } as const;
 

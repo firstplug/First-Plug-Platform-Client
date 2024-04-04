@@ -127,7 +127,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     header: "Currently with",
     cell: ({ row }) => (
       <span className="text-md">
-        {/* // TODO: nombre de la persona a la que se dirige el producto */}
+        {/* // TODO: Add backend endpoint getAll that queries assigned and unassigned products.  */}
         Name & LastName
       </span>
     ),

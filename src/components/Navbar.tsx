@@ -11,6 +11,12 @@ type NavbarProps = {
   searchInput?: string;
   placeholder?: string;
 };
+const Titles = {
+  "my-stock": "My Stock",
+  "my-team": "My Team",
+  orders: "Orders",
+  shipments: "Shipments",
+} as const;
 
 export const Navbar = function ({
   title,
@@ -19,13 +25,6 @@ export const Navbar = function ({
 }: NavbarProps) {
   const router = useRouter();
   const pathName = usePathname();
-
-  const Titles = {
-    "my-stock": "My Stock",
-    "my-team": "My Team",
-    orders: "Orders",
-    shipments: "Shipments",
-  } as const;
 
   return (
     <nav className="flex justify-between items-center h-[8vh] px-4  ">

@@ -38,13 +38,18 @@ export default observer(function Dashboard() {
           ) : (
             <EmptyDashboardCard type="stock" />
           )}
-          <Card
-            Title="Notifications"
-            imageBottom="/alert.svg"
-            icon={<ShopIcon />}
-            paragraph="You dont't have any orders."
-            className="h-full"
-          />
+          <Card Title="Notifications">
+            <section className="  h-full flex flex-col justify-center items-center">
+              <h1 className="flex  items-center font-montserrat text-2xl font-bold text-black  gap-2">
+                Coming Soon!
+                <NotificationIcon />
+              </h1>
+              <p className="font-inter text-sm text-dark-grey mb-[1.5rem] mt-[1rem]">
+                We`re excited to reveal that the Firstplug notifications are
+                coming soon!
+              </p>
+            </section>
+          </Card>
         </section>
       </div>
     </PageLayout>

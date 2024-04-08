@@ -6,7 +6,8 @@ interface Props {
 }
 export const AccessForm = function ({ handleInput }: Props) {
   return (
-    <Card Title="Access" className="w-1/2 flex flex-col gap-5">
+    <section className="w-1/2 flex flex-col gap-5  border rounded-md p-4 ">
+      <h2 className="text-xl font-montserrat font-bold text-black">Access</h2>
       <FormInput
         handleInput={handleInput}
         prop="email"
@@ -25,6 +26,6 @@ export const AccessForm = function ({ handleInput }: Props) {
         />
         <CustomLink href="#">Change Password</CustomLink>
       </div>
-    </Card>
+    </section>
   );
 };

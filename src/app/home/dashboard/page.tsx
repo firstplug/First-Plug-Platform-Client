@@ -2,11 +2,10 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models";
 import {
-  AddIcon,
   CustomLink,
   EmptyDashboardCard,
+  NotificationIcon,
   PageLayout,
-  ShopIcon,
 } from "@/common";
 import { Card, StockCard, TeamHomeCard } from "@/components";
 

@@ -9,6 +9,7 @@ export * from "./Dropdown";
 export * from "./DropdownInput";
 export * from "./EmptyCard";
 export * from "./EmptyCardLayout";
+export * from "./EmptyDashboardCard";
 export * from "./FormLayout";
 export * from "./Graphs";
 export * from "./HeaderOrders";

@@ -18,7 +18,7 @@ export default observer(function Dashboard() {
   return (
     <PageLayout>
       <div className="flex flex-col gap-4 w-full h-full max-h-full  ">
-        <section className="flex-grow max-h-1/2 h-1/2 ">
+        <section className="flex-grow max-h-1/2 h-1/2  ">
           {members.length ? (
             <TeamHomeCard />
           ) : (

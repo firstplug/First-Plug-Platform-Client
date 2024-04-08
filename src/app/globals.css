@@ -1,5 +1,25 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 0.25rem;
+  height: .1rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--Dark-grey, #aeb1b7);
+
+  border-radius: 6.25rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--Dark-grey, #5d6470);
+  border-radius: 6.25rem;
 }

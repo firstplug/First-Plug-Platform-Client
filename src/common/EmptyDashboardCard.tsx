@@ -45,7 +45,7 @@ export function EmptyDashboardCard({ type }: EmptyCardProps) {
   const { title, LinkIcon, buttonText, image, link, linkText, paragraph } =
     Config[type];
   return (
-    <div className="flex flex-col items-center gap-3  rounded-xl p-4  border border-border ">
+    <div className="flex flex-col items-center gap-3  h-full w-full rounded-xl p-4  border border-border ">
       <div className="flex gap-2 w-full">
         <h2 className="text-[20px]  text-black font-montserrat font-bold flex-1 md:text-sm lg:text-xl">
           {title}

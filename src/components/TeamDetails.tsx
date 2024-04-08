@@ -25,7 +25,7 @@ export const TeamDetails = function ({
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
           <input type="checkbox" onChange={() => handleSelectedTeams(team)} />
-          <TeamCard team={team.name} />
+          <TeamCard team={team} />
         </div>
 
         <Button

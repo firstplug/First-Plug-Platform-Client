@@ -1,13 +1,13 @@
 import React from "react";
 import { PenIcon, TrashIcon } from "./Icons";
-import {Button} from "./Button";
-import {TeamCard} from "./TeamCard";
+import { Button } from "./Button";
+import { TeamCard } from "./TeamCard";
 import Image from "next/image";
 import Photo from "../../public/employees/member.jpg";
-import {ShipmentStatus} from "./ShipmentStatus";
+import { ShipmentStatusCard } from "./ShipmentStatus";
 import { dateTo_DDMMYY } from "@/utils/dateFormat";
 import { useStore } from "@/models/root.store";
- 
+
 interface MemberDetailProps {
   className?: string;
 }
@@ -57,7 +57,8 @@ export function MemberDetail({ className }: MemberDetailProps) {
         <div className="flex justify-between">
           <div className="flex gap-1">
             <span className="font-normal"> Shipment Details: </span>
-            <ShipmentStatus status={'Avaliable'} />
+            {/* TODO: Review fetched data and endpoint to catch this shipment status information*/}
+            <ShipmentStatusCard status={"Available"} />
           </div>
         </div>
       </div>

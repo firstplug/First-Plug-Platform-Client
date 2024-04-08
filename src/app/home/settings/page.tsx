@@ -29,7 +29,7 @@ export default function Settings() {
   }, []);
 
   return (
-    <Layout className="flex flex-col gap-6 pb-16 overflow-auto">
+    <Layout>
       <div className="flex w-full gap-6">
         <CompanyForm handleInput={handleInput} />
         <AccessForm handleInput={handleInput} />

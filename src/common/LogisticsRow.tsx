@@ -1,5 +1,5 @@
 import { Shipment, ShipmentByMonthStatus } from "@/types";
-import { State } from "./State";
+import { OrderState } from "./State";
 
 interface LogisticsRowProps {
   shipment: ShipmentByMonthProps;
@@ -19,7 +19,7 @@ export function LogisticsRow({ shipment, className }: LogisticsRowProps) {
       <td className="pl-5 py-3 ">{shipment.month}</td>
       <td className="pl-3 py-3">{shipment.shipments.length}</td>
       <td className="pl-3 py-3">
-        <State message={shipment.status} />
+        <OrderState message={shipment.status} />
       </td>
       <td className="pl-3 py-3">USD {shipment.price}</td>
     </tr>

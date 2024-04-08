@@ -106,7 +106,7 @@ export const EditMemberAside = observer(function () {
       </h3>
 
       <FormInput
-        options={teams.map((team) => team.name)}
+        options={teams.map((team) => team)}
         placeholder="Team Name"
         title="Team Name"
         type="options"

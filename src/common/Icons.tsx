@@ -268,11 +268,7 @@ export function MicrosoftIcon({ className = "" }) {
   );
 }
 
-type ShopIconProps = {
-  className?: string;
-};
-
-export function ShopIcon({ className }: ShopIconProps) {
+export function ShopIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -280,7 +276,7 @@ export function ShopIcon({ className }: ShopIconProps) {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="currentColor"
-      className={`w-6 h-6 ${className || ""} `}
+      className="w-4"
     >
       <path
         strokeLinecap="round"
@@ -536,11 +532,7 @@ export function TrashIcon({ className, color, strokeWidth }: TrashIconProps) {
   );
 }
 
-type UploadIconProps = {
-  className?: string;
-};
-
-export function UploadIcon({ className = "" }: UploadIconProps) {
+export function UploadIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -548,7 +540,7 @@ export function UploadIcon({ className = "" }: UploadIconProps) {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="currentColor"
-      className={`w-6 h-6 ${className || ""}`}
+      className={`w-4 `}
     >
       <path
         strokeLinecap="round"

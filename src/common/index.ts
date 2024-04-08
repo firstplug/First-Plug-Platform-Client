@@ -27,5 +27,4 @@ export * from "./SectionTitle";
 export * from "./ShipmentStatus";
 export * from "./SidebarLink";
 export * from "./State";
-export * from "./TableRow";
 export * from "./TeamCard";

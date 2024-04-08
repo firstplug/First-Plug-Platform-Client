@@ -43,8 +43,8 @@ export const MyTeamActions = observer(function ({
             ({filterMembersByTeam.length})
           </span>
           <div className="flex items-center gap-1  p-2 flex-grow ">
-            {teamFilterItems.map((team) => (
-              <TeamCard team={team} />
+            {teamFilterItems.map((team, i) => (
+              <TeamCard team={team} key={i} />
             ))}
           </div>
         </div>

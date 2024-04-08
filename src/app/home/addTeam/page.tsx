@@ -133,7 +133,7 @@ export default observer(function AddTeam() {
 
                 <FormLayout className="w-1/2">
                   <FormInput
-                    options={teams.map((team) => team.name)}
+                    options={teams.map((team) => team)}
                     placeholder="Team Name"
                     title="Team Name"
                     type="options"

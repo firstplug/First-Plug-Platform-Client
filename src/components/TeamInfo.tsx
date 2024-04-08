@@ -24,8 +24,8 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
 
   const handleAddTeam = () => {
     selectedMembers.forEach((member) => {
-      //TODO: check addToTeam if we use it
-      TeamServices.addToTeam(team._id, member._id).then((res) => {
+      //TODO: Review the way teams are added
+      TeamServices.addToTeam(team, member._id).then((res) => {
         TeamServices.getAllTeams().then((res) => {
           setTeams(res);
         });
@@ -37,8 +37,8 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
   };
 
   const handleDeleteMember = (member: { _id: string }) => {
-    //TODO: check deleteFromTeam if we use it
-    TeamServices.deleteFromTeam(team._id, member._id).then((res) => {
+    //TODO: Review the way teams are delete from team
+    TeamServices.deleteFromTeam(team, member._id).then((res) => {
       TeamServices.getAllTeams().then((res) => {
         setTeams(res);
       });
@@ -70,7 +70,7 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
         <span className="text-grey">Team Name</span>
         <input
           type="text"
-          defaultValue={team.name}
+          defaultValue={team}
           className="border-2 rounded-xl p-2 flex-grow w-full"
         />
       </header>
@@ -78,7 +78,9 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
       <hr className="my-2" />
 
       <div className="flex flex-col gap-2">
-        <div className="flex justify-between">
+        {/* TODO  Review this section. We have to get Team info from the backend? */}
+
+        {/* <div className="flex justify-between">
           <span>Members</span>
           <span>({team.teamMembers.length})</span>
         </div>
@@ -97,7 +99,7 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
               <TrashIcon className={"w-[1.2rem] text-error"} />
             </Button>
           </div>
-        ))}
+        ))} */}
       </div>
 
       <hr className="my-2" />

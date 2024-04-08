@@ -38,10 +38,10 @@ export const EditTeamsAsideDetails = observer(function ({
   };
 
   const handleDeleteSelectedTeams = async (teamId: string) => {
-    //TODO: check and make deleteTeam 
+    //TODO: Review how teams are deleted
     try {
       await Promise.all(
-        selectedTeams.map((team) => TeamServices.deleteTeam(team._id))
+        selectedTeams.map((team) => TeamServices.deleteTeam(team))
       );
       TeamServices.getAllTeams().then((res) => {
         setTeams(res);
@@ -57,11 +57,11 @@ export const EditTeamsAsideDetails = observer(function ({
       <div className="flex flex-col gap-2 h-[70vh] overflow-y-auto">
         {teams.map((team) => (
           <TeamDetails
-            key={team._id}
+            key={team}
             team={team}
             members={members}
             handleSelectedTeams={handleCheckbox}
-            onDelete={() => handleDeleteSelectedTeams(team._id)}
+            onDelete={() => handleDeleteSelectedTeams(team)}
           />
         ))}
       </div>

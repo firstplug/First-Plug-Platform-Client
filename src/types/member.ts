@@ -33,4 +33,4 @@ export type TeamMemberTable = {
   jobPosition: string;
   shipmentDetails: ShipmentStatus;
 };
-export type CreationTeamMember = Omit<TeamMember, "_id" | "teams">;
+export type CreationTeamMember = Omit<TeamMember, "_id" | "teams" | "products">;

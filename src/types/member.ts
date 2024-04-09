@@ -1,5 +1,6 @@
 import { Instance, types } from "mobx-state-tree";
 import { ShipmentStatus } from "./shipment";
+import { ProductModel } from "./product";
 
 export const TeamMemberModel = types.model({
   _id: types.optional(types.string, ""),
@@ -18,6 +19,7 @@ export const TeamMemberModel = types.model({
   timeSlotForDelivery: types.optional(types.string, ""),
   additionalInfo: types.optional(types.string, ""),
   teams: types.optional(types.array(types.string), []),
+  products: types.optional(types.array(ProductModel), []),
 });
 
 export type TeamMember = Instance<typeof TeamMemberModel>;

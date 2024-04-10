@@ -4,7 +4,10 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = () => {
-  
+  if (process.env.NODE_ENV !== "development" && process.env.NODE_ENV !== "production") {
+    console.error("ERROR: Invalid NODE_ENV value.");
+    process.exit(1);
+  }
   const envFile = path.resolve(process.cwd(), '.env');
 
   if (!fs.existsSync(envFile)) {

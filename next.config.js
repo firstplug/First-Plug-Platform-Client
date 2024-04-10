@@ -11,7 +11,7 @@ module.exports = () => {
   const envFile = path.resolve(process.cwd(), '.env');
 
   if (!fs.existsSync(envFile)) {
-    console.error('ERROR: El archivo .env no existe. Copia el archivo .env.example y completa las variables de entorno necesarias.');
+    console.error('ERROR: The .env file does not exist. Copy the .env.example file and fill in the necessary environment variables.');
     process.exit(1);
   }
 

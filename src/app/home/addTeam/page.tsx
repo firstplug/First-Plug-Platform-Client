@@ -18,9 +18,6 @@ import { TeamServices } from "@/services/team.services";
 import { FormInput } from "@/components";
 import { TeamMember } from "@/types";
 
-const isDate = (value: unknown) =>
-  value instanceof Date && !isNaN(value.valueOf());
-
 export default observer(function AddTeam() {
   const {
     members: { addMember },
@@ -34,9 +31,11 @@ export default observer(function AddTeam() {
   }, [setTeams]);
 
   const handleInput = useCallback((key: string, value: unknown) => {
+    const newValue = key === "teams" && !Array.isArray(value) ? [value] : value;
+
     setMemberData((prev) => ({
       ...prev,
-      [key]: value,
+      [key]: newValue,
     }));
   }, []);
 
@@ -95,6 +94,15 @@ export default observer(function AddTeam() {
                       clear={finish}
                     />
                     <FormInput
+                      title="DNI"
+                      placeholder="Complete"
+                      type="text"
+                      prop={"dni"}
+                      handleInput={handleInput}
+                      required={"required"}
+                      clear={finish}
+                    />
+                    <FormInput
                       title="Date of Birth"
                       type="date"
                       placeholder="Date of birth"
@@ -137,7 +145,7 @@ export default observer(function AddTeam() {
                     placeholder="Team Name"
                     title="Team Name"
                     type="options"
-                    prop={"team"}
+                    prop={"teams"}
                     handleInput={handleInput}
                     required={"required"}
                     clear={finish}
@@ -165,6 +173,15 @@ export default observer(function AddTeam() {
                 <SectionTitle>Shipment Details</SectionTitle>
 
                 <FormLayout>
+                  <FormInput
+                    title="Country"
+                    placeholder="Country"
+                    type="text"
+                    prop={"country"}
+                    handleInput={handleInput}
+                    required={"required"}
+                    clear={finish}
+                  />
                   <FormInput
                     title="City"
                     placeholder="City"

@@ -30,7 +30,6 @@ export class HTTPRequests {
   }
 
   static async post<T>(url: string, payload: T) {
-    console.log("url", url);
     return await axiosInstance.post(url, payload);
   }
 

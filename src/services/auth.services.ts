@@ -5,7 +5,6 @@ import { JWT } from "next-auth/jwt";
 
 export class AuthServices {
   static async register(data: RegisterUser) {
-    console.log(`${BASE_URL}/api/auth/register`);
     return await axios.post(`${BASE_URL}/api/auth/register`, data);
   }
 

@@ -48,11 +48,10 @@ export const Form = function ({
           icon={<GoogleIcon className="w-7 h-7" />}
           className="border-none w-10 h-10 rounded-full"
         />
-        <Button
-          variant="secondary"
-          icon={<AppleIcon className="w-7 h-7" />}
-          className="border-none w-10 h-10 rounded-full"
-        />
+
+        {/* 
+        TODO: Add thois feature ===> Login with Microsoft.
+        
         <Button
           onClick={(e) => {
             e.preventDefault();
@@ -63,7 +62,7 @@ export const Form = function ({
           variant="secondary"
           icon={<MicrosoftIcon className="w-7 h-7" />}
           className="border-none w-10 h-10 rounded-full"
-        />
+        /> */}
       </div>
 
       <div className="flex justify-center items-center gap-2">

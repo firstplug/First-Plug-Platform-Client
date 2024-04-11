@@ -32,7 +32,7 @@ export function IconX({ className = "", strokeWidth }: IconXProps) {
       viewBox="0 0 24 24"
       strokeWidth={strokeWidth}
       stroke="currentColor"
-      className={`w-5 h-5 ${className}`}
+      className={`w-4 ${className}`}
     >
       <path
         strokeLinecap="round"
@@ -183,7 +183,7 @@ export function AlertCheck({ className }: AlertCheckProps) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      fill="currentColor"
+      fill="green"
       className={`w-6 h-6 ${className || ""}`}
     >
       <path

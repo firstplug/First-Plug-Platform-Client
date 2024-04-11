@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
 import { signIn } from "next-auth/react";
 import { FormEvent, useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { AlertCheck, IconX } from "@/common/Icons";
 
 export default function Login() {
   const emailInput = useInput("", "email");
@@ -13,6 +15,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  const { toast } = useToast();
   const handleSumbit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -26,11 +29,24 @@ export default function Login() {
       if (!res.ok) {
         throw new Error(res.error);
       }
-
+      toast({
+        title: "Logged in successfuly",
+        variant: "success",
+        action: <AlertCheck className="text-succes" />,
+        duration: 1500,
+      });
       router.push("/home/dashboard");
     } catch (error) {
-      //TODO : Look for pop alerts with good ui
-      alert("Error at Login");
+      toast({
+        title: "Invalid Credentials",
+        variant: "destructive",
+        action: (
+          <div className="bg-error rounded-full p-1">
+            <IconX className="text-white w-3" strokeWidth={4} />
+          </div>
+        ),
+        duration: 1500,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -51,6 +67,7 @@ export default function Login() {
         <Form title="Welcome Back!" login onSubmit={handleSumbit}>
           <div>
             <Input
+              isLogin
               title="Email"
               placeholder="user@mail.com"
               {...emailInput}
@@ -58,6 +75,7 @@ export default function Login() {
             />
 
             <Input
+              isLogin
               title="Password"
               type="password"
               placeholder="Password"
@@ -65,12 +83,15 @@ export default function Login() {
               required
             />
           </div>
+          {/* 
+            TODO: Add this feature ==> Forgot Password
+          
           <CustomLink href="/login" className="text-right">
             Forgot Password ?
-          </CustomLink>
+          </CustomLink> */}
 
           <Button
-            disabled={isLoading}
+            disabled={isLoading || !emailInput.value || !passWordInput.value}
             variant={isLoading ? "text" : "primary"}
             className="rounded-md "
             size="big"

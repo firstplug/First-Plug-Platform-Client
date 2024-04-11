@@ -1,7 +1,6 @@
 import { Shipment, ShipmentCreation } from "@/types";
-import { HTTPRequests } from "@/config/axios.config";
+import { BASE_URL, HTTPRequests } from "@/config/axios.config";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 export class ShipmentServices {
   static async getAllShipments() {
     return await HTTPRequests.get(`${BASE_URL}/api/shipments`);

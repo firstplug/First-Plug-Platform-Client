@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start:prod": "cross-env NODE_ENV=production next start"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.12.0",
@@ -27,6 +28,7 @@
     "@types/papaparse": "^5.3.14",
     "@types/react": "18.2.33",
     "autoprefixer": "^10.4.15",
+    "cross-env": "^7.0.3",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "postcss": "^8.4.30",

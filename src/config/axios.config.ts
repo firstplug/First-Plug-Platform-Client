@@ -1,8 +1,17 @@
 import axios from "axios";
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
+let baseURL: string;
+if (process.env.NODE_ENV === "development") {
+  baseURL = process.env.NEXT_PUBLIC_API_URL_DEV;
+} else if (process.env.NODE_ENV === "production") {
+  baseURL = process.env.NEXT_PUBLIC_API_URL_PROD;
+} else {
+  console.error("ERROR: Invalid NODE_ENV value.");
+  process.exit(1);
+}
+export const BASE_URL = baseURL;
+export const axiosInstance = axios.create({ baseURL });
 
-const axiosInstance = axios.create({ baseURL });
 export const setAuthInterceptor = (token: string | null) => {
   return axiosInstance.interceptors.request.use(
     (config) => {
@@ -21,6 +30,7 @@ export class HTTPRequests {
   }
 
   static async post<T>(url: string, payload: T) {
+    console.log("url", url);
     return await axiosInstance.post(url, payload);
   }
 

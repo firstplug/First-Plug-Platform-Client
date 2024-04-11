@@ -1,16 +1,19 @@
+import { BASE_URL } from "@/config/axios.config";
 import { LoginUser, RegisterUser } from "@/types";
 import axios from "axios";
 import { JWT } from "next-auth/jwt";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
 export class AuthServices {
   static async register(data: RegisterUser) {
+    console.log(`${BASE_URL}/api/auth/register`);
     return await axios.post(`${BASE_URL}/api/auth/register`, data);
   }
 
   static async login(data: LoginUser) {
-    const loginRes = await axios.post(`${BASE_URL}/api/auth/login`, data);
+    const loginRes = await axios.post(`${BASE_URL}/api/auth/login`, {
+      email: data.email,
+      password: data.password,
+    });
 
     return loginRes;
   }

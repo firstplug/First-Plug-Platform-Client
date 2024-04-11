@@ -6,7 +6,7 @@ import { PenIcon, StatusCircleIconShipment, TrashIcon } from "@/common/Icons";
 import { Memberservices } from "@/services";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
-import { AsideType, TeamMember, ShipmentStatus} from "@/types";
+import { AsideType, TeamMember, ShipmentStatus } from "@/types";
 import { StatusColor } from "@/common/StatusColors";
 
 interface TeamMemberCardProps {
@@ -107,8 +107,7 @@ export const TeamMemberCard = observer(function ({
           <div className="flex items-center  gap-3">
             <h2 className="font-semibold text-lg">Products</h2>
             <p className="bg-border  rounded-full h-6 w-6 text-center  grid place-items-center items text-sm">
-              {/* //TODO: Check and fix this data, not hardcode */}
-              {2}
+              {member.products.length}
             </p>
           </div>
           <div className="flex  items-center gap-3">

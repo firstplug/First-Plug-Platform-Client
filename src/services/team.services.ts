@@ -1,7 +1,5 @@
 import { Team } from "@/types";
-import { HTTPRequests } from "@/config/axios.config";
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+import { BASE_URL, HTTPRequests } from "@/config/axios.config";
 
 type TeamCreation = Omit<Team, "_id" | "__v">;
 

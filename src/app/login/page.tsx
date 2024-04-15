@@ -32,7 +32,7 @@ export default function Login() {
       toast({
         title: "Logged in successfuly",
         variant: "success",
-        action: <AlertCheck className="text-succes" />,
+        action: <AlertCheck />,
         duration: 1500,
       });
       router.push("/home/dashboard");
@@ -41,8 +41,8 @@ export default function Login() {
         title: "Invalid Credentials",
         variant: "destructive",
         action: (
-          <div className="bg-error rounded-full p-1">
-            <IconX className="text-white w-3" strokeWidth={4} />
+          <div className="border border-error rounded-full p-1">
+            <IconX className="text-error w-3" strokeWidth={2} />
           </div>
         ),
         duration: 1500,
@@ -67,7 +67,6 @@ export default function Login() {
         <Form title="Welcome Back!" login onSubmit={handleSumbit}>
           <div>
             <Input
-              isLogin
               title="Email"
               placeholder="user@mail.com"
               {...emailInput}
@@ -75,7 +74,6 @@ export default function Login() {
             />
 
             <Input
-              isLogin
               title="Password"
               type="password"
               placeholder="Password"
@@ -83,15 +81,18 @@ export default function Login() {
               required
             />
           </div>
-          {/* 
-            TODO: Add this feature ==> Forgot Password
-          
+
           <CustomLink href="/login" className="text-right">
             Forgot Password ?
-          </CustomLink> */}
+          </CustomLink>
 
           <Button
-            disabled={isLoading || !emailInput.value || !passWordInput.value}
+            disabled={
+              isLoading ||
+              !emailInput.value ||
+              !passWordInput.value ||
+              emailInput.error !== null
+            }
             variant={isLoading ? "text" : "primary"}
             className="rounded-md "
             size="big"

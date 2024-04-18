@@ -106,11 +106,13 @@ export default function Login() {
                 </AlertDialogTitle>
                 <AlertDialogDescription>
                   <div className="text-md ">
-                    Looks like you've forgotten your password. Don't worry,
-                    we've got you covered. Simply send an email to{" "}
-                    <b className="text-black "> hola@firstplug.co </b>
-                    requesting a password reset, and we'll get you back into
-                    your account in no time
+                    <p>
+                      Looks like you&apos;ve forgotten your password. Don&apos;t
+                      worry, we&apos;ve got you covered. Simply send an email to
+                      <b className="text-black "> hola@firstplug.co </b>
+                      requesting a password reset, and we&apos;ll get you back
+                      into your account in no time.
+                    </p>
                   </div>
                 </AlertDialogDescription>
               </AlertDialogHeader>

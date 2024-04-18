@@ -1,12 +1,16 @@
 import { BASE_URL } from "@/config/axios.config";
-import { LoginUser, RegisterUser } from "@/types";
+import { LoginUser, RegisterUser, RegisterUserPlatforms } from "@/types";
 import axios from "axios";
+import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
 export class AuthServices {
   static async register(data: RegisterUser) {
-    console.log(`${BASE_URL}/api/auth/register`);
     return await axios.post(`${BASE_URL}/api/auth/register`, data);
+  }
+
+  static async registerByProviders(user: RegisterUserPlatforms) {
+    return await axios.post(`${BASE_URL}/api/auth/register-providers`, user);
   }
 
   static async login(data: LoginUser) {
@@ -16,6 +20,12 @@ export class AuthServices {
     });
 
     return loginRes;
+  }
+
+  static async getBackendTokens(user: RegisterUserPlatforms): Promise<Session> {
+    const tokens = await axios.post(`${BASE_URL}/api/auth/get-tokens`, user);
+
+    return tokens.data;
   }
 
   static async refreshToken(token: JWT): Promise<JWT> {

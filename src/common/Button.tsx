@@ -1,5 +1,5 @@
 "use client";
-import { ButtonHTMLAttributes, MouseEvent, ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 
 type Size = keyof (typeof btnStyle)["size"];
 type Variant = keyof (typeof btnStyle)["variant"];

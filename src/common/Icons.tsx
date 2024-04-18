@@ -55,7 +55,7 @@ export function EyeIcon({ className }: EyeSlashIconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`w-6 h-6 ${className || ''}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -83,7 +83,7 @@ export function EyeSlashIcon({ className }: EyeSlashIconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`w-6 h-6 ${className || ''}`}
+      className={`w-6 h-6 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -268,19 +268,15 @@ export function MicrosoftIcon({ className = "" }) {
   );
 }
 
-type ShopIconProps = {
-  className?: string;
-};
-
-export function ShopIcon({ className }: ShopIconProps) {
+export function ShopIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
+      strokeWidth={2}
       stroke="currentColor"
-      className={`w-6 h-6 ${className || ""} `}
+      className="w-4"
     >
       <path
         strokeLinecap="round"
@@ -293,13 +289,15 @@ export function ShopIcon({ className }: ShopIconProps) {
 
 type NotificationIconProps = {
   className?: string;
-  stroke?: number,
+  stroke?: number;
   hasNotification?: boolean;
 };
 
-
-
-export function NotificationIcon({ className, stroke, hasNotification }: NotificationIconProps) {
+export function NotificationIcon({
+  className,
+  stroke,
+  hasNotification,
+}: NotificationIconProps) {
   return (
     <div>
       {hasNotification && (
@@ -419,8 +417,8 @@ export function ComputerIcon() {
 }
 
 type DashboardIconProps = {
-  className?: string
-}
+  className?: string;
+};
 
 export function DashboardIcon({ className }: DashboardIconProps) {
   return (
@@ -443,9 +441,9 @@ export function DashboardIcon({ className }: DashboardIconProps) {
 
 type ArrowRightProps = {
   className?: string;
-  color?: string
-  strokeWidth?: number
-}
+  color?: string;
+  strokeWidth?: number;
+};
 
 export function ArrowRight({ className, color, strokeWidth }: ArrowRightProps) {
   return (
@@ -453,9 +451,9 @@ export function ArrowRight({ className, color, strokeWidth }: ArrowRightProps) {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={ strokeWidth || 1.5}
+      strokeWidth={strokeWidth || 1.5}
       stroke={color || "currentColor"}
-      className={`w-5 h-5 ${className || ""}`}
+      className={`w-3 ${className}`}
     >
       <path
         strokeLinecap="round"
@@ -467,12 +465,11 @@ export function ArrowRight({ className, color, strokeWidth }: ArrowRightProps) {
 }
 type ArrowLeftProps = {
   className?: string;
-  color?: string
-  strokeWidth?:number
-}
+  color?: string;
+  strokeWidth?: number;
+};
 
-
-export function ArrowLeft({ className,color, strokeWidth }: ArrowLeftProps) {
+export function ArrowLeft({ className, color, strokeWidth }: ArrowLeftProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -480,7 +477,7 @@ export function ArrowLeft({ className,color, strokeWidth }: ArrowLeftProps) {
       viewBox="0 0 24 24"
       strokeWidth={strokeWidth || 1.5}
       stroke={color || "currentColor"}
-      className={`w-5 h-5 ${className || ""}`}
+      className={`w-3 ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -491,20 +488,15 @@ export function ArrowLeft({ className,color, strokeWidth }: ArrowLeftProps) {
   );
 }
 
-type AddIconProps = {
-  className?: string;
-  strokeWidth?: number;
-};
-
-export function AddIcon({ className, strokeWidth }: AddIconProps) {
+export function AddIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={strokeWidth || 2.0}
+      strokeWidth={2}
       stroke="currentColor"
-      className={`w-5 h-5 ${className || ""}`}
+      className="w-4"
     >
       <path
         strokeLinecap="round"
@@ -518,9 +510,8 @@ export function AddIcon({ className, strokeWidth }: AddIconProps) {
 type TrashIconProps = {
   className?: string;
   color?: string;
-  strokeWidth?: number
-
-}
+  strokeWidth?: number;
+};
 
 export function TrashIcon({ className, color, strokeWidth }: TrashIconProps) {
   return (
@@ -541,19 +532,15 @@ export function TrashIcon({ className, color, strokeWidth }: TrashIconProps) {
   );
 }
 
-type UpLoadIcoProps = {
-  className?: string;
-};
-
-export function UpLoadIcon({ className }: UpLoadIcoProps) {
+export function UploadIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
+      strokeWidth={2}
       stroke="currentColor"
-      className={`w-6 h-6 ${className || ""}`}
+      className={`w-4 `}
     >
       <path
         strokeLinecap="round"
@@ -569,7 +556,6 @@ type ChevronDownProps = {
   stroke?: number;
   color?: string;
 };
-
 
 export function ChevronDown({ className, stroke, color }: ChevronDownProps) {
   return (
@@ -593,7 +579,7 @@ export function ChevronDown({ className, stroke, color }: ChevronDownProps) {
 type ChevronRightProps = {
   className?: string;
   color?: string;
-}
+};
 
 export function ChevronRight({ className, color }: ChevronRightProps) {
   return (
@@ -638,7 +624,7 @@ export function TableDisplayIcon({ className }: TableDisplayIconProps) {
 }
 
 interface GridLayoutIconProps {
-  className: string | ""
+  className: string | "";
 }
 
 export function GridLayoutIcon({ className }: GridLayoutIconProps) {
@@ -680,7 +666,7 @@ export function VisaIcon() {
 type PenIconProps = {
   className?: string;
   strokeWidth?: number;
-}
+};
 
 export function PenIcon({ className, strokeWidth }: PenIconProps) {
   return (
@@ -714,12 +700,7 @@ export function StatusCircleIcon({ color }: StatusCircleIcon) {
       viewBox="0 0 8 8"
       fill="none"
     >
-      <circle
-        cx="4"
-        cy="4"
-        r="4"
-        fill={color}
-      />
+      <circle cx="4" cy="4" r="4" fill={color} />
     </svg>
   );
 }
@@ -735,7 +716,7 @@ export function StatusCircleIconShipment({ color }: StatusCircleIconShipment) {
       width="8"
       height="8"
       viewBox="0 0 8 8"
-      className={color} 
+      className={color}
     >
       <circle cx="4" cy="4" r="4" fill="currentColor" />
     </svg>

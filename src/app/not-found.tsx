@@ -8,7 +8,7 @@ export default function NotFount() {
     <>
       <Navbar title="logo" />
 
-      <Layout className="flex flex-col justify-center items-center  h-[100vh] gap-8 mx-[40px] my-[32px] border border-boder rounded-lg shadow-md">
+      <div className="flex flex-col justify-center items-center  h-[100vh] gap-8 mx-[40px] my-[32px] border border-boder rounded-lg shadow-md">
         <Image src={notFound} alt="alerts" width={221} height={220} />
         <h2 className="font-montserrat font-bold text-[64px] text-dark-grey">
           404
@@ -24,7 +24,7 @@ export default function NotFount() {
         >
           Go Home
         </CustomLink>
-      </Layout>
+      </div>
     </>
   );
 }

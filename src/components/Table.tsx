@@ -1,80 +1,133 @@
 "use client";
-import { useState, Fragment } from "react";
-import { ButtonMyStock } from "@/common";
-import Image from "next/image";
-import defaultPhoto from "../../public/Isotipo.png";
-import { useStore } from "@/models/root.store";
-import { observer } from "mobx-react-lite";
-import { TableDetails } from "./";
+import { ArrowLeft, ArrowRight, Button } from "@/common";
+import {
+  ColumnDef,
+  PaginationState,
+  flexRender,
+  getCoreRowModel,
+  getExpandedRowModel,
+  getPaginationRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { Fragment, ReactNode, useState } from "react";
 
-type TableProps = {
-  className?: string;
+type TableProps<T> = {
+  columns: ColumnDef<T>[];
+  data: T[];
+  subComponent?: ReactNode;
+  getRowCanExpand?: () => boolean;
 };
 
-export const Table = observer(function ({ className }: TableProps) {
-  const {
-    products: { products },
-  } = useStore();
+export const Table = function <T>({
+  columns,
+  data,
+  getRowCanExpand,
+  subComponent,
+}: TableProps<T>) {
+  const [tableData, setTableData] = useState(() => [...data]);
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 12,
+  });
 
-  const [rowOpenState, setRowOpenState] = useState(
-    Array(products.length).fill(false)
-  );
-
-  //TODO:  to toggle by rowId instead of index
-  const toggleRow = (index: number) => {
-    const updatedRowOpenState = [...rowOpenState];
-    updatedRowOpenState[index] = !updatedRowOpenState[index];
-    setRowOpenState(updatedRowOpenState);
-  };
+  const table = useReactTable({
+    data: tableData,
+    columns,
+    getRowCanExpand,
+    getCoreRowModel: getCoreRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    state: {
+      pagination,
+    },
+  });
 
   return (
-    <table className={`flex-col w-full  ${className || ""}  `}>
-      <thead>
-        <tr className="border-b-2 border-gray-200 bg-light-grey text-black text-left">
-          <th className="py-3 px-3">Category</th>
-          <th className="py-3 px-3">Model</th>
-          <th className="py-3 px-3">Quantity</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {products.map((product, index) => (
-          <Fragment key={product._id}>
-            <tr className="bg-white text-black border-b-2 border-gray-200 text-left h-[6rem] ">
-              <td className="py-4 px-3 flex gap-9 items-center">
-                <Image
-                  src={product.imgUrl ? product.imgUrl : defaultPhoto}
-                  alt={product.category}
-                  width={48}
-                  height={48}
-                />
-                <span>{product.category}</span>
-              </td>
-              <td className="py-4 px-3 items-center">
-                {product.model}
-                <br />
-                {product.description}{" "}
-              </td>
-              <td className="py-4 px-3 items-center">{product.stock}</td>
-              <td className="flex-col items-center">
-                <div>
-                  <ButtonMyStock
-                    body="Detail"
-                    onClick={() => toggleRow(index)}
-                  />
-                </div>
-              </td>
+    <>
+      <table className="w-full  relative border rounded-md font-semibold ">
+        <thead className="">
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr
+              key={headerGroup.id}
+              className="border-b-2  border-gray-200 bg-light-grey "
+            >
+              {headerGroup.headers.map((header) => (
+                <th
+                  key={header.id}
+                  style={{ width: `${header.getSize()}px` }}
+                  className={` py-3 px-4 border-r  text-start  text-black font-semibold   `}
+                >
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
+                </th>
+              ))}
             </tr>
-            {rowOpenState[index] && (
-              <tr>
-                <td colSpan={4}>
-                  <TableDetails productId={product._id} />
-                </td>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => (
+            <Fragment key={row.id}>
+              <tr
+                key={row.id}
+                className={` text-black border-b text-md border-gray-200 text-left  ${
+                  row.getIsExpanded() &&
+                  "border-l-2 border-l-black bg-hoverBlue"
+                }`}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id} className=" p-2  px-4 ">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
               </tr>
-            )}
-          </Fragment>
-        ))}
-      </tbody>
-    </table>
+              {row.getIsExpanded() && (
+                <tr className="border-l-2 border-l-black">
+                  <td colSpan={row.getVisibleCells().length}>{subComponent}</td>
+                </tr>
+              )}
+            </Fragment>
+          ))}
+        </tbody>
+      </table>
+      {data.length > pagination.pageSize && (
+        <div className="flex items-center gap-6 mt-2  justify-center ">
+          <Button
+            variant="text"
+            className="rounded-full"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <ArrowLeft />
+          </Button>
+          <span className="flex items-center gap-1">
+            {new Array(table.getPageCount()).fill(1).map((e, i) => (
+              <Button
+                key={i}
+                className="rounded-full"
+                onClick={() => table.setPageIndex(i)}
+                variant={`${
+                  table.getState().pagination.pageIndex === i
+                    ? "secondary"
+                    : "text"
+                }`}
+              >
+                {e + i}
+              </Button>
+            ))}
+          </span>
+          <Button
+            variant="text"
+            className="rounded-full"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <ArrowRight />
+          </Button>
+        </div>
+      )}
+    </>
   );
-});
+};

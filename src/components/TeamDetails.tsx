@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button, TeamCard } from "@/common";
 import { DropDownArrow } from "@/common/Icons";
-import { TeamInfo } from "./";
+import { TeamInfo } from ".";
 import { Team } from "@/types";
 
 interface TeamDetailsProps {
@@ -25,7 +25,7 @@ export const TeamDetails = function ({
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
           <input type="checkbox" onChange={() => handleSelectedTeams(team)} />
-          <TeamCard team={team.name} />
+          <TeamCard team={team} />
         </div>
 
         <Button

@@ -1,7 +1,5 @@
 import { Product } from "@/types";
-import { HTTPRequests } from "@/config/axios.config";
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+import { BASE_URL, HTTPRequests } from "@/config/axios.config";
 
 type CreationProduct = Omit<Omit<Product, "_id">, "__v">;
 

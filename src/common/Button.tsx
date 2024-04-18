@@ -1,5 +1,5 @@
 "use client";
-import { MouseEvent, ReactNode } from "react";
+import { ButtonHTMLAttributes, MouseEvent, ReactNode } from "react";
 
 type Size = keyof (typeof btnStyle)["size"];
 type Variant = keyof (typeof btnStyle)["variant"];
@@ -13,6 +13,7 @@ interface ButtonProps {
   onClick?: (event: MouseEvent) => void;
   size?: Size;
   children?: ReactNode;
+  type?: "button" | "submit" | "reset";
 }
 
 const btnStyle = {
@@ -46,10 +47,12 @@ export function Button({
   onClick,
   size = "default",
   children,
+  type = "button",
   ...buttonProps
 }: ButtonProps) {
   return (
     <button
+      type={type}
       onClick={onClick}
       className={`text-center flex items-center justify-center gap-2 font-bold leading-5 capitalize transition-all duration-150 ease-in ${
         disabled

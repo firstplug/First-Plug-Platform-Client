@@ -5,6 +5,7 @@ import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 import Photo from "../../public/employees/member.jpg";
 import Image from "next/image";
+import { useState } from "react";
 
 interface MemberEditAsideProps {
   className?: string;
@@ -16,8 +17,11 @@ export const MemberEditAside = observer(function ({
   const { members } = useStore();
   const member = members.selectedMember;
 
+  const [name, setName] = useState(member?.firstName || "");
+  const [lastName, setLastName] = useState(member?.lastName || "");
+
   return (
-    <div className={`flex flex-col gap-6 pr-4 pb-10 ${className}`}>
+    <div className={`flex flex-col gap-6 pr-4 pb-10 overflow-y-auto max-h-[80vh] ${className}`}>
       <div className="flex gap-4">
         <div className="relative w-36 h-36">
           <Image
@@ -28,8 +32,8 @@ export const MemberEditAside = observer(function ({
           />
         </div>
         <div className="w-[75%] flex flex-col gap-4">
-          <Input title="Name" />
-          <Input title="Lastname" />
+          <Input title="Name" value={name} onChange={(event) => setName(event.target.value)}/>
+          <Input title="Lastname" value={lastName} onChange={(event) => setLastName(event.target.value)}/>
         </div>
       </div>
       <Input title="Date of Birth" type="Date" />

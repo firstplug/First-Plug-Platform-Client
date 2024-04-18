@@ -13,15 +13,15 @@ function validator(type: ValidatorType) {
   };
 
   const passwordValidator = (value: string) => {
-    if (value.length < 6) {
-      return "The password must be at least 6 characters long.";
-    }
+    // if (value.length < 6) {
+    //   return "The password must be at least 6 characters long.";
+    // }
 
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+    // const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
 
-    if (!regex.test(value)) {
-      return "The password must contain at least one uppercase letter, one lowercase letter, and one number.";
-    }
+    // if (!regex.test(value)) {
+    //   return "The password must contain at least one uppercase letter, one lowercase letter, and one number.";
+    // }
 
     return null;
   };

@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
-import React, { ChangeEvent, DragEvent, useState } from "react";
-import { Card } from ".";
-import { AddStockCard, Button } from "@/common";
+import React, { ChangeEvent, useState } from "react";
+import { AddStockCard, Button, DownloadIcon } from "@/common";
 import Papa from "papaparse";
 import { useStore } from "@/models";
-import { HTTPRequests } from "@/config/axios.config";
+import { CSVTeamplates, CsvInfo, Product, TeamMember } from "@/types";
+import { CsvServices } from "@/services";
+import { saveAs } from "file-saver";
 
 const EMPTY_FILE_INFO: CsvInfo = {
   title: "",
@@ -13,54 +14,38 @@ const EMPTY_FILE_INFO: CsvInfo = {
   currentDate: "",
 } as const;
 
-type CsvInfo = {
-  title: string;
-  file: string;
-  currentDate: string;
-};
-
-const CSVUrls = {
-  MyTeam: "/api/members/bulkcreate",
-  MyStock: "/api/products/bulkcreate",
-} as const;
-
-type CSVUrl = keyof typeof CSVUrls;
-
-const CSVUrlsArray: CSVUrl[] = Object.keys(CSVUrls) as CSVUrl[];
-
 export const LoadStock = function () {
   const [csvInfo, setCsvInfo] = useState(EMPTY_FILE_INFO);
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const {
-    aside: { csvContext },
+    aside: { type },
   } = useStore();
 
-  const handleDeleteCard = () => {
+  const clearCsvData = () => {
     setCsvInfo(EMPTY_FILE_INFO);
+    setCsvFile(null);
   };
 
   const { title, file, currentDate } = csvInfo;
 
-  const postCsvToDatabase = async (parsedData) => {
+  const postCsvToDatabase = async (parsedData: Product[] | TeamMember[]) => {
     setIsLoading(true);
 
     try {
-      const apiUrl = CSVUrls[csvContext];
+      if (type === "LoadStock") {
+        const data: Product[] = parsedData.map((product) => ({
+          ...product,
+          stock: parseInt(product.stock),
+        }));
 
-      let data: any;
+        await CsvServices.bulkCreateProducts(data);
 
-      if (csvContext === "MyStock") {
-        data = parsedData.map((product) => {
-          return { ...product, stock: parseInt(product.stock) };
-        });
+        return alert("csv Loaded succesfully");
       }
 
-      console.log(csvContext);
-
-      if (csvContext === "MyTeam") {
-        data = parsedData.map((member) => {
+      if (type === "LoadMembers") {
+        const data: TeamMember[] = parsedData.map((member) => {
           return {
             ...member,
             dateOfBirth: new Date(member.dateOfBirth).toISOString(),
@@ -68,15 +53,25 @@ export const LoadStock = function () {
             teams: member.teams.split(","),
           };
         });
-      }
 
-      const response = await HTTPRequests.post(apiUrl, data);
-      setIsLoading(false);
+        await CsvServices.bulkCreateTeams(data);
+
+        return alert("csv Loaded succesfully");
+      }
     } catch (error) {
+      alert("error at loading csv file");
       console.error(error);
     } finally {
+      clearCsvData();
       setIsLoading(false);
     }
+  };
+
+  const downloadTemplate = () => {
+    const csvTemplate = CSVTeamplates[type];
+
+    const blob = new Blob([csvTemplate], { type: "text/csv;charset=utf-8" });
+    saveAs(blob, "template.csv");
   };
 
   const onFileChangeHandler = (csvFile: File) => {
@@ -85,32 +80,33 @@ export const LoadStock = function () {
     Papa.parse(csvFile, {
       skipEmptyLines: true, //Delete empty fields
       header: true, //Parse CSV to JSON
-      complete: function (results) {
+      complete: function () {
         const { name, size } = csvFile;
         setCsvInfo({
           title: name,
           file: `${(size / 1024).toFixed(2)}kb`,
           currentDate: new Date().toLocaleString(),
         });
-        postCsvToDatabase(results.data);
       },
     });
   };
 
   const handleAttachFileClick = () => {
-    csvFile ? postCsvToDatabase(csvFile) : console.log("No CSV file selected.");
-  };
-
-  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    if (event.dataTransfer.files.length > 0) {
-      const csvFile = event.dataTransfer.files[0];
-      onFileChangeHandler(csvFile);
+    if (csvFile) {
+      Papa.parse(csvFile, {
+        skipEmptyLines: true, //Delete empty fields
+        header: true, //Parse CSV to JSON
+        complete: function (results: { data: Product[] | TeamMember[] }) {
+          const { name, size } = csvFile;
+          setCsvInfo({
+            title: name,
+            file: `${(size / 1024).toFixed(2)}kb`,
+            currentDate: new Date().toLocaleString(),
+          });
+          postCsvToDatabase(results.data);
+        },
+      });
     }
-  };
-
-  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
   };
 
   const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
@@ -121,39 +117,52 @@ export const LoadStock = function () {
   };
 
   return (
-    <div onDrop={handleDrop} onDragOver={handleDragOver} className="drop-area">
+    <div className="drop-area">
       <div className="flex flex-col gap-6">
-        <Card className="border-dashed border h-60 flex flex-col gap-4 justify-center">
-          <Image
-            alt="folder icon"
-            src="/svg/folder.svg"
-            width={84}
-            height={88}
-            className="mt-[-20px]"
-          />
-          <p>Drag and drop your CSV file here or</p>
-          <label
-            htmlFor="csvFileSelector"
-            className="cursor-pointer text-blue-500"
-          >
-            <h2 className="text-blue font-lg font-bold font-sans">
-              Select a File
-            </h2>
-          </label>
-          <input
-            type="file"
-            id="csvFileSelector"
-            accept=".csv"
-            className="hidden"
-            onChange={handleFileSelect}
-          />
-        </Card>
+        <div className=" flex flex-col gap-2 justify-center items-start p-4 rounded-md border-dashed border-2 font-inter  ">
+          <div className="relative h-20 aspect-square ">
+            <Image alt="folder icon" src="/svg/folder.svg" fill />
+          </div>
+          <p>Select a CSV file from your PC</p>
+          <section className="flex  gap-2 items-center justify-between w-full">
+            <div>
+              <label
+                htmlFor="csvFileSelector"
+                className="cursor-pointer text-blue-500"
+              >
+                <h2 className="text-blue font-lg font-bold font-sans">
+                  Select a File
+                </h2>
+              </label>
+              <input
+                type="file"
+                id="csvFileSelector"
+                accept=".csv"
+                className="hidden"
+                onChange={handleFileSelect}
+              />
+            </div>
+            <div>
+              <Button
+                variant="text"
+                className="rounded-md p-1"
+                size="small"
+                onClick={downloadTemplate}
+              >
+                <div className="text-xs flex items-center">
+                  <DownloadIcon />
+                  <p>CSV Template</p>
+                </div>
+              </Button>
+            </div>
+          </section>
+        </div>
         {csvInfo.title && (
           <AddStockCard
             title={title}
             file={file}
             currentDate={currentDate}
-            onDeleteClick={handleDeleteCard}
+            onDeleteClick={clearCsvData}
             isLoading={isLoading}
           />
         )}
@@ -161,8 +170,9 @@ export const LoadStock = function () {
 
       <div className="fixed bottom-5 w-[85%] flex">
         <Button
+          disabled={csvFile === null}
           variant="primary"
-          body="Attach File"
+          body="Upload File"
           size="big"
           className="p-3 rounded-md w-full"
           onClick={() => {

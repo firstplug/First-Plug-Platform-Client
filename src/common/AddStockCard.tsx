@@ -18,27 +18,25 @@ export function AddStockCard({
   onDeleteClick,
   isLoading,
 }: AddStockCardProps) {
-  const handleDeleteClick = () => onDeleteClick?.();
-
   return (
     <article
       className={`flex flex-col ${
         className || ""
-      } bg-white p-4 rounded-md shadow-md `}
+      } bg-white p-4 rounded-md border `}
     >
-      <header className="flex items-center justify-between">
+      <header className="flex items-start justify-between">
         <div className="flex">
           <div className="flex gap-2">
             <FileIcon />
             <div className="flex-col">
               <h2 className="font-bold text-black">{title}</h2>
-              <p className="text-grey">{file}</p>
+              <p className="text-grey text-sm">{file}</p>
             </div>
           </div>
         </div>
         <button
           className="bg-transparent border-none cursor-pointer"
-          onClick={handleDeleteClick}
+          onClick={onDeleteClick}
         >
           <IconX />
         </button>
@@ -49,7 +47,7 @@ export function AddStockCard({
         </div>
       ) : (
         <footer className="flex flex-col items-end flex-1">
-          <p className="text-grey flex gap-2 items-center">
+          <p className="text-grey flex gap-2 items-center text-md">
             {currentDate}
             <AlertCheck className="text-green" />
           </p>

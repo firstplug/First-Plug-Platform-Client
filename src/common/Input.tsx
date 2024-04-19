@@ -70,7 +70,9 @@ export function Input({
       )}
 
       {touched && error && !isLogin ? (
-        <p className=" ml-2  text-error text-sm  ">{error}</p>
+        <p className=" ml-2  w-[110%]  absolute  text-error text-sm  ">
+          {error}
+        </p>
       ) : null}
     </div>
   );

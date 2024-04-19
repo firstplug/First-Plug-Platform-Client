@@ -1,7 +1,7 @@
 "use client";
 import { ChangeEvent, useCallback, useState } from "react";
 
-type ValidatorType = "required" | "password" | "email";
+type ValidatorType = "required" | "password" | "email" | "userName";
 
 function validator(type: ValidatorType) {
   const emailValidator = (value: string) => {
@@ -32,6 +32,13 @@ function validator(type: ValidatorType) {
     }
     return null;
   };
+  const userNameValidator = (value: string) => {
+    const regex = /^[^0-9]*$/;
+    if (!regex.test(value)) {
+      return "This field must not contain numbers.";
+    }
+    return null;
+  };
 
   switch (type) {
     case "required": {
@@ -42,6 +49,9 @@ function validator(type: ValidatorType) {
     }
     case "email": {
       return emailValidator;
+    }
+    case "userName": {
+      return userNameValidator;
     }
 
     default:

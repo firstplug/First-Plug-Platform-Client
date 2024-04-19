@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Button, CustomLink, Input, LoaderSpinner } from "@/common";
+import { Button, Input, LoaderSpinner } from "@/common";
 import { Form } from "@/components";
 import { useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
@@ -8,13 +8,22 @@ import { signIn } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { AlertCheck, IconX } from "@/common/Icons";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function Login() {
   const emailInput = useInput("", "email");
   const passWordInput = useInput("", "password");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
   const { toast } = useToast();
   const handleSumbit = async (e: FormEvent) => {
     e.preventDefault();
@@ -82,10 +91,36 @@ export default function Login() {
             />
           </div>
 
-          <CustomLink href="/login" className="text-right">
-            Forgot Password ?
-          </CustomLink>
-
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <div className=" flex justify-end">
+                <Button variant="text">Forgot Password ?</Button>
+              </div>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="font-inter">
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  <h2 className="text-xl text-black font-semibold ">
+                    Forgot Password ?
+                  </h2>
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  <div className="text-md ">
+                    <p>
+                      Looks like you&apos;ve forgotten your password. Don&apos;t
+                      worry, we&apos;ve got you covered. Simply send an email to
+                      <b className="text-black "> hola@firstplug.co </b>
+                      requesting a password reset, and we&apos;ll get you back
+                      into your account in no time.
+                    </p>
+                  </div>
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogAction>OK</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <Button
             disabled={
               isLoading ||

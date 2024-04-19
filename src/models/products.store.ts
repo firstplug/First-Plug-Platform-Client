@@ -37,6 +37,9 @@ export const ProductsStore = types
     productById(productId: string) {
       return store.products.find((product) => product._id === productId);
     },
+    // get availableProducts() {
+    //   return store.products.filter((product) => product.status === "available");
+    // },
   }))
   .actions((store) => ({
     setProducts(products: Product[]) {

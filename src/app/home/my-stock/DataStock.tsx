@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { ProductsTable } from "@/components/Tables";
+import { useState } from "react";
 
 export default observer(function DataStock() {
   const router = useRouter();
@@ -13,13 +14,30 @@ export default observer(function DataStock() {
     aside: { setAside },
   } = useStore();
 
+  const [showOnlyAvailable, setShowOnlyAvailable] = useState(false);
+
+  const filteredProducts = showOnlyAvailable
+    ? products.filter((product) => product.status === "Available")
+    : products;
+
+    const handleCheckboxChange = () => {
+      setShowOnlyAvailable(!showOnlyAvailable);
+      console.log("showOnlyAvailable:", showOnlyAvailable);
+    }
+
+  console.log("filteredProducts:", filteredProducts);
+
   return (
     <div className="h-full w-full flex flex-col gap-4 relative  ">
       <aside className="flex justify-between items-center h-[6%]   ">
         <div className="flex gap-2">
-          <input type="checkbox" />
+          <input 
+          type="checkbox"
+          checked={showOnlyAvailable}
+          onChange={handleCheckboxChange} 
+          />
           <label className="ml-2 text-gray-500">
-            Show only avaliable stock
+            Show only available stock
           </label>
         </div>
 
@@ -45,7 +63,7 @@ export default observer(function DataStock() {
       </aside>
 
       <div className="h-[90%] top-[8%] w-full overflow-y-auto  absolute ">
-        <ProductsTable products={products} internalProducts={products} />
+        <ProductsTable products={filteredProducts} internalProducts={filteredProducts} />
       </div>
     </div>
   );

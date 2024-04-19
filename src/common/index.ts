@@ -19,6 +19,7 @@ export * from "./Input";
 export * from "./JoinerRow";
 export * from "./Layout";
 export * from "./LogisticsRow";
+export * from "./LoaderSpinner";
 export * from "./MemberDetail";
 export * from "./PageLayout";
 export * from "./ProductDetail";

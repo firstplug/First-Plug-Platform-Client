@@ -8,7 +8,8 @@ import { AuthServices } from "@/services/auth.services";
 import useInput from "@/hooks/useInput";
 import { FormEvent, useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+// import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import AlertRegistrationGranted from "@/components/ui/alertRegistrationGranted";
 
 export default function Register() {
   const nameInput = useInput("", "userName");
@@ -122,14 +123,15 @@ export default function Register() {
       </section>
       {showAlert && (
         <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50">
-          <Alert className="font-inter bg-white bg-opacity-90 p-6 rounded-md shadow-md w-1/3">
+          <AlertRegistrationGranted />
+          {/* <Alert className="font-inter bg-white bg-opacity-90 p-6 rounded-md shadow-md w-1/3">
             <AlertTitle className="text-xl text-black font-semibold">
               Thank you for registering at FirstPlug!
             </AlertTitle>
             <AlertDescription className="text-md">
               We will soon grant you access. Stay tuned!
             </AlertDescription>
-          </Alert>
+          </Alert> */}
         </div>
       )}
     </>

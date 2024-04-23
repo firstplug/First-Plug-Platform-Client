@@ -10,6 +10,7 @@ export const UserModel = types.compose(
   LoggedInUserModel,
   types.model({
     password: types.maybeNull(types.string),
+    tenantName: types.maybeNull(types.string),
   })
 );
 

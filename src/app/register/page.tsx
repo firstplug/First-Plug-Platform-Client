@@ -113,7 +113,7 @@ export default function Register() {
               variant={isLoading ? "text" : "primary"}
               className="rounded-md "
               size="big"
-              onClick={handleSubmit}
+              type="submit"
             >
               {isLoading && <LoaderSpinner />}
               Create Account
@@ -124,14 +124,6 @@ export default function Register() {
       {showAlert && (
         <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50">
           <AlertRegistrationGranted />
-          {/* <Alert className="font-inter bg-white bg-opacity-90 p-6 rounded-md shadow-md w-1/3">
-            <AlertTitle className="text-xl text-black font-semibold">
-              Thank you for registering at FirstPlug!
-            </AlertTitle>
-            <AlertDescription className="text-md">
-              We will soon grant you access. Stay tuned!
-            </AlertDescription>
-          </Alert> */}
         </div>
       )}
     </>

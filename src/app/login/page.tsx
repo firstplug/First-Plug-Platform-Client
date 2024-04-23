@@ -5,7 +5,7 @@ import { Form } from "@/components";
 import { useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
 import { signIn } from "next-auth/react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { AlertCheck, IconX } from "@/common/Icons";
 import {
@@ -18,13 +18,30 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { getSession } from "next-auth/react";
+import AlertRegistrationGranted from "@/components/ui/alertRegistrationGranted";
 
 export default function Login() {
   const emailInput = useInput("", "email");
   const passWordInput = useInput("", "password");
+
   const [isLoading, setIsLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    if (showAlert) {
+      const timeout = setTimeout(() => {
+        setShowAlert(false);
+        emailInput.clearInput();
+        passWordInput.clearInput();
+      }, 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [showAlert, emailInput, passWordInput]);
+
   const router = useRouter();
   const { toast } = useToast();
+
   const handleSumbit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -38,14 +55,28 @@ export default function Login() {
       if (!res.ok) {
         throw new Error(res.error);
       }
+
+      const updatedSession = await getSession();
+      if (!updatedSession) {
+        router.push("/register");
+        return;
+      }
+
+      if (!updatedSession.user.tenantName) {
+        setIsLoading(false);
+        setShowAlert(true);
+        return;
+      }
+
+      router.push("/home/dashboard");
       toast({
         title: "Logged in successfuly",
         variant: "success",
         action: <AlertCheck />,
         duration: 1500,
       });
-      router.push("/home/dashboard");
     } catch (error) {
+      router.push("/register");
       toast({
         title: "Invalid Credentials",
         variant: "destructive",
@@ -128,6 +159,7 @@ export default function Login() {
               !passWordInput.value ||
               emailInput.error !== null
             }
+            type="submit"
             variant={isLoading ? "text" : "primary"}
             className="rounded-md "
             size="big"
@@ -136,6 +168,11 @@ export default function Login() {
             Log In
           </Button>
         </Form>
+        {showAlert && (
+          <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50">
+            <AlertRegistrationGranted />
+          </div>
+        )}
       </article>
     </section>
   );

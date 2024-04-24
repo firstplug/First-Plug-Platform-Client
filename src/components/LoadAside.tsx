@@ -59,6 +59,7 @@ export const LoadStock = function () {
         variant: "success",
         action: <AlertCheck />,
         duration: 1500,
+        className: "z-50",
       });
 
     } catch (error) {
@@ -71,7 +72,8 @@ export const LoadStock = function () {
             <IconX className="text-error w-3" strokeWidth={2} />
           </div>
         ),
-        duration: 1500,
+        duration: 3000,
+        className: "z-50",
       });
     } finally {
       setIsLoading(false);

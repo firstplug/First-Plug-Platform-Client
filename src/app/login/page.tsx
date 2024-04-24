@@ -128,6 +128,7 @@ export default function Login() {
               !passWordInput.value ||
               emailInput.error !== null
             }
+            type="submit"
             variant={isLoading ? "text" : "primary"}
             className="rounded-md "
             size="big"

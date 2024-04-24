@@ -2,10 +2,11 @@
 import Image from "next/image";
 import React, { ChangeEvent, DragEvent, useState } from "react";
 import { Card } from ".";
-import { AddStockCard, Button } from "@/common";
+import { AddStockCard, AlertCheck, Button, IconX } from "@/common";
 import Papa from "papaparse";
 import { useStore } from "@/models";
 import axios from "axios";
+import { useToast } from "./ui/use-toast";
 
 const EMPTY_FILE_INFO: CsvInfo = {
   title: "",
@@ -32,6 +33,7 @@ export const LoadStock = function () {
   const [csvInfo, setCsvInfo] = useState(EMPTY_FILE_INFO);
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const {
     aside: { csvContext },
@@ -52,9 +54,25 @@ export const LoadStock = function () {
 
       const response = await axios.post(apiUrl, parsedData)
       setIsLoading(false);
+      toast({
+        title: "The file has been correctly uploaded.",
+        variant: "success",
+        action: <AlertCheck />,
+        duration: 1500,
+      });
 
     } catch (error) {
       console.error(error);
+      toast({
+        title: "The file hasn’t been correctly uploaded. Please verify it and try again.",
+        variant: "destructive",
+        action: (
+          <div className="border border-error rounded-full p-1">
+            <IconX className="text-error w-3" strokeWidth={2} />
+          </div>
+        ),
+        duration: 1500,
+      });
     } finally {
       setIsLoading(false);
     }

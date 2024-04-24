@@ -131,6 +131,7 @@ export default function Login() {
             variant={isLoading ? "text" : "primary"}
             className="rounded-md "
             size="big"
+            type="submit"
           >
             {isLoading && <LoaderSpinner />}
             Log In

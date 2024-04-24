@@ -20,7 +20,6 @@ export const ProductsFormBase = observer(function ({ onsubmit, buttonText, regis
     return (
         <div>
             <form onSubmit={onsubmit}>
-                <input {...register("name")} type="text" placeholder="Product Name" />
                 <select {...register("category")} defaultValue="" >
                     <option value="" disabled>Select a Category</option>
                     {categories.map((category) => (
@@ -30,6 +29,7 @@ export const ProductsFormBase = observer(function ({ onsubmit, buttonText, regis
                     ))                        
                     }
                 </select>
+                <input {...register("name")} type="text" placeholder="Product Name" />
                 <button type="submit">{buttonText}</button>
             </form>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/common";
-import { ShopIcon, UploadIcon } from "@/common/Icons";
+import { AddIcon, ShopIcon, UploadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
@@ -24,6 +24,15 @@ export default observer(function DataStock() {
         </div>
 
         <div className="flex gap-2   ">
+
+          <Button
+            className="rounded-md py-2 px-4"
+            variant="secondary"
+            body="Add Equipment"
+            icon={<AddIcon />}
+            // onClick={() => setAside("AddStock")}
+          />
+
           <Button
             className="rounded-md py-2 px-4"
             variant="secondary"

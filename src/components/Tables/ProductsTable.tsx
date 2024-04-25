@@ -45,12 +45,15 @@ export const prodcutColumns: ColumnDef<Product>[] = [
   },
   {
     accessorFn: (row) => row.name,
-    header: "Name Brand | Model | Processor | RAM | Storage | GPU",
+    header: "Name",
+    // Brand | Model | Processor | RAM | Storage | GPU
     size: 400,
     cell: ({ row, getValue }) => (
       <div className="flex flex-col ">
         <section className="text-lg "> {getValue<string>()}</section>
-        <section className=" flex gap-2 text-dark-grey text-xs ">
+        
+        {row.original.category === "Laptop" &&
+          <section className=" flex gap-2 text-dark-grey text-xs ">
           <div className="flex  items-center">
             <span>Proccesor </span>
             <p className="font-normal"> {row.original.processor}</p>
@@ -65,7 +68,7 @@ export const prodcutColumns: ColumnDef<Product>[] = [
               <p className="font-normal"> {row.original.storage}</p>
             </p>
           </div>
-        </section>
+        </section>}
       </div>
     ),
   },

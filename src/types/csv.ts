@@ -1,7 +1,7 @@
-import { z, ZodType } from "zod";
-// Definición del esquema de ProductModel utilizando Zod
+import { z } from "zod";
+
 export const zodProductModel = z.object({
-  _id: z.string(),
+  _id: z.string().optional(),
   name: z.string().optional(),
   description: z.string().optional(),
   category: z.string().optional(),
@@ -19,12 +19,28 @@ export const zodProductModel = z.object({
   imgUrl: z.string().optional(),
   stock: z.number(),
 });
-
-// Tipo de instancia para ProductModel
-// export type Product = z.infer<typeof zodProductModel>;
-
+export const zodMemberModel = z.object({
+  _id: z.string().optional(),
+  firstName: z.string().optional(),
+  img: z.string().optional(),
+  lastName: z.string().optional(),
+  dateOfBirth: z.string().optional(),
+  phone: z.string().optional(),
+  email: z.string().optional(),
+  jobPosition: z.string().optional(),
+  city: z.string().optional(),
+  zipCode: z.string().optional(),
+  address: z.string().optional(),
+  appartment: z.string().optional(),
+  joiningDate: z.string().optional(),
+  timeSlotForDelivery: z.string().optional(),
+  additionalInfo: z.string().optional(),
+  teams: z.array(z.string()).optional(),
+  products: z.array(zodProductModel).optional(),
+});
 export const csvSquema = z.object({
-  data: zodProductModel,
+  prdoucts: z.array(zodProductModel).optional(),
+  members: z.array(zodMemberModel).optional(),
 });
 export type CsvInfo = {
   title: string;

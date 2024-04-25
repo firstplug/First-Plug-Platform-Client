@@ -37,21 +37,22 @@ export const LoadStock = function () {
   const postCsvToDatabase = async (parsedData) => {
     setIsLoading(true);
 
-    csvSquema.parse(parsedData);
     try {
       if (type === "LoadStock") {
-        const data = parsedData.map((product) => ({
+        const prdoucts = parsedData.map((product) => ({
           ...product,
           stock: parseInt(product.stock),
         }));
 
-        await CsvServices.bulkCreateProducts(data);
+        csvSquema.parse({ prdoucts });
+
+        await CsvServices.bulkCreateProducts(prdoucts);
 
         return alert("csv Loaded succesfully");
       }
 
       if (type === "LoadMembers") {
-        const data = parsedData.map((member) => {
+        const members = parsedData.map((member) => {
           return {
             ...member,
             dateOfBirth: new Date(member.dateOfBirth).toISOString(),
@@ -59,8 +60,8 @@ export const LoadStock = function () {
             teams: member.teams.split(","),
           };
         });
-
-        await CsvServices.bulkCreateTeams(data);
+        csvSquema.parse({ members });
+        await CsvServices.bulkCreateTeams(members);
 
         return alert("csv Loaded succesfully");
       }

@@ -49,7 +49,7 @@ export function Input({
         placeholder={placeholder}
         defaultValue={value}
         className={`w-full  h-14 py-2 rounded-xl border ${
-          error && !isLogin ? "border-error" : ""
+          touched && error && !isLogin ? "border-error" : ""
         } text-black p-4  font-sans focus:outline-none`}
       />
 

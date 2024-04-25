@@ -41,8 +41,9 @@ export const Form = function ({
         <Button
           onClick={(e) => {
             e.preventDefault();
+            console.log(process.env.NEXT_PUBLIC_URL);
             return signIn("google", {
-              callbackUrl: `${BASE_URL}/home/dashboard`,
+              callbackUrl: `${process.env.NEXT_PUBLIC_URL}/home/dashboard`,
             });
           }}
           variant="secondary"
@@ -54,7 +55,7 @@ export const Form = function ({
           onClick={(e) => {
             e.preventDefault();
             return signIn("azure-ad", {
-              callbackUrl: `${BASE_URL}/home/dashboard`,
+              callbackUrl: `${process.env.NEXT_PUBLIC_URL}/home/dashboard`,
             });
           }}
           variant="secondary"

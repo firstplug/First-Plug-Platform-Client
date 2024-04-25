@@ -45,4 +45,15 @@ export const ProductsStore = types
     addProduct(product: Product) {
       store.products.push(product);
     },
+    updateProduct(product: Product) {
+      const index = store.products.findIndex(
+        (item) => item._id === product._id
+      );
+      store.products[index] = product;
+    },
+    deleteProduct(productId: string) {
+      const index = store.products.findIndex((item) => item._id === productId);
+      store.products.splice(index, 1);
+    },
   }));
+// falta agregar el updateProduct y el deleteProduct

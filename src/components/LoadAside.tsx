@@ -4,10 +4,15 @@ import React, { ChangeEvent, useState } from "react";
 import { AddStockCard, Button, DownloadIcon } from "@/common";
 import Papa from "papaparse";
 import { useStore } from "@/models";
-import { CSVTeamplates, CsvInfo, Product, TeamMember } from "@/types";
+import {
+  CSVTeamplates,
+  CsvInfo,
+  Product,
+  TeamMember,
+  csvSquema,
+} from "@/types";
 import { CsvServices } from "@/services";
 import { saveAs } from "file-saver";
-
 const EMPTY_FILE_INFO: CsvInfo = {
   title: "",
   file: "",
@@ -29,12 +34,13 @@ export const LoadStock = function () {
 
   const { title, file, currentDate } = csvInfo;
 
-  const postCsvToDatabase = async (parsedData: Product[] | TeamMember[]) => {
+  const postCsvToDatabase = async (parsedData) => {
     setIsLoading(true);
 
+    csvSquema.parse(parsedData);
     try {
       if (type === "LoadStock") {
-        const data: Product[] = parsedData.map((product) => ({
+        const data = parsedData.map((product) => ({
           ...product,
           stock: parseInt(product.stock),
         }));
@@ -45,7 +51,7 @@ export const LoadStock = function () {
       }
 
       if (type === "LoadMembers") {
-        const data: TeamMember[] = parsedData.map((member) => {
+        const data = parsedData.map((member) => {
           return {
             ...member,
             dateOfBirth: new Date(member.dateOfBirth).toISOString(),

@@ -91,37 +91,39 @@ export default function Login() {
             />
           </div>
 
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <div className=" flex justify-end">
+          <div className=" flex justify-end">
+            <AlertDialog>
+              <AlertDialogTrigger className=" w-1/3">
                 <Button variant="text">Forgot Password ?</Button>
-              </div>
-            </AlertDialogTrigger>
-            <AlertDialogContent className="font-inter">
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  <h2 className="text-xl text-black font-semibold ">
-                    Forgot Password ?
-                  </h2>
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  <div className="text-md ">
-                    <p>
-                      Looks like you&apos;ve forgotten your password. Don&apos;t
-                      worry, we&apos;ve got you covered. Simply send an email to
-                      <b className="text-black "> hola@firstplug.co </b>
-                      requesting a password reset, and we&apos;ll get you back
-                      into your account in no time.
-                    </p>
-                  </div>
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogAction>OK</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="font-inter">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    <h2 className="text-xl text-black font-semibold ">
+                      Forgot Password ?
+                    </h2>
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    <div className="text-md ">
+                      <p>
+                        Looks like you&apos;ve forgotten your password.
+                        Don&apos;t worry, we&apos;ve got you covered. Simply
+                        send an email to
+                        <b className="text-black "> hola@firstplug.co </b>
+                        requesting a password reset, and we&apos;ll get you back
+                        into your account in no time.
+                      </p>
+                    </div>
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogAction>OK</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
           <Button
+            type="submit"
             disabled={
               isLoading ||
               !emailInput.value ||

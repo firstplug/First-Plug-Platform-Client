@@ -76,7 +76,7 @@ export function EmptyCard({ type }: EmptyCardProps) {
             variant="secondary"
             body={additionalButtonText}
             size="big"
-            icon={<AddIcon />}
+            icon={additionalButtonIcon()}
             className="p-3 rounded-md gap-2"
             onClick={() => {}}
           />

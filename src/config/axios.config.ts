@@ -1,14 +1,7 @@
 import axios from "axios";
 
-let baseURL: string;
-if (process.env.NODE_ENV === "development") {
-  baseURL = process.env.NEXT_PUBLIC_API_URL_DEV;
-} else if (process.env.NODE_ENV === "production") {
-  baseURL = process.env.NEXT_PUBLIC_API_URL_PROD;
-} else {
-  console.error("ERROR: Invalid NODE_ENV value.");
-  process.exit(1);
-}
+let baseURL: string = process.env.NEXT_PUBLIC_API;
+
 export const BASE_URL = baseURL;
 export const axiosInstance = axios.create({ baseURL });
 

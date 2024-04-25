@@ -83,6 +83,7 @@ export default function Login() {
             />
 
             <Input
+              isLogin
               title="Password"
               type="password"
               placeholder="Password"

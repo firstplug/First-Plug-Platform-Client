@@ -7,6 +7,14 @@ export const ProductsStore = types
     products: types.array(ProductModel),
   })
   .views((store) => ({
+    // get totalQuantity(): number {
+    //   return store.products.reduce((total, product) => total + product.stock, 0);
+    // },
+    // getavailableQuantity(): number {
+    //   return store.products
+    //   .filter((product) => product.status === "Available")
+    //   .reduce((total, product) => total + product.stock, 0);
+    // },
     get productsTable(): ProductTable[] {
       return store.products.map((product) => ({
         category: {

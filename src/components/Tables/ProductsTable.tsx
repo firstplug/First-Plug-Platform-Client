@@ -45,7 +45,7 @@ export const prodcutColumns: ColumnDef<Product>[] = [
   },
   {
     accessorFn: (row) => row.name,
-    header: "Model",
+    header: "Name Brand | Model | Processor | RAM | Storage | GPU",
     size: 400,
     cell: ({ row, getValue }) => (
       <div className="flex flex-col ">
@@ -77,7 +77,7 @@ export const prodcutColumns: ColumnDef<Product>[] = [
   },
   {
     accessorFn: (row) => row.serialNumber,
-    header: "Serial",
+    header: "Available",
     size: 200,
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },

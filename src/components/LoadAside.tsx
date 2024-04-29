@@ -44,9 +44,14 @@ export const LoadStock = function () {
           stock: parseInt(product.stock),
         }));
 
-        csvSquema.parse({ prdoucts });
+        const { success } = csvSquema.safeParse({ prdoucts });
 
-        await CsvServices.bulkCreateProducts(prdoucts);
+        if (success) {
+          await CsvServices.bulkCreateProducts(prdoucts);
+          clearCsvData();
+        } else {
+          throw new Error("error en el tipo de archivo");
+        }
 
         return alert("csv Loaded succesfully");
       }
@@ -60,16 +65,20 @@ export const LoadStock = function () {
             teams: member.teams.split(","),
           };
         });
-        csvSquema.parse({ members });
-        await CsvServices.bulkCreateTeams(members);
+        const { success } = csvSquema.safeParse({ members });
 
+        if (success) {
+          await CsvServices.bulkCreateTeams(members);
+          clearCsvData();
+        } else {
+          throw new Error("Error en el tipo de archivos");
+        }
         return alert("csv Loaded succesfully");
       }
     } catch (error) {
-      alert("error at loading csv file");
+      alert(error.message);
       console.error(error);
     } finally {
-      clearCsvData();
       setIsLoading(false);
     }
   };

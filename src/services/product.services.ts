@@ -39,4 +39,17 @@ export class ProductServices {
     );
     return response.data;
   }
+
+  static async getQuantityByName(name: string, category?: string): Promise<number> {
+    try {
+      const params = new URLSearchParams({ name, category });
+  
+      const response = await HTTPRequests.get(`${BASE_URL}/api/products/quantity?${params.toString()}`);
+      console.log(response.data.quantity);
+      return response.data.quantity;
+      
+    } catch (error) {
+      throw error;
+    }
+  }
 }

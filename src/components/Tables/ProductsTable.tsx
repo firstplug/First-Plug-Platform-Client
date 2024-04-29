@@ -4,6 +4,7 @@ import { Table } from "../Table";
 import { ArrowRight, Button, ShipmentStatusCard, TrashIcon } from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
+import { ProductServices } from "@/services";
 //TODO: review this.
 function setAction(status: string) {
   switch (status) {
@@ -45,38 +46,52 @@ export const prodcutColumns: ColumnDef<Product>[] = [
   },
   {
     accessorFn: (row) => row.name,
-    header: "Name",
+    header: "Product Name",
     // Brand | Model | Processor | RAM | Storage | GPU
     size: 400,
     cell: ({ row, getValue }) => (
       <div className="flex flex-col ">
         <section className="text-lg "> {getValue<string>()}</section>
-        
-        {row.original.category === "Laptop" &&
+
+        {row.original.category === "Laptop" && (
           <section className=" flex gap-2 text-dark-grey text-xs ">
-          <div className="flex  items-center">
-            <span>Proccesor </span>
-            <p className="font-normal"> {row.original.processor}</p>
-          </div>
-          <div className="flex  items-center">
-            <span>RAM </span>
-            <p className="font-normal"> {row.original.ram}</p>
-          </div>
-          <div className="flex  items-center">
-            <span>SDD </span>
-            <p className="font-normal">
-              <p className="font-normal"> {row.original.storage}</p>
-            </p>
-          </div>
-        </section>}
+            <div className="flex  items-center">
+              <span>Proccesor </span>
+              <p className="font-normal"> {row.original.processor}</p>
+            </div>
+            <div className="flex  items-center">
+              <span>RAM </span>
+              <p className="font-normal"> {row.original.ram}</p>
+            </div>
+            <div className="flex  items-center">
+              <span>SDD </span>
+              <p className="font-normal">
+                <p className="font-normal"> {row.original.storage}</p>
+              </p>
+            </div>
+          </section>
+        )}
       </div>
     ),
   },
+
   {
     accessorFn: (row) => row.stock,
     header: "Quantity",
     size: 200,
-    cell: ({ getValue }) => <span>{getValue<number>()}</span>,
+    cell: ({ row }) => {
+      const name = row.original.name;
+      const category = row.original.category;
+
+      ProductServices.getQuantityByName(name, category)
+        .then((quantity) => {
+          return <span>{quantity}</span>;
+        })
+        .catch((error) => {
+          console.error("Error fetching products quantity:", error);
+          return <span>0</span>;
+        });
+    },
   },
   {
     accessorFn: (row) => row.serialNumber,

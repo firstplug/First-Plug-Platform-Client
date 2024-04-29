@@ -1,5 +1,6 @@
 import { types } from "mobx-state-tree";
 import { Product, ProductModel, ProductTable } from "@/types";
+import { ProductServices } from "@/services";
 
 export const ProductsStore = types
   .model({
@@ -7,14 +8,6 @@ export const ProductsStore = types
     products: types.array(ProductModel),
   })
   .views((store) => ({
-    // get totalQuantity(): number {
-    //   return store.products.reduce((total, product) => total + product.stock, 0);
-    // },
-    // getavailableQuantity(): number {
-    //   return store.products
-    //   .filter((product) => product.status === "Available")
-    //   .reduce((total, product) => total + product.stock, 0);
-    // },
     get productsTable(): ProductTable[] {
       return store.products.map((product) => ({
         category: {
@@ -47,10 +40,23 @@ export const ProductsStore = types
     },
   }))
   .actions((store) => ({
-    setProducts(products: Product[]) {
-      store.products.replace(products);
-    },
-    addProduct(product: Product) {
-      store.products.push(product);
-    },
-  }));
+      setProducts(products: Product[]) {
+        store.products.replace(products);
+      },
+      addProduct(product: Product) {
+        store.products.push(product);
+      },
+      fetchProductsbyQuantity: async function fetchProductsbyQuantity(name: string) {
+        try {
+          const quantity = await ProductServices.getQuantityByName(name);
+          store.products.forEach((product) => {
+            if (product.name === name) {
+              product.stock = quantity;
+            }
+          });
+        } catch (error) {
+          console.error('Error fetching products quantity:', error);
+        }
+      }
+      
+    }));

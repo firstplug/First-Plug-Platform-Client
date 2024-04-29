@@ -89,6 +89,7 @@ export default function Register() {
             variant={isLoading ? "text" : "primary"}
             className="rounded-md "
             size="big"
+            type="submit"
           >
             {isLoading && <LoaderSpinner />}
             Create Account

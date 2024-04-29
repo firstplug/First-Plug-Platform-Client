@@ -85,11 +85,11 @@ export default function Register() {
           </div>
 
           <Button
+          type="submit"
             disabled={sumbtiValidation}
             variant={isLoading ? "text" : "primary"}
             className="rounded-md "
             size="big"
-            type="submit"
           >
             {isLoading && <LoaderSpinner />}
             Create Account

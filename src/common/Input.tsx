@@ -49,7 +49,7 @@ export function Input({
         placeholder={placeholder}
         defaultValue={value}
         className={`w-full  h-14 py-2 rounded-xl border ${
-          touched && error && !isLogin ? "border-error" : ""
+          value.length && touched && error && !isLogin ? "border-error" : ""
         } text-black p-4  font-sans focus:outline-none`}
       />
 
@@ -69,7 +69,7 @@ export function Input({
         </button>
       )}
 
-      {touched && error && !isLogin ? (
+      {value.length && touched && error && !isLogin ? (
         <p className=" ml-2  w-[110%]  absolute  text-error text-sm  ">
           {error}
         </p>

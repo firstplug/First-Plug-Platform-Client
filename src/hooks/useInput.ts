@@ -38,10 +38,17 @@ function validator(type: ValidatorType, passwordToCompare?: string) {
     return null;
   };
   const userNameValidator = (value: string) => {
-    const regex = /^[^0-9]*$/;
-    if (!regex.test(value)) {
+    const onlyLettersRegex = /^[a-zA-Z\s]*$/; // Expresión regular para permitir solo letras y espacios
+    const containsNumbersRegex = /[0-9]/; // Expresión regular para verificar números
+
+    if (containsNumbersRegex.test(value)) {
       return "This field must not contain numbers.";
     }
+
+    if (!onlyLettersRegex.test(value)) {
+      return "This field must contain only letters and spaces.";
+    }
+
     return null;
   };
   const confirmPassowrd = (value: string) => {
@@ -102,10 +109,11 @@ export default function useInput<T>(
     (e: ChangeEvent<HTMLInputElement>) => {
       setValue(e.target.value as T);
       if (validateFunction) {
+        if (type === "userName") setTouched(true);
         !isOptionInput
           ? type === "confirmPassowrd"
-            ? setError(validateFunction(value as string))
-            : setError(validateFunction(value as string))
+            ? setError(validateFunction(e.target.value as string))
+            : setError(validateFunction(e.target.value as string))
           : setError(validateFunction(selectedOption as string));
       }
     },
@@ -118,8 +126,8 @@ export default function useInput<T>(
 
   const onBlur = useCallback(() => {
     setTouched(true);
-
-    if (validateFunction) {
+    const val = value as string;
+    if (validateFunction && val.length) {
       !isOptionInput
         ? type === "confirmPassowrd"
           ? setError(validateFunction(value as string))
@@ -130,7 +138,8 @@ export default function useInput<T>(
 
   const onFocus = useCallback(() => {
     setTouched(false);
-    if (validateFunction) {
+    const val = value as string;
+    if (validateFunction && val.length) {
       !isOptionInput
         ? type === "confirmPassowrd"
           ? setError(validateFunction(value as string))

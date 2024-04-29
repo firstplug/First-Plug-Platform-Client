@@ -12,6 +12,10 @@ type TConfig = {
   LinkIcon?: () => JSX.Element;
   linkText?: string;
   link?: string;
+  additionalButton?: () => JSX.Element;
+  additionalButtonText?: string;
+  additionalButtonIcon?: () => JSX.Element;
+  additionalOnClick?: () => void;
 };
 
 const Config: Record<EmptyCardType, TConfig> = {
@@ -23,6 +27,8 @@ const Config: Record<EmptyCardType, TConfig> = {
     LinkIcon: ShopIcon,
     link: "/shop",
     linkText: "Shop Now",
+    additionalButtonText: "Add Equipment",
+    additionalButtonIcon: AddIcon, 
   },
   members: {
     image: "/girl.svg",
@@ -54,7 +60,7 @@ interface EmptyCardProps {
 }
 
 export function EmptyCard({ type }: EmptyCardProps) {
-  const { ButtonIcon, LinkIcon, buttonText, image, link, linkText, paragraph } =
+  const { ButtonIcon, LinkIcon, buttonText, image, link, linkText, paragraph, additionalButtonIcon, additionalButtonText } =
     Config[type];
   return (
     <div className="flex flex-col items-center gap-3 ">
@@ -65,6 +71,17 @@ export function EmptyCard({ type }: EmptyCardProps) {
         <p className="text-dark-grey">{paragraph}</p>
       </div>
       <div className="flex gap-2 ">
+        {additionalButtonIcon && (
+          <Button
+            variant="secondary"
+            body={additionalButtonText}
+            size="big"
+            icon={additionalButtonIcon()}
+            className="p-3 rounded-md gap-2"
+            onClick={() => {}}
+          />
+        )
+        }
         {ButtonIcon && (
           <Button
             variant="secondary"
@@ -80,7 +97,7 @@ export function EmptyCard({ type }: EmptyCardProps) {
           <CustomLink
             variant="primary"
             size="big"
-            className="rounded-md flex   gap-2"
+            className="rounded-md flex gap-2"
             href={link}
           >
             <LinkIcon /> {linkText}

@@ -41,7 +41,7 @@ export const zodMemberModel = z.object({
   products: z.array(zodProductModel).optional(),
 });
 export type MembersModel = z.infer<typeof zodMemberModel>;
-export const csvProductSquema = z.object({
+export const csvSquema = z.object({
   prdoucts: z.array(zodProductModel).optional(),
   members: z.array(zodMemberModel).optional(),
 });

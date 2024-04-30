@@ -9,7 +9,7 @@ import {
   CsvInfo,
   Product,
   TeamMember,
-  csvProductSquema,
+  csvSquema,
 } from "@/types";
 import { CsvServices } from "@/services";
 import { saveAs } from "file-saver";
@@ -44,7 +44,7 @@ export const LoadStock = function () {
           stock: parseInt(product.stock),
         }));
 
-        const { success, data } = csvProductSquema.safeParse({ prdoucts });
+        const { success, data } = csvSquema.safeParse({ prdoucts });
 
         if (success) {
           await CsvServices.bulkCreateProducts(data.prdoucts);
@@ -66,7 +66,7 @@ export const LoadStock = function () {
             teams: member.teams.split(","),
           };
         });
-        const { success, data } = csvProductSquema.safeParse({ members });
+        const { success, data } = csvSquema.safeParse({ members });
 
         if (success) {
           await CsvServices.bulkCreateTeams(data.members);

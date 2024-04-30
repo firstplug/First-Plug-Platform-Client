@@ -20,7 +20,8 @@ export const zodProductModel = z.object({
   stock: z.number(),
 });
 
-export type PrdouctModel = z.infer<typeof zodProductModel>;
+export type PrdouctModelZod = z.infer<typeof zodProductModel>;
+
 export const zodMemberModel = z.object({
   _id: z.string().optional(),
   firstName: z.string().optional(),
@@ -40,7 +41,7 @@ export const zodMemberModel = z.object({
   teams: z.array(z.string()).optional(),
   products: z.array(zodProductModel).optional(),
 });
-export type MembersModel = z.infer<typeof zodMemberModel>;
+export type MembersModelZod = z.infer<typeof zodMemberModel>;
 export const csvSquema = z.object({
   prdoucts: z.array(zodProductModel).optional(),
   members: z.array(zodMemberModel).optional(),

@@ -10,7 +10,11 @@ export class AuthServices {
   }
 
   static async registerByProviders(user: RegisterUserPlatforms) {
-    return await axios.post(`${BASE_URL}/api/auth/register-providers`, user);
+    try {
+      return await axios.post(`${BASE_URL}/api/auth/register-providers`, user);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static async login(data: LoginUser) {
@@ -23,9 +27,12 @@ export class AuthServices {
   }
 
   static async getBackendTokens(user: RegisterUserPlatforms): Promise<Session> {
-    const tokens = await axios.post(`${BASE_URL}/api/auth/get-tokens`, user);
-
-    return tokens.data;
+    try {
+      const tokens = await axios.post(`${BASE_URL}/api/auth/get-tokens`, user);
+      return tokens.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static async refreshToken(token: JWT): Promise<JWT> {

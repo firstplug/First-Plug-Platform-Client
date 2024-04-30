@@ -13,7 +13,12 @@ export default function Register() {
   const nameInput = useInput("", "userName");
   const emailInput = useInput("", "email");
   const passwordInput = useInput("", "password");
-  const confirmPasswordInput = useInput("", "password");
+  const confirmPasswordInput = useInput(
+    "",
+    "confirmPassowrd",
+    false,
+    passwordInput.value
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -76,8 +81,7 @@ export default function Register() {
               {...passwordInput}
             />
             <Input
-              isLogin
-              title="Password"
+              title="Confirm Password"
               placeholder="Confirm Password"
               type="password"
               {...confirmPasswordInput}
@@ -89,6 +93,7 @@ export default function Register() {
             variant={isLoading ? "text" : "primary"}
             className="rounded-md "
             size="big"
+            type="submit"
           >
             {isLoading && <LoaderSpinner />}
             Create Account

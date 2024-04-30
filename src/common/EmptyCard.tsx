@@ -3,7 +3,12 @@ import { Button } from "./Button";
 import { AddIcon, ShopIcon, UploadIcon } from "./Icons";
 import { CustomLink } from "./CustomLink";
 
-type EmptyCardType = "stock" | "members" | "shipments" | "orders";
+type EmptyCardType =
+  | "stock"
+  | "members"
+  | "shipments"
+  | "orders"
+  | "registerok";
 type TConfig = {
   image: string;
   paragraph: string;
@@ -28,7 +33,7 @@ const Config: Record<EmptyCardType, TConfig> = {
     link: "/shop",
     linkText: "Shop Now",
     additionalButtonText: "Add Equipment",
-    additionalButtonIcon: AddIcon, 
+    additionalButtonIcon: AddIcon,
   },
   members: {
     image: "/girl.svg",
@@ -53,6 +58,13 @@ const Config: Record<EmptyCardType, TConfig> = {
     link: "/home/my-stock",
     linkText: "Shop Now",
   },
+  registerok: {
+    image: "/world.svg",
+    paragraph: "You'll soon be able to access to the platform.",
+    LinkIcon: ShopIcon,
+    link: "/login",
+    linkText: "ok",
+  },
 };
 
 interface EmptyCardProps {
@@ -60,8 +72,17 @@ interface EmptyCardProps {
 }
 
 export function EmptyCard({ type }: EmptyCardProps) {
-  const { ButtonIcon, LinkIcon, buttonText, image, link, linkText, paragraph, additionalButtonIcon, additionalButtonText } =
-    Config[type];
+  const {
+    ButtonIcon,
+    LinkIcon,
+    buttonText,
+    image,
+    link,
+    linkText,
+    paragraph,
+    additionalButtonIcon,
+    additionalButtonText,
+  } = Config[type];
   return (
     <div className="flex flex-col items-center gap-3 ">
       <div className="flex flex-col items-center">
@@ -80,8 +101,7 @@ export function EmptyCard({ type }: EmptyCardProps) {
             className="p-3 rounded-md gap-2"
             onClick={() => {}}
           />
-        )
-        }
+        )}
         {ButtonIcon && (
           <Button
             variant="secondary"

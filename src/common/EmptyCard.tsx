@@ -12,6 +12,8 @@ type EmptyCardType =
 type TConfig = {
   image: string;
   paragraph: string;
+  paragraphstrong?: string;
+  paragraph2?: string;
   ButtonIcon?: () => JSX.Element;
   buttonText?: string;
   LinkIcon?: () => JSX.Element;
@@ -60,10 +62,12 @@ const Config: Record<EmptyCardType, TConfig> = {
   },
   registerok: {
     image: "/world.svg",
-    paragraph: "You'll soon be able to access to the platform.",
+    paragraphstrong: "Congratulations!",
+    paragraph: "Soon you will be able to access the platform.",
+    paragraph2: "Your account has been successfully created.",
     LinkIcon: ShopIcon,
-    link: "/login",
-    linkText: "ok",
+    link: "https://firstplug.co/",
+    linkText: "Home Page",
   },
 };
 
@@ -79,7 +83,9 @@ export function EmptyCard({ type }: EmptyCardProps) {
     image,
     link,
     linkText,
+    paragraphstrong,
     paragraph,
+    paragraph2,
     additionalButtonIcon,
     additionalButtonText,
   } = Config[type];
@@ -89,6 +95,10 @@ export function EmptyCard({ type }: EmptyCardProps) {
         <div className="w-52 h-52 relative">
           <Image src={image} alt={paragraph} fill />
         </div>
+        {paragraphstrong && (
+          <p className="text-xl text-black font-semibold">{paragraphstrong}</p>
+        )}
+        {paragraph2 && <p className="text-dark-grey mb-4">{paragraph2}</p>}
         <p className="text-dark-grey">{paragraph}</p>
       </div>
       <div className="flex gap-2 ">

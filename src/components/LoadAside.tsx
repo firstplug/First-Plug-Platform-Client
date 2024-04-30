@@ -4,10 +4,15 @@ import React, { ChangeEvent, useState } from "react";
 import { AddStockCard, Button, DownloadIcon } from "@/common";
 import Papa from "papaparse";
 import { useStore } from "@/models";
-import { CSVTeamplates, CsvInfo, Product, TeamMember } from "@/types";
+import {
+  CSVTeamplates,
+  CsvInfo,
+  Product,
+  TeamMember,
+  csvSquema,
+} from "@/types";
 import { CsvServices } from "@/services";
 import { saveAs } from "file-saver";
-
 const EMPTY_FILE_INFO: CsvInfo = {
   title: "",
   file: "",
@@ -29,23 +34,31 @@ export const LoadStock = function () {
 
   const { title, file, currentDate } = csvInfo;
 
-  const postCsvToDatabase = async (parsedData: Product[] | TeamMember[]) => {
+  const postCsvToDatabase = async (parsedData) => {
     setIsLoading(true);
 
     try {
       if (type === "LoadStock") {
-        const data: Product[] = parsedData.map((product) => ({
+        const prdoucts = parsedData.map((product) => ({
           ...product,
           stock: parseInt(product.stock),
         }));
 
-        await CsvServices.bulkCreateProducts(data);
+        const { success, data } = csvSquema.safeParse({ prdoucts });
 
-        return alert("csv Loaded succesfully");
+        if (success) {
+          await CsvServices.bulkCreateProducts(data.prdoucts);
+
+          clearCsvData();
+          // TODO: add pretty alert
+          return alert("csv Loaded succesfully");
+        } else {
+          throw new Error("error en el tipo de archivo");
+        }
       }
 
       if (type === "LoadMembers") {
-        const data: TeamMember[] = parsedData.map((member) => {
+        const members = parsedData.map((member) => {
           return {
             ...member,
             dateOfBirth: new Date(member.dateOfBirth).toISOString(),
@@ -53,16 +66,22 @@ export const LoadStock = function () {
             teams: member.teams.split(","),
           };
         });
+        const { success, data } = csvSquema.safeParse({ members });
 
-        await CsvServices.bulkCreateTeams(data);
+        if (success) {
+          await CsvServices.bulkCreateTeams(data.members);
 
-        return alert("csv Loaded succesfully");
+          clearCsvData();
+          // TODO: add pretty alert
+          return alert("csv Loaded succesfully");
+        } else {
+          throw new Error("Error en el tipo de archivos");
+        }
       }
     } catch (error) {
-      alert("error at loading csv file");
+      alert(error.message);
       console.error(error);
     } finally {
-      clearCsvData();
       setIsLoading(false);
     }
   };

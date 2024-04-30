@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+// TODO: After approving this. These types should be the main store types for each 'substore' (product.store and members.store)
 export const zodProductModel = z.object({
   _id: z.string().optional(),
   name: z.string().optional(),
@@ -19,6 +19,8 @@ export const zodProductModel = z.object({
   imgUrl: z.string().optional(),
   stock: z.number(),
 });
+
+export type PrdouctModel = z.infer<typeof zodProductModel>;
 export const zodMemberModel = z.object({
   _id: z.string().optional(),
   firstName: z.string().optional(),
@@ -38,7 +40,8 @@ export const zodMemberModel = z.object({
   teams: z.array(z.string()).optional(),
   products: z.array(zodProductModel).optional(),
 });
-export const csvSquema = z.object({
+export type MembersModel = z.infer<typeof zodMemberModel>;
+export const csvProductSquema = z.object({
   prdoucts: z.array(zodProductModel).optional(),
   members: z.array(zodMemberModel).optional(),
 });

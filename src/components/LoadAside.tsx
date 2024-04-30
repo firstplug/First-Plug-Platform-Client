@@ -9,7 +9,7 @@ import {
   CsvInfo,
   Product,
   TeamMember,
-  csvSquema,
+  csvProductSquema,
 } from "@/types";
 import { CsvServices } from "@/services";
 import { saveAs } from "file-saver";
@@ -44,16 +44,17 @@ export const LoadStock = function () {
           stock: parseInt(product.stock),
         }));
 
-        const { success } = csvSquema.safeParse({ prdoucts });
+        const { success, data } = csvProductSquema.safeParse({ prdoucts });
 
         if (success) {
-          await CsvServices.bulkCreateProducts(prdoucts);
+          await CsvServices.bulkCreateProducts(data.prdoucts);
+
           clearCsvData();
+          // TODO: add pretty alert
+          return alert("csv Loaded succesfully");
         } else {
           throw new Error("error en el tipo de archivo");
         }
-
-        return alert("csv Loaded succesfully");
       }
 
       if (type === "LoadMembers") {
@@ -65,15 +66,17 @@ export const LoadStock = function () {
             teams: member.teams.split(","),
           };
         });
-        const { success } = csvSquema.safeParse({ members });
+        const { success, data } = csvProductSquema.safeParse({ members });
 
         if (success) {
-          await CsvServices.bulkCreateTeams(members);
+          await CsvServices.bulkCreateTeams(data.members);
+
           clearCsvData();
+          // TODO: add pretty alert
+          return alert("csv Loaded succesfully");
         } else {
           throw new Error("Error en el tipo de archivos");
         }
-        return alert("csv Loaded succesfully");
       }
     } catch (error) {
       alert(error.message);

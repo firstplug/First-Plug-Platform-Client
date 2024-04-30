@@ -33,12 +33,12 @@ export default function Register() {
         email: emailInput.value,
         password: passwordInput.value,
       });
-      toast({
-        title: "Resgister Successfully",
-        variant: "success",
-        action: <AlertCheck />,
-        duration: 1500,
-      });
+      // toast({
+      //   title: "Resgister Successfully",
+      //   variant: "success",
+      //   action: <AlertCheck />,
+      //   duration: 1500,
+      // });
       router.push("/register/success");
     } catch (error) {
       console.error(error);

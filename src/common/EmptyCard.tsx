@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "./Button";
-import { AddIcon, ShopIcon, UploadIcon } from "./Icons";
+import { AddIcon, ShopIcon, UploadIcon, ComputerIcon } from "./Icons";
 import { CustomLink } from "./CustomLink";
 
 type EmptyCardType =
@@ -65,7 +65,7 @@ const Config: Record<EmptyCardType, TConfig> = {
     paragraphstrong: "Congratulations!",
     paragraph: "Soon you will be able to access the platform.",
     paragraph2: "Your account has been successfully created.",
-    LinkIcon: ShopIcon,
+    LinkIcon: ComputerIcon,
     link: "https://firstplug.co/",
     linkText: "Home Page",
   },
@@ -91,12 +91,14 @@ export function EmptyCard({ type }: EmptyCardProps) {
   } = Config[type];
   return (
     <div className="flex flex-col items-center gap-3 ">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mt-[-50px]">
         <div className="w-52 h-52 relative">
           <Image src={image} alt={paragraph} fill />
         </div>
         {paragraphstrong && (
-          <p className="text-xl text-black font-semibold">{paragraphstrong}</p>
+          <p className="text-xl text-black font-semibold mb-2">
+            {paragraphstrong}
+          </p>
         )}
         {paragraph2 && <p className="text-dark-grey mb-4">{paragraph2}</p>}
         <p className="text-dark-grey">{paragraph}</p>

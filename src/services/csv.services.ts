@@ -1,15 +1,15 @@
 import { BASE_URL, HTTPRequests } from "@/config/axios.config";
-import { MembersModel, PrdouctModel } from "@/types";
+import { MembersModelZod, PrdouctModelZod } from "@/types";
 
 export class CsvServices {
-  static async bulkCreateProducts(data: PrdouctModel[]) {
+  static async bulkCreateProducts(data: PrdouctModelZod[]) {
     const response = await HTTPRequests.post(
       `${BASE_URL}/api/products/bulkcreate`,
       data
     );
     return response.data;
   }
-  static async bulkCreateTeams(data: MembersModel[]) {
+  static async bulkCreateTeams(data: MembersModelZod[]) {
     const response = await HTTPRequests.post(
       `${BASE_URL}/api/members/bulkcreate`,
       data

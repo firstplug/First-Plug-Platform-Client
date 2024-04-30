@@ -39,7 +39,7 @@ export default function Register() {
         action: <AlertCheck />,
         duration: 1500,
       });
-      router.push("/login");
+      router.push("/register/success");
     } catch (error) {
       console.error(error);
     } finally {

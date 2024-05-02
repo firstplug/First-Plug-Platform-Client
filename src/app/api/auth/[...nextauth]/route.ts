@@ -79,6 +79,7 @@ const authOptions: NextAuthOptions = {
         email: user.email,
         image: user.image,
         name: user.name,
+        tenantName: "",
       };
 
       if (account.provider === "google" || account.provider === "azure-ad") {
@@ -97,6 +98,7 @@ const authOptions: NextAuthOptions = {
           name: token.name,
           email: token.email,
           image: token.picture,
+          tenantName: "",
         };
 
         const res = await AuthServices.getBackendTokens(payload);

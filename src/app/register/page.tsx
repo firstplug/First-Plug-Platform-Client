@@ -32,6 +32,7 @@ export default function Register() {
         name: nameInput.value,
         email: emailInput.value,
         password: passwordInput.value,
+        tenantName: "",
       });
       // toast({
       //   title: "Resgister Successfully",

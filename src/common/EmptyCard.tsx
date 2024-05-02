@@ -27,8 +27,8 @@ const Config: Record<EmptyCardType, TConfig> = {
     LinkIcon: ShopIcon,
     link: "/shop",
     linkText: "Shop Now",
-    additionalButtonText: "Add Equipment",
-    additionalButtonIcon: AddIcon, 
+    additionalButtonText: "Add Product",
+    additionalButtonIcon: AddIcon,
   },
   members: {
     image: "/girl.svg",
@@ -60,8 +60,17 @@ interface EmptyCardProps {
 }
 
 export function EmptyCard({ type }: EmptyCardProps) {
-  const { ButtonIcon, LinkIcon, buttonText, image, link, linkText, paragraph, additionalButtonIcon, additionalButtonText } =
-    Config[type];
+  const {
+    ButtonIcon,
+    LinkIcon,
+    buttonText,
+    image,
+    link,
+    linkText,
+    paragraph,
+    additionalButtonIcon,
+    additionalButtonText,
+  } = Config[type];
   return (
     <div className="flex flex-col items-center gap-3 ">
       <div className="flex flex-col items-center">
@@ -80,8 +89,7 @@ export function EmptyCard({ type }: EmptyCardProps) {
             className="p-3 rounded-md gap-2"
             onClick={() => {}}
           />
-        )
-        }
+        )}
         {ButtonIcon && (
           <Button
             variant="secondary"

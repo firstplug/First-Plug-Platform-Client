@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "./Button";
-import { AddIcon, ShopIcon, UploadIcon, ComputerIcon } from "./Icons";
+import { AddIcon, ShopIcon, UploadIcon, ComputerIcon, Search } from "./Icons";
 import { CustomLink } from "./CustomLink";
 
 type EmptyCardType =
@@ -8,7 +8,8 @@ type EmptyCardType =
   | "members"
   | "shipments"
   | "orders"
-  | "registerok";
+  | "registerok"
+  | "loginerror";
 type TConfig = {
   image: string;
   paragraph: string;
@@ -68,6 +69,15 @@ const Config: Record<EmptyCardType, TConfig> = {
     LinkIcon: ComputerIcon,
     link: "https://firstplug.co/",
     linkText: "Home Page",
+  },
+  loginerror: {
+    image: "/world.svg",
+    paragraphstrong: "Oops!",
+    paragraph: "Please verify your information or Sign Up.",
+    paragraph2: "Invalid credentials.",
+    LinkIcon: Search,
+    link: "/login",
+    linkText: "Try Again",
   },
 };
 

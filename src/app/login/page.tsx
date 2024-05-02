@@ -38,24 +38,25 @@ export default function Login() {
       if (!res.ok) {
         throw new Error(res.error);
       }
-      toast({
-        title: "Logged in successfuly",
-        variant: "success",
-        action: <AlertCheck />,
-        duration: 1500,
-      });
+      // toast({
+      //   title: "Logged in successfuly",
+      //   variant: "success",
+      //   action: <AlertCheck />,
+      //   duration: 1500,
+      // });
       router.push("/home/dashboard");
     } catch (error) {
-      toast({
-        title: "Invalid Credentials",
-        variant: "destructive",
-        action: (
-          <div className="border border-error rounded-full p-1">
-            <IconX className="text-error w-3" strokeWidth={2} />
-          </div>
-        ),
-        duration: 1500,
-      });
+      // toast({
+      //   title: "Invalid Credentials",
+      //   variant: "destructive",
+      //   action: (
+      //     <div className="border border-error rounded-full p-1">
+      //       <IconX className="text-error w-3" strokeWidth={2} />
+      //     </div>
+      //   ),
+      //   duration: 1500,
+      // });
+      router.push("/login/error");
     } finally {
       setIsLoading(false);
     }

@@ -1,6 +1,12 @@
 import Image from "next/image";
 import { Button } from "./Button";
-import { AddIcon, ShopIcon, UploadIcon, ComputerIcon, Search } from "./Icons";
+import {
+  AddIcon,
+  ShopIcon,
+  UploadIcon,
+  ComputerIcon,
+  ExclamationIcon,
+} from "./Icons";
 import { CustomLink } from "./CustomLink";
 
 type EmptyCardType =
@@ -9,7 +15,8 @@ type EmptyCardType =
   | "shipments"
   | "orders"
   | "registerok"
-  | "loginerror";
+  | "loginerror"
+  | "registererror";
 type TConfig = {
   image: string;
   paragraph: string;
@@ -71,12 +78,21 @@ const Config: Record<EmptyCardType, TConfig> = {
     linkText: "Home Page",
   },
   loginerror: {
-    image: "/world.svg",
+    image: "/alert.svg",
     paragraphstrong: "Oops!",
     paragraph: "Please verify your information or Sign Up.",
-    paragraph2: "Invalid credentials.",
-    LinkIcon: Search,
+    paragraph2: "Invalid Credentials.",
+    LinkIcon: ExclamationIcon,
     link: "/login",
+    linkText: "Try Again",
+  },
+  registererror: {
+    image: "/alert.svg",
+    paragraphstrong: "Oops!",
+    paragraph: "Please try again or Sign In.",
+    paragraph2: "User already exists.",
+    LinkIcon: ExclamationIcon,
+    link: "/register",
     linkText: "Try Again",
   },
 };

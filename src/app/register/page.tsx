@@ -34,15 +34,9 @@ export default function Register() {
         password: passwordInput.value,
         tenantName: "",
       });
-      // toast({
-      //   title: "Resgister Successfully",
-      //   variant: "success",
-      //   action: <AlertCheck />,
-      //   duration: 1500,
-      // });
       router.push("/register/success");
     } catch (error) {
-      console.error(error);
+      router.push("/register/error");
     } finally {
       setIsLoading(false);
     }

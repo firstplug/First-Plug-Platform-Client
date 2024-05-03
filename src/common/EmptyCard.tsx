@@ -42,7 +42,7 @@ const Config: Record<EmptyCardType, TConfig> = {
     LinkIcon: ShopIcon,
     link: "/shop",
     linkText: "Shop Now",
-    additionalButtonText: "Add Equipment",
+    additionalButtonText: "Add Product",
     additionalButtonIcon: AddIcon,
   },
   members: {

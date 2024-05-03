@@ -24,11 +24,10 @@ export default observer(function DataStock() {
         </div>
 
         <div className="flex gap-2   ">
-
           <Button
             className="rounded-md py-2 px-4"
             variant="secondary"
-            body="Add Equipment"
+            body="Add Product"
             icon={<AddIcon />}
             // onClick={() => setAside("AddStock")}
           />

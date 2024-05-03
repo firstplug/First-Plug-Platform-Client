@@ -118,6 +118,18 @@ export function EmptyCard({ type }: EmptyCardProps) {
     additionalButtonText,
   } = Config[type];
 
+  const {
+    aside: { setAside },
+  } = useStore();
+
+  const handleActions = () => {
+    if (type === "stock") {
+      setAside("LoadStock", "MyStock");
+    }
+
+    // if(type === "members") setAside("LoadMembers")
+  };
+
   return (
     <div className="flex flex-col items-center gap-3 ">
       <div className="flex flex-col items-center mt-[-50px]">

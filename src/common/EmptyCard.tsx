@@ -1,7 +1,9 @@
+"use client";
 import Image from "next/image";
 import { Button } from "./Button";
 import { AddIcon, ShopIcon, UploadIcon } from "./Icons";
 import { CustomLink } from "./CustomLink";
+import { useStore } from "@/models";
 
 type EmptyCardType = "stock" | "members" | "shipments" | "orders";
 type TConfig = {
@@ -71,6 +73,18 @@ export function EmptyCard({ type }: EmptyCardProps) {
     additionalButtonIcon,
     additionalButtonText,
   } = Config[type];
+
+  const {
+    aside: { setAside },
+  } = useStore();
+
+  const handleActions = () => {
+    if (type === "stock") {
+      setAside("LoadStock", "MyStock");
+    }
+
+    // if(type === "members") setAside("LoadMembers")
+  };
   return (
     <div className="flex flex-col items-center gap-3 ">
       <div className="flex flex-col items-center">
@@ -97,7 +111,7 @@ export function EmptyCard({ type }: EmptyCardProps) {
             size="big"
             icon={<ButtonIcon />}
             className="p-3 rounded-md"
-            onClick={() => {}}
+            onClick={handleActions}
           />
         )}
 

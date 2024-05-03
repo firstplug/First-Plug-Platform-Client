@@ -66,6 +66,10 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
         ShipmentServices.getAllShipments().then((res) => {
           setShipments(res.data);
         });
+
+        ProductServices.getAllProducts().then((res) => {
+          store.products.setProducts(res);
+        });
       }
     }
   }, [session]);

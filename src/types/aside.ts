@@ -2,6 +2,7 @@ export const ASIDE_TYPES = [
   "EditTeam",
   "EditMember",
   "LoadStock",
+  "LoadMembers",
   "NewTeam",
   "MemberDetails",
   "OrderDetails",

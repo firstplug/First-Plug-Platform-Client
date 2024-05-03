@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Button } from "./Button";
 import {
@@ -8,6 +9,7 @@ import {
   ExclamationIcon,
 } from "./Icons";
 import { CustomLink } from "./CustomLink";
+import { useStore } from "@/models";
 
 type EmptyCardType =
   | "stock"
@@ -115,6 +117,7 @@ export function EmptyCard({ type }: EmptyCardProps) {
     additionalButtonIcon,
     additionalButtonText,
   } = Config[type];
+
   return (
     <div className="flex flex-col items-center gap-3 ">
       <div className="flex flex-col items-center mt-[-50px]">
@@ -147,7 +150,7 @@ export function EmptyCard({ type }: EmptyCardProps) {
             size="big"
             icon={<ButtonIcon />}
             className="p-3 rounded-md"
-            onClick={() => {}}
+            onClick={handleActions}
           />
         )}
 

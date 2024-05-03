@@ -69,6 +69,7 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
           setShipments(res.data);
         });
         setIsLoading(false);
+
       }
     }
   }, [session, setUser, setMembers, setProducts, setOrders, setShipments]);

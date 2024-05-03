@@ -5,6 +5,7 @@ import { Button, FormLayout, PageLayout, SectionTitle } from "@/common";
 import { FormInput } from "@/components";
 import { useStore } from "@/models/root.store";
 import { Product } from "@/types";
+import { ComputerForm } from "@/components/AddProduct/ComputerForm";
 
 export default observer(function AddOneProduct() {
   const {
@@ -46,122 +47,70 @@ export default observer(function AddOneProduct() {
 
   return (
     <PageLayout>
-      <div className="relative h-full   w-full  ">
-        <div className=" absolute max-h-[90%] h-[90%] w-full overflow-y-auto   ">
-          <div className=" px-10 py-4 rounded-3xl  border  ">
+      <div className="relative h-full w-full">
+        <div className="absolute max-h-[90%] h-[90%] w-full overflow-y-auto">
+          <div className="px-10 py-4 rounded-3xl border">
             <SectionTitle className="text-[20px]">Add Product</SectionTitle>
-            <section className="  w-full ">
-              <FormLayout className="w-1/2">
-                <FormInput
-                  options={categoryOptions}
-                  placeholder="Category"
-                  title="Category"
-                  prop={"category"}
-                  handleInput={(value: string) => {
-                    handleCategoryChange(value);
-                    handleInput("category", value);
-                  }}
-                  type="options"
-                  required={"required"}
-                />
-                <FormInput
-                  placeholder="Product Name"
-                  title="Product Name"
-                  type="text"
-                  prop={"name"}
+            <section className="w-1/2">
+              <FormInput
+                options={categoryOptions}
+                placeholder="Category"
+                title="Category"
+                prop={"category"}
+                handleInput={(value: string) => {
+                  handleCategoryChange(value);
+                  handleInput("category", value);
+                }}
+                type="options"
+                required={"required"}
+              />
+              <FormInput
+                placeholder="Product Name"
+                title="Product Name"
+                type="text"
+                prop={"name"}
+                handleInput={handleInput}
+                required={"required"}
+              />
+              {/* Renderizar el formulario correspondiente según la categoría seleccionada */}
+              {/* {selectedCategory === "Merchandising" && (
+                <MerchandisingForm
                   handleInput={handleInput}
-                  required={"required"}
+                  handleCategoryChange={handleCategoryChange}
                 />
-              </FormLayout>
-            </section>
-            <section className="  w-full ">
-              <FormLayout className="w-1/2">
-                <FormInput
-                  options={brand}
-                  placeholder="Brand"
-                  title="Brand"
-                  type="options"
-                  prop={"brand"}
+              )} */}
+              {selectedCategory === "Computer" && (
+                <ComputerForm
                   handleInput={handleInput}
-                  required={"required"}
+                  handleCategoryChange={handleCategoryChange}
                 />
-              </FormLayout>
-              <FormLayout className="w-full">
-                <FormInput
-                  placeholder="Model"
-                  title="Model"
-                  type="options"
-                  prop={"model"}
+              )}
+              {/* {selectedCategory === "Monitor" && (
+                <MonitorForm
                   handleInput={handleInput}
-                  required={"required"}
+                  handleCategoryChange={handleCategoryChange}
                 />
-                <FormInput
-                  placeholder="Processor"
-                  title="Processor"
-                  type="options"
-                  prop={"processor"}
+              )}
+              {selectedCategory === "Audio" && (
+                <AudioForm
                   handleInput={handleInput}
-                  required={"required"}
+                  handleCategoryChange={handleCategoryChange}
                 />
-                <FormInput
-                  placeholder="RAM"
-                  title="RAM"
-                  type="options"
-                  prop={"ram"}
+              )}
+              {selectedCategory === "Peripherals" && (
+                <PeripheralsForm
                   handleInput={handleInput}
-                  required={"required"}
+                  handleCategoryChange={handleCategoryChange}
                 />
-                <FormInput
-                  placeholder="Storage"
-                  title="Storage"
-                  type="options"
-                  prop={"storage"}
-                  handleInput={handleInput}
-                  required={"required"}
-                />
-              </FormLayout>
-              <FormLayout className="w-full">
-                <FormInput
-                  placeholder="Screen"
-                  title="Screen"
-                  type="options"
-                  prop={"screen"}
-                  handleInput={handleInput}
-                  required={"required"}
-                />
-                <FormInput
-                  placeholder="Color"
-                  title="Color"
-                  type="options"
-                  prop={"color"}
-                  handleInput={handleInput}
-                  required={"required"}
-                />
-                <FormInput
-                  placeholder="Keyboard Language"
-                  title="Keyboard Language"
-                  type="options"
-                  prop={"keyboard"}
-                  handleInput={handleInput}
-                  required={"required"}
-                />
-                <FormInput
-                  placeholder="GPU"
-                  title="GPU"
-                  type="options"
-                  prop={"gpu"}
-                  handleInput={handleInput}
-                  required={"required"}
-                />
-              </FormLayout>
+              )} */}
             </section>
           </div>
-          <div className="absolute  flex justify-end bg-white w-full  bottom-0 p-2 h-[10%] border-t rou">
+          <div className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t rou">
             <Button
               body="Save"
               variant="primary"
               className="rounded lg"
-              size={"big"}
+              size="big"
               onClick={() => addProduct(productData as Product)}
             />
           </div>

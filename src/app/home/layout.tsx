@@ -32,7 +32,6 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
 
   useEffect(() => {
     if (session.data) {
-      console.log(session.data.user.tenantName);
       sessionStorage.setItem(
         "accessToken",
         session.data.backendTokens.accessToken

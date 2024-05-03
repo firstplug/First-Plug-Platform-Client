@@ -6,8 +6,6 @@ import { useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
 import { signIn } from "next-auth/react";
 import { FormEvent, useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
-import { AlertCheck, IconX } from "@/common/Icons";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,7 +22,6 @@ export default function Login() {
   const passWordInput = useInput("", "password");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { toast } = useToast();
   const handleSumbit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -38,24 +35,8 @@ export default function Login() {
       if (!res.ok) {
         throw new Error(res.error);
       }
-      // toast({
-      //   title: "Logged in successfuly",
-      //   variant: "success",
-      //   action: <AlertCheck />,
-      //   duration: 1500,
-      // });
       router.push("/home/dashboard");
     } catch (error) {
-      // toast({
-      //   title: "Invalid Credentials",
-      //   variant: "destructive",
-      //   action: (
-      //     <div className="border border-error rounded-full p-1">
-      //       <IconX className="text-error w-3" strokeWidth={2} />
-      //     </div>
-      //   ),
-      //   duration: 1500,
-      // });
       router.push("/login/error");
     } finally {
       setIsLoading(false);

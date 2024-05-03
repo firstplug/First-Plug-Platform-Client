@@ -1,7 +1,7 @@
 import { Instance, types } from "mobx-state-tree";
 import { ShipmentStatus } from "./shipment";
-import { ProductModel } from "./product";
-
+import { ProductModel, zodProductModel } from "./product";
+import { z } from "zod";
 export const TeamMemberModel = types.model({
   _id: types.optional(types.string, ""),
   firstName: types.optional(types.string, ""),
@@ -34,3 +34,23 @@ export type TeamMemberTable = {
   shipmentDetails: ShipmentStatus;
 };
 export type CreationTeamMember = Omit<TeamMember, "_id" | "teams" | "products">;
+
+export const zodMemberModel = z.object({
+  _id: z.string().optional(),
+  firstName: z.string().optional(),
+  img: z.string().optional(),
+  lastName: z.string().optional(),
+  dateOfBirth: z.string().optional(),
+  phone: z.string().optional(),
+  email: z.string().optional(),
+  jobPosition: z.string().optional(),
+  city: z.string().optional(),
+  zipCode: z.string().optional(),
+  address: z.string().optional(),
+  appartment: z.string().optional(),
+  joiningDate: z.string().optional(),
+  timeSlotForDelivery: z.string().optional(),
+  additionalInfo: z.string().optional(),
+  teams: z.array(z.string()).optional(),
+  products: z.array(zodProductModel).optional(),
+});

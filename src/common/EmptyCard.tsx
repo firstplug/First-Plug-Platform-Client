@@ -1,14 +1,29 @@
 "use client";
 import Image from "next/image";
 import { Button } from "./Button";
-import { AddIcon, ShopIcon, UploadIcon } from "./Icons";
+import {
+  AddIcon,
+  ShopIcon,
+  UploadIcon,
+  ComputerIcon,
+  ExclamationIcon,
+} from "./Icons";
 import { CustomLink } from "./CustomLink";
 import { useStore } from "@/models";
 
-type EmptyCardType = "stock" | "members" | "shipments" | "orders";
+type EmptyCardType =
+  | "stock"
+  | "members"
+  | "shipments"
+  | "orders"
+  | "registerok"
+  | "loginerror"
+  | "registererror";
 type TConfig = {
   image: string;
   paragraph: string;
+  paragraphstrong?: string;
+  paragraph2?: string;
   ButtonIcon?: () => JSX.Element;
   buttonText?: string;
   LinkIcon?: () => JSX.Element;
@@ -55,6 +70,33 @@ const Config: Record<EmptyCardType, TConfig> = {
     link: "/home/my-stock",
     linkText: "Shop Now",
   },
+  registerok: {
+    image: "/world.svg",
+    paragraphstrong: "Congratulations!",
+    paragraph: "Soon you will be able to access the platform.",
+    paragraph2: "Your account has been successfully created.",
+    LinkIcon: ComputerIcon,
+    link: "https://firstplug.co/",
+    linkText: "Home Page",
+  },
+  loginerror: {
+    image: "/alert.svg",
+    paragraphstrong: "Oops!",
+    paragraph: "Please verify your information or Sign Up.",
+    paragraph2: "Invalid Credentials.",
+    LinkIcon: ExclamationIcon,
+    link: "/login",
+    linkText: "Try Again",
+  },
+  registererror: {
+    image: "/alert.svg",
+    paragraphstrong: "Oops!",
+    paragraph: "Please try again or Sign In.",
+    paragraph2: "User already exists.",
+    LinkIcon: ExclamationIcon,
+    link: "/register",
+    linkText: "Try Again",
+  },
 };
 
 interface EmptyCardProps {
@@ -69,7 +111,9 @@ export function EmptyCard({ type }: EmptyCardProps) {
     image,
     link,
     linkText,
+    paragraphstrong,
     paragraph,
+    paragraph2,
     additionalButtonIcon,
     additionalButtonText,
   } = Config[type];
@@ -85,12 +129,19 @@ export function EmptyCard({ type }: EmptyCardProps) {
 
     // if(type === "members") setAside("LoadMembers")
   };
+
   return (
     <div className="flex flex-col items-center gap-3 ">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mt-[-50px]">
         <div className="w-52 h-52 relative">
           <Image src={image} alt={paragraph} fill />
         </div>
+        {paragraphstrong && (
+          <p className="text-xl text-black font-semibold mb-2">
+            {paragraphstrong}
+          </p>
+        )}
+        {paragraph2 && <p className="text-dark-grey mb-4">{paragraph2}</p>}
         <p className="text-dark-grey">{paragraph}</p>
       </div>
       <div className="flex gap-2 ">

@@ -5,6 +5,7 @@ export const LoggedInUserModel = types.model({
   name: types.string,
   email: types.string,
   image: types.maybeNull(types.string),
+  tenantName: types.maybeNull(types.string),
 });
 export const UserModel = types.compose(
   LoggedInUserModel,
@@ -16,8 +17,14 @@ export const UserModel = types.compose(
 export type LoggedInUser = Instance<typeof LoggedInUserModel>;
 export type User = Instance<typeof UserModel>;
 
-export type RegisterUser = Pick<User, "name" | "email" | "password">;
+export type RegisterUser = Pick<
+  User,
+  "name" | "email" | "password" | "tenantName"
+>;
 
-export type RegisterUserPlatforms = Pick<User, "name" | "email" | "image">;
+export type RegisterUserPlatforms = Pick<
+  User,
+  "name" | "email" | "image" | "tenantName"
+>;
 
 export type LoginUser = Pick<User, "email" | "password">;

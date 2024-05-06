@@ -67,7 +67,7 @@ export function DropdownInputProductForm({
           onClick={toggleDropdown}
         />
         <ul
-          className={`absolute z-10 top-full left-0 w-full border border-gray-300 bg-white rounded-lg shadow-lg ${
+          className={`absolute z-10 top-full left-0 w-full border border-gray-300 bg-white rounded-lg shadow-lg overflow-y-auto max-h-48 ${
             isOpen ? "block" : "hidden"
           }`}
         >

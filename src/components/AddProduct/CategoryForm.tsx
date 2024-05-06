@@ -1,6 +1,5 @@
 "use Client";
-import React, { use } from "react";
-import { useEffect } from "react";
+import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import { InputProductForm } from "./InputProductForm";
 
@@ -18,10 +17,6 @@ export const CategoryForm = function ({
     "Peripherals",
     "Other",
   ];
-
-  //   useEffect(() => {
-  //     console.log("Selected category:", selectedCategory);
-  //   }, [selectedCategory]);
 
   return (
     <>

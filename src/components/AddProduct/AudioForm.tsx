@@ -1,22 +1,17 @@
 "use client";
 import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
+import audioData from "./JSON/audioform.json";
 
 export const AudioForm = function () {
   const [brand, setBrand] = React.useState("");
   const [model, setModel] = React.useState("");
   const [color, setColor] = React.useState("");
 
-  const brandOptions = [
-    "Apple",
-    "Samsung",
-    "Dell",
-    "HP",
-    "Lenovo",
-    "Logitech",
-    "Ledger",
-    "Other",
-  ];
+  const brandOptions = audioData.brands;
+  const modelOptions = audioData.models;
+  const colorOptions = audioData.colors;
+
   return (
     <>
       <div w-full>
@@ -32,6 +27,7 @@ export const AudioForm = function () {
             required="required"
           />
           <DropdownInputProductForm
+            options={modelOptions}
             placeholder="Model"
             title="Model"
             selectedOption={model}
@@ -41,6 +37,7 @@ export const AudioForm = function () {
         </div>
         <div className="flex flex-col lg:flex-row gap-4">
           <DropdownInputProductForm
+            options={colorOptions}
             placeholder="Color"
             title="Color"
             selectedOption={color}

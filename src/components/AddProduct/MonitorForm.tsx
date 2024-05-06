@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
+import monitorData from "./JSON/monitorform.json";
 
 export const MonitorForm = function () {
   const [brand, setBrand] = React.useState("");
@@ -8,16 +9,11 @@ export const MonitorForm = function () {
   const [color, setColor] = React.useState("");
   const [screen, setScreen] = React.useState("");
 
-  const brandOptions = [
-    "Apple",
-    "Samsung",
-    "Dell",
-    "HP",
-    "Lenovo",
-    "Logitech",
-    "Ledger",
-    "Other",
-  ];
+  const brandOptions = monitorData.brands;
+  const modelOptions = monitorData.models;
+  const colorOptions = monitorData.colors;
+  const screenOptions = monitorData.screens;
+
   return (
     <>
       <div w-full>
@@ -33,6 +29,7 @@ export const MonitorForm = function () {
             required="required"
           />
           <DropdownInputProductForm
+            options={modelOptions}
             placeholder="Model"
             title="Model"
             selectedOption={model}
@@ -42,6 +39,7 @@ export const MonitorForm = function () {
         </div>
         <div className="flex flex-col lg:flex-row gap-4">
           <DropdownInputProductForm
+            options={colorOptions}
             placeholder="Color"
             title="Color"
             selectedOption={color}
@@ -49,6 +47,7 @@ export const MonitorForm = function () {
             required="required"
           />
           <DropdownInputProductForm
+            options={screenOptions}
             placeholder="Screen"
             title="Screen"
             selectedOption={screen}

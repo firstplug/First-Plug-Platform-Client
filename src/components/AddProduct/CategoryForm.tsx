@@ -19,9 +19,9 @@ export const CategoryForm = function ({
     "Other",
   ];
 
-  useEffect(() => {
-    console.log("Selected category:", selectedCategory);
-  }, [selectedCategory]);
+  //   useEffect(() => {
+  //     console.log("Selected category:", selectedCategory);
+  //   }, [selectedCategory]);
 
   return (
     <>

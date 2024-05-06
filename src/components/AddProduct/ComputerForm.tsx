@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
+import computerData from "./JSON/computerform.json";
 
 export const ComputerForm = function () {
   const [brand, setBrand] = React.useState("");
@@ -9,16 +10,22 @@ export const ComputerForm = function () {
   const [ram, setRam] = React.useState("");
   const [storage, setStorage] = React.useState("");
 
-  const brandOptions = [
-    "Apple",
-    "Samsung",
-    "Dell",
-    "HP",
-    "Lenovo",
-    "Logitech",
-    "Ledger",
-    "Other",
-  ];
+  // const brandOptions = [
+  //   "Apple",
+  //   "Samsung",
+  //   "Dell",
+  //   "HP",
+  //   "Lenovo",
+  //   "Logitech",
+  //   "Ledger",
+  //   "Other",
+  // ];
+  const brandOptions = computerData.brands;
+  const modelOptions = computerData.models;
+  const processorOptions = computerData.processors;
+  const ramOptions = computerData.rams;
+  const storageOptions = computerData.storages;
+
   return (
     <>
       <div w-full>
@@ -34,6 +41,7 @@ export const ComputerForm = function () {
             required="required"
           />
           <DropdownInputProductForm
+            options={modelOptions}
             placeholder="Model"
             title="Model"
             selectedOption={model}
@@ -43,6 +51,7 @@ export const ComputerForm = function () {
         </div>
         <div className="flex flex-col lg:flex-row gap-4">
           <DropdownInputProductForm
+            options={processorOptions}
             placeholder="Processor"
             title="Processor"
             selectedOption={processor}
@@ -50,6 +59,7 @@ export const ComputerForm = function () {
             required="required"
           />
           <DropdownInputProductForm
+            options={ramOptions}
             placeholder="RAM"
             title="RAM"
             selectedOption={ram}
@@ -57,6 +67,7 @@ export const ComputerForm = function () {
             required="required"
           />
           <DropdownInputProductForm
+            options={storageOptions}
             placeholder="Storage"
             title="Storage"
             selectedOption={storage}

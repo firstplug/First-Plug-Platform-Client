@@ -1,22 +1,17 @@
 "use client";
 import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
+import othersData from "./JSON/othersform.json";
 
 export const OthersForm = function () {
   const [brand, setBrand] = React.useState("");
   const [model, setModel] = React.useState("");
   const [color, setColor] = React.useState("");
 
-  const brandOptions = [
-    "Apple",
-    "Samsung",
-    "Dell",
-    "HP",
-    "Lenovo",
-    "Logitech",
-    "Ledger",
-    "Other",
-  ];
+  const brandOptions = othersData.brands;
+  const modelOptions = othersData.models;
+  const colorOptions = othersData.colors;
+
   return (
     <>
       <div w-full>
@@ -32,6 +27,7 @@ export const OthersForm = function () {
             required="required"
           />
           <DropdownInputProductForm
+            options={modelOptions}
             placeholder="Model"
             title="Model"
             selectedOption={model}
@@ -41,6 +37,7 @@ export const OthersForm = function () {
         </div>
         <div className="flex flex-col lg:flex-row gap-4">
           <DropdownInputProductForm
+            options={colorOptions}
             placeholder="Color"
             title="Color"
             selectedOption={color}

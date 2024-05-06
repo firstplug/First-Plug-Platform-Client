@@ -10,16 +10,6 @@ export const ComputerForm = function () {
   const [ram, setRam] = React.useState("");
   const [storage, setStorage] = React.useState("");
 
-  // const brandOptions = [
-  //   "Apple",
-  //   "Samsung",
-  //   "Dell",
-  //   "HP",
-  //   "Lenovo",
-  //   "Logitech",
-  //   "Ledger",
-  //   "Other",
-  // ];
   const brandOptions = computerData.brands;
   const modelOptions = computerData.models;
   const processorOptions = computerData.processors;

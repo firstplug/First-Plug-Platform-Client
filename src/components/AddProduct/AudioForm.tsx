@@ -2,12 +2,10 @@
 import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 
-export const ComputerForm = function () {
+export const AudioForm = function () {
   const [brand, setBrand] = React.useState("");
   const [model, setModel] = React.useState("");
-  const [processor, setProcessor] = React.useState("");
-  const [ram, setRam] = React.useState("");
-  const [storage, setStorage] = React.useState("");
+  const [color, setColor] = React.useState("");
 
   const brandOptions = [
     "Apple",
@@ -43,24 +41,10 @@ export const ComputerForm = function () {
         </div>
         <div className="flex flex-col lg:flex-row gap-4">
           <DropdownInputProductForm
-            placeholder="Processor"
-            title="Processor"
-            selectedOption={processor}
-            onChange={(option) => setProcessor(option)}
-            required="required"
-          />
-          <DropdownInputProductForm
-            placeholder="RAM"
-            title="RAM"
-            selectedOption={ram}
-            onChange={(option) => setRam(option)}
-            required="required"
-          />
-          <DropdownInputProductForm
-            placeholder="Storage"
-            title="Storage"
-            selectedOption={storage}
-            onChange={(option) => setStorage(option)}
+            placeholder="Color"
+            title="Color"
+            selectedOption={color}
+            onChange={(option) => setColor(option)}
             required="required"
           />
         </div>

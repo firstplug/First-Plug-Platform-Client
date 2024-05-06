@@ -1,49 +1,51 @@
 "use client";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { Button, FormLayout, PageLayout, SectionTitle } from "@/common";
-import { FormInput } from "@/components";
+import { Button, PageLayout, SectionTitle } from "@/common";
 import { useStore } from "@/models/root.store";
 import { Product } from "@/types";
+import { CategoryForm } from "@/components/AddProduct/CategoryForm";
 import { ComputerForm } from "@/components/AddProduct/ComputerForm";
+import { MonitorForm } from "@/components/AddProduct/MonitorForm";
+import { AudioForm } from "@/components/AddProduct/AudioForm";
+import { PeripheralsForm } from "@/components/AddProduct/PeripheralsForm";
+import { OthersForm } from "@/components/AddProduct/OthersForm";
+
+const categoryComponents = {
+  Computer: ComputerForm,
+  Monitor: MonitorForm,
+  Audio: AudioForm,
+  Peripherals: PeripheralsForm,
+  Other: OthersForm,
+};
 
 export default observer(function AddOneProduct() {
   const {
     products: { addProduct },
   } = useStore();
-  const [productData, setProductData] = React.useState<Partial<Product>>({});
-  const [selectedCategory, setSelectedCategory] = React.useState<string>("");
+  const [productData, setProductData] = useState<Partial<Product>>({});
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [finished, setFinished] = useState(false);
 
-  const handleInput = (key: string, value: unknown) => {
-    // setProductData((prev) => ({
-    //   ...prev,
-    //   [key]: value,
-    // }));
-  };
+  const handleInput = useCallback((key: string, value: unknown) => {
+    setProductData((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  }, []);
 
-  const handleCategoryChange = (category: string) => {
+  const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);
+    console.log("Selected category:", category);
+  }, []);
+
+  const handleAddProduct = () => {
+    addProduct(productData as Product);
+    setProductData({});
+    setFinished(true);
   };
 
-  const categoryOptions = [
-    "Merchandising",
-    "Computer",
-    "Monitor",
-    "Audio",
-    "Peripherals",
-    "Other",
-  ];
-
-  const brand = [
-    "Apple",
-    "Samsung",
-    "Dell",
-    "HP",
-    "Lenovo",
-    "Logitech",
-    "Ledger",
-    "Other",
-  ];
+  const FormComponent = categoryComponents[selectedCategory];
 
   return (
     <PageLayout>
@@ -51,67 +53,31 @@ export default observer(function AddOneProduct() {
         <div className="absolute max-h-[90%] h-[90%] w-full overflow-y-auto">
           <div className="px-10 py-4 rounded-3xl border">
             <SectionTitle className="text-[20px]">Add Product</SectionTitle>
-            <section className="w-1/2">
-              <FormInput
-                options={categoryOptions}
-                placeholder="Category"
-                title="Category"
-                prop={"category"}
-                handleInput={(value: string) => {
-                  handleCategoryChange(value);
-                  handleInput("category", value);
-                }}
-                type="options"
-                required={"required"}
-              />
-              <FormInput
-                placeholder="Product Name"
-                title="Product Name"
-                type="text"
-                prop={"name"}
+            <section>
+              <CategoryForm
                 handleInput={handleInput}
-                required={"required"}
+                handleCategoryChange={handleCategoryChange}
+                selectedCategory={selectedCategory}
+                finished={finished}
               />
-              {/* Renderizar el formulario correspondiente según la categoría seleccionada */}
-              {/* {selectedCategory === "Merchandising" && (
-                <MerchandisingForm
-                  handleInput={handleInput}
-                  handleCategoryChange={handleCategoryChange}
-                />
-              )} */}
-              {selectedCategory === "Computer" && (
-                <ComputerForm
-                  handleInput={handleInput}
-                  handleCategoryChange={handleCategoryChange}
-                />
-              )}
-              {/* {selectedCategory === "Monitor" && (
-                <MonitorForm
-                  handleInput={handleInput}
-                  handleCategoryChange={handleCategoryChange}
-                />
-              )}
-              {selectedCategory === "Audio" && (
-                <AudioForm
-                  handleInput={handleInput}
-                  handleCategoryChange={handleCategoryChange}
-                />
-              )}
-              {selectedCategory === "Peripherals" && (
-                <PeripheralsForm
-                  handleInput={handleInput}
-                  handleCategoryChange={handleCategoryChange}
-                />
-              )} */}
             </section>
           </div>
+          {FormComponent && (
+            <div className="absolute max-h-[90%] h-[90%] w-full overflow-y-auto mt-4">
+              <div className="px-10 py-4 rounded-3xl border">
+                <section>
+                  <FormComponent />
+                </section>
+              </div>
+            </div>
+          )}
           <div className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t rou">
             <Button
               body="Save"
               variant="primary"
               className="rounded lg"
               size="big"
-              onClick={() => addProduct(productData as Product)}
+              onClick={handleAddProduct}
             />
           </div>
         </div>

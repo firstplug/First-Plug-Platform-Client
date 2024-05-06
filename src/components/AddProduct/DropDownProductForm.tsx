@@ -1,0 +1,87 @@
+"use client";
+import React, { useState } from "react";
+import { Button, ChevronDown } from "@/common";
+
+interface DropdownInputProductFormProps {
+  className?: string;
+  title: string;
+  placeholder?: string;
+  options?: string[];
+  selectedOption?: string;
+  onChange?: (option: string) => void;
+  required?: string;
+  onBlur?: React.FocusEventHandler;
+  onFocus?: React.FocusEventHandler;
+  error?: string;
+  touched?: boolean;
+  name?: string;
+  defaultValue?: string;
+  value?: string;
+}
+
+export function DropdownInputProductForm({
+  title,
+  placeholder,
+  options = [],
+  selectedOption,
+  onChange,
+  className,
+  error,
+  touched,
+}: DropdownInputProductFormProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionClick = (option: string) => {
+    onChange && onChange(option);
+    setIsOpen(false);
+  };
+
+  return (
+    <div className={`relative ${className || ""}`}>
+      <label className="block text-dark-grey ml-2 font-sans">{title}</label>
+      <div className="relative">
+        <input
+          type="text"
+          value={selectedOption}
+          placeholder={placeholder}
+          readOnly
+          onClick={toggleDropdown}
+          className={`w-full h-14 py-2 pl-4 pr-12 rounded-xl border ${
+            error ? "border-error" : ""
+          } text-black p-4 font-sans focus:outline-none`}
+          defaultValue={selectedOption}
+        />
+        {touched && error && (
+          <p className="absolute ml-4 text-error text-sm top-0 right-0 mt-3 mr-3">
+            {error}
+          </p>
+        )}
+        <ChevronDown
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+          stroke={2}
+          color="grey"
+          onClick={toggleDropdown}
+        />
+        <ul
+          className={`absolute z-10 top-full left-0 w-full border border-gray-300 bg-white rounded-lg shadow-lg ${
+            isOpen ? "block" : "hidden"
+          }`}
+        >
+          {options.map((option) => (
+            <li
+              key={option}
+              onClick={() => handleOptionClick(option)}
+              className="py-2 px-4 cursor-pointer hover:bg-gray-100"
+            >
+              {option}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}

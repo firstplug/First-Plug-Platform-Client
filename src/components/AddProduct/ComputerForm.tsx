@@ -3,7 +3,7 @@ import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import computerData from "./JSON/computerform.json";
 
-export const ComputerForm = function ({ register }) {
+export const ComputerForm = function ({ handleInput }) {
   const [brand, setBrand] = React.useState("");
   const [model, setModel] = React.useState("");
   const [processor, setProcessor] = React.useState("");
@@ -28,6 +28,7 @@ export const ComputerForm = function ({ register }) {
             selectedOption={brand}
             onChange={(option) => {
               setBrand(option);
+              handleInput("brand", option);
             }}
             required="required"
           />
@@ -37,7 +38,9 @@ export const ComputerForm = function ({ register }) {
             title="Model"
             name="model"
             selectedOption={model}
-            onChange={(option) => setModel(option)}
+            onChange={(option) => {
+              setModel(option), handleInput("model", option);
+            }}
             required="required"
           />
         </div>
@@ -48,7 +51,9 @@ export const ComputerForm = function ({ register }) {
             title="Processor"
             name="processor"
             selectedOption={processor}
-            onChange={(option) => setProcessor(option)}
+            onChange={(option) => {
+              setProcessor(option), handleInput("processor", option);
+            }}
             required="required"
           />
           <DropdownInputProductForm
@@ -57,7 +62,9 @@ export const ComputerForm = function ({ register }) {
             title="RAM"
             name="ram"
             selectedOption={ram}
-            onChange={(option) => setRam(option)}
+            onChange={(option) => {
+              setRam(option), handleInput("ram", option);
+            }}
             required="required"
           />
           <DropdownInputProductForm
@@ -66,7 +73,9 @@ export const ComputerForm = function ({ register }) {
             title="Storage"
             name="storage"
             selectedOption={storage}
-            onChange={(option) => setStorage(option)}
+            onChange={(option) => {
+              setStorage(option), handleInput("storage", option);
+            }}
             required="required"
           />
         </div>

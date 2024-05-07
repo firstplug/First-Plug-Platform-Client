@@ -17,6 +17,11 @@ export const CategoryForm = function ({
     "Other",
   ];
 
+  const handleInputChange = (name, value) => {
+    handleInput(name, value);
+    console.log("Product data to be sent:", name, value);
+  };
+
   return (
     <>
       <div className="w-full">
@@ -37,7 +42,8 @@ export const CategoryForm = function ({
               type="text"
               prop="name"
               name="name"
-              handleInput={handleInput}
+              handleInput={handleInputChange}
+              onChange={(e) => handleInputChange("name", e.target.value)}
               required="required"
             />
           </div>
@@ -49,7 +55,10 @@ export const CategoryForm = function ({
             type="date"
             name="adquisitionDate"
             prop="adquisitionDate"
-            handleInput={handleInput}
+            handleInput={handleInputChange}
+            onChange={(e) =>
+              handleInputChange("adquisitionDate", e.target.value)
+            }
             required="required"
             className="w-full"
           />
@@ -59,7 +68,8 @@ export const CategoryForm = function ({
             type="text"
             name="serialNumber"
             prop="serialNumber"
-            handleInput={handleInput}
+            handleInput={handleInputChange}
+            onChange={(e) => handleInputChange("serialNumber", e.target.value)}
             required="required"
             className="w-full "
           />
@@ -69,7 +79,8 @@ export const CategoryForm = function ({
             type="email"
             name="assignedEmail"
             prop="assignedEmail"
-            handleInput={handleInput}
+            handleInput={handleInputChange}
+            onChange={(e) => handleInputChange("assignedEmail", e.target.value)}
             required="required"
             className="w-full "
           />
@@ -79,7 +90,8 @@ export const CategoryForm = function ({
             type="text"
             name="location"
             prop="location"
-            handleInput={handleInput}
+            handleInput={handleInputChange}
+            onChange={(e) => handleInputChange("location", e.target.value)}
             required="required"
             className="w-full "
           />

@@ -16,7 +16,7 @@ export class ProductServices {
 
   static async createProduct(productData: CreationProduct): Promise<Product> {
     const response = await HTTPRequests.post(
-      `${BASE_URL}/apí/products`,
+      `${BASE_URL}/api/products`,
       productData
     );
     return response.data;

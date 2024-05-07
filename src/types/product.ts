@@ -5,7 +5,7 @@ export const PRODUCT_STATUSES = ["Available", "Delivered"] as const;
 export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
 
 const ProductSummaryModel = types.model({
-  _id: types.string,
+  _id: types.optional(types.string, ""),
   name: types.optional(types.string, ""),
   description: types.optional(types.string, ""),
   category: types.optional(types.string, ""),
@@ -27,10 +27,12 @@ export const ProductModel = types.compose(
     price: types.optional(types.string, ""),
     status: types.optional(types.string, ""),
     imgUrl: types.optional(types.string, ""),
-    stock: types.number,
+    stock: types.optional(types.number, 0),
     adquisitionDate: types.optional(types.string, ""),
-    assignedemail: types.optional(types.string, ""),
+    assignedEmail: types.optional(types.string, ""),
     location: types.optional(types.string, ""),
+    category: types.optional(types.string, ""),
+    name: types.optional(types.string, ""),
   })
 );
 

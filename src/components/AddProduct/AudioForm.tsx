@@ -3,7 +3,7 @@ import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import audioData from "./JSON/audioform.json";
 
-export const AudioForm = function () {
+export const AudioForm = function ({ handleInput }) {
   const [brand, setBrand] = React.useState("");
   const [model, setModel] = React.useState("");
   const [color, setColor] = React.useState("");
@@ -24,6 +24,7 @@ export const AudioForm = function () {
             selectedOption={brand}
             onChange={(option) => {
               setBrand(option);
+              handleInput("brand", option);
             }}
             required="required"
           />
@@ -33,7 +34,10 @@ export const AudioForm = function () {
             title="Model"
             name="model"
             selectedOption={model}
-            onChange={(option) => setModel(option)}
+            onChange={(option) => {
+              setModel(option);
+              handleInput("model", option);
+            }}
             required="required"
           />
         </div>
@@ -44,7 +48,10 @@ export const AudioForm = function () {
             title="Color"
             name="color"
             selectedOption={color}
-            onChange={(option) => setColor(option)}
+            onChange={(option) => {
+              setColor(option);
+              handleInput("color", option);
+            }}
             required="required"
           />
         </div>

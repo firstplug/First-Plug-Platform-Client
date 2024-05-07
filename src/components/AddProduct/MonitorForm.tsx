@@ -3,7 +3,7 @@ import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import monitorData from "./JSON/monitorform.json";
 
-export const MonitorForm = function () {
+export const MonitorForm = function ({ handleInput }) {
   const [brand, setBrand] = React.useState("");
   const [model, setModel] = React.useState("");
   const [color, setColor] = React.useState("");
@@ -26,6 +26,7 @@ export const MonitorForm = function () {
             selectedOption={brand}
             onChange={(option) => {
               setBrand(option);
+              handleInput("brand", option);
             }}
             required="required"
           />
@@ -35,7 +36,10 @@ export const MonitorForm = function () {
             title="Model"
             name="model"
             selectedOption={model}
-            onChange={(option) => setModel(option)}
+            onChange={(option) => {
+              setModel(option);
+              handleInput("model", option);
+            }}
             required="required"
           />
         </div>
@@ -46,7 +50,10 @@ export const MonitorForm = function () {
             title="Color"
             name="color"
             selectedOption={color}
-            onChange={(option) => setColor(option)}
+            onChange={(option) => {
+              setColor(option);
+              handleInput("color", option);
+            }}
             required="required"
           />
           <DropdownInputProductForm
@@ -55,7 +62,10 @@ export const MonitorForm = function () {
             title="Screen"
             name="screen"
             selectedOption={screen}
-            onChange={(option) => setScreen(option)}
+            onChange={(option) => {
+              setScreen(option);
+              handleInput("screen", option);
+            }}
             required="required"
           />
         </div>

@@ -11,6 +11,7 @@ import { AudioForm } from "@/components/AddProduct/AudioForm";
 import { PeripheralsForm } from "@/components/AddProduct/PeripheralsForm";
 import { OthersForm } from "@/components/AddProduct/OthersForm";
 import { useForm, FormProvider } from "react-hook-form";
+import { ProductServices } from "@/services/product.services";
 
 const categoryComponents = {
   Computer: ComputerForm,
@@ -26,15 +27,13 @@ export default observer(function AddOneProduct() {
   } = useStore();
   const [productData, setProductData] = useState<Partial<Product>>({});
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [finished, setFinished] = useState(false);
-  const { register, handleSubmit } = useForm();
 
-  const methods = useForm();
-  const { handleSubmit: handleSubmitForm } = methods;
+  const { handleSubmit, control } = useForm();
 
-  // const handleSubmitForm = handleSubmit((data) => {
-  //   console.log(data);
-  // });
+  const handleCategoryChange = useCallback((category: string) => {
+    setSelectedCategory(category);
+    console.log("Selected category:", category);
+  }, []);
 
   const handleInput = useCallback((key: string, value: unknown) => {
     setProductData((prev) => ({
@@ -43,21 +42,19 @@ export default observer(function AddOneProduct() {
     }));
   }, []);
 
-  const handleCategoryChange = useCallback((category: string) => {
-    setSelectedCategory(category);
-    console.log("Selected category:", category);
-  }, []);
-
-  const handleAddProduct = () => {
+  const handleAddProduct = handleSubmit(() => {
+    console.log("Product data to be sent:", productData);
     addProduct(productData as Product);
     setProductData({});
-    setFinished(true);
-  };
+    ProductServices.createProduct(productData as Product).then((res) => {
+      console.log("Product created!", res);
+    });
+  });
 
   const FormComponent = categoryComponents[selectedCategory];
 
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...useForm()}>
       <PageLayout>
         <div className="relative h-full w-full">
           <div className="absolute max-h-[90%] h-[90%] w-full overflow-y-auto">
@@ -75,7 +72,7 @@ export default observer(function AddOneProduct() {
               <div className="absolute max-h-[90%] h-[90%] w-full overflow-y-auto mt-4">
                 <div className="px-10 py-4 rounded-3xl border">
                   <section>
-                    <FormComponent />
+                    <FormComponent handleInput={handleInput} />
                   </section>
                 </div>
               </div>

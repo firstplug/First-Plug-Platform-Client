@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Button, ChevronDown } from "@/common";
+import { ChevronDown } from "@/common";
+import { useController } from "react-hook-form";
 
 interface DropdownInputProductFormProps {
   className?: string;
@@ -14,7 +15,7 @@ interface DropdownInputProductFormProps {
   onFocus?: React.FocusEventHandler;
   error?: string;
   touched?: boolean;
-  name?: string;
+  name: string;
   defaultValue?: string;
   value?: string;
 }
@@ -28,8 +29,10 @@ export function DropdownInputProductForm({
   className,
   error,
   touched,
+  name,
 }: DropdownInputProductFormProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState<string>(selectedOption);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -37,8 +40,13 @@ export function DropdownInputProductForm({
 
   const handleOptionClick = (option: string) => {
     onChange && onChange(option);
+    setSelectedValue(option);
     setIsOpen(false);
   };
+
+  const {
+    field: { value },
+  } = useController({ name });
 
   return (
     <div className={`relative ${className || ""}`}>
@@ -46,14 +54,15 @@ export function DropdownInputProductForm({
       <div className="relative">
         <input
           type="text"
-          value={selectedOption}
+          value={selectedOption || value || selectedValue}
           placeholder={placeholder}
           readOnly
           onClick={toggleDropdown}
           className={`w-full h-14 py-2 pl-4 pr-12 rounded-xl border ${
             error ? "border-error" : ""
           } text-black p-4 font-sans focus:outline-none`}
-          defaultValue={selectedOption}
+          // defaultValue={selectedOption}
+          name={name}
         />
         {touched && error && (
           <p className="absolute ml-4 text-error text-sm top-0 right-0 mt-3 mr-3">

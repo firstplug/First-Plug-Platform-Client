@@ -28,6 +28,9 @@ export const ProductModel = types.compose(
     status: types.optional(types.string, ""),
     imgUrl: types.optional(types.string, ""),
     stock: types.number,
+    adquisitionDate: types.optional(types.string, ""),
+    assignedemail: types.optional(types.string, ""),
+    location: types.optional(types.string, ""),
   })
 );
 

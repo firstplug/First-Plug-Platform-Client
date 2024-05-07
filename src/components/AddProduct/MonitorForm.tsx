@@ -22,6 +22,7 @@ export const MonitorForm = function () {
             options={brandOptions}
             placeholder="Brand"
             title="Brand"
+            name="brand"
             selectedOption={brand}
             onChange={(option) => {
               setBrand(option);
@@ -32,6 +33,7 @@ export const MonitorForm = function () {
             options={modelOptions}
             placeholder="Model"
             title="Model"
+            name="model"
             selectedOption={model}
             onChange={(option) => setModel(option)}
             required="required"
@@ -42,6 +44,7 @@ export const MonitorForm = function () {
             options={colorOptions}
             placeholder="Color"
             title="Color"
+            name="color"
             selectedOption={color}
             onChange={(option) => setColor(option)}
             required="required"
@@ -50,6 +53,7 @@ export const MonitorForm = function () {
             options={screenOptions}
             placeholder="Screen"
             title="Screen"
+            name="screen"
             selectedOption={screen}
             onChange={(option) => setScreen(option)}
             required="required"

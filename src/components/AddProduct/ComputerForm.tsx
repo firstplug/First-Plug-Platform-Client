@@ -3,7 +3,7 @@ import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import computerData from "./JSON/computerform.json";
 
-export const ComputerForm = function () {
+export const ComputerForm = function ({ register }) {
   const [brand, setBrand] = React.useState("");
   const [model, setModel] = React.useState("");
   const [processor, setProcessor] = React.useState("");
@@ -24,6 +24,7 @@ export const ComputerForm = function () {
             options={brandOptions}
             placeholder="Brand"
             title="Brand"
+            name="brand"
             selectedOption={brand}
             onChange={(option) => {
               setBrand(option);
@@ -34,6 +35,7 @@ export const ComputerForm = function () {
             options={modelOptions}
             placeholder="Model"
             title="Model"
+            name="model"
             selectedOption={model}
             onChange={(option) => setModel(option)}
             required="required"
@@ -44,6 +46,7 @@ export const ComputerForm = function () {
             options={processorOptions}
             placeholder="Processor"
             title="Processor"
+            name="processor"
             selectedOption={processor}
             onChange={(option) => setProcessor(option)}
             required="required"
@@ -52,6 +55,7 @@ export const ComputerForm = function () {
             options={ramOptions}
             placeholder="RAM"
             title="RAM"
+            name="ram"
             selectedOption={ram}
             onChange={(option) => setRam(option)}
             required="required"
@@ -60,6 +64,7 @@ export const ComputerForm = function () {
             options={storageOptions}
             placeholder="Storage"
             title="Storage"
+            name="storage"
             selectedOption={storage}
             onChange={(option) => setStorage(option)}
             required="required"

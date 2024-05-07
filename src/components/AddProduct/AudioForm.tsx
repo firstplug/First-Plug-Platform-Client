@@ -20,6 +20,7 @@ export const AudioForm = function () {
             options={brandOptions}
             placeholder="Brand"
             title="Brand"
+            name="brand"
             selectedOption={brand}
             onChange={(option) => {
               setBrand(option);
@@ -30,6 +31,7 @@ export const AudioForm = function () {
             options={modelOptions}
             placeholder="Model"
             title="Model"
+            name="model"
             selectedOption={model}
             onChange={(option) => setModel(option)}
             required="required"
@@ -40,6 +42,7 @@ export const AudioForm = function () {
             options={colorOptions}
             placeholder="Color"
             title="Color"
+            name="color"
             selectedOption={color}
             onChange={(option) => setColor(option)}
             required="required"

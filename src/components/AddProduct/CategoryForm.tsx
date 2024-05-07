@@ -7,7 +7,6 @@ export const CategoryForm = function ({
   handleInput,
   handleCategoryChange,
   selectedCategory,
-  finished,
 }) {
   const categoryOptions = [
     "Merchandising",
@@ -26,6 +25,7 @@ export const CategoryForm = function ({
             options={categoryOptions}
             placeholder="Category"
             title="Category"
+            name="category"
             selectedOption={selectedCategory}
             onChange={handleCategoryChange}
             required="required"
@@ -36,6 +36,7 @@ export const CategoryForm = function ({
               title="Product Name"
               type="text"
               prop="name"
+              name="name"
               handleInput={handleInput}
               required="required"
             />
@@ -46,6 +47,7 @@ export const CategoryForm = function ({
             placeholder="Adquisition Date"
             title="Adquisition Date"
             type="date"
+            name="adquisitionDate"
             prop="adquisitionDate"
             handleInput={handleInput}
             required="required"
@@ -55,6 +57,7 @@ export const CategoryForm = function ({
             placeholder="Serial Number"
             title="Serial Number"
             type="text"
+            name="serialNumber"
             prop="serialNumber"
             handleInput={handleInput}
             required="required"
@@ -64,6 +67,7 @@ export const CategoryForm = function ({
             placeholder="Assigned Email"
             title="Assigned Email"
             type="email"
+            name="assignedEmail"
             prop="assignedEmail"
             handleInput={handleInput}
             required="required"
@@ -73,6 +77,7 @@ export const CategoryForm = function ({
             placeholder="Location"
             title="Location"
             type="text"
+            name="location"
             prop="location"
             handleInput={handleInput}
             required="required"

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { ChangeEvent, useState } from "react";
-import { AddStockCard, Button, DownloadIcon } from "@/common";
+import { AddStockCard, Button, CustomLink, DownloadIcon } from "@/common";
 import Papa from "papaparse";
 import { useStore } from "@/models";
 import {
@@ -86,19 +86,23 @@ export const LoadStock = function () {
     }
   };
 
-  const downloadTemplate = () => {
-    const csvTemplate = CSVTeamplates[type];
-
-    const blob = new Blob([csvTemplate], { type: "text/csv;charset=utf-8" });
-    saveAs(blob, "template.csv");
+  const downloadTemplate = async () => {
+    try {
+      const filePath = "/excel/stock.xlsm";
+      const response = await fetch(filePath);
+      const blob = await response.blob();
+      saveAs(blob, "stock.xlsm");
+    } catch (error) {
+      console.error("Error al descargar el archivo:", error);
+    }
   };
 
   const onFileChangeHandler = (csvFile: File) => {
     setCsvFile(csvFile);
 
     Papa.parse(csvFile, {
-      skipEmptyLines: true, //Delete empty fields
-      header: true, //Parse CSV to JSON
+      skipEmptyLines: true,
+      header: true,
       complete: function () {
         const { name, size } = csvFile;
         setCsvInfo({
@@ -113,8 +117,8 @@ export const LoadStock = function () {
   const handleAttachFileClick = () => {
     if (csvFile) {
       Papa.parse(csvFile, {
-        skipEmptyLines: true, //Delete empty fields
-        header: true, //Parse CSV to JSON
+        skipEmptyLines: true,
+        header: true,
         complete: function (results: { data: Product[] | TeamMember[] }) {
           const { name, size } = csvFile;
           setCsvInfo({
@@ -170,7 +174,7 @@ export const LoadStock = function () {
               >
                 <div className="text-xs flex items-center">
                   <DownloadIcon />
-                  <p>CSV Template</p>
+                  <p>Download Template</p>
                 </div>
               </Button>
             </div>

@@ -69,7 +69,6 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
           setShipments(res.data);
         });
         setIsLoading(false);
-
       }
     }
   }, [session, setUser, setMembers, setProducts, setOrders, setShipments]);
@@ -83,7 +82,7 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
 
   if (!tenantNameExists) {
     return (
-      <div className="flex flex-col justify-center items-center  h-[100vh] gap-8 mx-[40px] my-[32px] border border-boder rounded-lg shadow-md">
+      <div className="h-[100vh] p-10">
         <EmptyCardLayout>
           <EmptyCard type="registerok" />
         </EmptyCardLayout>

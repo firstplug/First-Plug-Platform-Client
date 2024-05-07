@@ -4,7 +4,7 @@ interface EmptyCardLayoutProps {
 }
 export function EmptyCardLayout({ children }: EmptyCardLayoutProps) {
   return (
-    <div className="h-full w-full grid place-items-center border rounded-lg">
+    <div className="h-full w-full grid place-items-center border rounded-lg ">
       {children}
     </div>
   );

@@ -16,11 +16,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Login() {
   const emailInput = useInput("", "email");
   const passWordInput = useInput("", "password");
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
   const router = useRouter();
   const handleSumbit = async (e: FormEvent) => {
     e.preventDefault();
@@ -37,7 +39,12 @@ export default function Login() {
       }
       router.push("/home/dashboard");
     } catch (error) {
-      router.push("/login/error");
+      toast({
+        variant: "destructive",
+        title: "Invalid Credential",
+        description: "Invalid username or password. Please try again.",
+        // duration: 1500,
+      });
     } finally {
       setIsLoading(false);
     }

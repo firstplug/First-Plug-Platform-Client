@@ -4,15 +4,10 @@ import React, { ChangeEvent, useState } from "react";
 import { AddStockCard, Button, CustomLink, DownloadIcon } from "@/common";
 import Papa from "papaparse";
 import { useStore } from "@/models";
-import {
-  CSVTeamplates,
-  CsvInfo,
-  Product,
-  TeamMember,
-  csvSquema,
-} from "@/types";
+import { CsvInfo, Product, TeamMember, csvSquema } from "@/types";
 import { CsvServices } from "@/services";
 import { saveAs } from "file-saver";
+import { parseProduct } from "@/utils";
 const EMPTY_FILE_INFO: CsvInfo = {
   title: "",
   file: "",
@@ -39,16 +34,22 @@ export const LoadStock = function () {
 
     try {
       if (type === "LoadStock") {
-        const prdoucts = parsedData.map((product) => ({
+        const filteredData = parsedData.filter((prod) => prod.category);
+        const prdoucts = filteredData.map((product) => ({
           ...product,
-          stock: parseInt(product.stock),
+          acquisitionDate: product.acquisitionDate
+            ? new Date(product.acquisitionDate).toISOString()
+            : product.acquisitionDate,
         }));
 
-        const { success, data } = csvSquema.safeParse({ prdoucts });
+        const parsedProducts = prdoucts.map((product) => parseProduct(product));
+
+        const { success, data, error } = csvSquema.safeParse({
+          parsedProducts,
+        });
 
         if (success) {
           await CsvServices.bulkCreateProducts(data.prdoucts);
-
           clearCsvData();
           // TODO: add pretty alert
           return alert("csv Loaded succesfully");

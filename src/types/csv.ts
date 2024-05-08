@@ -1,27 +1,25 @@
 import { z } from "zod";
+import { zodProductModel } from "./product";
 // TODO: After approving this. These types should be the main store types for each 'substore' (product.store and members.store)
-export const zodProductModel = z.object({
+export const csvProductModel = z.object({
   _id: z.string().optional(),
   name: z.string().optional(),
-  description: z.string().optional(),
+  acquisitionDate: z.string().optional(),
   category: z.string().optional(),
   model: z.string().optional(),
+  brand: z.string().optional(),
   color: z.string().optional(),
   screen: z.string().optional(),
-  keyboard: z.string().optional(),
+  keyboardLenguage: z.string().optional(),
   processor: z.string().optional(),
   ram: z.string().optional(),
   storage: z.string().optional(),
   gpu: z.string().optional(),
   serialNumber: z.string().optional(),
-  price: z.string().optional(),
-  status: z.string().optional(),
-  imgUrl: z.string().optional(),
-  stock: z.number(),
+  location: z.string().optional(),
+  assignedEmail: z.string().optional(),
 });
-
-export type PrdouctModelZod = z.infer<typeof zodProductModel>;
-
+export type CsvProduct = z.infer<typeof csvProductModel>;
 export const zodMemberModel = z.object({
   _id: z.string().optional(),
   firstName: z.string().optional(),

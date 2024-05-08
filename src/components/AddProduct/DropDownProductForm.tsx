@@ -61,7 +61,6 @@ export function DropdownInputProductForm({
           className={`w-full h-14 py-2 pl-4 pr-12 rounded-xl border ${
             error ? "border-error" : ""
           } text-black p-4 font-sans focus:outline-none`}
-          // defaultValue={selectedOption}
           name={name}
         />
         {touched && error && (

@@ -17,9 +17,8 @@ export const CategoryForm = function ({
     "Other",
   ];
 
-  const handleInputChange = (name, value) => {
+  const handleInputChange = (name: string, value: string) => {
     handleInput(name, value);
-    console.log("Product data to be sent:", name, value);
   };
 
   return (

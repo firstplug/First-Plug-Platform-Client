@@ -30,7 +30,6 @@ export function InputProductForm({
       <div className={`relative ${className}`}>
         <label className="block text-dark-grey ml-2 font-sans">{title}</label>
         <Controller
-          // type={type}
           name={name}
           control={methods.control}
           render={({ field }) => (
@@ -46,10 +45,6 @@ export function InputProductForm({
               className={`w-full h-14 py-2 rounded-xl border text-black p-4 font-sans focus:outline-none ${className}`}
             />
           )}
-          // value={value}
-          // onChange={onChange}
-          // placeholder={placeholder}
-          // className={`w-full h-14 py-2 rounded-xl border text-black p-4 font-sans focus:outline-none ${className}`}
         />
       </div>
     </FormProvider>

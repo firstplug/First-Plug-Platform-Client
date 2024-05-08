@@ -32,7 +32,6 @@ export default observer(function AddOneProduct() {
 
   const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);
-    console.log("Selected category:", category);
   }, []);
 
   const handleInput = useCallback((key: string, value: unknown) => {
@@ -43,12 +42,9 @@ export default observer(function AddOneProduct() {
   }, []);
 
   const handleAddProduct = handleSubmit(() => {
-    console.log("Product data to be sent:", productData);
     addProduct(productData as Product);
     setProductData({});
-    ProductServices.createProduct(productData as Product).then((res) => {
-      console.log("Product created!", res);
-    });
+    ProductServices.createProduct(productData as Product).then((res) => {});
   });
 
   const FormComponent = categoryComponents[selectedCategory];

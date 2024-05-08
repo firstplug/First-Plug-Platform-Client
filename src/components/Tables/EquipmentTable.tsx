@@ -39,11 +39,7 @@ const ordersEquipmentColumns: (
   {
     accessorKey: "products",
     header: "Total",
-    cell: ({ getValue }) => (
-      <span>
-        USD {getValue<Product[]>().reduce((a, b) => parseInt(b.price) + a, 0)}
-      </span>
-    ),
+    cell: ({ getValue }) => <span>USD 1000</span>,
   },
 ];
 

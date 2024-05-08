@@ -13,24 +13,8 @@ export const OrderStore = types
     orderPriceById(orderId: string) {
       const order = store.orders.find((order) => order._id === orderId);
 
-      return order.products.reduce((a, b) => parseInt(b.price) + a, 0);
+      return order;
     },
-
-    orderPrice(index: number) {
-      const order = store.orders[index];
-    
-      if (order && order.products) {
-        return order.products.reduce(
-          (a, b) => parseInt(b.price) + a,
-          0
-        );
-      }
-    
-      return 0;
-    }
-
-
-
   }))
 
   .actions((store) => ({

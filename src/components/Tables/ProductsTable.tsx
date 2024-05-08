@@ -1,7 +1,13 @@
-import { Product, ShipmentStatus } from "@/types";
+import { Category, Product, ShipmentStatus } from "@/types";
 import React from "react";
 import { Table } from "../Table";
-import { ArrowRight, Button, ShipmentStatusCard, TrashIcon } from "@/common";
+import {
+  ArrowRight,
+  Button,
+  ProductImage,
+  ShipmentStatusCard,
+  TrashIcon,
+} from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 //TODO: review this.
@@ -29,15 +35,8 @@ export const prodcutColumns: ColumnDef<Product>[] = [
     header: "Category",
     size: 200,
     cell: ({ row, getValue }) => (
-      <div className="flex gap-2 items-center">
-        <div className="relative w-[25%]   aspect-square   ">
-          <Image
-            src={""}
-            alt={getValue<string>()}
-            fill
-            className=" aspect-video rounded-md shadow-md "
-          />
-        </div>
+      <div className="flex gap-2 items-start">
+        <ProductImage product={row.original} />
         <span>{getValue<string>()}</span>
       </div>
     ),
@@ -58,7 +57,17 @@ export const prodcutColumns: ColumnDef<Product>[] = [
     accessorFn: (row) => row.serialNumber,
     header: "Serial",
     size: 200,
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    cell: ({ getValue }) => <span>#{getValue<string>()}</span>,
+  },
+  {
+    accessorFn: (row) => row.acquisitionDate,
+    header: "Acquasition Date",
+    size: 200,
+    cell: ({ getValue }) => (
+      <span className="text-lg">
+        {new Date(getValue<string>()).toLocaleDateString()}
+      </span>
+    ),
   },
   {
     id: "expander",

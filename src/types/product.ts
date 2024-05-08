@@ -45,8 +45,9 @@ export const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
 // -------------------- MOBX DEFINITION -----------------------
 
 const AttributeModel = types.model({
-  key: types.string,
-  value: types.string,
+  _id: types.string,
+  key: types.optional(types.string, ""),
+  value: types.optional(types.string, ""),
 });
 export type Atrribute = Instance<typeof AttributeModel>;
 
@@ -56,8 +57,9 @@ export const ProductModel = types.model({
   category: types.optional(types.string, ""),
   attributes: types.array(AttributeModel),
   status: types.optional(types.string, ""),
-  deleted: types.boolean,
-  recoverable: types.boolean,
+  deleted: types.optional(types.boolean, false),
+  recoverable: types.optional(types.boolean, true),
+  acquisitionDate: types.optional(types.string, ""),
   createdAt: types.optional(types.string, ""),
   updatedAt: types.optional(types.string, ""),
   deletedAt: types.optional(types.string, ""),

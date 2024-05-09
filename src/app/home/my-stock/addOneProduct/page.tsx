@@ -30,10 +30,6 @@ export default observer(function AddOneProduct() {
 
   const { handleSubmit, control } = useForm();
 
-  const handleCategoryChange = useCallback((category: string) => {
-    setSelectedCategory(category);
-  }, []);
-
   const handleInput = useCallback((key: string, value: unknown) => {
     setProductData((prev) => ({
       ...prev,
@@ -41,10 +37,25 @@ export default observer(function AddOneProduct() {
     }));
   }, []);
 
+  const handleCategoryChange = useCallback(
+    (category: string) => {
+      setSelectedCategory(category);
+      handleInput("category", category);
+    },
+    [handleInput]
+  );
+
   const handleAddProduct = handleSubmit(() => {
-    addProduct(productData as Product);
-    setProductData({});
-    ProductServices.createProduct(productData as Product).then((res) => {});
+    console.log("Product data to be sent:", productData);
+    ProductServices.createProduct(productData as Product)
+      .then((res) => {
+        alert("Product created!");
+        setProductData({});
+        addProduct(res);
+      })
+      .catch(() => {
+        alert("Error!");
+      });
   });
 
   const FormComponent = categoryComponents[selectedCategory];

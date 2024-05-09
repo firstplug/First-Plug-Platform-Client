@@ -79,6 +79,13 @@ export const Sidebar = function () {
           href="/home/dashboard"
           isActive={pathArray.includes("dashboard")}
         />
+        <SidebarLink
+          isSmall={isSidebarSmall}
+          icon={<PersonsGroupIcon />}
+          title="My Team"
+          href="/home/my-team"
+          isActive={pathArray.includes("my-team")}
+        />
 
         <SidebarLink
           isSmall={isSidebarSmall}
@@ -86,14 +93,6 @@ export const Sidebar = function () {
           title="My Stock"
           href="/home/my-stock"
           isActive={pathArray.includes("my-stock")}
-        />
-
-        <SidebarLink
-          isSmall={isSidebarSmall}
-          icon={<PersonsGroupIcon />}
-          title="My Team"
-          href="/home/my-team"
-          isActive={pathArray.includes("my-team")}
         />
 
         <SidebarLink

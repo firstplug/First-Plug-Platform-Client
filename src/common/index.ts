@@ -25,6 +25,8 @@ export * from "./PageLayout";
 export * from "./ProgressBar";
 export * from "./ProductDetail";
 export * from "./ProductImage";
+export * from "./ProductLocation";
+export * from "./PrdouctModelDetail";
 export * from "./SearchInput";
 export * from "./SectionTitle";
 export * from "./ShipmentStatus";

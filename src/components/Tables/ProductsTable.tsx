@@ -1,5 +1,6 @@
-import { Category, Product, ShipmentStatus } from "@/types";
-import React from "react";
+"use client";
+import { Category, Product, ProductTable, ShipmentStatus } from "@/types";
+import React, { useState } from "react";
 import { Table } from "../Table";
 import {
   ArrowRight,
@@ -9,8 +10,9 @@ import {
   TrashIcon,
 } from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
-import Image from "next/image";
-//TODO: review this.
+import PrdouctModelDetail from "@/common/PrdouctModelDetail";
+import MemberName from "./helpers/MemberName";
+
 function setAction(status: string) {
   switch (status) {
     case "Available":
@@ -25,50 +27,48 @@ function setAction(status: string) {
       return "Track >";
   }
 }
-
-// TODO :  Agregar lógica que defina que columnas se muestran y cuales no. Por ejmeplo en la tabla que se despliega desde TableShipments,
-// las columnas que deberian verse son Category, Model y Serial.
-
-export const prodcutColumns: ColumnDef<Product>[] = [
+interface ProdcutColumnsInterface {
+  handleSelectProducts: (products: Product[]) => void;
+}
+export const prodcutColumns: ({
+  handleSelectProducts,
+}: ProdcutColumnsInterface) => ColumnDef<ProductTable>[] = ({
+  handleSelectProducts,
+}) => [
   {
     accessorFn: (row) => row.category,
     header: "Category",
     size: 200,
     cell: ({ row, getValue }) => (
-      <div className="flex gap-2 items-start">
-        <ProductImage product={row.original} />
-        <span>{getValue<string>()}</span>
+      <div className="flex gap-4 text-xl items-start  ">
+        <ProductImage category={getValue<string>()} />
+        <span className="mt-2">{getValue<string>()}</span>
       </div>
     ),
     footer: (props) => props.column.id,
   },
   {
-    accessorFn: (row) => row.name,
+    accessorFn: (row) => row.products,
     header: "Model",
-    size: 400,
+    size: 200,
     cell: ({ row, getValue }) => (
-      <div className="flex flex-col ">
-        <section className="text-lg "> {getValue<string>()}</section>
+      <PrdouctModelDetail product={getValue<Product[]>()[0]} />
+    ),
+    footer: (props) => props.column.id,
+  },
+  {
+    accessorFn: (row) => row.products,
+    header: "Quantity",
+    size: 200,
+    cell: ({ getValue }) => (
+      <div className="flex w-full   h-full">
+        <span className=" font-semibold text-xl ">
+          {getValue<Product[]>().length}
+        </span>
       </div>
     ),
   },
 
-  {
-    accessorFn: (row) => row.serialNumber,
-    header: "Serial",
-    size: 200,
-    cell: ({ getValue }) => <span>#{getValue<string>()}</span>,
-  },
-  {
-    accessorFn: (row) => row.acquisitionDate,
-    header: "Acquasition Date",
-    size: 200,
-    cell: ({ getValue }) => (
-      <span className="text-lg">
-        {new Date(getValue<string>()).toLocaleDateString()}
-      </span>
-    ),
-  },
   {
     id: "expander",
     header: () => null,
@@ -76,12 +76,12 @@ export const prodcutColumns: ColumnDef<Product>[] = [
     cell: ({ row }) => {
       return (
         row.getCanExpand() && (
-          <div className=" flex justify-end">
+          <div
+            className=" flex justify-end"
+            onClick={() => handleSelectProducts(row.original.products)}
+          >
             <Button
-              {...{
-                onClick: row.getToggleExpandedHandler(),
-                style: { cursor: "pointer" },
-              }}
+              onClick={row.getToggleExpandedHandler()}
               variant="text"
               className="p-2 rounded-lg cursor-pointer "
             >
@@ -99,24 +99,30 @@ export const prodcutColumns: ColumnDef<Product>[] = [
   },
 ];
 
-/* TODO:  esta tabla deberia ser una lista de Shipments en base al prodcuto que se hace click?.
- Es decir si un producto tiene en quantity 5. Deberian figurar 5 shipments con sus correspondientes status e informacion? */
-
 const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.serialNumber,
     header: "Serial",
     cell: ({ getValue }) => (
-      <span className="text-sm">{getValue<string>()}</span>
+      <span className="text-md font-semibold">#{getValue<string>()}</span>
     ),
   },
   {
-    accessorFn: (row) => row.name,
+    accessorFn: (row) => row.acquisitionDate,
+    header: "Acquisition Date | MM/DD/YYY",
+
+    cell: ({ getValue }) => (
+      <span className="text-md font-semibold">
+        {new Date(getValue<string>()).toLocaleDateString()}
+      </span>
+    ),
+  },
+  {
+    accessorFn: (row) => row.assignedEmail,
     header: "Currently with",
-    cell: ({ row }) => (
-      <span className="text-md">
-        {/* // TODO: Add backend endpoint getAll that queries assigned and unassigned products.  */}
-        Name & LastName
+    cell: ({ getValue }) => (
+      <span className="text-sm">
+        <MemberName email={getValue<string>()} />{" "}
       </span>
     ),
   },
@@ -148,22 +154,23 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
 ];
 
 interface ProductTableProps {
-  products: Product[];
-  internalProducts?: Product[];
+  products: ProductTable[];
 }
-export function ProductsTable({
-  internalProducts,
-  products,
-}: ProductTableProps) {
+export function ProductsTable({ products }: ProductTableProps) {
+  const [productsDetails, setProductsDetails] = useState<Product[]>();
+
+  const handleSelectProducts = (products: Product[]) =>
+    setProductsDetails(products);
+
   return (
-    <Table<Product>
+    <Table<ProductTable>
       data={products}
-      columns={prodcutColumns}
+      columns={prodcutColumns({ handleSelectProducts })}
       getRowCanExpand={() => true}
       subComponent={
-        internalProducts ? (
+        productsDetails ? (
           <Table<Product>
-            data={internalProducts}
+            data={productsDetails}
             columns={InternalProductsColumns}
           />
         ) : null

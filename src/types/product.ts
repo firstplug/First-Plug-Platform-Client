@@ -46,7 +46,7 @@ export const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
 
 const AttributeModel = types.model({
   _id: types.string,
-  key: types.optional(types.string, ""),
+  key: types.enumeration(KEYS),
   value: types.optional(types.string, ""),
 });
 export type Atrribute = Instance<typeof AttributeModel>;
@@ -54,7 +54,7 @@ export type Atrribute = Instance<typeof AttributeModel>;
 export const ProductModel = types.model({
   _id: types.string,
   name: types.optional(types.string, ""),
-  category: types.optional(types.string, ""),
+  category: types.enumeration(CATEGORIES),
   attributes: types.array(AttributeModel),
   status: types.optional(types.string, ""),
   deleted: types.optional(types.boolean, false),
@@ -69,6 +69,11 @@ export const ProductModel = types.model({
 });
 export type Product = Instance<typeof ProductModel>;
 
+export const ProductTableModel = types.model({
+  category: types.string,
+  products: types.array(ProductModel),
+});
+export type ProductTable = Instance<typeof ProductTableModel>;
 // -------------------- ZOD DEFINITION -----------------------
 
 export const zodAtrributesModel = z.object({
@@ -97,17 +102,3 @@ export const zodProductModel = z.object({
 });
 
 export type PrdouctModelZod = z.infer<typeof zodProductModel>;
-export type ProductTable = {
-  category: {
-    category: string;
-    img: string;
-  };
-  model: {
-    model: string;
-    processor?: string;
-    ram?: string;
-    storage?: string;
-  };
-  quantity: number;
-  serialNumber: string;
-};

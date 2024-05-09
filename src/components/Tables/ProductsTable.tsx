@@ -32,7 +32,7 @@ export const prodcutColumns: ColumnDef<Product>[] = [
       <div className="flex gap-2 items-center">
         <div className="relative w-[25%]   aspect-square   ">
           <Image
-            src={row.original.imgUrl}
+            src={""}
             alt={getValue<string>()}
             fill
             className=" aspect-video rounded-md shadow-md "
@@ -50,31 +50,10 @@ export const prodcutColumns: ColumnDef<Product>[] = [
     cell: ({ row, getValue }) => (
       <div className="flex flex-col ">
         <section className="text-lg "> {getValue<string>()}</section>
-        <section className=" flex gap-2 text-dark-grey text-xs ">
-          <div className="flex  items-center">
-            <span>Proccesor </span>
-            <p className="font-normal"> {row.original.processor}</p>
-          </div>
-          <div className="flex  items-center">
-            <span>RAM </span>
-            <p className="font-normal"> {row.original.ram}</p>
-          </div>
-          <div className="flex  items-center">
-            <span>SDD </span>
-            <p className="font-normal">
-              <p className="font-normal"> {row.original.storage}</p>
-            </p>
-          </div>
-        </section>
       </div>
     ),
   },
-  {
-    accessorFn: (row) => row.stock,
-    header: "Quantity",
-    size: 200,
-    cell: ({ getValue }) => <span>{getValue<number>()}</span>,
-  },
+
   {
     accessorFn: (row) => row.serialNumber,
     header: "Serial",

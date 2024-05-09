@@ -15,6 +15,7 @@ type InputProps = {
   error?: string;
   touched?: boolean;
   required?: boolean;
+  isLogin?: boolean;
 };
 
 export function Input({
@@ -30,7 +31,8 @@ export function Input({
   error,
   touched,
   required,
-} : InputProps ) {
+  isLogin = false,
+}: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const inputType = showPassword ? "text" : type;
@@ -47,7 +49,7 @@ export function Input({
         placeholder={placeholder}
         defaultValue={value}
         className={`w-full  h-14 py-2 rounded-xl border ${
-          error ? "border-error" : ""
+          value.length && touched && error && !isLogin ? "border-error" : ""
         } text-black p-4  font-sans focus:outline-none`}
       />
 
@@ -67,8 +69,10 @@ export function Input({
         </button>
       )}
 
-      {touched && error ? (
-        <p className=" ml-2  text-error text-sm  ">{error}</p>
+      {value.length && touched && error && !isLogin ? (
+        <p className=" ml-2  w-[110%]  absolute  text-error text-sm  ">
+          {error}
+        </p>
       ) : null}
     </div>
   );

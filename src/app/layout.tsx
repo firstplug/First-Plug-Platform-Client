@@ -2,7 +2,8 @@ import "./globals.css";
 import { Montserrat, Inter } from "next/font/google";
 import Providers from "./Providers";
 import { ReactNode } from "react";
-
+import { Toaster } from "@/components/ui/toaster";
+import "@/config/env.config";
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
@@ -27,12 +28,12 @@ interface RootLayoutProps {
   children: ReactNode;
 }
 
-
-export default function RootLayout({ children } :RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
       <body>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );

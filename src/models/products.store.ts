@@ -8,20 +8,7 @@ export const ProductsStore = types
   })
   .views((store) => ({
     get productsTable(): ProductTable[] {
-      return store.products.map((product) => ({
-        category: {
-          category: product.category,
-          img: product.imgUrl,
-        },
-        quantity: product.stock,
-        model: {
-          model: product.model,
-          processor: product.processor,
-          ram: product.ram,
-          storage: product.storage,
-        },
-        serialNumber: product.serialNumber,
-      }));
+      return [];
     },
     get uniqueProducts() {
       const groupedProducts = store.products.reduce((result, product) => {

@@ -1,9 +1,14 @@
 "use client";
 import { ChangeEvent, useCallback, useState } from "react";
 
-type ValidatorType = "required" | "password" | "email";
+type ValidatorType =
+  | "required"
+  | "password"
+  | "email"
+  | "userName"
+  | "confirmPassowrd";
 
-function validator(type: ValidatorType) {
+function validator(type: ValidatorType, passwordToCompare?: string) {
   const emailValidator = (value: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!value.match(emailRegex)) {
@@ -32,6 +37,26 @@ function validator(type: ValidatorType) {
     }
     return null;
   };
+  const userNameValidator = (value: string) => {
+    const onlyLettersRegex = /^[a-zA-Z\s]*$/; // Expresión regular para permitir solo letras y espacios
+    const containsNumbersRegex = /[0-9]/; // Expresión regular para verificar números
+
+    if (containsNumbersRegex.test(value)) {
+      return "This field must not contain numbers.";
+    }
+
+    if (!onlyLettersRegex.test(value)) {
+      return "This field must contain only letters and spaces.";
+    }
+
+    return null;
+  };
+  const confirmPassowrd = (value: string) => {
+    if (value !== passwordToCompare) {
+      return "The passwords must be equal.";
+    }
+    return null;
+  };
 
   switch (type) {
     case "required": {
@@ -42,6 +67,12 @@ function validator(type: ValidatorType) {
     }
     case "email": {
       return emailValidator;
+    }
+    case "userName": {
+      return userNameValidator;
+    }
+    case "confirmPassowrd": {
+      return confirmPassowrd;
     }
 
     default:
@@ -59,22 +90,35 @@ interface InputState<T> {
   handleOption: (option: T) => void;
   selectedOption: T;
   clearInput: () => void;
+  passwordToCompare?: string;
 }
 
 export default function useInput<T>(
   initialValue: T,
   type: ValidatorType,
-  isOptionInput = false
+  isOptionInput = false,
+  passwordToCompare?: string
 ): InputState<T> {
-  const validateFunction = validator(type);
+  const validateFunction = validator(type, passwordToCompare);
   const [value, setValue] = useState(initialValue);
   const [selectedOption, setSelectedOption] = useState(initialValue);
   const [error, setError] = useState(null);
   const [touched, setTouched] = useState(false);
 
-  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value as T);
-  }, []);
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setValue(e.target.value as T);
+      if (validateFunction) {
+        if (type === "userName") setTouched(true);
+        !isOptionInput
+          ? type === "confirmPassowrd"
+            ? setError(validateFunction(e.target.value as string))
+            : setError(validateFunction(e.target.value as string))
+          : setError(validateFunction(selectedOption as string));
+      }
+    },
+    [validateFunction, isOptionInput, value, selectedOption]
+  );
 
   const handleOption = useCallback((option: T) => {
     setSelectedOption(option);
@@ -82,18 +126,27 @@ export default function useInput<T>(
 
   const onBlur = useCallback(() => {
     setTouched(true);
-
-    if (validateFunction) {
+    const val = value as string;
+    if (validateFunction && val.length) {
       !isOptionInput
-        ? setError(validateFunction(value as string))
+        ? type === "confirmPassowrd"
+          ? setError(validateFunction(value as string))
+          : setError(validateFunction(value as string))
         : setError(validateFunction(selectedOption as string));
     }
   }, [validateFunction, isOptionInput, value, selectedOption]);
 
   const onFocus = useCallback(() => {
     setTouched(false);
-    setError(null);
-  }, []);
+    const val = value as string;
+    if (validateFunction && val.length) {
+      !isOptionInput
+        ? type === "confirmPassowrd"
+          ? setError(validateFunction(value as string))
+          : setError(validateFunction(value as string))
+        : setError(validateFunction(selectedOption as string));
+    }
+  }, [validateFunction, isOptionInput, value, selectedOption]);
 
   const clearInput = useCallback(() => {
     setValue(initialValue);

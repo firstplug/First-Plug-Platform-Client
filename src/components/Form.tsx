@@ -1,6 +1,7 @@
 "use client";
 import { Button, CustomLink } from "@/common";
 import { AppleIcon, GoogleIcon, MicrosoftIcon } from "@/common/Icons";
+import { BASE_URL } from "@/config/axios.config";
 import { signIn } from "next-auth/react";
 import { FormEvent, ReactNode } from "react";
 
@@ -41,23 +42,19 @@ export const Form = function ({
           onClick={(e) => {
             e.preventDefault();
             return signIn("google", {
-              callbackUrl: "http://localhost:3000/home/dashboard",
+              callbackUrl: `${process.env.NEXT_PUBLIC_URL}/home/dashboard`,
             });
           }}
           variant="secondary"
           icon={<GoogleIcon className="w-7 h-7" />}
           className="border-none w-10 h-10 rounded-full"
         />
-        <Button
-          variant="secondary"
-          icon={<AppleIcon className="w-7 h-7" />}
-          className="border-none w-10 h-10 rounded-full"
-        />
+
         <Button
           onClick={(e) => {
             e.preventDefault();
             return signIn("azure-ad", {
-              callbackUrl: "http://localhost:3000/home/dashboard",
+              callbackUrl: `${process.env.NEXT_PUBLIC_URL}/home/dashboard`,
             });
           }}
           variant="secondary"

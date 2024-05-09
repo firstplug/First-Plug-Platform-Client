@@ -1,11 +1,18 @@
 "use client";
-import { Category, Product, ProductTable, ShipmentStatus } from "@/types";
+import {
+  Category,
+  Location,
+  Product,
+  ProductTable,
+  ShipmentStatus,
+} from "@/types";
 import React, { useState } from "react";
 import { Table } from "../Table";
 import {
   ArrowRight,
   Button,
   ProductImage,
+  ProductLocation,
   ShipmentStatusCard,
   TrashIcon,
 } from "@/common";
@@ -109,7 +116,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   },
   {
     accessorFn: (row) => row.acquisitionDate,
-    header: "Acquisition Date | MM/DD/YYY",
+    header: "Acquisition Date ",
 
     cell: ({ getValue }) => (
       <span className="text-md font-semibold">
@@ -120,17 +127,23 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.assignedEmail,
     header: "Currently with",
-    cell: ({ getValue }) => (
-      <span className="text-sm">
-        <MemberName email={getValue<string>()} />{" "}
-      </span>
-    ),
+    cell: ({ getValue }) => <MemberName email={getValue<string>()} />,
   },
   {
     accessorFn: (row) => row.status,
     header: "Status",
     cell: ({ getValue }) => (
       <ShipmentStatusCard status={getValue<ShipmentStatus>()} />
+    ),
+  },
+  {
+    accessorFn: (row) => row.location,
+    header: "Location",
+    cell: ({ getValue }) => (
+      <div>
+        {" "}
+        <ProductLocation location={getValue<Location>()} />{" "}
+      </div>
     ),
   },
   {

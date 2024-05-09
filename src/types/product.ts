@@ -3,6 +3,8 @@ import { z } from "zod";
 export const PRODUCT_STATUSES = ["Available", "Delivered"] as const;
 export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
 
+export const LOCATION = ["Our Office", "FP Office", "Employee"] as const;
+export type Location = (typeof LOCATION)[number];
 export const CATEGORIES = [
   "Merchandising",
   "Computer",

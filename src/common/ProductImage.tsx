@@ -6,7 +6,7 @@ interface ProductImageProps {
 }
 export function ProductImage({ category }: ProductImageProps) {
   return (
-    <div className="relative h-20  aspect-square   ">
+    <div className="relative h-16  aspect-square   ">
       <Image
         src={`/stock/${category}.png`}
         alt={`${category} First Plug Stock`}

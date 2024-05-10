@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { Button, PageLayout, SectionTitle } from "@/common";
 import { useStore } from "@/models/root.store";
 import { Product } from "@/types";
-import { CategoryForm } from "@/components/AddProduct/CategoryForm";
+import CategoryForm from "@/components/AddProduct/CategoryForm";
 import { ComputerForm } from "@/components/AddProduct/ComputerForm";
 import { MonitorForm } from "@/components/AddProduct/MonitorForm";
 import { AudioForm } from "@/components/AddProduct/AudioForm";

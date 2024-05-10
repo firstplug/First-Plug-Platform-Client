@@ -2,12 +2,18 @@
 import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import { InputProductForm } from "./InputProductForm";
+import { useStore } from "@/models";
+import { observer } from "mobx-react-lite";
 
-export const CategoryForm = function ({
+const CategoryForm = function ({
   handleInput,
   handleCategoryChange,
   selectedCategory,
 }) {
+  const { members } = useStore();
+
+  const memberFullNames = ["None", ...members.memberFullName];
+
   const categoryOptions = [
     "Merchandising",
     "Computer",
@@ -72,14 +78,18 @@ export const CategoryForm = function ({
             required="required"
             className="w-full "
           />
-          <InputProductForm
+          <DropdownInputProductForm
+            options={memberFullNames}
             placeholder="Assigned Email"
-            title="Assigned Email"
-            type="email"
-            name="assignedEmail"
-            prop="assignedEmail"
-            handleInput={handleInputChange}
-            onChange={(e) => handleInputChange("assignedEmail", e.target.value)}
+            title="Assigned Member"
+            name="assignedMember"
+            onChange={(selectedFullName) => {
+              const selectedMember = members.members.find(
+                (member) =>
+                  `${member.firstName} ${member.lastName}` === selectedFullName
+              );
+              handleInput("assignedEmail", selectedMember?.email || "");
+            }}
             required="required"
             className="w-full "
           />
@@ -99,3 +109,5 @@ export const CategoryForm = function ({
     </>
   );
 };
+
+export default observer(CategoryForm);

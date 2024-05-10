@@ -4,12 +4,7 @@ import { Navbar, Sidebar, Aside } from "@/components";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { useSession } from "next-auth/react";
-import {
-  Memberservices,
-  OrderServices,
-  ProductServices,
-  ShipmentServices,
-} from "@/services";
+import { Memberservices, ProductServices } from "@/services";
 import { Layout, EmptyCard, EmptyCardLayout, LoaderSpinner } from "@/common";
 import { setAuthInterceptor } from "@/config/axios.config";
 
@@ -25,7 +20,7 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
   const {
     user: { setUser },
     members: { setMembers },
-    products: { setProducts },
+    products: { setProducts, setTable },
     shipments: { setShipments },
     orders: { setOrders },
   } = store;
@@ -53,21 +48,10 @@ export default observer(function RootLayout({ children }: RootLayoutProps) {
         ProductServices.getAllProducts().then((res) => {
           setProducts(res);
         });
-        OrderServices.getAllOrders().then((res) => {
-          setOrders(res);
+        ProductServices.getTableFormat().then((res) => {
+          setTable(res);
         });
-        ShipmentServices.getAllShipments().then((res) => {
-          setShipments(res.data);
-        });
-        ProductServices.getAllProducts().then((res) => {
-          setProducts(res);
-        });
-        OrderServices.getAllOrders().then((res) => {
-          setOrders(res);
-        });
-        ShipmentServices.getAllShipments().then((res) => {
-          setShipments(res.data);
-        });
+
         setIsLoading(false);
       }
     }

@@ -4,10 +4,17 @@ import React, { ChangeEvent, useState } from "react";
 import { AddStockCard, Button, CustomLink, DownloadIcon } from "@/common";
 import Papa from "papaparse";
 import { useStore } from "@/models";
-import { CsvInfo, Product, TeamMember, csvSquema } from "@/types";
+import {
+  CsvInfo,
+  PrdouctModelZod,
+  Product,
+  TeamMember,
+  csvSquema,
+} from "@/types";
 import { CsvServices } from "@/services";
 import { saveAs } from "file-saver";
 import { parseProduct } from "@/utils";
+import { useToast } from "./ui/use-toast";
 const EMPTY_FILE_INFO: CsvInfo = {
   title: "",
   file: "",
@@ -18,6 +25,7 @@ export const LoadStock = function () {
   const [csvInfo, setCsvInfo] = useState(EMPTY_FILE_INFO);
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
   const {
     aside: { type },
   } = useStore();
@@ -42,17 +50,21 @@ export const LoadStock = function () {
             : product.acquisitionDate,
         }));
 
-        const parsedProducts = prdoucts.map((product) => parseProduct(product));
+        const parsedProducts: PrdouctModelZod = prdoucts.map((product) =>
+          parseProduct(product)
+        );
 
-        const { success, data, error } = csvSquema.safeParse({
-          parsedProducts,
+        const { success, data } = csvSquema.safeParse({
+          prdoucts: parsedProducts,
         });
 
         if (success) {
           await CsvServices.bulkCreateProducts(data.prdoucts);
           clearCsvData();
-          // TODO: add pretty alert
-          return alert("csv Loaded succesfully");
+          return toast({
+            title: "csv Loaded succesfully",
+            variant: "success",
+          });
         } else {
           throw new Error("error en el tipo de archivo");
         }
@@ -73,15 +85,17 @@ export const LoadStock = function () {
           await CsvServices.bulkCreateTeams(data.members);
 
           clearCsvData();
-          // TODO: add pretty alert
           return alert("csv Loaded succesfully");
         } else {
           throw new Error("Error en el tipo de archivos");
         }
       }
     } catch (error) {
-      alert(error.message);
-      console.error(error);
+      return toast({
+        title: "Errror en la carga de archivos",
+        description: "Por favor revisar los datos ingresados en el archivo csv",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }

@@ -1,6 +1,6 @@
 import { AtrributeZod, CsvProduct, PrdouctModelZod } from "@/types";
 
-export function parseProduct(product: CsvProduct) {
+export function parseProduct(product: CsvProduct): PrdouctModelZod {
   const arrayOfAttributes: AtrributeZod[] = [
     {
       key: "brand",
@@ -47,6 +47,8 @@ export function parseProduct(product: CsvProduct) {
     name: product.name,
     location: product.location,
     serialNumber: product.serialNumber,
+    status: product.assignedEmail ? "Delivered" : "Available",
+    recoverable: false,
     attributes: arrayOfAttributes,
   };
 

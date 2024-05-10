@@ -26,7 +26,7 @@ export default function PrdouctModelDetail({
 
           <div className="flex gap-2 text-md">
             <div className="flex  gap-1">
-              <span className="font-semibold ">Procesador</span>
+              <span className="font-semibold ">Processor</span>
               <p className="font-normal">{getValue("processor")}</p>
             </div>
             <div className="flex gap-1 ">
@@ -58,7 +58,7 @@ export default function PrdouctModelDetail({
 
           <div className="flex gap-2 text-md">
             <div className="flex  gap-1">
-              <span className="font-semibold ">Marca</span>
+              <span className="font-semibold ">Brand</span>
               <p className="font-normal">{getValue("brand")}</p>
             </div>
             <div className="flex  gap-1">
@@ -78,7 +78,7 @@ export default function PrdouctModelDetail({
 
           <div className="flex gap-2 text-md">
             <div className="flex  gap-1">
-              <span className="font-semibold ">Marca</span>
+              <span className="font-semibold ">Brand</span>
               <p className="font-normal">{getValue("brand")}</p>
             </div>
             <div className="flex  gap-1">
@@ -110,12 +110,12 @@ export default function PrdouctModelDetail({
 
           <div className="flex gap-2 text-md">
             <div className="flex  gap-1">
-              <span className="font-semibold ">Marca</span>
+              <span className="font-semibold ">Brand</span>
               <p className="font-normal">{getValue("brand")}</p>
             </div>
 
             <div className="flex  gap-1">
-              <span className="font-semibold ">Nombre</span>
+              <span className="font-semibold ">Name</span>
               <p className="font-normal">{name}</p>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function PrdouctModelDetail({
 
           <div className="flex gap-2 text-md">
             <div className="flex  gap-1">
-              <span className="font-semibold ">Marca</span>
+              <span className="font-semibold ">Brand</span>
               <p className="font-normal">{getValue("brand")}</p>
             </div>
             <div className="flex  gap-1">

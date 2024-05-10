@@ -41,15 +41,15 @@ export function parseProduct(product: CsvProduct): PrdouctModelZod {
     },
   ];
   const response: PrdouctModelZod = {
-    category: product.category,
+    category: product["category*"],
     acquisitionDate: product.acquisitionDate,
+    name: product["name*"],
+    location: product["location*"],
+    attributes: arrayOfAttributes.filter((atribute) => atribute.value),
     assignedEmail: product.assignedEmail,
-    name: product.name,
-    location: product.location,
     serialNumber: product.serialNumber,
     status: product.assignedEmail ? "Delivered" : "Available",
     recoverable: false,
-    attributes: arrayOfAttributes.filter((atribute) => atribute.value),
   };
 
   return response;

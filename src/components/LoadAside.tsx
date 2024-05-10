@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { ChangeEvent, useState } from "react";
-import { AddStockCard, Button, CustomLink, DownloadIcon } from "@/common";
+import { AddStockCard, Button, DownloadIcon } from "@/common";
 import Papa from "papaparse";
 import { useStore } from "@/models";
 import {
@@ -39,10 +39,9 @@ export const LoadStock = function () {
 
   const postCsvToDatabase = async (parsedData) => {
     setIsLoading(true);
-
     try {
       if (type === "LoadStock") {
-        const filteredData = parsedData.filter((prod) => prod.category);
+        const filteredData = parsedData.filter((prod) => prod["category*"]);
         const prdoucts = filteredData.map((product) => ({
           ...product,
           acquisitionDate: product.acquisitionDate

@@ -15,7 +15,7 @@ export default function PrdouctModelDetail({
   );
 
   const getValue = (key: Key) => {
-    return attributesToShow.filter((at) => at.key === key)[0].value;
+    return attributesToShow.filter((at) => at.key === key)[0]?.value;
   };
 
   switch (category) {

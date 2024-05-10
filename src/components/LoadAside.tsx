@@ -15,6 +15,7 @@ import { CsvServices } from "@/services";
 import { saveAs } from "file-saver";
 import { parseProduct } from "@/utils";
 import { useToast } from "./ui/use-toast";
+import { DownloadStock } from "./Download";
 const EMPTY_FILE_INFO: CsvInfo = {
   title: "",
   file: "",
@@ -100,17 +101,6 @@ export const LoadStock = function () {
     }
   };
 
-  const downloadTemplate = async () => {
-    try {
-      const filePath = "/excel/stock.xlsm";
-      const response = await fetch(filePath);
-      const blob = await response.blob();
-      saveAs(blob, "stock.xlsm");
-    } catch (error) {
-      console.error("Error al descargar el archivo:", error);
-    }
-  };
-
   const onFileChangeHandler = (csvFile: File) => {
     setCsvFile(csvFile);
 
@@ -180,17 +170,7 @@ export const LoadStock = function () {
               />
             </div>
             <div>
-              <Button
-                variant="text"
-                className="rounded-md p-1"
-                size="small"
-                onClick={downloadTemplate}
-              >
-                <div className="text-xs flex items-center">
-                  <DownloadIcon />
-                  <p>Download Template</p>
-                </div>
-              </Button>
+              <DownloadStock />
             </div>
           </section>
         </div>

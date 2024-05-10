@@ -72,13 +72,13 @@ export const Sidebar = function () {
       </div>
 
       <section className="flex flex-col flex-[2] gap-4">
-        <SidebarLink
+        {/* <SidebarLink
           isSmall={isSidebarSmall}
           icon={<DashboardIcon />}
           title="Dashboard"
           href="/home/dashboard"
           isActive={pathArray.includes("dashboard")}
-        />
+        /> */}
         <SidebarLink
           isSmall={isSidebarSmall}
           icon={<PersonsGroupIcon />}
@@ -95,7 +95,7 @@ export const Sidebar = function () {
           isActive={pathArray.includes("my-stock")}
         />
 
-        <SidebarLink
+        {/* <SidebarLink
           isSmall={isSidebarSmall}
           icon={<NotebookOrdersIcon />}
           title="Orders"
@@ -109,7 +109,7 @@ export const Sidebar = function () {
           title="Shipments"
           href="/home/shipments"
           isActive={pathArray.includes("shipments")}
-        />
+        /> */}
       </section>
 
       <hr className="my-2" />

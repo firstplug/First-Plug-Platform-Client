@@ -54,7 +54,6 @@ export const LoadStock = function () {
           parseProduct(product)
         );
 
-        console.log({ PRODCUTS: parsedProducts });
         const { success, data } = csvSquema.safeParse({
           prdoucts: parsedProducts,
         });
@@ -92,10 +91,9 @@ export const LoadStock = function () {
         }
       }
     } catch (error) {
-      console.log("ERROR DE BACK ", { error: error.response.data });
       return toast({
         title: "Errror en la carga de archivos",
-        description: error.message,
+        description: "Por favor revisar los datos ingresados en el archivo csv",
         variant: "destructive",
       });
     } finally {

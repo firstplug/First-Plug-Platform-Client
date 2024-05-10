@@ -3,7 +3,7 @@ import { Montserrat, Inter } from "next/font/google";
 import Providers from "./Providers";
 import { ReactNode } from "react";
 import { Toaster } from "@/components/ui/toaster";
-
+import "@/config/env.config";
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],

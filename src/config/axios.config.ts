@@ -1,9 +1,7 @@
 import axios from "axios";
 
-let baseURL: string = process.env.NEXT_PUBLIC_API;
-
-export const BASE_URL = baseURL;
-export const axiosInstance = axios.create({ baseURL });
+export const BASE_URL: string = process.env.NEXT_PUBLIC_API;
+export const axiosInstance = axios.create({ baseURL: BASE_URL });
 
 export const setAuthInterceptor = (token: string | null) => {
   return axiosInstance.interceptors.request.use(
@@ -23,7 +21,6 @@ export class HTTPRequests {
   }
 
   static async post<T>(url: string, payload: T) {
-    console.log("url", url);
     return await axiosInstance.post(url, payload);
   }
 

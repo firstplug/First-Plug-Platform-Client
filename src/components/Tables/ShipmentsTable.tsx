@@ -99,11 +99,11 @@ export const ShipmentsTable = observer(function ({
       columns={shipmentsColumns(handleSelectShipment)}
       data={shipments}
       getRowCanExpand={() => true}
-      subComponent={
-        selectedShipment ? (
-          <ProductsTable products={selectedShipment.products} />
-        ) : null
-      }
+      // subComponent={
+      //   selectedShipment ? (
+      //     <ProductsTable products={selectedShipment.products} />
+      //   ) : null
+      // }
     />
   );
 });

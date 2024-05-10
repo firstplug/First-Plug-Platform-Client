@@ -7,10 +7,12 @@ import { PageLayout } from "@/common";
 
 export default observer(function MyStock() {
   const {
-    products: { products },
+    products: { tableProducts },
   } = useStore();
 
   return (
-    <PageLayout>{products.length ? <DataStock /> : <EmptyStock />}</PageLayout>
+    <PageLayout>
+      {tableProducts.length ? <DataStock /> : <EmptyStock />}
+    </PageLayout>
   );
 });

@@ -26,7 +26,7 @@ export const ShipmentStore = types
           date: shipment.date,
           type: shipment.type,
           productsQuantity: shipment.products.length,
-          price: shipment.products.reduce((a, b) => parseInt(b.price) + a, 0),
+          price: 0,
           trackingURL: shipment.trackingURL,
           products: shipment.products,
         })
@@ -51,10 +51,6 @@ export const ShipmentStore = types
           shipmentMonth + 1
         }/${shipmentYear}`;
         months[shipmentMonth].shipments.push(shipment);
-        months[shipmentMonth].price = shipment.products.reduce(
-          (a, b) => parseInt(b.price) + a,
-          0
-        );
       });
       return months.map(({ month, price, shipments, status }) => ({
         month,

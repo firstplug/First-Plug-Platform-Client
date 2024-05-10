@@ -9,7 +9,7 @@ import { ProductsTable } from "@/components/Tables";
 export default observer(function DataStock() {
   const router = useRouter();
   const {
-    products: { products },
+    products: { products, tableProducts },
     aside: { setAside },
   } = useStore();
 
@@ -24,11 +24,10 @@ export default observer(function DataStock() {
         </div>
 
         <div className="flex gap-2   ">
-
           <Button
             className="rounded-md py-2 px-4"
             variant="secondary"
-            body="Add Equipment"
+            body="Add Product"
             icon={<AddIcon />}
             // onClick={() => setAside("AddStock")}
           />
@@ -54,7 +53,7 @@ export default observer(function DataStock() {
       </aside>
 
       <div className="h-[90%] top-[8%] w-full overflow-y-auto  absolute ">
-        <ProductsTable products={products} internalProducts={products} />
+        <ProductsTable products={tableProducts} />
       </div>
     </div>
   );

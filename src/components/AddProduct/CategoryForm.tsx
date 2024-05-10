@@ -4,7 +4,7 @@ import { DropdownInputProductForm } from "./DropDownProductForm";
 import { InputProductForm } from "./InputProductForm";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
-import { Product, Location } from "@/types";
+import { Product, Location, CATEGORIES } from "@/types";
 
 const CategoryForm = function ({
   handleInput,
@@ -14,15 +14,6 @@ const CategoryForm = function ({
   const { members } = useStore();
 
   const memberFullNames = ["None", ...members.memberFullName];
-
-  const categoryOptions = [
-    "Merchandising",
-    "Computer",
-    "Monitor",
-    "Audio",
-    "Peripherals",
-    "Other",
-  ];
 
   const handleInputChange = (name: string, value: string) => {
     handleInput(name, value);
@@ -51,7 +42,7 @@ const CategoryForm = function ({
       <div className="w-full">
         <div className="flex flex-col lg:flex-row gap-4">
           <DropdownInputProductForm
-            options={categoryOptions}
+            options={CATEGORIES}
             placeholder="Category"
             title="Category"
             name="category"

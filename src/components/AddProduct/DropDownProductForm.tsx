@@ -7,7 +7,7 @@ interface DropdownInputProductFormProps {
   className?: string;
   title: string;
   placeholder?: string;
-  options?: string[];
+  options?: readonly string[];
   selectedOption?: string;
   onChange?: (option: string) => void;
   required?: string;

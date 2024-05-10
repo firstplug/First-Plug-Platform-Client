@@ -29,7 +29,9 @@ export default observer(function DataStock() {
             variant="secondary"
             body="Add Product"
             icon={<AddIcon />}
-            // onClick={() => setAside("AddStock")}
+            onClick={() => {
+              router.push("/home/my-stock/addOneProduct");
+            }}
           />
 
           <Button

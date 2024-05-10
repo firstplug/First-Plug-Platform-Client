@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode, useEffect, useState } from "react";
-import { Navbar, Sidebar, Aside } from "@/components";
+import { Navbar, Sidebar, Aside, DownloadStock } from "@/components";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { useSession } from "next-auth/react";

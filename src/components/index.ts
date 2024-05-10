@@ -7,6 +7,7 @@ export * from "./Card";
 export * from "./CompanyForm";
 export * from "./TeamMemberCard";
 export * from "./CreateTeamAside";
+export * from "./Download";
 export * from "./EditMemberAside";
 export * from "./EditTeamsAsideDetails";
 export * from "./FilterModal";

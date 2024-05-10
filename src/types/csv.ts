@@ -10,7 +10,7 @@ export const csvProductModel = z.object({
   brand: z.string().optional(),
   color: z.string().optional(),
   screen: z.string().optional(),
-  keyboardLenguage: z.string().optional(),
+  keyboardLanguage: z.string().optional(),
   processor: z.string().optional(),
   ram: z.string().optional(),
   storage: z.string().optional(),

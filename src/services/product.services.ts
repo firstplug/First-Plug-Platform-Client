@@ -1,4 +1,4 @@
-import { Product } from "@/types";
+import { Product, ProductTable } from "@/types";
 import { BASE_URL, HTTPRequests } from "@/config/axios.config";
 
 type CreationProduct = Omit<Omit<Product, "_id">, "__v">;
@@ -6,6 +6,10 @@ type CreationProduct = Omit<Omit<Product, "_id">, "__v">;
 export class ProductServices {
   static async getAllProducts(): Promise<Product[]> {
     const response = await HTTPRequests.get(`${BASE_URL}/api/products`);
+    return response.data;
+  }
+  static async getTableFormat(): Promise<ProductTable[]> {
+    const response = await HTTPRequests.get(`${BASE_URL}/api/products/table`);
     return response.data;
   }
 

@@ -1,15 +1,18 @@
 import { types } from "mobx-state-tree";
-import { Product, ProductModel, ProductTable } from "@/types";
+import {
+  Product,
+  ProductModel,
+  ProductTable,
+  ProductTableModel,
+} from "@/types";
 
 export const ProductsStore = types
   .model({
-    selectedProductId: types.maybe(types.string),
     products: types.array(ProductModel),
+    tableProducts: types.array(ProductTableModel),
+    selectedTableId: types.maybe(types.string),
   })
   .views((store) => ({
-    get productsTable(): ProductTable[] {
-      return [];
-    },
     get uniqueProducts() {
       const groupedProducts = store.products.reduce((result, product) => {
         if (!result[product.category]) {
@@ -20,6 +23,11 @@ export const ProductsStore = types
 
       return Object.values(groupedProducts) as Product[];
     },
+    get selectedTableProducts() {
+      return store.products.find(
+        (product) => product._id === store.selectedTableId
+      );
+    },
 
     productById(productId: string) {
       return store.products.find((product) => product._id === productId);
@@ -28,6 +36,12 @@ export const ProductsStore = types
   .actions((store) => ({
     setProducts(products: Product[]) {
       store.products.replace(products);
+    },
+    setTable(products: ProductTable[]) {
+      store.tableProducts.replace(products);
+    },
+    setSelectedTableId(id: string) {
+      store.selectedTableId = id;
     },
     addProduct(product: Product) {
       store.products.push(product);

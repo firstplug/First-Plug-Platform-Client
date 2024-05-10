@@ -1,6 +1,6 @@
 import { AtrributeZod, CsvProduct, PrdouctModelZod } from "@/types";
 
-export function parseProduct(product: CsvProduct) {
+export function parseProduct(product: CsvProduct): PrdouctModelZod {
   const arrayOfAttributes: AtrributeZod[] = [
     {
       key: "brand",
@@ -20,7 +20,7 @@ export function parseProduct(product: CsvProduct) {
     },
     {
       key: "keyboardLenguage",
-      value: product.keyboardLenguage,
+      value: product.keyboardLanguage,
     },
     {
       key: "processor",
@@ -47,7 +47,9 @@ export function parseProduct(product: CsvProduct) {
     name: product.name,
     location: product.location,
     serialNumber: product.serialNumber,
-    attributes: arrayOfAttributes,
+    status: product.assignedEmail ? "Delivered" : "Available",
+    recoverable: false,
+    attributes: arrayOfAttributes.filter((atribute) => atribute.value),
   };
 
   return response;

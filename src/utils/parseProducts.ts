@@ -20,7 +20,7 @@ export function parseProduct(product: CsvProduct): PrdouctModelZod {
     },
     {
       key: "keyboardLenguage",
-      value: product.keyboardLenguage,
+      value: product.keyboardLanguage,
     },
     {
       key: "processor",
@@ -49,7 +49,7 @@ export function parseProduct(product: CsvProduct): PrdouctModelZod {
     serialNumber: product.serialNumber,
     status: product.assignedEmail ? "Delivered" : "Available",
     recoverable: false,
-    attributes: arrayOfAttributes,
+    attributes: arrayOfAttributes.filter((atribute) => atribute.value),
   };
 
   return response;

@@ -3,6 +3,8 @@ import { z } from "zod";
 export const PRODUCT_STATUSES = ["Available", "Delivered"] as const;
 export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
 
+export const LOCATION = ["Our Office", "FP Office", "Employee"] as const;
+export type Location = (typeof LOCATION)[number];
 export const CATEGORIES = [
   "Merchandising",
   "Computer",
@@ -45,19 +47,21 @@ export const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
 // -------------------- MOBX DEFINITION -----------------------
 
 const AttributeModel = types.model({
-  key: types.string,
-  value: types.string,
+  _id: types.string,
+  key: types.enumeration(KEYS),
+  value: types.optional(types.string, ""),
 });
 export type Atrribute = Instance<typeof AttributeModel>;
 
 export const ProductModel = types.model({
   _id: types.string,
   name: types.optional(types.string, ""),
-  category: types.optional(types.string, ""),
+  category: types.enumeration(CATEGORIES),
   attributes: types.array(AttributeModel),
   status: types.optional(types.string, ""),
-  deleted: types.boolean,
-  recoverable: types.boolean,
+  deleted: types.optional(types.boolean, false),
+  recoverable: types.optional(types.boolean, true),
+  acquisitionDate: types.optional(types.string, ""),
   createdAt: types.optional(types.string, ""),
   updatedAt: types.optional(types.string, ""),
   deletedAt: types.optional(types.string, ""),
@@ -67,6 +71,11 @@ export const ProductModel = types.model({
 });
 export type Product = Instance<typeof ProductModel>;
 
+export const ProductTableModel = types.model({
+  category: types.string,
+  products: types.array(ProductModel),
+});
+export type ProductTable = Instance<typeof ProductTableModel>;
 // -------------------- ZOD DEFINITION -----------------------
 
 export const zodAtrributesModel = z.object({
@@ -95,17 +104,3 @@ export const zodProductModel = z.object({
 });
 
 export type PrdouctModelZod = z.infer<typeof zodProductModel>;
-export type ProductTable = {
-  category: {
-    category: string;
-    img: string;
-  };
-  model: {
-    model: string;
-    processor?: string;
-    ram?: string;
-    storage?: string;
-  };
-  quantity: number;
-  serialNumber: string;
-};

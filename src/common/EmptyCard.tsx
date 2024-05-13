@@ -127,7 +127,7 @@ export function EmptyCard({ type }: EmptyCardProps) {
       setAside("LoadStock", "MyStock");
     }
 
-    // if(type === "members") setAside("LoadMembers")
+    if (type === "members") setAside("LoadMembers");
   };
 
   return (

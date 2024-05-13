@@ -15,6 +15,8 @@ export const AsideTitle = observer(function AsideTitle() {
       return `Team Member #${members.selectedMember._id.slice(0, 5)}`;
     case "LoadStock":
       return "Load Stock";
+    case "LoadMembers":
+      return "Load Members";
     case "OrderDetails":
       return `ID Number # ${orders.selectedOrder._id.slice(0, 5)}`;
   }

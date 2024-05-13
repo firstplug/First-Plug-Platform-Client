@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Navbar, Sidebar } from "@/components";
 import { Layout } from "@/common";
 import DataProvider from "./DataProvider";
-import Aside from "@/components/Aside/Aside";
+import { Aside } from "@/components/Aside";
 
 interface RootLayoutProps {
   children: ReactNode;

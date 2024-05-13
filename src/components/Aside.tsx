@@ -5,12 +5,12 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { AsideTitle } from "@/common";
 
-export const Aside = observer(function Aside() {
+export var Aside = observer(function Aside() {
   const {
     aside: { type, setAside },
   } = useStore();
 
-  return type ? (
+  return (
     <>
       <div
         className={`fixed top-0 left-0 w-full h-full -z-0 backdrop-blur-[1px] bg-grey bg-opacity-50 ${
@@ -37,5 +37,5 @@ export const Aside = observer(function Aside() {
         </div>
       </aside>
     </>
-  ) : null;
+  );
 });

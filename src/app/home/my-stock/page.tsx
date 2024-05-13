@@ -13,7 +13,7 @@ export default observer(function MyStock() {
 
   return (
     <PageLayout>
-      {tableProducts.length && members.length ? <DataStock /> : <EmptyStock />}
+      {tableProducts.length ? <DataStock /> : <EmptyStock />}
     </PageLayout>
   );
 });

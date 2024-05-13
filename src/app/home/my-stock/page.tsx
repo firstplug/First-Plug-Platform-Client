@@ -8,12 +8,11 @@ import { PageLayout } from "@/common";
 export default observer(function MyStock() {
   const {
     products: { tableProducts },
-    members: { members },
   } = useStore();
 
   return (
     <PageLayout>
-      {tableProducts.length && members.length ? <DataStock /> : <EmptyStock />}
+      {tableProducts.length ? <DataStock /> : <EmptyStock />}
     </PageLayout>
   );
 });

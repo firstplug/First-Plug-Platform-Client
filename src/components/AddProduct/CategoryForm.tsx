@@ -4,8 +4,7 @@ import { DropdownInputProductForm } from "./DropDownProductForm";
 import { InputProductForm } from "./InputProductForm";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
-import { Product, Location, CATEGORIES } from "@/types";
-import { set } from "zod";
+import { Location, CATEGORIES } from "@/types";
 
 const CategoryForm = function ({
   handleInput,

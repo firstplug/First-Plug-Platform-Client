@@ -1,11 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Controller,
-  FormProvider,
-  UseFormReturn,
-  useFormContext,
-} from "react-hook-form";
+import { Controller, UseFormReturn } from "react-hook-form";
 
 interface InputProductFormProps {
   title: string;
@@ -31,7 +26,16 @@ export function InputProductForm({
   name,
   control,
 }: InputProductFormProps) {
-  // const methods = useFormContext();
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = new Date(e.target.value);
+    const currentDate = new Date();
+    if (selectedDate > currentDate) {
+      const formattedDate = currentDate.toISOString().split("T")[0];
+      e.target.value = formattedDate;
+    }
+    onChange && onChange(e);
+  };
+
   return (
     <div className={`relative ${className}`}>
       <label className="block text-dark-grey ml-2 font-sans">{title}</label>
@@ -45,7 +49,11 @@ export function InputProductForm({
             value={value}
             onChange={(e) => {
               field.onChange(e);
-              onChange && onChange(e);
+              if (type === "date") {
+                handleDateChange(e);
+              } else {
+                onChange && onChange(e);
+              }
             }}
             placeholder={placeholder}
             className={`w-full h-14 py-2 rounded-xl border text-black p-4 font-sans focus:outline-none ${className}`}

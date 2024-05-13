@@ -36,37 +36,32 @@ export function DownloadStock() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-2xl   ">Atención 🫸</DialogTitle>
+          <DialogTitle className="text-2xl   ">Attention 🫸</DialogTitle>
           <DialogTitle className="text-lg">
-            Antes de abrir el archivo excel, se deben habilitar ✅ el uso de
-            macros.
+            Before opening the Excel file, you need to enable ✅ the use of
+            macros. Follow these steps:
           </DialogTitle>
           <DialogDescription className="text-md   ">
             <div className="flex flex-col gap-4">
-              <p className="text-lg font-medium">
-                Para poder hacer uso de las macros siga los siguientes pasos
-              </p>
-
               <ol className="pl-8 h-full text-lg">
                 <li className="list-item list-decimal">
                   {" "}
-                  Ir a la ubiacion 📂 del archivo
+                  Download the template ⬇.
                 </li>
                 <li className="list-item list-decimal">
-                  Clcik derecho sobre el archivo descargado {"( "}
-                  <span className="font-medium"> 🗃️ stock.xlsm</span>
-                  {" )"}
+                  Right-click on the downloaded file
+                  <span className="font-medium"> (stock.xlsm 📁)</span>
+                  and select “Properties”;.
                 </li>
-                <li className="list-item list-decimal">
-                  Abrir <span className="font-medium">properties 📃</span>{" "}
-                </li>
+
                 <li className="list-item list-decimal gap-2 ">
-                  En la parte inferior figura un mensaje de{" "}
-                  <span className="font-medium">Security:</span> se debe
-                  presionar <span className="font-medium"> Unblock</span>
+                  At the bottom, there&apos;s a{" "}
+                  <span className="font-medium">Security</span> message: you
+                  need to press <span className="font-medium"> “Unblock”</span>,
+                  then “Apply” and “Accept”.
                   <Popover>
                     <PopoverTrigger className="text-blue underline mx-2">
-                      Ver imagen
+                      (see image)
                     </PopoverTrigger>
                     <PopoverContent
                       className="bg-white"
@@ -84,6 +79,9 @@ export function DownloadStock() {
                       .
                     </PopoverContent>
                   </Popover>
+                </li>
+                <li className="list-item list-decimal">
+                  Open the Excel file and enable the use of macros.
                 </li>
               </ol>
               <Button

@@ -51,11 +51,11 @@ export function DownloadStock() {
                 <li className="list-item list-decimal">
                   Right-click on the downloaded file
                   <span className="font-medium"> (stock.xlsm 📁)</span>
-                  and select “Properties” 📃.
+                  and select “Properties”;.
                 </li>
 
                 <li className="list-item list-decimal gap-2 ">
-                  At the bottom, there's a{" "}
+                  At the bottom, there&apos;s a{" "}
                   <span className="font-medium">Security</span> message: you
                   need to press <span className="font-medium"> “Unblock”</span>,
                   then “Apply” and “Accept”.

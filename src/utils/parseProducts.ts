@@ -1,4 +1,9 @@
-import { AtrributeZod, CsvProduct, PrdouctModelZod } from "@/types";
+import {
+  AtrributeZod,
+  CATEGORY_KEYS,
+  CsvProduct,
+  PrdouctModelZod,
+} from "@/types";
 
 export function parseProduct(product: CsvProduct): PrdouctModelZod {
   const arrayOfAttributes: AtrributeZod[] = [
@@ -16,36 +21,41 @@ export function parseProduct(product: CsvProduct): PrdouctModelZod {
     },
     {
       key: "screen",
-      value: product.screen || "",
+      value: product.screen,
     },
     {
       key: "keyboardLanguage",
-      value: product.keyboardLanguage || "",
+      value: product.keyboardLanguage,
     },
     {
       key: "processor",
-      value: product.processor || "",
+      value: product.processor,
     },
     {
       key: "ram",
-      value: product.ram || "",
+      value: product.ram,
     },
 
     {
       key: "storage",
-      value: product.storage || "",
+      value: product.storage,
     },
     {
       key: "gpu",
-      value: product.gpu || "",
+      value: product.gpu,
     },
   ];
+
+  const attributes = arrayOfAttributes.filter((atribute) =>
+    CATEGORY_KEYS[product["category*"]].includes(atribute.key)
+  );
+
   const response: PrdouctModelZod = {
     category: product["category*"],
     acquisitionDate: product.acquisitionDate,
     name: product["name*"],
     location: product["location*"],
-    attributes: arrayOfAttributes,
+    attributes,
     assignedEmail: product.assignedEmail,
     serialNumber: product.serialNumber,
     status: product.assignedEmail ? "Delivered" : "Available",

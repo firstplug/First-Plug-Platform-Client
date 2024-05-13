@@ -5,11 +5,13 @@ import { InputProductForm } from "./InputProductForm";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { Product, Location, CATEGORIES } from "@/types";
+import { set } from "zod";
 
 const CategoryForm = function ({
   handleInput,
   handleCategoryChange,
   selectedCategory,
+  setAssignedEmail,
 }) {
   const { members } = useStore();
 
@@ -24,16 +26,23 @@ const CategoryForm = function ({
 
   const handleAssignedMemberChange = (selectedFullName: string) => {
     setSelectedFullName(selectedFullName);
-    const selectedMember = members.members.find(
-      (member) => `${member.firstName} ${member.lastName}` === selectedFullName
-    );
-    handleInput("assignedEmail", selectedMember?.email || "");
-    if (selectedFullName === "None") {
+
+    if (selectedFullName === "None" || selectedFullName === "") {
+      setAssignedEmail("");
+      handleInput("assignedEmail", "");
       setSelectedLocation("Our Office");
       handleInput("location", "Our Office");
+      handleInput("status", "available");
     } else {
+      const selectedMember = members.members.find(
+        (member) =>
+          `${member.firstName} ${member.lastName}` === selectedFullName
+      );
+      setAssignedEmail(selectedMember?.email || "");
+      handleInput("assignedEmail", selectedMember?.email || "");
       setSelectedLocation("Employee");
       handleInput("location", "Employee");
+      handleInput("status", "delivered");
     }
   };
 

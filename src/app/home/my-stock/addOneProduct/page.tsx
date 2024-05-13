@@ -27,6 +27,7 @@ export default observer(function AddOneProduct() {
   } = useStore();
   const [productData, setProductData] = useState<Partial<Product>>({});
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [assignedEmail, setAssignedEmail] = useState<string>("");
 
   const { handleSubmit, control } = useForm();
 
@@ -41,11 +42,15 @@ export default observer(function AddOneProduct() {
     (category: string) => {
       setSelectedCategory(category);
       handleInput("category", category);
+      handleInput(
+        "recoverable",
+        category === "Merchandising" ? "false" : "true"
+      );
     },
     [handleInput]
   );
 
-  const handleAddProduct = handleSubmit(() => {
+  const handleAddProduct = handleSubmit(async () => {
     console.log("Product data to be sent:", productData);
     ProductServices.createProduct(productData as Product)
       .then((res) => {
@@ -72,6 +77,7 @@ export default observer(function AddOneProduct() {
                   handleInput={handleInput}
                   handleCategoryChange={handleCategoryChange}
                   selectedCategory={selectedCategory}
+                  setAssignedEmail={setAssignedEmail}
                 />
               </section>
             </div>

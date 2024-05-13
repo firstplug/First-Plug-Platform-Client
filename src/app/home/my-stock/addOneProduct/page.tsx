@@ -51,14 +51,33 @@ export default observer(function AddOneProduct() {
   );
 
   const handleAddProduct = handleSubmit(async () => {
+    const formatData = {
+      category: productData.category,
+      acquisitionDate: productData.acquisitionDate,
+      name: productData.name,
+      location: productData.location,
+      attributes: [],
+      assignedEmail: productData.assignedEmail,
+      serialNumber: productData.serialNumber,
+      status: productData.assignedEmail ? "Delivered" : "Available",
+      recoverable: false,
+    };
+    const attibutes = Object.entries(productData).map(([key, value]) => ({
+      key,
+      value,
+    }));
+    formatData.attributes = attibutes;
+
     console.log("Product data to be sent:", productData);
-    ProductServices.createProduct(productData as Product)
+
+    ProductServices.createProduct(formatData as Product)
       .then((res) => {
         alert("Product created!");
         setProductData({});
         addProduct(res);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log("Error creating product", error);
         alert("Error!");
       });
   });

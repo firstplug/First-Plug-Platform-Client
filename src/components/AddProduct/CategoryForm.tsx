@@ -31,7 +31,7 @@ const CategoryForm = function ({
       handleInput("assignedEmail", "");
       setSelectedLocation("Our Office");
       handleInput("location", "Our Office");
-      handleInput("status", "available");
+      handleInput("status", "Available");
     } else {
       const selectedMember = members.members.find(
         (member) =>
@@ -41,7 +41,7 @@ const CategoryForm = function ({
       handleInput("assignedEmail", selectedMember?.email || "");
       setSelectedLocation("Employee");
       handleInput("location", "Employee");
-      handleInput("status", "delivered");
+      handleInput("status", "Delivered");
     }
   };
 
@@ -80,7 +80,10 @@ const CategoryForm = function ({
             prop="adquisitionDate"
             handleInput={handleInputChange}
             onChange={(e) =>
-              handleInputChange("adquisitionDate", e.target.value)
+              handleInputChange(
+                "adquisitionDate",
+                new Date(e.target.value).toISOString()
+              )
             }
             required="required"
             className="w-full"

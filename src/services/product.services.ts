@@ -19,10 +19,12 @@ export class ProductServices {
   }
 
   static async createProduct(productData: CreationProduct): Promise<Product> {
+    console.log("Datos del producto a crear en el servicio:", productData);
     const response = await HTTPRequests.post(
       `${BASE_URL}/api/products`,
       productData
     );
+    console.log("Respuesta del servicio al crear producto:", response.data);
     return response.data;
   }
 

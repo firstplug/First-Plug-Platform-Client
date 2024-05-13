@@ -5,12 +5,12 @@ import {
   MemberAsideDetails,
   CreateTeamAside,
   MemberEditAside,
-  LoadStock,
+  LoadAside,
   OrderAsideDetails,
   EditTeamsAsideDetails,
 } from "./";
 
-export const AsideContent = observer(function () {
+export var AsideContent = observer(function () {
   const { aside } = useStore();
   switch (aside.type) {
     case "MemberDetails":
@@ -22,7 +22,9 @@ export const AsideContent = observer(function () {
     case "EditMember":
       return <MemberEditAside />;
     case "LoadStock":
-      return <LoadStock />;
+      return <LoadAside />;
+    case "LoadMembers":
+      return <LoadAside />;
     case "OrderDetails":
       return <OrderAsideDetails />;
   }

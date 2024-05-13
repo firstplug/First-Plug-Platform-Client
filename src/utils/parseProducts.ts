@@ -19,7 +19,7 @@ export function parseProduct(product: CsvProduct): PrdouctModelZod {
       value: product.screen,
     },
     {
-      key: "keyboardLenguage",
+      key: "keyboardLanguage",
       value: product.keyboardLanguage,
     },
     {

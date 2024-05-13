@@ -19,7 +19,7 @@ export const KEYS = [
   "model",
   "color",
   "screen",
-  "keyboardLenguage",
+  "keyboardLanguage",
   "processor",
   "ram",
   "storage",
@@ -33,7 +33,7 @@ export const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
     "model",
     "color",
     "screen",
-    "keyboardLenguage",
+    "keyboardLanguage",
     "processor",
     "ram",
     "storage",
@@ -41,7 +41,7 @@ export const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
   ],
   Monitor: ["brand", "model", "screen", "color"],
   Audio: ["brand", "model", "color"],
-  Peripherals: ["brand", "model", "color"],
+  Peripherals: ["brand", "model", "color", "keyboardLanguage"],
   Other: ["brand", "color", "model"],
 };
 // -------------------- MOBX DEFINITION -----------------------

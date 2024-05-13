@@ -54,7 +54,7 @@ const Config: Record<EmptyCardType, TConfig> = {
     buttonText: "Load Team Members",
     LinkIcon: AddIcon,
     link: "/home/addTeam",
-    linkText: "Add Team Memeber",
+    linkText: "Add Team Member",
   },
   orders: {
     image: "/orders.svg",

@@ -4,11 +4,7 @@ import { signOut, useSession } from "next-auth/react";
 import { NavButtonIcon } from "./Icons";
 import { useRouter } from "next/navigation";
 
-interface DropdownButtonProps {
-  className?: string;
-}
-
-export function DropdownButton({ className }: DropdownButtonProps) {
+export function DropdownButton() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const session = useSession();
@@ -35,7 +31,7 @@ export function DropdownButton({ className }: DropdownButtonProps) {
               {session?.data?.user?.name || session?.data?.user?.name}
             </div>
             <div className="text-sm text-gray-500 pl-4 pb-4 font-inter font-medium mr-4">
-              {session?.data?.user?.email || "mailChill@gmail.com"}
+              {session?.data?.user?.email}
             </div>
             <button
               onClick={() => {

@@ -8,7 +8,6 @@ import { PageLayout } from "@/common";
 export default observer(function MyStock() {
   const {
     products: { tableProducts },
-    members: { members },
   } = useStore();
 
   return (

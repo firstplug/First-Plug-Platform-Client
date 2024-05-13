@@ -21,13 +21,13 @@ const membersColumns: (
     header: "FullName",
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
-  {
-    accessorKey: "dateOfBirth",
-    header: "Date Of Birth",
-    cell: ({ getValue }) => (
-      <span className="font-normal"> {DMY_Date(getValue<string>())} </span>
-    ),
-  },
+  // {
+  //   accessorKey: "dateOfBirth",
+  //   header: "Date Of Birth",
+  //   cell: ({ getValue }) => (
+  //     <span className="font-normal"> {DMY_Date(getValue<string>())} </span>
+  //   ),
+  // },
   {
     accessorKey: "joiningDate",
     header: "Joining Date",
@@ -50,11 +50,11 @@ const membersColumns: (
     ),
   },
   {
-    accessorKey: "shipmentDetails",
-    header: "Shipment Details",
-    cell: ({ getValue }) => (
-      <ShipmentStatusCard status={getValue<ShipmentStatus>()} />
-    ),
+    accessorKey: "Products Assigned",
+    header: "Products Assigned",
+    // cell: ({ getValue }) => (
+    //   <ShipmentStatusCard status={getValue<ShipmentStatus>()} />
+    // ),
   },
   {
     accessorKey: "",

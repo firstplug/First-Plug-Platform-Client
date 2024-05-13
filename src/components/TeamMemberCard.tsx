@@ -73,7 +73,6 @@ export const TeamMemberCard = observer(function ({
               >
                 {member.firstName} {member.lastName}
               </h2>
-              <b className="text-dark-grey">#00{member._id.slice(0, 6)}</b>
             </div>
           </div>
           <div className="flex gap-1">
@@ -108,17 +107,6 @@ export const TeamMemberCard = observer(function ({
             <h2 className="font-semibold text-lg">Products</h2>
             <p className="bg-border  rounded-full h-6 w-6 text-center  grid place-items-center items text-sm">
               {member.products.length}
-            </p>
-          </div>
-          <div className="flex  items-center gap-3">
-            <h2 className="font-semibold">Shipment Details:</h2>
-            <p
-              className="flex items-center gap-2"
-              style={{ textTransform: "capitalize" }}
-            >
-              <StatusCircleIconShipment color={shipmentStatusColor} />
-
-              {shipmentDetails}
             </p>
           </div>
         </section>

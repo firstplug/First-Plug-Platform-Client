@@ -10,7 +10,7 @@ export const Aside = observer(function Aside() {
     aside: { type, setAside },
   } = useStore();
 
-  return true ? (
+  return type ? (
     <>
       <div
         className={`fixed top-0 left-0 w-full h-full -z-0 backdrop-blur-[1px] bg-grey bg-opacity-50 ${

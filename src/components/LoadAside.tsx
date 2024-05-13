@@ -58,7 +58,6 @@ export const LoadAside = function () {
         });
 
         if (success) {
-          console.log("data para cargar: ", { PRODUCTS: data.prdoucts });
           await CsvServices.bulkCreateProducts(data.prdoucts);
           clearCsvData();
           return toast({
@@ -91,7 +90,6 @@ export const LoadAside = function () {
         }
       }
     } catch (error) {
-      console.log(error.response.data);
       return toast({
         title: "Errror en la carga de archivos",
         description: "Por favor revisar los datos ingresados en el archivo csv",

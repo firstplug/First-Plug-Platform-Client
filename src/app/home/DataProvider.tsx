@@ -2,7 +2,7 @@
 import { EmptyCard, EmptyCardLayout, LoaderSpinner } from "@/common";
 import { setAuthInterceptor } from "@/config/axios.config";
 import { useStore } from "@/models";
-import { Memberservices, ProductServices } from "@/services";
+import { Memberservices, ProductServices, TeamServices } from "@/services";
 import { observer } from "mobx-react-lite";
 import { useSession } from "next-auth/react";
 import { ReactNode, useEffect, useState } from "react";
@@ -22,6 +22,7 @@ export default observer(function DataProvider({
     products: { setProducts, setTable },
     shipments: { setShipments },
     orders: { setOrders },
+    teams: { setTeams },
   } = store;
 
   useEffect(() => {
@@ -49,6 +50,9 @@ export default observer(function DataProvider({
         });
         ProductServices.getTableFormat().then((res) => {
           setTable(res);
+        });
+        TeamServices.getAllTeams().then((res) => {
+          setTeams(res);
         });
 
         setIsLoading(false);

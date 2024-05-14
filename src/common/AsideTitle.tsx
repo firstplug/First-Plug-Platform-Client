@@ -6,7 +6,7 @@ export const AsideTitle = observer(function AsideTitle() {
   const { aside, orders, members } = useStore();
   switch (aside.type) {
     case "MemberDetails":
-      return `Team Member #${members.selectedMember._id.slice(0, 5)}`;
+      return `Team Member Details `;
     case "EditMember":
       return "Edit Teams";
     case "AssingProduct":
@@ -16,12 +16,12 @@ export const AsideTitle = observer(function AsideTitle() {
     case "NewTeam":
       return "New Team";
     case "EditTeam":
-      return `Team Member #${members.selectedMember._id.slice(0, 5)}`;
+      return `Edit Team Member`;
     case "LoadStock":
       return "Load Stock";
     case "LoadMembers":
       return "Load Members";
     case "OrderDetails":
-      return `ID Number # ${orders.selectedOrder._id.slice(0, 5)}`;
+      return `Order Detail `;
   }
 });

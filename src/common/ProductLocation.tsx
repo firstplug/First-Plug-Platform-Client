@@ -8,9 +8,9 @@ export function ProductLocation({ location }: { location: Location }) {
         location
           ? location === "Employee"
             ? "bg-lightGreen"
-            : "bg-lightBlue"
+            : "bg-lightPurple"
           : "bg-light-grey"
-      } rounded-full `}
+      } rounded-md `}
     >
       {location ? location : "No Location"}
     </span>

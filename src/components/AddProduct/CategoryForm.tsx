@@ -65,6 +65,7 @@ const CategoryForm = function ({
               type="text"
               name="name"
               onChange={(e) => handleInputChange("name", e.target.value)}
+              required="required"
             />
           </div>
         </div>

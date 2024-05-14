@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Button, PageLayout, SectionTitle } from "@/common";
 import { useStore } from "@/models/root.store";
-import { Product } from "@/types";
+import { Category, Product, CATEGORY_KEYS, Key } from "@/types";
 import CategoryForm from "@/components/AddProduct/CategoryForm";
 import { ComputerForm } from "@/components/AddProduct/ComputerForm";
 import { MonitorForm } from "@/components/AddProduct/MonitorForm";
@@ -12,7 +12,8 @@ import { PeripheralsForm } from "@/components/AddProduct/PeripheralsForm";
 import { OthersForm } from "@/components/AddProduct/OthersForm";
 import { useForm, FormProvider } from "react-hook-form";
 import { ProductServices } from "@/services/product.services";
-// import { Category, key, CATEGORY_KEYS } from "@/types";
+import { types } from "mobx-state-tree";
+import { AttributeModel, KEYS } from "@/types/product";
 
 const categoryComponents = {
   Computer: ComputerForm,
@@ -22,27 +23,19 @@ const categoryComponents = {
   Other: OthersForm,
 };
 
-const productProperties = [
-  "brand",
-  "model",
-  "color",
-  "screen",
-  "keyboardLanguage",
-  "processor",
-  "ram",
-  "storage",
-  "gpu",
-];
-
-export default observer(function AddOneProduct() {
+export default observer(function CreateProduct() {
   const {
     products: { addProduct },
   } = useStore();
   const [productData, setProductData] = useState<Partial<Product>>({});
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<Category | "">("");
   const [assignedEmail, setAssignedEmail] = useState<string>("");
 
-  const { handleSubmit, control } = useForm();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
 
   const handleInput = useCallback((key: string, value: unknown) => {
     setProductData((prev) => ({
@@ -52,7 +45,7 @@ export default observer(function AddOneProduct() {
   }, []);
 
   const handleCategoryChange = useCallback(
-    (category: string) => {
+    (category: Category) => {
       setSelectedCategory(category);
       handleInput("category", category);
       handleInput("recoverable", category !== "Merchandising");
@@ -61,26 +54,38 @@ export default observer(function AddOneProduct() {
   );
 
   const handleAddProduct = handleSubmit(async () => {
-    const productAttributes = Object.entries(productData)
-      .filter(([key, value]) => productProperties.includes(key) && value)
-      .map(([key, value]) => ({
-        key,
-        value,
+    // Creamos una copia del objeto productData
+    const formatData = { ...productData };
+
+    // Creamos un nuevo objeto sin las propiedades que estarán en el array de atributos
+    const productAttributes = {};
+    Object.keys(productData).forEach((key) => {
+      if (
+        key !== "category" &&
+        key !== "assignedEmail" &&
+        key !== "acquisitionDate" &&
+        key !== "status" &&
+        key !== "location" &&
+        key !== "recoverable" &&
+        key !== "serialNumber" &&
+        key !== "name"
+      ) {
+        productAttributes[key] = formatData[key];
+        delete formatData[key];
+      }
+    });
+
+    const keysForCategory = CATEGORY_KEYS[formatData.category as Category];
+    const attributes = keysForCategory
+      .filter((key: Key) => productAttributes[key] !== undefined)
+      .map((key: Key) => ({
+        key: key,
+        value: productAttributes[key],
       }));
-    const formatData = {
-      category: productData.category,
-      acquisitionDate: productData.acquisitionDate
-        ? new Date(productData.acquisitionDate).toISOString()
-        : "",
-      name: productData.name,
-      location: productData.location,
-      attributes: productAttributes,
-      assignedEmail: productData.assignedEmail,
-      serialNumber: productData.serialNumber,
-      status: productData.assignedEmail ? "Delivered" : "Available",
-      recoverable: productData.recoverable,
-    };
-    console.log("Product data to be sent:", productData);
+
+    formatData.attributes = attributes;
+
+    console.log("Product data to be sent:", formatData);
 
     ProductServices.createProduct(formatData as Product)
       .then((res) => {

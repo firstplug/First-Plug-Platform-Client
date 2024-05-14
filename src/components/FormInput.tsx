@@ -13,7 +13,6 @@ interface FormInputProps {
   options?: any[];
   required?: string;
   clear?: boolean;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
 }
 

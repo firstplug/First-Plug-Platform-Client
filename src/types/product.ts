@@ -46,7 +46,7 @@ export const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
 };
 // -------------------- MOBX DEFINITION -----------------------
 
-const AttributeModel = types.model({
+export const AttributeModel = types.model({
   _id: types.string,
   key: types.enumeration(KEYS),
   value: types.optional(types.string, ""),

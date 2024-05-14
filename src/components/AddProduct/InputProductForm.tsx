@@ -11,6 +11,7 @@ interface InputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name?: string;
   control?: UseFormReturn["control"];
+  required?: string;
 }
 
 export function InputProductForm({
@@ -22,6 +23,7 @@ export function InputProductForm({
   onChange,
   name,
   control,
+  required,
 }: InputProps) {
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(e);
@@ -48,6 +50,7 @@ export function InputProductForm({
             }}
             placeholder={placeholder}
             className={`w-full h-14 py-2 rounded-xl border text-black p-4 font-sans focus:outline-none ${className}`}
+            required={true}
           />
         )}
       />

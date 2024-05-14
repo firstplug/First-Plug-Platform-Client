@@ -21,7 +21,7 @@ const EMPTY_FILE_INFO: CsvInfo = {
   currentDate: "",
 } as const;
 
-export const LoadStock = function () {
+export const LoadAside = function () {
   const [csvInfo, setCsvInfo] = useState(EMPTY_FILE_INFO);
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);

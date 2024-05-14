@@ -16,7 +16,7 @@ export const CreateTeamAside = observer(function ({
 }: CreateTeamAsideProps) {
   const {
     aside: { setAside },
-    members: { memberCount, setMembers },
+    members: { memberCount, setMembers, members },
     teams: { setTeams },
   } = useStore();
   const [name, setName] = useState("");
@@ -77,7 +77,10 @@ export const CreateTeamAside = observer(function ({
             <span>({memberCount})</span>
           </div>
 
-          <AddMemberForm handleSelectedMembers={handleSelectedMembers} />
+          <AddMemberForm
+            handleSelectedMembers={handleSelectedMembers}
+            members={members}
+          />
         </div>
       </div>
 

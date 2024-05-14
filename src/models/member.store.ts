@@ -5,6 +5,7 @@ export const MemberStore = types
   .model({
     members: types.array(TeamMemberModel),
     memberId: types.optional(types.string, ""),
+    selectedMemberEmail: types.optional(types.string, ""),
     teamFilterItems: types.array(types.string),
   })
   .views((store) => ({
@@ -51,5 +52,8 @@ export const MemberStore = types
     },
     setSelectedMember(memberId: string) {
       store.memberId = memberId;
+    },
+    setSelectedMemberEmail(memberEmail?: TeamMember["email"]) {
+      store.selectedMemberEmail = memberEmail;
     },
   }));

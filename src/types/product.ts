@@ -19,7 +19,7 @@ export const KEYS = [
   "model",
   "color",
   "screen",
-  "keyboardLenguage",
+  "keyboardLanguage",
   "processor",
   "ram",
   "storage",
@@ -33,7 +33,7 @@ export const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
     "model",
     "color",
     "screen",
-    "keyboardLenguage",
+    "keyboardLanguage",
     "processor",
     "ram",
     "storage",
@@ -41,7 +41,7 @@ export const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
   ],
   Monitor: ["brand", "model", "screen", "color"],
   Audio: ["brand", "model", "color"],
-  Peripherals: ["brand", "model", "color"],
+  Peripherals: ["brand", "model", "color", "keyboardLanguage"],
   Other: ["brand", "color", "model"],
 };
 // -------------------- MOBX DEFINITION -----------------------
@@ -58,7 +58,7 @@ export const ProductModel = types.model({
   name: types.optional(types.string, ""),
   category: types.enumeration(CATEGORIES),
   attributes: types.array(AttributeModel),
-  status: types.optional(types.string, ""),
+  status: types.enumeration(PRODUCT_STATUSES),
   deleted: types.optional(types.boolean, false),
   recoverable: types.optional(types.boolean, true),
   acquisitionDate: types.optional(types.string, ""),
@@ -73,6 +73,7 @@ export type Product = Instance<typeof ProductModel>;
 
 export const ProductTableModel = types.model({
   category: types.string,
+  name: types.string,
   products: types.array(ProductModel),
 });
 export type ProductTable = Instance<typeof ProductTableModel>;

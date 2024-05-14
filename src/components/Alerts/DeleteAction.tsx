@@ -27,7 +27,6 @@ export function DeleteAction({ type }: DeleteAlertProps) {
       title: " Are you sure you want to delete this product? 🗑️",
       description: " This product will be permanetly deleted",
       deleteAction: () => {
-        alert("deletd");
         setOpen(false);
       },
     },
@@ -35,7 +34,6 @@ export function DeleteAction({ type }: DeleteAlertProps) {
       title: " Are you sure you want to delete this member from your team? 🗑️",
       description: " This member will be permanetly deleted",
       deleteAction: () => {
-        alert("deletd");
         setOpen(false);
       },
     },

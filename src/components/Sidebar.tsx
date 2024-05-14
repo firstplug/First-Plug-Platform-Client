@@ -65,7 +65,7 @@ export const Sidebar = function () {
             )
           }
           onClick={toggleSidebarSize}
-          className={`w-10 h-10 bg-white border border-grey rounded-full relative bottom-5 ${
+          className={`w-10 h-10 bg-white border border-grey rounded-full  relative bottom-5 ${
             isSidebarSmall ? "left-[70%]" : "left-[90%]"
           }`}
         />

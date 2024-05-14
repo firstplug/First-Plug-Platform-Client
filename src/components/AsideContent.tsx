@@ -9,6 +9,7 @@ import {
   OrderAsideDetails,
   EditTeamsAsideDetails,
 } from "./";
+import { AssignProduct } from "./AsideContents";
 
 export var AsideContent = observer(function () {
   const { aside } = useStore();
@@ -19,6 +20,10 @@ export var AsideContent = observer(function () {
       return <EditTeamsAsideDetails />;
     case "NewTeam":
       return <CreateTeamAside />;
+    case "AssingProduct":
+      return <AssignProduct />;
+    case "ReassingProduct":
+      return <AssignProduct />;
     case "EditMember":
       return <MemberEditAside />;
     case "LoadStock":

@@ -9,6 +9,10 @@ export const AsideTitle = observer(function AsideTitle() {
       return `Team Member #${members.selectedMember._id.slice(0, 5)}`;
     case "EditMember":
       return "Edit Teams";
+    case "AssingProduct":
+      return "Assign To";
+    case "ReassingProduct":
+      return "Assign To";
     case "NewTeam":
       return "New Team";
     case "EditTeam":

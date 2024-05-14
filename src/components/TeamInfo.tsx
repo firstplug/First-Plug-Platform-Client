@@ -15,7 +15,7 @@ interface TeamInfoProps {
 
 export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
   const {
-    members: { setMembers },
+    members: { setMembers, members },
     teams: { setTeams },
   } = useStore();
 
@@ -113,7 +113,10 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
 
       {showAddMember && (
         <div className="relative">
-          <AddMemberForm handleSelectedMembers={handleSelectedMembers} />
+          <AddMemberForm
+            handleSelectedMembers={handleSelectedMembers}
+            members={members}
+          />
           <Button
             variant="primary"
             className="p-2 absolute right-0 bottom-0 rounded-md"

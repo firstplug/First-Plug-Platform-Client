@@ -19,21 +19,8 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import PrdouctModelDetail from "@/common/PrdouctModelDetail";
 import MemberName from "./helpers/MemberName";
+import { ActionButton } from "./Product/ActionButton";
 
-function setAction(status: string) {
-  switch (status) {
-    case "Available":
-      return "Assign To";
-    case "Delivered":
-      return "Return";
-    case "Missing Data":
-      return "Fill Data";
-    case "Preparing":
-      return "Reasign";
-    case "Shipped":
-      return "Track >";
-  }
-}
 interface ProdcutColumnsInterface {
   handleSelectProducts: (products: Product[]) => void;
 }
@@ -158,9 +145,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.status,
     header: "Actions",
-    cell: ({ row, getValue }) => (
-      <Button variant="text">{setAction(row.original.status)}</Button>
-    ),
+    cell: ({ row, getValue }) => <ActionButton product={row.original} />,
   },
   {
     id: "actiondelete",

@@ -58,7 +58,7 @@ export const ProductModel = types.model({
   name: types.optional(types.string, ""),
   category: types.enumeration(CATEGORIES),
   attributes: types.array(AttributeModel),
-  status: types.optional(types.string, ""),
+  status: types.enumeration(PRODUCT_STATUSES),
   deleted: types.optional(types.boolean, false),
   recoverable: types.optional(types.boolean, true),
   acquisitionDate: types.optional(types.string, ""),

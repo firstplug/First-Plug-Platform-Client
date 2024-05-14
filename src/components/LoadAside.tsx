@@ -9,6 +9,8 @@ import {
   PrdouctModelZod,
   Product,
   TeamMember,
+  csvFileSquema,
+  csvProductModel,
   csvSquema,
 } from "@/types";
 import { CsvServices } from "@/services";
@@ -106,13 +108,24 @@ export const LoadAside = function () {
     Papa.parse(csvFile, {
       skipEmptyLines: true,
       header: true,
-      complete: function () {
+      complete: function (results) {
         const { name, size } = csvFile;
-        setCsvInfo({
-          title: name,
-          file: `${(size / 1024).toFixed(2)}kb`,
-          currentDate: new Date().toLocaleString(),
-        });
+        const { success } = csvFileSquema.safeParse(results.data);
+
+        if (success) {
+          setCsvInfo({
+            title: name,
+            file: `${(size / 1024).toFixed(2)}kb`,
+            currentDate: new Date().toLocaleString(),
+          });
+        } else {
+          toast({
+            title: "The file is not correct",
+            description:
+              "The uploaded file does not respect the provided structure",
+            variant: "destructive",
+          });
+        }
       },
     });
   };

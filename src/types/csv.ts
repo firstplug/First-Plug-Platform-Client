@@ -3,9 +3,9 @@ import { zodProductModel } from "./product";
 // TODO: After approving this. These types should be the main store types for each 'substore' (product.store and members.store)
 export const csvProductModel = z.object({
   _id: z.string().optional(),
-  "name*": z.string().optional(),
+  "name*": z.string(),
   acquisitionDate: z.string().optional(),
-  "category*": z.string().optional(),
+  "category*": z.string(),
   model: z.string().optional(),
   brand: z.string().optional(),
   color: z.string().optional(),
@@ -16,10 +16,11 @@ export const csvProductModel = z.object({
   storage: z.string().optional(),
   gpu: z.string().optional(),
   serialNumber: z.string().optional(),
-  "location*": z.string().optional(),
+  "location*": z.string(),
   assignedEmail: z.string().optional(),
 });
 export type CsvProduct = z.infer<typeof csvProductModel>;
+export const csvFileSquema = z.array(csvProductModel);
 export const zodMemberModel = z.object({
   _id: z.string().optional(),
   firstName: z.string().optional(),

@@ -20,6 +20,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import PrdouctModelDetail from "@/common/PrdouctModelDetail";
 import MemberName from "./helpers/MemberName";
 import { ActionButton } from "./Product/ActionButton";
+import { DeleteAction } from "../Alerts";
 
 interface ProdcutColumnsInterface {
   handleSelectProducts: (products: Product[]) => void;
@@ -151,10 +152,8 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     id: "actiondelete",
     header: "",
     cell: () => (
-      <div className="flex justify-end">
-        <Button variant="text">
-          <TrashIcon color="red" strokeWidth={2} />
-        </Button>
+      <div className="flex justify-end px-2">
+        <DeleteAction type="product" />
       </div>
     ),
   },

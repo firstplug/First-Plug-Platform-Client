@@ -55,6 +55,15 @@ export const prodcutColumns: ({
     footer: (props) => props.column.id,
   },
   {
+    accessorFn: (row) => row.name,
+    header: "Name",
+    size: 200,
+    cell: ({ getValue }) => (
+      <span className="text-lg">{getValue<string>()}</span>
+    ),
+    footer: (props) => props.column.id,
+  },
+  {
     accessorFn: (row) => row.products,
     header: "Model",
     size: 200,

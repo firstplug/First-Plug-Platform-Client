@@ -73,6 +73,7 @@ export type Product = Instance<typeof ProductModel>;
 
 export const ProductTableModel = types.model({
   category: types.string,
+  name: types.string,
   products: types.array(ProductModel),
 });
 export type ProductTable = Instance<typeof ProductTableModel>;

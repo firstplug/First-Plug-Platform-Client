@@ -22,7 +22,7 @@ export default function PrdouctModelDetail({
     case "Computer": {
       return (
         <div className="flex flex-col w-full gap-">
-          <h2 className="text-xl">{getValue("model")} </h2>
+          <h2 className="text-lg">{getValue("model")} </h2>
 
           <div className="flex gap-2 text-md">
             <div className="flex  gap-1">
@@ -54,7 +54,7 @@ export default function PrdouctModelDetail({
     case "Monitor": {
       return (
         <div className="flex flex-col w-full gap-">
-          <h2 className="text-xl">{getValue("model")} </h2>
+          <h2 className="text-lg">{getValue("model")} </h2>
 
           <div className="flex gap-2 text-md">
             <div className="flex  gap-1">
@@ -74,7 +74,7 @@ export default function PrdouctModelDetail({
     case "Audio": {
       return (
         <div className="flex flex-col w-full gap-">
-          <h2 className="text-xl">{getValue("model")} </h2>
+          <h2 className="text-lg">{getValue("model")} </h2>
 
           <div className="flex gap-2 text-md">
             <div className="flex  gap-1">
@@ -92,7 +92,7 @@ export default function PrdouctModelDetail({
     case "Merchandising": {
       return (
         <div className="flex flex-col w-full gap-">
-          <h2 className="text-xl">{name} </h2>
+          <h2 className="text-lg">{name} </h2>
 
           <div className="flex gap-2 text-md">
             <div className="flex  gap-1">
@@ -106,7 +106,7 @@ export default function PrdouctModelDetail({
     case "Other": {
       return (
         <div className="flex flex-col w-full gap-">
-          <h2 className="text-xl">{name} </h2>
+          <h2 className="text-lg">{name} </h2>
 
           <div className="flex gap-2 text-md">
             <div className="flex  gap-1">
@@ -125,7 +125,7 @@ export default function PrdouctModelDetail({
     case "Peripherals": {
       return (
         <div className="flex flex-col w-full gap-">
-          <h2 className="text-xl">{getValue("model")} </h2>
+          <h2 className="text-lg">{getValue("model")} </h2>
 
           <div className="flex gap-2 text-md">
             <div className="flex  gap-1">

@@ -15,7 +15,7 @@ export default function EmailTooltip({ email }) {
           </span>
         </TooltipTrigger>
         <TooltipContent className="bg-white">
-          <p className=" font-semibold "> ❌ This email is not registered</p>
+          <p className=" font-semibold "> ❌ Not found in my team</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

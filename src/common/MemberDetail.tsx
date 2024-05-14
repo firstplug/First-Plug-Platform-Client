@@ -28,10 +28,11 @@ export function MemberDetail({ className }: MemberDetailProps) {
       </div>
       <div className="flex flex-col w-full  justify-start  ">
         <div className="flex w-full justify-between items-center">
-          {selectedMember.teams.map((team) => (
-            <TeamCard team={team} key={team} />
-          ))}
-
+          <div className="flex items-center gap-1">
+            {selectedMember.teams.map((team) => (
+              <TeamCard team={team} key={team} />
+            ))}
+          </div>
           <div className="flex  text-dark-grey font-semibold">
             <Button variant="text">
               <PenIcon

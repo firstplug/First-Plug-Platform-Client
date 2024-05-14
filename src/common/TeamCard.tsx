@@ -15,9 +15,9 @@ export var TeamCard = observer(function TeamCard({
   const {
     teams: { teams },
   } = useStore();
+
   const TEAM_COLORS = [
     "bg-hr",
-    "bg-purple",
     "bg-design",
     "bg-sales",
     "bg-dev",
@@ -30,7 +30,7 @@ export var TeamCard = observer(function TeamCard({
       className={`  ${
         className || ""
       } py-0.5 px-2 rounded text-md text-black font-medium  ${
-        team ? TEAM_COLORS[teams.indexOf(team)] : "bg-grey"
+        team ? TEAM_COLORS[[...teams].sort().indexOf(team)] : "bg-grey"
       } `}
     >
       {team || "Assing to a Team"}

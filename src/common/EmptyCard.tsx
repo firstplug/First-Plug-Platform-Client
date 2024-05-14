@@ -18,7 +18,9 @@ type EmptyCardType =
   | "orders"
   | "registerok"
   | "loginerror"
-  | "registererror";
+  | "registererror"
+  | "noStockMember";
+
 type TConfig = {
   image: string;
   paragraph: string;
@@ -36,6 +38,17 @@ type TConfig = {
 };
 
 const Config: Record<EmptyCardType, TConfig> = {
+  noStockMember: {
+    image: "/office.svg",
+    paragraph: "This member doesn't have any items.",
+    // ButtonIcon: () => <div>🔗</div>,
+    // buttonText: "Stock",
+    LinkIcon: () => <div>🔗</div>,
+    link: "/home/my-stock",
+    linkText: "Stock",
+    additionalButtonText: "Add Product",
+    // additionalButtonIcon: AddIcon,
+  },
   stock: {
     image: "/office.svg",
     paragraph: "You don't have any items.",

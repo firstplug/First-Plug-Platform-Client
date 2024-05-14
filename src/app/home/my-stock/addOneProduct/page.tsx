@@ -12,6 +12,7 @@ import { PeripheralsForm } from "@/components/AddProduct/PeripheralsForm";
 import { OthersForm } from "@/components/AddProduct/OthersForm";
 import { useForm, FormProvider } from "react-hook-form";
 import { ProductServices } from "@/services/product.services";
+// import { Category, key, CATEGORY_KEYS } from "@/types";
 
 const categoryComponents = {
   Computer: ComputerForm,
@@ -20,6 +21,18 @@ const categoryComponents = {
   Peripherals: PeripheralsForm,
   Other: OthersForm,
 };
+
+const productProperties = [
+  "brand",
+  "model",
+  "color",
+  "screen",
+  "keyboardLanguage",
+  "processor",
+  "ram",
+  "storage",
+  "gpu",
+];
 
 export default observer(function AddOneProduct() {
   const {
@@ -42,32 +55,31 @@ export default observer(function AddOneProduct() {
     (category: string) => {
       setSelectedCategory(category);
       handleInput("category", category);
-      handleInput(
-        "recoverable",
-        category === "Merchandising" ? "false" : "true"
-      );
+      handleInput("recoverable", category !== "Merchandising");
     },
     [handleInput]
   );
 
   const handleAddProduct = handleSubmit(async () => {
+    const productAttributes = Object.entries(productData)
+      .filter(([key, value]) => productProperties.includes(key) && value)
+      .map(([key, value]) => ({
+        key,
+        value,
+      }));
     const formatData = {
       category: productData.category,
-      acquisitionDate: productData.acquisitionDate,
+      acquisitionDate: productData.acquisitionDate
+        ? new Date(productData.acquisitionDate).toISOString()
+        : "",
       name: productData.name,
       location: productData.location,
-      attributes: [],
+      attributes: productAttributes,
       assignedEmail: productData.assignedEmail,
       serialNumber: productData.serialNumber,
       status: productData.assignedEmail ? "Delivered" : "Available",
-      recoverable: false,
+      recoverable: productData.recoverable,
     };
-    const attibutes = Object.entries(productData).map(([key, value]) => ({
-      key,
-      value,
-    }));
-    formatData.attributes = attibutes;
-
     console.log("Product data to be sent:", productData);
 
     ProductServices.createProduct(formatData as Product)

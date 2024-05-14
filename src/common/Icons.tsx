@@ -574,15 +574,9 @@ type ChevronDownProps = {
   className?: string;
   stroke?: number;
   color?: string;
-  onClick?: () => void;
 };
 
-export function ChevronDown({
-  className,
-  stroke,
-  color,
-  onClick,
-}: ChevronDownProps) {
+export function ChevronDown({ className, stroke, color }: ChevronDownProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -591,7 +585,6 @@ export function ChevronDown({
       strokeWidth={` ${stroke || "1.5"}`}
       stroke={`${color || "currentColor"}`}
       className={`w-6 h-6 ${className || ""}`}
-      onClick={onClick}
     >
       <path
         strokeLinecap="round"

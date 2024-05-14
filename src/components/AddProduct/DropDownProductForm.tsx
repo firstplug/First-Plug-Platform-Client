@@ -68,12 +68,14 @@ export function DropdownInputProductForm({
             {error}
           </p>
         )}
-        <ChevronDown
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
-          stroke={2}
-          color="grey"
-          onClick={toggleDropdown}
-        />
+        <div onClick={toggleDropdown}>
+          <ChevronDown
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            stroke={2}
+            color="grey"
+          />
+        </div>
+
         <ul
           className={`absolute z-10 top-full left-0 w-full border border-gray-300 bg-white rounded-lg shadow-lg overflow-y-auto max-h-48 ${
             isOpen ? "block" : "hidden"

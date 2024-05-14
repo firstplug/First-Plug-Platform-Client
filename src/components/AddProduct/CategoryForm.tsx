@@ -63,29 +63,27 @@ const CategoryForm = function ({
               placeholder="Product Name"
               title="Product Name"
               type="text"
-              prop="name"
               name="name"
-              handleInput={handleInputChange}
               onChange={(e) => handleInputChange("name", e.target.value)}
-              required="required"
             />
           </div>
         </div>
         <div className="flex flex-col lg:flex-row gap-4 mt-4">
           <InputProductForm
-            placeholder="Adquisition Date"
-            title="Adquisition Date"
+            placeholder="Acquisition Date"
+            title="Acquisition Date"
             type="date"
-            name="adquisitionDate"
-            prop="adquisitionDate"
-            handleInput={handleInputChange}
+            name="acquisitionDate"
             onChange={(e) =>
               handleInputChange(
-                "adquisitionDate",
+                "acquisitionDate",
                 new Date(e.target.value).toISOString()
+                //             const selectedDate = new Date(e.target.value);
+                // const currentDate = new Date();
+                // if (selectedDate > currentDate) {
+                //   const formattedDate = currentDate.toISOString().split("T")[0];
               )
             }
-            required="required"
             className="w-full"
           />
           <InputProductForm
@@ -93,10 +91,7 @@ const CategoryForm = function ({
             title="Serial Number"
             type="text"
             name="serialNumber"
-            prop="serialNumber"
-            handleInput={handleInputChange}
             onChange={(e) => handleInputChange("serialNumber", e.target.value)}
-            required="required"
             className="w-full "
           />
           <DropdownInputProductForm
@@ -128,11 +123,8 @@ const CategoryForm = function ({
               title="Location"
               type="text"
               name="location"
-              prop="location"
               value="Employee"
-              handleInput={handleInputChange}
               onChange={(e) => handleInputChange("location", e.target.value)}
-              required="required"
               className="w-full"
             />
           )}

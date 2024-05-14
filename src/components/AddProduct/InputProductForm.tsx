@@ -2,16 +2,13 @@
 import React from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
 
-interface InputProductFormProps {
+interface InputProps {
   title: string;
   placeholder?: string;
   type?: string;
   className?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  prop?: string;
-  handleInput?: (prop: string, value: unknown) => void;
-  required?: string;
   name?: string;
   control?: UseFormReturn["control"];
 }
@@ -25,14 +22,8 @@ export function InputProductForm({
   onChange,
   name,
   control,
-}: InputProductFormProps) {
+}: InputProps) {
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = new Date(e.target.value);
-    const currentDate = new Date();
-    if (selectedDate > currentDate) {
-      const formattedDate = currentDate.toISOString().split("T")[0];
-      e.target.value = formattedDate;
-    }
     onChange && onChange(e);
   };
 

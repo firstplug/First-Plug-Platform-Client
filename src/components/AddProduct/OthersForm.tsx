@@ -3,7 +3,7 @@ import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import othersData from "./JSON/othersform.json";
 
-export const OthersForm = function () {
+export const OthersForm = function ({ handleInput }) {
   const [brand, setBrand] = React.useState("");
   const [model, setModel] = React.useState("");
   const [color, setColor] = React.useState("");
@@ -14,7 +14,7 @@ export const OthersForm = function () {
 
   return (
     <>
-      <div w-full>
+      <div className="w-full">
         <div className="flex flex-col lg:flex-row gap-4">
           <DropdownInputProductForm
             options={brandOptions}
@@ -24,6 +24,7 @@ export const OthersForm = function () {
             selectedOption={brand}
             onChange={(option) => {
               setBrand(option);
+              handleInput("brand", option);
             }}
             required="required"
           />
@@ -33,7 +34,10 @@ export const OthersForm = function () {
             title="Model"
             name="model"
             selectedOption={model}
-            onChange={(option) => setModel(option)}
+            onChange={(option) => {
+              setModel(option);
+              handleInput("model", option);
+            }}
             required="required"
           />
         </div>
@@ -44,7 +48,10 @@ export const OthersForm = function () {
             title="Color"
             name="color"
             selectedOption={color}
-            onChange={(option) => setColor(option)}
+            onChange={(option) => {
+              setColor(option);
+              handleInput("color", option);
+            }}
             required="required"
           />
         </div>

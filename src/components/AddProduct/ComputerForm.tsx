@@ -9,12 +9,20 @@ export const ComputerForm = function ({ handleInput }) {
   const [processor, setProcessor] = React.useState("");
   const [ram, setRam] = React.useState("");
   const [storage, setStorage] = React.useState("");
+  const [screen, setScreen] = React.useState("");
+  const [keyboardLanguage, setKeyboardLanguage] = React.useState("");
+  const [gpu, setGpu] = React.useState("");
+  const [color, setColor] = React.useState("");
 
   const brandOptions = computerData.brands;
   const modelOptions = computerData.models;
   const processorOptions = computerData.processors;
   const ramOptions = computerData.rams;
   const storageOptions = computerData.storages;
+  const screenOptions = computerData.screen;
+  const keyboardLanguageOptions = computerData.keyboards;
+  const gpuOptions = computerData.gpu;
+  const colorOptions = computerData.colors;
 
   return (
     <>
@@ -43,8 +51,6 @@ export const ComputerForm = function ({ handleInput }) {
             }}
             required="required"
           />
-        </div>
-        <div className="flex flex-col lg:flex-row gap-4">
           <DropdownInputProductForm
             options={processorOptions}
             placeholder="Processor"
@@ -56,6 +62,8 @@ export const ComputerForm = function ({ handleInput }) {
             }}
             required="required"
           />
+        </div>
+        <div className="flex flex-col lg:flex-row gap-4">
           <DropdownInputProductForm
             options={ramOptions}
             placeholder="RAM"
@@ -75,6 +83,54 @@ export const ComputerForm = function ({ handleInput }) {
             selectedOption={storage}
             onChange={(option) => {
               setStorage(option), handleInput("storage", option);
+            }}
+            required="required"
+          />
+          <DropdownInputProductForm
+            options={gpuOptions}
+            placeholder="GPU"
+            title="GPU"
+            name="gpu"
+            selectedOption={gpu}
+            onChange={(option) => {
+              setGpu(option), handleInput("gpu", option);
+            }}
+            required="required"
+          />
+        </div>
+        <div className="flex flex-col lg:flex-row gap-4">
+          <DropdownInputProductForm
+            options={colorOptions}
+            placeholder="Color"
+            title="Color"
+            name="color"
+            selectedOption={color}
+            onChange={(option) => {
+              setColor(option);
+              handleInput("color", option);
+            }}
+            required="required"
+          />
+          <DropdownInputProductForm
+            options={screenOptions}
+            placeholder="Screen"
+            title="Screen"
+            name="screen"
+            selectedOption={screen}
+            onChange={(option) => {
+              setScreen(option), handleInput("screen", option);
+            }}
+            required="required"
+          />
+          <DropdownInputProductForm
+            options={keyboardLanguageOptions}
+            placeholder="Keyboard Language"
+            title="Keyboard Language"
+            name="keyboardLanguage"
+            selectedOption={keyboardLanguage}
+            onChange={(option) => {
+              setKeyboardLanguage(option),
+                handleInput("keyboardLanguage", option);
             }}
             required="required"
           />

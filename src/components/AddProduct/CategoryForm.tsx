@@ -29,8 +29,8 @@ const CategoryForm = function ({
     if (selectedFullName === "None" || selectedFullName === "") {
       setAssignedEmail("");
       handleInput("assignedEmail", "");
-      setSelectedLocation("Our Office");
-      handleInput("location", "Our Office");
+      setSelectedLocation("Our office");
+      handleInput("location", "Our office");
       handleInput("status", "Available");
     } else {
       const selectedMember = members.members.find(
@@ -106,7 +106,7 @@ const CategoryForm = function ({
           />
           {selectedFullName === "None" || selectedFullName === "" ? (
             <DropdownInputProductForm
-              options={["Our Office", "FP Office"]}
+              options={["Our office", "FP office"]}
               placeholder="Location"
               title="Location"
               name="location"

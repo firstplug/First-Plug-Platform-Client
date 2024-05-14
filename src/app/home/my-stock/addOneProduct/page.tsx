@@ -12,8 +12,8 @@ import { PeripheralsForm } from "@/components/AddProduct/PeripheralsForm";
 import { OthersForm } from "@/components/AddProduct/OthersForm";
 import { useForm, FormProvider } from "react-hook-form";
 import { ProductServices } from "@/services/product.services";
-import { types } from "mobx-state-tree";
-import { AttributeModel, KEYS } from "@/types/product";
+// import { types } from "mobx-state-tree";
+// import { AttributeModel, KEYS } from "@/types/product";
 
 const categoryComponents = {
   Computer: ComputerForm,
@@ -54,11 +54,9 @@ export default observer(function CreateProduct() {
   );
 
   const handleAddProduct = handleSubmit(async () => {
-    // Creamos una copia del objeto productData
     const formatData = { ...productData };
 
-    // Creamos un nuevo objeto sin las propiedades que estarán en el array de atributos
-    const productAttributes = {};
+    const productAttributes: Partial<Product> = {};
     Object.keys(productData).forEach((key) => {
       if (
         key !== "category" &&
@@ -75,28 +73,40 @@ export default observer(function CreateProduct() {
       }
     });
 
-    const keysForCategory = CATEGORY_KEYS[formatData.category as Category];
+    const keysForCategory = CATEGORY_KEYS[formatData.category];
     const attributes = keysForCategory
       .filter((key: Key) => productAttributes[key] !== undefined)
       .map((key: Key) => ({
-        key: key,
-        value: productAttributes[key],
+        key,
+        value: productAttributes[key] || "",
       }));
 
     formatData.attributes = attributes;
 
     console.log("Product data to be sent:", formatData);
 
-    ProductServices.createProduct(formatData as Product)
-      .then((res) => {
-        alert("Product created!");
-        setProductData({});
-        addProduct(res);
-      })
-      .catch((error) => {
-        console.log("Error creating product", error);
-        alert("Error!");
-      });
+    try {
+      const response = await ProductServices.createProduct(
+        formatData as Product
+      );
+      alert("Product created!");
+      setProductData({});
+      addProduct(response);
+    } catch (error) {
+      console.log("Error creating product", error);
+      alert("Error!");
+    }
+
+    // ProductServices.createProduct(formatData)
+    //   .then((res) => {
+    //     alert("Product created!");
+    //     setProductData({});
+    //     addProduct(res);
+    // })
+    // .catch((error) => {
+    //   console.log("Error creating product", error);
+    //   alert("Error!");
+    // });
   });
 
   const FormComponent = categoryComponents[selectedCategory];

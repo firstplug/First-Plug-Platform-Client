@@ -3,16 +3,16 @@ import React from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import peripheralsData from "./JSON/peripheralsform.json";
 
-export const PeripheralsForm = function () {
+export const PeripheralsForm = function ({ handleInput }) {
   const [brand, setBrand] = React.useState("");
   const [model, setModel] = React.useState("");
   const [color, setColor] = React.useState("");
-  const [keyboard, setKeyboard] = React.useState("");
+  const [keyboardLanguage, setKeyboardLanguage] = React.useState("");
 
   const brandOptions = peripheralsData.brands;
   const modelOptions = peripheralsData.models;
   const colorOptions = peripheralsData.colors;
-  const keyboardOptions = peripheralsData.keyboards;
+  const keyboardLanguageOptions = peripheralsData.keyboards;
 
   return (
     <div className="w-full">
@@ -25,6 +25,7 @@ export const PeripheralsForm = function () {
           selectedOption={brand}
           onChange={(option) => {
             setBrand(option);
+            handleInput("brand", option);
           }}
           required="required"
         />
@@ -34,7 +35,10 @@ export const PeripheralsForm = function () {
           title="Model"
           name="model"
           selectedOption={model}
-          onChange={(option) => setModel(option)}
+          onChange={(option) => {
+            setModel(option);
+            handleInput("model", option);
+          }}
           required="required"
         />
       </div>
@@ -45,16 +49,22 @@ export const PeripheralsForm = function () {
           title="Color"
           name="color"
           selectedOption={color}
-          onChange={(option) => setColor(option)}
+          onChange={(option) => {
+            setColor(option);
+            handleInput("color", option);
+          }}
           required="required"
         />
         <DropdownInputProductForm
-          options={keyboardOptions}
-          placeholder="Keyboard"
-          title="Keyboard"
+          options={keyboardLanguageOptions}
+          placeholder="Keyboard Language"
+          title="Keyboard Language"
           name="keyboard"
-          selectedOption={keyboard}
-          onChange={(option) => setKeyboard(option)}
+          selectedOption={keyboardLanguage}
+          onChange={(option) => {
+            setKeyboardLanguage(option);
+            handleInput("keyboardLanguage", option);
+          }}
           required="required"
         />
       </div>

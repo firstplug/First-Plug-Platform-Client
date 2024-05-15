@@ -79,10 +79,6 @@ const CategoryForm = function ({
               handleInputChange(
                 "acquisitionDate",
                 new Date(e.target.value).toISOString()
-                //             const selectedDate = new Date(e.target.value);
-                // const currentDate = new Date();
-                // if (selectedDate > currentDate) {
-                //   const formattedDate = currentDate.toISOString().split("T")[0];
               )
             }
             className="w-full"

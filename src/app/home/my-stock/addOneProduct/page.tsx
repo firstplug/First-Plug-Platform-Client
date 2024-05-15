@@ -5,21 +5,24 @@ import { Button, PageLayout, SectionTitle } from "@/common";
 import { useStore } from "@/models/root.store";
 import { Category, Product, CATEGORY_KEYS, Key } from "@/types";
 import CategoryForm from "@/components/AddProduct/CategoryForm";
-import { ComputerForm } from "@/components/AddProduct/ComputerForm";
-import { MonitorForm } from "@/components/AddProduct/MonitorForm";
-import { AudioForm } from "@/components/AddProduct/AudioForm";
-import { PeripheralsForm } from "@/components/AddProduct/PeripheralsForm";
-import { OthersForm } from "@/components/AddProduct/OthersForm";
 import { useForm, FormProvider } from "react-hook-form";
 import { ProductServices } from "@/services/product.services";
 import { types, cast } from "mobx-state-tree";
+import computerData from "@/components/AddProduct/JSON/computerform.json";
+import audioData from "@/components/AddProduct/JSON/audioform.json";
+import monitorData from "@/components/AddProduct/JSON/monitorform.json";
+import peripheralsData from "@/components/AddProduct/JSON/peripheralsform.json";
+import othersData from "@/components/AddProduct/JSON/othersform.json";
+import merchandisingData from "@/components/AddProduct/JSON/merchandisingform.json";
+import DynamicForm from "@/components/AddProduct/DynamicForm";
 
 const categoryComponents = {
-  Computer: ComputerForm,
-  Monitor: MonitorForm,
-  Audio: AudioForm,
-  Peripherals: PeripheralsForm,
-  Other: OthersForm,
+  Computer: computerData,
+  Monitor: monitorData,
+  Audio: audioData,
+  Peripherals: peripheralsData,
+  Other: othersData,
+  Merchandising: merchandisingData,
 };
 
 export default observer(function CreateProduct() {
@@ -97,7 +100,7 @@ export default observer(function CreateProduct() {
     }
   });
 
-  const FormComponent = categoryComponents[selectedCategory];
+  const FormConfig = categoryComponents[selectedCategory] || { fields: [] };
 
   return (
     <FormProvider {...useForm()}>
@@ -115,11 +118,14 @@ export default observer(function CreateProduct() {
                 />
               </section>
             </div>
-            {FormComponent && (
-              <div className="absolute max-h-[90%] h-[90%] w-full overflow-y-auto mt-4">
+            {selectedCategory && (
+              <div className="flex flex-col lg:flex:row gap-4 max-h-[90%] h-[90%] w-full overflow-y-auto mt-4">
                 <div className="px-10 py-4 rounded-3xl border">
                   <section>
-                    <FormComponent handleInput={handleInput} />
+                    <DynamicForm
+                      fields={FormConfig.fields}
+                      handleInput={handleInput}
+                    />
                   </section>
                 </div>
               </div>

@@ -22,7 +22,7 @@ export default function PrdouctModelDetail({
     <div className="flex gap-4 text-md">
       {categoryKeys.map((cat) =>
         getValue(cat) ? (
-          <div className="flex flex-col    ">
+          <div className="flex flex-col    " key={cat}>
             <span className="font-normal   ">{cat}</span>
             <span className="font-thin text-dark-grey">{getValue(cat)}</span>
           </div>

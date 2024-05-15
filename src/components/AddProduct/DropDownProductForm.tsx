@@ -35,6 +35,8 @@ export function DropdownInputProductForm({
   const [selectedValue, setSelectedValue] = useState<string>(selectedOption);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const { field } = useController({ name });
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -43,6 +45,7 @@ export function DropdownInputProductForm({
     onChange && onChange(option);
     setSelectedValue(option);
     setIsOpen(false);
+    field.onChange(option);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -65,17 +68,13 @@ export function DropdownInputProductForm({
     };
   }, [isOpen]);
 
-  const {
-    field: { value },
-  } = useController({ name });
-
   return (
     <div className={`relative ${className || ""}`} ref={dropdownRef}>
       <label className="block text-dark-grey ml-2 font-sans">{title}</label>
       <div className="relative">
         <input
           type="text"
-          value={selectedOption || value || selectedValue}
+          value={selectedOption || field.value || selectedValue}
           placeholder={placeholder}
           readOnly
           onClick={toggleDropdown}

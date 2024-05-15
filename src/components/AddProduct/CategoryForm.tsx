@@ -5,6 +5,7 @@ import { InputProductForm } from "./InputProductForm";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { Location, CATEGORIES, Category } from "@/types";
+import { useFormContext } from "react-hook-form";
 
 interface CategoryFormProps {
   handleInput: (key: string, value: unknown) => void;
@@ -20,6 +21,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
   setAssignedEmail,
 }) {
   const { members } = useStore();
+  const { control } = useFormContext();
 
   const memberFullNames = ["None", ...members.memberFullName];
 
@@ -71,6 +73,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             type="text"
             name="name"
             onChange={(e) => handleInputChange("name", e.target.value)}
+            control={control}
             required="required"
           />
         </div>
@@ -87,7 +90,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
               new Date(e.target.value).toISOString()
             )
           }
-          className="w-full"
+          control={control}
         />
         <InputProductForm
           placeholder="Serial Number"
@@ -96,6 +99,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           name="serialNumber"
           onChange={(e) => handleInputChange("serialNumber", e.target.value)}
           className="w-full "
+          control={control}
         />
         <DropdownInputProductForm
           options={memberFullNames}
@@ -129,6 +133,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             value="Employee"
             onChange={(e) => handleInputChange("location", e.target.value)}
             className="w-full"
+            control={control}
           />
         )}
       </div>

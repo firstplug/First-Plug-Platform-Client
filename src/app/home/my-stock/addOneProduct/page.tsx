@@ -76,6 +76,7 @@ export default observer(function CreateProduct() {
     const formatData: Product = {
       ...emptyProduct,
       ...productData,
+      category: productData.category || "Other",
       attributes: cast(attributes.map((attr) => AttributeModel.create(attr))),
     };
 

@@ -71,10 +71,10 @@ export const ProductModel = types.model({
 });
 export type Product = Instance<typeof ProductModel>;
 
-export const emptyProduct: Product = {
+export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   _id: "",
   name: "",
-  category: "Other",
+  category: "",
   attributes: cast([]),
   status: "Available",
   deleted: false,
@@ -122,3 +122,29 @@ export const zodProductModel = z.object({
 });
 
 export type PrdouctModelZod = z.infer<typeof zodProductModel>;
+
+// -------- create my own zod schema for the createProductform
+
+export const zodCreateProductModel = z.object({
+  _id: z.string().optional(),
+  name: z.string().min(1, "Name is required"),
+  category: z.enum(CATEGORIES, { required_error: "Category is required" }),
+  assignedEmail: z.string().min(1, "Assigned Member is required"),
+  status: z.string().optional(),
+  location: z.string().optional(),
+  recoverable: z.boolean().optional(),
+  acquisitionDate: z.string().optional(),
+  attributes: z
+    .array(
+      z.object({
+        key: z.enum(KEYS),
+        value: z.string().optional().nullable(),
+      })
+    )
+    .optional(),
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
+  deletedAt: z.string().optional(),
+  deleted: z.boolean().optional(),
+  serialNumber: z.string().optional(),
+});

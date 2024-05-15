@@ -12,6 +12,7 @@ import { PeripheralsForm } from "@/components/AddProduct/PeripheralsForm";
 import { OthersForm } from "@/components/AddProduct/OthersForm";
 import { useForm, FormProvider } from "react-hook-form";
 import { ProductServices } from "@/services/product.services";
+import { types, cast } from "mobx-state-tree";
 
 const categoryComponents = {
   Computer: ComputerForm,
@@ -79,7 +80,7 @@ export default observer(function CreateProduct() {
         value: productAttributes[key] || "",
       }));
 
-    formatData.attributes = attributes;
+    formatData.attributes = cast(attributes);
 
     console.log("Product data to be sent:", formatData);
 

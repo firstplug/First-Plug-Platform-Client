@@ -12,8 +12,6 @@ import { PeripheralsForm } from "@/components/AddProduct/PeripheralsForm";
 import { OthersForm } from "@/components/AddProduct/OthersForm";
 import { useForm, FormProvider } from "react-hook-form";
 import { ProductServices } from "@/services/product.services";
-// import { types } from "mobx-state-tree";
-// import { AttributeModel, KEYS } from "@/types/product";
 
 const categoryComponents = {
   Computer: ComputerForm,
@@ -96,17 +94,6 @@ export default observer(function CreateProduct() {
       console.log("Error creating product", error);
       alert("Error!");
     }
-
-    // ProductServices.createProduct(formatData)
-    //   .then((res) => {
-    //     alert("Product created!");
-    //     setProductData({});
-    //     addProduct(res);
-    // })
-    // .catch((error) => {
-    //   console.log("Error creating product", error);
-    //   alert("Error!");
-    // });
   });
 
   const FormComponent = categoryComponents[selectedCategory];

@@ -14,7 +14,6 @@ import {
   ProductImage,
   ProductLocation,
   ShipmentStatusCard,
-  TrashIcon,
 } from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
 import PrdouctModelDetail from "@/common/PrdouctModelDetail";
@@ -33,11 +32,11 @@ export const prodcutColumns: ({
   {
     accessorFn: (row) => row.category,
     header: "Category",
-    size: 200,
+    size: 20,
     cell: ({ row, getValue }) => (
-      <div className="flex gap-4 text-xl items-start  ">
+      <div className="flex  gap-2 text-xl  items-center w-[150px]   ">
         <ProductImage category={getValue<string>()} />
-        <span className="mt-2">{getValue<string>()}</span>
+        <p>{getValue<string>()}</p>
       </div>
     ),
     footer: (props) => props.column.id,
@@ -46,28 +45,66 @@ export const prodcutColumns: ({
     accessorFn: (row) => row.name,
     header: "Name",
     size: 200,
-    cell: ({ getValue }) => (
-      <span className="text-lg">{getValue<string>()}</span>
-    ),
-    footer: (props) => props.column.id,
-  },
-  {
-    accessorFn: (row) => row.products,
-    header: "Model",
-    size: 200,
     cell: ({ row, getValue }) => (
-      <PrdouctModelDetail product={getValue<Product[]>()[0]} />
+      <div className="flex flex-col">
+        <span className="text-xl">{getValue<string>()}</span>
+        <PrdouctModelDetail product={row.original.products[0]} />
+      </div>
     ),
     footer: (props) => props.column.id,
   },
+  // UNA SOLA COLUMNA CON EL STOCK TOTAL Y DISPONIBLE
+  // {
+  //   accessorFn: (row) => row.products,
+  //   header: "Stock",
+  //   size: 20,
+  //   cell: ({ getValue }) => (
+  //     <div className="flex flex-col  gap-2 justify-center font-normal   font-montserrat ">
+  //       <span className=" flex justify-between  rounded-md p-1  px-2">
+  //         <span> Total</span>
+  //         <span className="font-semibold text-lg bg-lightPurple/25 rounded-md  h-6 w-6 px-2 grid place-items-center">
+  //           {" "}
+  //           {getValue<Product[]>().length}
+  //         </span>
+  //       </span>
+  //       <span className="  flex justify-between shadow-sm rounded-md p-1 px-2">
+  //         <span> Available</span>
+  //         <span className="font-semibold text-lg bg-lightGreen/25 rounded-md  h-6  px-2 grid place-items-center">
+  //           {" "}
+  //           {
+  //             getValue<Product[]>().filter(
+  //               (product) => product.status === "Available"
+  //             ).length
+  //           }
+  //         </span>
+  //       </span>
+  //     </div>
+  //   ),
+  // },
   {
     accessorFn: (row) => row.products,
     header: "Quantity",
-    size: 200,
+    size: 20,
     cell: ({ getValue }) => (
-      <div className="flex w-full   h-full">
-        <span className=" font-semibold text-xl ">
+      <div className="flex w-full justify-center   h-full">
+        <span className=" font-semibold text-xl font-montserrat">
           {getValue<Product[]>().length}
+        </span>
+      </div>
+    ),
+  },
+  {
+    accessorFn: (row) => row.products,
+    header: "Available",
+    size: 20,
+    cell: ({ getValue }) => (
+      <div className="flex w-full justify-center   h-full">
+        <span className="  font-semibold text-xl   text-center  font-montserrat">
+          {
+            getValue<Product[]>().filter(
+              (product) => product.status === "Available"
+            ).length
+          }
         </span>
       </div>
     ),

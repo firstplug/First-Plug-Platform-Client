@@ -54,57 +54,29 @@ export const prodcutColumns: ({
     footer: (props) => props.column.id,
   },
   // UNA SOLA COLUMNA CON EL STOCK TOTAL Y DISPONIBLE
-  // {
-  //   accessorFn: (row) => row.products,
-  //   header: "Stock",
-  //   size: 20,
-  //   cell: ({ getValue }) => (
-  //     <div className="flex flex-col  gap-2 justify-center font-normal   font-montserrat ">
-  //       <span className=" flex justify-between  rounded-md p-1  px-2">
-  //         <span> Total</span>
-  //         <span className="font-semibold text-lg bg-lightPurple/25 rounded-md  h-6 w-6 px-2 grid place-items-center">
-  //           {" "}
-  //           {getValue<Product[]>().length}
-  //         </span>
-  //       </span>
-  //       <span className="  flex justify-between shadow-sm rounded-md p-1 px-2">
-  //         <span> Available</span>
-  //         <span className="font-semibold text-lg bg-lightGreen/25 rounded-md  h-6  px-2 grid place-items-center">
-  //           {" "}
-  //           {
-  //             getValue<Product[]>().filter(
-  //               (product) => product.status === "Available"
-  //             ).length
-  //           }
-  //         </span>
-  //       </span>
-  //     </div>
-  //   ),
-  // },
   {
     accessorFn: (row) => row.products,
-    header: "Quantity",
+    header: "Stock",
     size: 20,
     cell: ({ getValue }) => (
-      <div className="flex w-full justify-center   h-full">
-        <span className=" font-semibold text-xl font-montserrat">
-          {getValue<Product[]>().length}
+      <div className="flex flex-col  gap-2 justify-center font-normal   font-montserrat ">
+        <span className=" flex justify-between  rounded-md p-1  px-2">
+          <span> Total</span>
+          <span className="font-semibold text-lg bg-lightPurple/25 rounded-md  h-6 w-6 px-2 grid place-items-center">
+            {" "}
+            {getValue<Product[]>().length}
+          </span>
         </span>
-      </div>
-    ),
-  },
-  {
-    accessorFn: (row) => row.products,
-    header: "Available",
-    size: 20,
-    cell: ({ getValue }) => (
-      <div className="flex w-full justify-center   h-full">
-        <span className="  font-semibold text-xl   text-center  font-montserrat">
-          {
-            getValue<Product[]>().filter(
-              (product) => product.status === "Available"
-            ).length
-          }
+        <span className="  flex justify-between shadow-sm rounded-md p-1 px-2">
+          <span> Available</span>
+          <span className="font-semibold text-lg bg-lightGreen/25 rounded-md  h-6  px-2 grid place-items-center">
+            {" "}
+            {
+              getValue<Product[]>().filter(
+                (product) => product.status === "Available"
+              ).length
+            }
+          </span>
         </span>
       </div>
     ),

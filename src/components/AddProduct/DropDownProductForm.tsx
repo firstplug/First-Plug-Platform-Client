@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "@/common";
 import { useController } from "react-hook-form";
 
@@ -33,6 +33,7 @@ export function DropdownInputProductForm({
 }: DropdownInputProductFormProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string>(selectedOption);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -44,12 +45,32 @@ export function DropdownInputProductForm({
     setIsOpen(false);
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   const {
     field: { value },
   } = useController({ name });
 
   return (
-    <div className={`relative ${className || ""}`}>
+    <div className={`relative ${className || ""}`} ref={dropdownRef}>
       <label className="block text-dark-grey ml-2 font-sans">{title}</label>
       <div className="relative">
         <input

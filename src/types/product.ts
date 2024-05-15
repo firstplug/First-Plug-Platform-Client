@@ -1,4 +1,4 @@
-import { types, Instance } from "mobx-state-tree";
+import { types, Instance, cast } from "mobx-state-tree";
 import { z } from "zod";
 export const PRODUCT_STATUSES = ["Available", "Delivered"] as const;
 export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
@@ -70,6 +70,23 @@ export const ProductModel = types.model({
   serialNumber: types.optional(types.string, ""),
 });
 export type Product = Instance<typeof ProductModel>;
+
+export const emptyProduct: Product = {
+  _id: "",
+  name: "",
+  category: "Other",
+  attributes: cast([]),
+  status: "Available",
+  deleted: false,
+  recoverable: true,
+  acquisitionDate: "",
+  createdAt: "",
+  updatedAt: "",
+  deletedAt: "",
+  location: "",
+  assignedEmail: "",
+  serialNumber: "",
+};
 
 export const ProductTableModel = types.model({
   category: types.string,

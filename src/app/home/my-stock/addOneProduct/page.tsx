@@ -3,11 +3,18 @@ import React, { useCallback, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Button, PageLayout, SectionTitle } from "@/common";
 import { useStore } from "@/models/root.store";
-import { Category, Product, CATEGORY_KEYS, Key } from "@/types";
+import {
+  Category,
+  Product,
+  CATEGORY_KEYS,
+  Key,
+  AttributeModel,
+  emptyProduct,
+} from "@/types";
 import CategoryForm from "@/components/AddProduct/CategoryForm";
 import { useForm, FormProvider } from "react-hook-form";
 import { ProductServices } from "@/services/product.services";
-import { types, cast } from "mobx-state-tree";
+import { cast } from "mobx-state-tree";
 import computerData from "@/components/AddProduct/JSON/computerform.json";
 import audioData from "@/components/AddProduct/JSON/audioform.json";
 import monitorData from "@/components/AddProduct/JSON/monitorform.json";
@@ -56,41 +63,26 @@ export default observer(function CreateProduct() {
   );
 
   const handleAddProduct = handleSubmit(async () => {
-    const formatData = { ...productData };
+    const keysForCategory = CATEGORY_KEYS[productData.category || "Other"];
 
-    const productAttributes: Partial<Product> = {};
-    Object.keys(productData).forEach((key) => {
-      if (
-        key !== "category" &&
-        key !== "assignedEmail" &&
-        key !== "acquisitionDate" &&
-        key !== "status" &&
-        key !== "location" &&
-        key !== "recoverable" &&
-        key !== "serialNumber" &&
-        key !== "name"
-      ) {
-        productAttributes[key] = formatData[key];
-        delete formatData[key];
-      }
-    });
-
-    const keysForCategory = CATEGORY_KEYS[formatData.category];
     const attributes = keysForCategory
-      .filter((key: Key) => productAttributes[key] !== undefined)
+      .filter((key: Key) => productData[key] !== undefined)
       .map((key: Key) => ({
+        _id: "",
         key,
-        value: productAttributes[key] || "",
+        value: String(productData[key] || ""),
       }));
 
-    formatData.attributes = cast(attributes);
+    const formatData: Product = {
+      ...emptyProduct,
+      ...productData,
+      attributes: cast(attributes.map((attr) => AttributeModel.create(attr))),
+    };
 
     console.log("Product data to be sent:", formatData);
 
     try {
-      const response = await ProductServices.createProduct(
-        formatData as Product
-      );
+      const response = await ProductServices.createProduct(formatData);
       alert("Product created!");
       setProductData({});
       addProduct(response);
@@ -130,7 +122,7 @@ export default observer(function CreateProduct() {
                 </div>
               </div>
             )}
-            <div className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t rou">
+            <div className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t">
               <Button
                 body="Save"
                 variant="primary"

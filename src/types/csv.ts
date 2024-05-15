@@ -1,11 +1,18 @@
 import { z } from "zod";
-import { zodProductModel } from "./product";
+import { CATEGORIES, LOCATION, zodProductModel } from "./product";
 // TODO: After approving this. These types should be the main store types for each 'substore' (product.store and members.store)
 export const csvProductModel = z.object({
   _id: z.string().optional(),
-  "name*": z.string(),
+  "name*": z
+    .string()
+    .min(1)
+    .refine((val) => val.trim() !== "", {
+      message: "No se pueden ingresar nombres vacíos",
+    }),
   acquisitionDate: z.string().optional(),
-  "category*": z.string(),
+  "category*": z.enum(CATEGORIES).refine((val) => CATEGORIES.includes(val), {
+    message: "El valor ingresado no es una categoría válida",
+  }),
   model: z.string().optional(),
   brand: z.string().optional(),
   color: z.string().optional(),
@@ -16,7 +23,9 @@ export const csvProductModel = z.object({
   storage: z.string().optional(),
   gpu: z.string().optional(),
   serialNumber: z.string().optional(),
-  "location*": z.string(),
+  "location*": z.enum(LOCATION).refine((val) => LOCATION.includes(val), {
+    message: "El valor ingresado no es una ubicación válida",
+  }),
   assignedEmail: z.string().optional(),
 });
 export type CsvProduct = z.infer<typeof csvProductModel>;

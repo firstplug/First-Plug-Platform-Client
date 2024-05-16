@@ -6,6 +6,7 @@ import Papa from "papaparse";
 import { useStore } from "@/models";
 import {
   CsvInfo,
+  CsvProduct,
   PrdouctModelZod,
   Product,
   TeamMember,
@@ -14,7 +15,7 @@ import {
   csvSquema,
 } from "@/types";
 import { CsvServices } from "@/services";
-import { parseProduct } from "@/utils";
+import { isProductCompleted, parseProduct } from "@/utils";
 import { useToast } from "./ui/use-toast";
 import { DownloadStock } from "./Download";
 const EMPTY_FILE_INFO: CsvInfo = {
@@ -111,8 +112,11 @@ export const LoadAside = function () {
       skipEmptyLines: true,
       header: true,
       complete: function (results) {
+        const fileData: CsvProduct[] = results.data.filter((p) =>
+          isProductCompleted(p)
+        );
         const { name, size } = csvFile;
-        const { success } = csvFileSquema.safeParse(results.data);
+        const { success } = csvFileSquema.safeParse(fileData);
 
         if (success) {
           setCsvFile(csvFile);

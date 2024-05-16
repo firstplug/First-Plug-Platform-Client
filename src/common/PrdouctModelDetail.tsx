@@ -1,4 +1,4 @@
-import { CATEGORY_KEYS, Key, Product } from "@/types";
+import { Category, Key, Product } from "@/types";
 import React from "react";
 interface PrdouctModelDetailProps {
   product: Product;
@@ -8,8 +8,16 @@ export default function PrdouctModelDetail({
 }: PrdouctModelDetailProps) {
   if (!product) return null;
   const { attributes, category, name } = product;
-  const categoryKeys = CATEGORY_KEYS[product.category];
 
+  const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
+    Merchandising: [],
+    Computer: ["brand", "model", "processor", "ram", "storage"],
+    Monitor: ["brand", "model", "screen"],
+    Audio: ["brand", "model"],
+    Peripherals: ["brand", "model"],
+    Other: ["brand", "model"],
+  };
+  const categoryKeys = CATEGORY_KEYS[product.category];
   const attributesToShow = attributes.filter((attribute) =>
     categoryKeys.includes(attribute.key)
   );
@@ -24,7 +32,9 @@ export default function PrdouctModelDetail({
         getValue(cat) ? (
           <div className="flex flex-col    " key={cat}>
             <span className="font-normal   ">{cat}</span>
-            <span className="font-thin text-dark-grey">{getValue(cat)}</span>
+            <span className="font-thin text-dark-grey -mt-1">
+              {getValue(cat)}
+            </span>
           </div>
         ) : null
       )}

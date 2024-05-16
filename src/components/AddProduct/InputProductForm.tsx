@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { Controller, UseFormReturn } from "react-hook-form";
 
 interface InputProps {
   title: string;
@@ -10,7 +9,6 @@ interface InputProps {
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name?: string;
-  control?: UseFormReturn["control"];
   required?: string;
 }
 
@@ -19,10 +17,9 @@ export function InputProductForm({
   placeholder,
   type = "text",
   className = "",
-  value,
+  value = "",
   onChange,
   name,
-  control,
   required,
 }: InputProps) {
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,27 +29,22 @@ export function InputProductForm({
   return (
     <div className={`relative ${className}`}>
       <label className="block text-dark-grey ml-2 font-sans">{title}</label>
-      <Controller
+
+      <input
         name={name}
-        control={control}
-        render={({ field }) => (
-          <input
-            {...field}
-            type={type}
-            value={value}
-            onChange={(e) => {
-              field.onChange(e);
-              if (type === "date") {
-                handleDateChange(e);
-              } else {
-                onChange && onChange(e);
-              }
-            }}
-            placeholder={placeholder}
-            className={`w-full h-14 py-2 rounded-xl border text-black p-4 font-sans focus:outline-none ${className}`}
-            required={true}
-          />
-        )}
+        type={type}
+        value={value}
+        onChange={(e) => {
+          onChange(e);
+          if (type === "date") {
+            handleDateChange(e);
+          } else {
+            onChange && onChange(e);
+          }
+        }}
+        placeholder={placeholder}
+        className={`w-full h-14 py-2 rounded-xl border text-black p-4 font-sans focus:outline-none ${className}`}
+        required={true}
       />
     </div>
   );

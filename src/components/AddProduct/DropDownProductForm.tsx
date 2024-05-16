@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "@/common";
-import { useController } from "react-hook-form";
 
 interface DropdownInputProductFormProps {
   className?: string;
@@ -25,10 +24,8 @@ export function DropdownInputProductForm({
   name,
 }: DropdownInputProductFormProps) {
   const [isOpen, setIsOpen] = useState(false);
-  // const [selectedValue, setSelectedValue] = useState<string>(selectedOption);
+  const [selectedValue, setSelectedValue] = useState<string>(selectedOption);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const { field } = useController({ name });
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -36,8 +33,7 @@ export function DropdownInputProductForm({
 
   const handleOptionClick = (option: string) => {
     onChange && onChange(option);
-    // setSelectedValue(option);
-    field.onChange(option);
+    setSelectedValue(option);
     setIsOpen(false);
   };
 
@@ -67,13 +63,12 @@ export function DropdownInputProductForm({
       <div className="relative">
         <input
           type="text"
-          value={selectedOption || field.value || ""}
+          value={selectedOption || ""}
           placeholder={placeholder}
           readOnly
           onClick={toggleDropdown}
           className={`w-full h-14 py-2 pl-4 pr-12 rounded-xl border text-black p-4 font-sans focus:outline-none`}
           name={name}
-          ref={field.ref}
         />
         <div onClick={toggleDropdown}>
           <ChevronDown

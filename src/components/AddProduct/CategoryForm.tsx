@@ -4,27 +4,18 @@ import { DropdownInputProductForm } from "./DropDownProductForm";
 import { InputProductForm } from "./InputProductForm";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
-import { Location, CATEGORIES, Category } from "@/types";
-import { useFormContext } from "react-hook-form";
+import { Location, CATEGORIES } from "@/types";
 
-interface CategoryFormProps {
-  handleInput: (key: string, value: unknown) => void;
-  handleCategoryChange: (category: Category | "") => void;
-  selectedCategory: Category | "";
-  setAssignedEmail: (email: string) => void;
-}
-
-const CategoryForm: React.FC<CategoryFormProps> = function ({
+const CategoryForm = function ({
   handleInput,
   handleCategoryChange,
   selectedCategory,
   setAssignedEmail,
+  formState,
 }) {
   const { members } = useStore();
-  const { control } = useFormContext();
 
   const memberFullNames = ["None", ...members.memberFullName];
-
   const handleInputChange = (name: string, value: string) => {
     handleInput(name, value);
   };
@@ -68,12 +59,12 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
         />
         <div className="w-full lg:w-full">
           <InputProductForm
+            name="name"
+            type="text"
+            value={formState.name || ""}
+            onChange={(e) => handleInputChange("name", e.target.value)}
             placeholder="Product Name"
             title="Product Name"
-            type="text"
-            name="name"
-            onChange={(e) => handleInputChange("name", e.target.value)}
-            control={control}
             required="required"
           />
         </div>
@@ -83,6 +74,11 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           placeholder="Acquisition Date"
           title="Acquisition Date"
           type="date"
+          value={
+            formState.acquisitionDate
+              ? new Date(formState.acquisitionDate).toISOString().split("T")[0]
+              : ""
+          }
           name="acquisitionDate"
           onChange={(e) =>
             handleInputChange(
@@ -90,29 +86,29 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
               new Date(e.target.value).toISOString()
             )
           }
-          control={control}
         />
         <InputProductForm
           placeholder="Serial Number"
           title="Serial Number"
           type="text"
+          value={formState.serialNumber || ""}
           name="serialNumber"
           onChange={(e) => handleInputChange("serialNumber", e.target.value)}
           className="w-full "
-          control={control}
         />
         <DropdownInputProductForm
           options={memberFullNames}
           placeholder="Assigned Email"
           title="Assigned Member"
           name="assignedMember"
+          selectedOption={selectedFullName}
           onChange={handleAssignedMemberChange}
           required="required"
           className="w-full "
         />
         {selectedFullName === "None" || selectedFullName === "" ? (
           <DropdownInputProductForm
-            options={["Our office", "FP office"]}
+            options={["Our office", "FP warehouse"]}
             placeholder="Location"
             title="Location"
             name="location"
@@ -133,7 +129,6 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             value="Employee"
             onChange={(e) => handleInputChange("location", e.target.value)}
             className="w-full"
-            control={control}
           />
         )}
       </div>

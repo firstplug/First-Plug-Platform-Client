@@ -10,10 +10,8 @@ import {
   Key,
   AttributeModel,
   emptyProduct,
-  zodCreateProductModel,
 } from "@/types";
 import CategoryForm from "@/components/AddProduct/CategoryForm";
-import { useForm, FormProvider } from "react-hook-form";
 import { ProductServices } from "@/services/product.services";
 import { cast } from "mobx-state-tree";
 import computerData from "@/components/AddProduct/JSON/computerform.json";
@@ -23,7 +21,6 @@ import peripheralsData from "@/components/AddProduct/JSON/peripheralsform.json";
 import othersData from "@/components/AddProduct/JSON/othersform.json";
 import merchandisingData from "@/components/AddProduct/JSON/merchandisingform.json";
 import DynamicForm from "@/components/AddProduct/DynamicForm";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 const categoryComponents = {
   Computer: computerData,
@@ -38,22 +35,16 @@ export default observer(function CreateProduct() {
   const {
     products: { addProduct },
   } = useStore();
-  // const [productData, setProductData] = useState<Partial<Product>>({});
+  const [productData, setProductData] = useState<Partial<Product>>({});
   const [selectedCategory, setSelectedCategory] = useState<Category | "">("");
   const [assignedEmail, setAssignedEmail] = useState<string>("");
 
-  const methods = useForm({
-    resolver: zodResolver(zodCreateProductModel),
-  });
-
-  const { handleSubmit, setValue } = methods;
-
-  const handleInput = useCallback(
-    (key: string, value: unknown) => {
-      setValue(key, value);
-    },
-    [setValue]
-  );
+  const handleInput = useCallback((key: string, value: unknown) => {
+    setProductData((prevState) => ({
+      ...prevState,
+      [key]: value,
+    }));
+  }, []);
 
   const handleCategoryChange = useCallback(
     (category: Category) => {
@@ -64,11 +55,17 @@ export default observer(function CreateProduct() {
     [handleInput]
   );
 
-  const handleAddProduct = handleSubmit(async (data) => {
-    console.log("Data to be sent:", data);
-
+  const handleAddProduct = async () => {
+    console.log("Product data:", productData);
+    const formatData: Product = {
+      ...emptyProduct,
+      ...productData,
+      status: productData.assignedEmail ? "Delivered" : "Available",
+      category: selectedCategory || "Other",
+    };
     const productAttributes: Partial<Product> = {};
-    Object.keys(data).forEach((key) => {
+
+    Object.keys(formatData).forEach((key) => {
       if (
         key !== "category" &&
         key !== "assignedEmail" &&
@@ -84,79 +81,76 @@ export default observer(function CreateProduct() {
       }
     });
 
-    const keysForCategory = CATEGORY_KEYS[data.category || "Other"];
-
+    const keysForCategory = CATEGORY_KEYS[formatData.category];
     const attributes = keysForCategory
-      .filter((key: Key) => data[key] !== undefined)
+      .filter((key: Key) => productAttributes[key] !== undefined)
       .map((key: Key) => ({
         _id: "",
         key,
-        value: String(data[key] || ""),
+        value: productAttributes[key] || "",
       }));
 
-    const formatData: Product = {
-      ...emptyProduct,
-      ...data,
-      category: data.category || "Other",
-      attributes: cast(attributes.map((attr) => AttributeModel.create(attr))),
-    };
+    formatData.attributes = cast(
+      attributes.map((attr) => AttributeModel.create(attr))
+    );
 
     console.log("Product data to be sent:", formatData);
 
     try {
       const response = await ProductServices.createProduct(formatData);
       alert("Product created!");
-      // setProductData({});
-      methods.reset();
+      setProductData({});
+      setSelectedCategory("");
+      setAssignedEmail("");
       addProduct(response);
     } catch (error) {
       console.log("Error creating product", error);
       alert("Error!");
     }
-  });
+  };
 
   const FormConfig = categoryComponents[selectedCategory] || { fields: [] };
 
   return (
-    <FormProvider {...methods}>
-      <PageLayout>
-        <div className="relative h-full w-full">
-          <div className="absolute max-h-[90%] h-[90%] w-full overflow-y-auto">
-            <div className="px-10 py-4 rounded-3xl border">
-              <SectionTitle className="text-[20px]">Add Product</SectionTitle>
-              <section>
-                <CategoryForm
-                  handleInput={handleInput}
-                  handleCategoryChange={handleCategoryChange}
-                  selectedCategory={selectedCategory}
-                  setAssignedEmail={setAssignedEmail}
-                />
-              </section>
-            </div>
-            {selectedCategory && (
-              <div className="flex flex-col lg:flex:row gap-4 max-h-[90%] h-[90%] w-full overflow-y-auto mt-4">
-                <div className="px-10 py-4 rounded-3xl border">
-                  <section>
-                    <DynamicForm
-                      fields={FormConfig.fields}
-                      handleInput={handleInput}
-                    />
-                  </section>
-                </div>
-              </div>
-            )}
-            <div className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t">
-              <Button
-                body="Save"
-                variant="primary"
-                className="rounded lg"
-                size="big"
-                onClick={handleSubmit(handleAddProduct)}
+    <PageLayout>
+      <div className="relative h-full w-full">
+        <div className="absolute max-h-[90%] h-[90%] w-full overflow-y-auto">
+          <div className="px-10 py-4 rounded-3xl border">
+            <SectionTitle className="text-[20px]">Add Product</SectionTitle>
+            <section>
+              <CategoryForm
+                handleInput={handleInput}
+                handleCategoryChange={handleCategoryChange}
+                selectedCategory={selectedCategory}
+                setAssignedEmail={setAssignedEmail}
+                formState={productData}
               />
+            </section>
+          </div>
+          {selectedCategory && (
+            <div className="flex flex-col lg:flex:row gap-4 max-h-[90%] h-[90%] w-full overflow-y-auto mt-4">
+              <div className="px-10 py-4 rounded-3xl border">
+                <section>
+                  <DynamicForm
+                    fields={FormConfig.fields}
+                    handleInput={handleInput}
+                    productData={productData}
+                  />
+                </section>
+              </div>
             </div>
+          )}
+          <div className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t">
+            <Button
+              body="Save"
+              variant="primary"
+              className="rounded lg"
+              size="big"
+              onClick={handleAddProduct}
+            />
           </div>
         </div>
-      </PageLayout>
-    </FormProvider>
+      </div>
+    </PageLayout>
   );
 });

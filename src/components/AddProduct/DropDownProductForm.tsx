@@ -11,12 +11,7 @@ interface DropdownInputProductFormProps {
   selectedOption?: string;
   onChange?: (option: string) => void;
   required?: string;
-  onBlur?: React.FocusEventHandler;
-  onFocus?: React.FocusEventHandler;
-  error?: string;
-  touched?: boolean;
   name: string;
-  defaultValue?: string;
   value?: string;
 }
 
@@ -27,12 +22,10 @@ export function DropdownInputProductForm({
   selectedOption,
   onChange,
   className,
-  error,
-  touched,
   name,
 }: DropdownInputProductFormProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<string>(selectedOption);
+  // const [selectedValue, setSelectedValue] = useState<string>(selectedOption);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { field } = useController({ name });
@@ -43,9 +36,9 @@ export function DropdownInputProductForm({
 
   const handleOptionClick = (option: string) => {
     onChange && onChange(option);
-    setSelectedValue(option);
-    setIsOpen(false);
+    // setSelectedValue(option);
     field.onChange(option);
+    setIsOpen(false);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -74,20 +67,14 @@ export function DropdownInputProductForm({
       <div className="relative">
         <input
           type="text"
-          value={selectedOption || field.value || selectedValue}
+          value={selectedOption || field.value || ""}
           placeholder={placeholder}
           readOnly
           onClick={toggleDropdown}
-          className={`w-full h-14 py-2 pl-4 pr-12 rounded-xl border ${
-            error ? "border-error" : ""
-          } text-black p-4 font-sans focus:outline-none`}
+          className={`w-full h-14 py-2 pl-4 pr-12 rounded-xl border text-black p-4 font-sans focus:outline-none`}
           name={name}
+          ref={field.ref}
         />
-        {touched && error && (
-          <p className="absolute ml-4 text-error text-sm top-0 right-0 mt-3 mr-3">
-            {error}
-          </p>
-        )}
         <div onClick={toggleDropdown}>
           <ChevronDown
             className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"

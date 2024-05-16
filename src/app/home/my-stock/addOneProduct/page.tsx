@@ -46,7 +46,7 @@ export default observer(function CreateProduct() {
     resolver: zodResolver(zodCreateProductModel),
   });
 
-  const { handleSubmit, setValue, watch } = methods;
+  const { handleSubmit, setValue } = methods;
 
   const handleInput = useCallback(
     (key: string, value: unknown) => {
@@ -66,6 +66,24 @@ export default observer(function CreateProduct() {
 
   const handleAddProduct = handleSubmit(async (data) => {
     console.log("Data to be sent:", data);
+
+    const productAttributes: Partial<Product> = {};
+    Object.keys(data).forEach((key) => {
+      if (
+        key !== "category" &&
+        key !== "assignedEmail" &&
+        key !== "acquisitionDate" &&
+        key !== "status" &&
+        key !== "location" &&
+        key !== "recoverable" &&
+        key !== "serialNumber" &&
+        key !== "name"
+      ) {
+        productAttributes[key] = formatData[key];
+        delete formatData[key];
+      }
+    });
+
     const keysForCategory = CATEGORY_KEYS[data.category || "Other"];
 
     const attributes = keysForCategory

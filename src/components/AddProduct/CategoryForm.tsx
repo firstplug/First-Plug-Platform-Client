@@ -1,12 +1,21 @@
-"use Client";
+"use client";
 import React, { useState } from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import { InputProductForm } from "./InputProductForm";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
-import { Location, CATEGORIES } from "@/types";
+import { Location, CATEGORIES, Category } from "@/types";
+import { useFormContext } from "react-hook-form";
 
-const CategoryForm = function ({
+interface CategoryFormProps {
+  handleInput: (key: string, value: unknown) => void;
+  handleCategoryChange: (category: Category | "") => void;
+  selectedCategory: Category | "";
+  setAssignedEmail: (email: string) => void;
+  formState: Record<string, unknown>;
+}
+
+const CategoryForm: React.FC<CategoryFormProps> = function ({
   handleInput,
   handleCategoryChange,
   selectedCategory,
@@ -14,14 +23,15 @@ const CategoryForm = function ({
   formState,
 }) {
   const { members } = useStore();
+  const { setValue, watch } = useFormContext();
+  const [selectedFullName, setSelectedFullName] = useState<string>("");
+  const [selectedLocation, setSelectedLocation] = useState<string>("");
 
   const memberFullNames = ["None", ...members.memberFullName];
   const handleInputChange = (name: string, value: string) => {
     handleInput(name, value);
+    setValue(name, value);
   };
-
-  const [selectedFullName, setSelectedFullName] = useState<string>("");
-  const [selectedLocation, setSelectedLocation] = useState<string>("");
 
   const handleAssignedMemberChange = (selectedFullName: string) => {
     setSelectedFullName(selectedFullName);
@@ -61,7 +71,7 @@ const CategoryForm = function ({
           <InputProductForm
             name="name"
             type="text"
-            value={formState.name || ""}
+            value={watch("name") as string}
             onChange={(e) => handleInputChange("name", e.target.value)}
             placeholder="Product Name"
             title="Product Name"
@@ -75,8 +85,8 @@ const CategoryForm = function ({
           title="Acquisition Date"
           type="date"
           value={
-            formState.acquisitionDate
-              ? new Date(formState.acquisitionDate).toISOString().split("T")[0]
+            watch("acquisitionDate")
+              ? (watch("acquisitionDate") as string).split("T")[0]
               : ""
           }
           name="acquisitionDate"
@@ -91,7 +101,7 @@ const CategoryForm = function ({
           placeholder="Serial Number"
           title="Serial Number"
           type="text"
-          value={formState.serialNumber || ""}
+          value={watch("serialNumber") as string}
           name="serialNumber"
           onChange={(e) => handleInputChange("serialNumber", e.target.value)}
           className="w-full "
@@ -108,7 +118,7 @@ const CategoryForm = function ({
         />
         {selectedFullName === "None" || selectedFullName === "" ? (
           <DropdownInputProductForm
-            options={["Our office", "FP warehouse"]}
+            options={["Our office", "FP office"]}
             placeholder="Location"
             title="Location"
             name="location"

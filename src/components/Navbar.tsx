@@ -54,7 +54,7 @@ export const Navbar = function ({
               }}
             />
           </div>
-          <div className="flex items-center rounded-md hover:bg-light-grey ">
+          <div className="flex items-center rounded-md gap-2 hover:bg-light-grey ">
             <div className="relative w-10 h-10 ">
               <ImgPorfile />
             </div>

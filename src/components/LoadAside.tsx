@@ -97,7 +97,6 @@ export const LoadAside = function () {
         }
       }
     } catch (error) {
-      console.log(error.response);
       return toast({
         title: "Errror en la carga de archivos",
         description: "Por favor revisar los datos ingresados en el archivo csv",
@@ -117,7 +116,7 @@ export const LoadAside = function () {
           isProductCompleted(p)
         );
         const { name, size } = csvFile;
-        const { success, error } = csvFileSquema.safeParse(fileData);
+        const { success } = csvFileSquema.safeParse(fileData);
 
         if (success) {
           setCsvFile(csvFile);

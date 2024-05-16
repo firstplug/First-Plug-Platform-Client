@@ -28,16 +28,14 @@ export default function PrdouctModelDetail({
 
   return (
     <div className="flex gap-4 text-md">
-      {categoryKeys.map((cat) =>
-        getValue(cat) ? (
-          <div className="flex flex-col    " key={cat}>
-            <span className="font-normal   ">{cat}</span>
-            <span className="font-thin text-dark-grey -mt-1">
-              {getValue(cat)}
-            </span>
-          </div>
-        ) : null
-      )}
+      {categoryKeys.map((cat) => (
+        <div className="flex flex-col    " key={cat}>
+          <span className="font-normal   ">{cat}</span>
+          <span className="font-thin text-dark-grey -mt-1">
+            {getValue(cat) || "-"}
+          </span>
+        </div>
+      ))}
     </div>
   );
 }

@@ -105,13 +105,11 @@ export default observer(function CreateProduct() {
     try {
       const response = await ProductServices.createProduct(formatData);
       addProduct(response);
-      // alert("Product created!");
       setProductData({});
       setSelectedCategory("");
       setAssignedEmail("");
       setShowSuccessDialog(true);
     } catch (error) {
-      console.log("Error creating product", error);
       setShowErrorDialog(true);
     }
   };

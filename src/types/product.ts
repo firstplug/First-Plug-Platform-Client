@@ -129,7 +129,11 @@ export const zodCreateProductModel = z.object({
   _id: z.string().optional(),
   name: z.string().min(1, "Name is required"),
   category: z.enum(CATEGORIES, { required_error: "Category is required" }),
-  assignedEmail: z.string().optional().nullable(),
+  assignedEmail: z
+    .string()
+    .refine((value) => value === "" || value.length > 0, {
+      message: "Assigned Member is required",
+    }),
   status: z.string().optional(),
   location: z.string().optional(),
   recoverable: z.boolean().optional(),

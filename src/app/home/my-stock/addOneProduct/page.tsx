@@ -21,6 +21,8 @@ import peripheralsData from "@/components/AddProduct/JSON/peripheralsform.json";
 import othersData from "@/components/AddProduct/JSON/othersform.json";
 import merchandisingData from "@/components/AddProduct/JSON/merchandisingform.json";
 import DynamicForm from "@/components/AddProduct/DynamicForm";
+import { GenericAlertDialog } from "@/components/AddProduct/ui/GenericAlertDialog";
+import { useRouter } from "next/navigation";
 
 const categoryComponents = {
   Computer: computerData,
@@ -35,9 +37,13 @@ export default observer(function CreateProduct() {
   const {
     products: { addProduct },
   } = useStore();
+
+  const router = useRouter();
   const [productData, setProductData] = useState<Partial<Product>>({});
   const [selectedCategory, setSelectedCategory] = useState<Category | "">("");
   const [assignedEmail, setAssignedEmail] = useState<string>("");
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
 
   const handleInput = useCallback((key: string, value: unknown) => {
     setProductData((prevState) => ({
@@ -98,14 +104,15 @@ export default observer(function CreateProduct() {
 
     try {
       const response = await ProductServices.createProduct(formatData);
-      alert("Product created!");
+      addProduct(response);
+      // alert("Product created!");
       setProductData({});
       setSelectedCategory("");
       setAssignedEmail("");
-      addProduct(response);
+      setShowSuccessDialog(true);
     } catch (error) {
       console.log("Error creating product", error);
-      alert("Error!");
+      setShowErrorDialog(true);
     }
   };
 
@@ -151,6 +158,27 @@ export default observer(function CreateProduct() {
           </div>
         </div>
       </div>
+      <GenericAlertDialog
+        open={showSuccessDialog}
+        onClose={() => setShowSuccessDialog(false)}
+        title="Success"
+        description="Your product has been successfully added to your stock."
+        buttonText="OK"
+        onButtonClick={() => {
+          setShowSuccessDialog(false);
+          router.push("/home/my-stock");
+        }}
+      />
+      <GenericAlertDialog
+        open={showErrorDialog}
+        onClose={() => setShowErrorDialog(false)}
+        title="Error"
+        description="Error creating your product, please check the data and try again."
+        buttonText="OK"
+        onButtonClick={() => {
+          setShowErrorDialog(false);
+        }}
+      />
     </PageLayout>
   );
 });

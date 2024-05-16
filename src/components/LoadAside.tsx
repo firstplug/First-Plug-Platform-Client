@@ -86,7 +86,11 @@ export const LoadAside = function () {
           await CsvServices.bulkCreateTeams(data.members);
 
           clearCsvData();
-          return alert("csv Loaded succesfully");
+          return toast({
+            title: "csv Loaded succesfully",
+            variant: "success",
+            duration: 1500,
+          });
         } else {
           throw new Error("Error en el tipo de archivos");
         }
@@ -103,8 +107,6 @@ export const LoadAside = function () {
   };
 
   const onFileChangeHandler = (csvFile: File) => {
-    setCsvFile(csvFile);
-
     Papa.parse(csvFile, {
       skipEmptyLines: true,
       header: true,
@@ -113,12 +115,14 @@ export const LoadAside = function () {
         const { success } = csvFileSquema.safeParse(results.data);
 
         if (success) {
+          setCsvFile(csvFile);
           setCsvInfo({
             title: name,
             file: `${(size / 1024).toFixed(2)}kb`,
             currentDate: new Date().toLocaleString(),
           });
         } else {
+          setCsvFile(null);
           toast({
             title: "The file is not correct",
             description:
@@ -135,7 +139,7 @@ export const LoadAside = function () {
       Papa.parse(csvFile, {
         skipEmptyLines: true,
         header: true,
-        complete: function (results: { data: Product[] | TeamMember[] }) {
+        complete: function (results) {
           const { name, size } = csvFile;
           setCsvInfo({
             title: name,

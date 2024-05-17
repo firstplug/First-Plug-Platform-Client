@@ -152,3 +152,5 @@ export const zodCreateProductModel = z.object({
   deleted: z.boolean().optional(),
   serialNumber: z.string().optional(),
 });
+
+export type CreateProductModel = z.infer<typeof zodCreateProductModel>;

@@ -5,7 +5,7 @@ import { InputProductForm } from "./InputProductForm";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { Location, CATEGORIES, Category } from "@/types";
-import { useFormContext } from "react-hook-form";
+import { FieldValues, useFormContext } from "react-hook-form";
 
 interface CategoryFormProps {
   handleInput: (key: string, value: unknown) => void;
@@ -13,7 +13,7 @@ interface CategoryFormProps {
   selectedCategory: Category | "";
   setAssignedEmail: (email: string) => void;
   formState: Record<string, unknown>;
-  clearErrors: (name?: string | string[]) => void;
+  clearErrors: (name?: keyof FieldValues | (keyof FieldValues)[]) => void;
 }
 
 const CategoryForm: React.FC<CategoryFormProps> = function ({
@@ -34,7 +34,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
   const [selectedLocation, setSelectedLocation] = useState<string>("");
 
   const memberFullNames = ["None", ...members.memberFullName];
-  const handleInputChange = (name: string, value: string) => {
+  const handleInputChange = (name: keyof FieldValues, value: string) => {
     handleInput(name, value);
     setValue(name, value);
     clearErrors(name);

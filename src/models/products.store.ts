@@ -50,4 +50,7 @@ export const ProductsStore = types
     addProduct(product: Product) {
       store.products.push(product);
     },
+    addProducts(product: Product[]) {
+      store.products.push(product);
+    },
   }));

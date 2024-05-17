@@ -11,6 +11,7 @@ export const ProductsStore = types
     products: types.array(ProductModel),
     tableProducts: types.array(ProductTableModel),
     selectedTableId: types.maybe(types.string),
+    productToEdit: types.maybe(types.string),
   })
   .views((store) => ({
     get uniqueProducts() {
@@ -42,6 +43,9 @@ export const ProductsStore = types
     },
     setSelectedTableId(id: string) {
       store.selectedTableId = id;
+    },
+    setProductIdToEdit(id: string) {
+      store.productToEdit = id;
     },
     addProduct(product: Product) {
       store.products.push(product);

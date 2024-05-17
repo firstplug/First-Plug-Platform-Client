@@ -71,7 +71,6 @@ export default observer(function CreateProduct() {
   );
 
   const handleAddProduct = async (data: Product) => {
-    console.log(data);
     const formatData: Product = {
       ...emptyProduct,
       ...data,
@@ -79,8 +78,6 @@ export default observer(function CreateProduct() {
       category: selectedCategory || "Other",
       attributes: cast(attributes.map((attr) => AttributeModel.create(attr))),
     };
-
-    console.log("data formateada", formatData);
 
     try {
       const response = await ProductServices.createProduct(formatData);

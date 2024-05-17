@@ -20,7 +20,6 @@ export function InputProductForm({
   value = "",
   onChange,
   name,
-  required,
 }: InputProps) {
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(e);

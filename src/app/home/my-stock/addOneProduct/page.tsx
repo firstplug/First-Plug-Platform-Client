@@ -45,7 +45,6 @@ export default observer(function CreateProduct() {
   const {
     handleSubmit,
     setValue,
-    reset,
     formState: { isSubmitting },
   } = methods;
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -56,7 +55,7 @@ export default observer(function CreateProduct() {
 
   const handleInput = useCallback(
     (key: string, value: unknown) => {
-      setValue(key as any, value);
+      setValue(key, value);
     },
     [setValue]
   );

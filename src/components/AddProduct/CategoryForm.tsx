@@ -152,7 +152,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
 
         {selectedFullName === "None" || selectedFullName === "" ? (
           <DropdownInputProductForm
-            options={["Our office", "FP office"]}
+            options={["Our office", "FP warehouse"]}
             placeholder="Location"
             title="Location"
             name="location"

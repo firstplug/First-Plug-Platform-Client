@@ -13,6 +13,7 @@ interface CategoryFormProps {
   selectedCategory: Category | "";
   setAssignedEmail: (email: string) => void;
   formState: Record<string, unknown>;
+  clearErrors: (name?: string | string[]) => void;
 }
 
 const CategoryForm: React.FC<CategoryFormProps> = function ({
@@ -21,9 +22,14 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
   selectedCategory,
   setAssignedEmail,
   formState,
+  clearErrors,
 }) {
   const { members } = useStore();
-  const { setValue, watch } = useFormContext();
+  const {
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext();
   const [selectedFullName, setSelectedFullName] = useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
 
@@ -31,6 +37,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
   const handleInputChange = (name: string, value: string) => {
     handleInput(name, value);
     setValue(name, value);
+    clearErrors(name);
   };
 
   const handleAssignedMemberChange = (selectedFullName: string) => {
@@ -53,20 +60,30 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
       handleInput("location", "Employee");
       handleInput("status", "Delivered");
     }
+    clearErrors("assignedEmail");
   };
 
   return (
     <div className="w-full">
       <div className="flex flex-col lg:flex-row gap-4">
-        <DropdownInputProductForm
-          options={CATEGORIES}
-          placeholder="Category"
-          title="Category"
-          name="category"
-          selectedOption={selectedCategory}
-          onChange={handleCategoryChange}
-          required="required"
-        />
+        <div className="w-full lg:w-full">
+          <DropdownInputProductForm
+            options={CATEGORIES}
+            placeholder="Category"
+            title="Category"
+            name="category"
+            selectedOption={selectedCategory}
+            onChange={(category: Category) => {
+              handleCategoryChange(category);
+              clearErrors("category");
+            }}
+            required="required"
+          />
+          {errors.category && (
+            <p className="text-red-500">{(errors.category as any).message}</p>
+          )}
+        </div>
+
         <div className="w-full lg:w-full">
           <InputProductForm
             name="name"
@@ -77,6 +94,9 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             title="Product Name"
             required="required"
           />
+          {errors.name && (
+            <p className="text-red-500">{(errors.name as any)?.message}</p>
+          )}
         </div>
       </div>
       <div className="flex flex-col lg:flex-row gap-4 mt-4">
@@ -106,16 +126,24 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           onChange={(e) => handleInputChange("serialNumber", e.target.value)}
           className="w-full "
         />
-        <DropdownInputProductForm
-          options={memberFullNames}
-          placeholder="Assigned Email"
-          title="Assigned Member"
-          name="assignedMember"
-          selectedOption={selectedFullName}
-          onChange={handleAssignedMemberChange}
-          required="required"
-          className="w-full "
-        />
+        <div className="w-full lg:w-full">
+          <DropdownInputProductForm
+            options={memberFullNames}
+            placeholder="Assigned Email"
+            title="Assigned Member"
+            name="assignedMember"
+            selectedOption={selectedFullName}
+            onChange={handleAssignedMemberChange}
+            required="required"
+            className="w-full "
+          />
+          {errors.assignedEmail && (
+            <p className="text-red-500">
+              {(errors.assignedEmail as any).message}
+            </p>
+          )}
+        </div>
+
         {selectedFullName === "None" || selectedFullName === "" ? (
           <DropdownInputProductForm
             options={["Our office", "FP office"]}

@@ -45,6 +45,7 @@ export default observer(function CreateProduct() {
   const {
     handleSubmit,
     setValue,
+    clearErrors,
     formState: { isSubmitting },
   } = methods;
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -110,6 +111,7 @@ export default observer(function CreateProduct() {
                   selectedCategory={selectedCategory}
                   setAssignedEmail={(email) => setValue("assignedEmail", email)}
                   formState={methods.getValues()}
+                  clearErrors={clearErrors}
                 />
               </section>
             </div>

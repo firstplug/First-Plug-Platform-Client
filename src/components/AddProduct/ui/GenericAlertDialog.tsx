@@ -29,7 +29,7 @@ const GenericAlertDialog: React.FC<GenericAlertDialogProps> = ({
           <div className="mt-4 flex justify-end">
             <Dialog.Close asChild>
               <button
-                className="px-4 py-2 bg-blue text-black rounded"
+                className="px-4 py-2 bg-blue text-white rounded"
                 onClick={onButtonClick}
               >
                 {buttonText}

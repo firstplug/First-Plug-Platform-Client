@@ -3,7 +3,7 @@ import { z } from "zod";
 export const PRODUCT_STATUSES = ["Available", "Delivered"] as const;
 export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
 
-export const LOCATION = ["Our Office", "FP Office", "Employee"] as const;
+export const LOCATION = ["Our office", "FP warehouse", "Employee"] as const;
 export type Location = (typeof LOCATION)[number];
 export const CATEGORIES = [
   "Merchandising",
@@ -106,13 +106,13 @@ export type AtrributeZod = z.infer<typeof zodAtrributesModel>;
 
 export const zodProductModel = z.object({
   _id: z.string().optional(),
-  name: z.string().optional(),
-  category: z.string().optional(),
+  name: z.string().min(1),
+  category: z.enum(CATEGORIES),
   acquisitionDate: z.string().optional(),
   attributes: z.array(zodAtrributesModel).optional(),
   deleted: z.boolean().optional(),
   recoverable: z.boolean().optional(),
-  location: z.string().optional(),
+  location: z.enum(LOCATION),
   assignedEmail: z.string().optional(),
   serialNumber: z.string().optional(),
   status: z.string().optional(),

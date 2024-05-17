@@ -22,6 +22,7 @@ export function AssignProduct() {
       </div>
 
       <AddMemberForm
+        selectedMember={member}
         handleSelectedMembers={handleSelectedMembers}
         members={members.filter((memb) => memb.email !== selectedMemberEmail)}
       />

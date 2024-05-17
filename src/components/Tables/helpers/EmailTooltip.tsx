@@ -10,7 +10,7 @@ export default function EmailTooltip({ email }) {
     <TooltipProvider>
       <Tooltip delayDuration={350}>
         <TooltipTrigger>
-          <span className="cursor-pointer  font-semibold  text-black ">
+          <span className="cursor-pointer  font-semibold  text-sm bg-hoverRed p-1 px-3 rounded-md text-black ">
             {email} ⚠️
           </span>
         </TooltipTrigger>

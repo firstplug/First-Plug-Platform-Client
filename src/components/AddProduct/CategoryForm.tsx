@@ -79,9 +79,11 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             }}
             required="required"
           />
-          {errors.category && (
-            <p className="text-red-500">{(errors.category as any).message}</p>
-          )}
+          <div className="min-h-[24px]">
+            {errors.category && (
+              <p className="text-red-500">{(errors.category as any).message}</p>
+            )}
+          </div>
         </div>
 
         <div className="w-full lg:w-full">
@@ -94,12 +96,14 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             title="Product Name"
             required="required"
           />
-          {errors.name && (
-            <p className="text-red-500">{(errors.name as any)?.message}</p>
-          )}
+          <div className="min-h-[24px]">
+            {errors.name && (
+              <p className="text-red-500">{(errors.name as any)?.message}</p>
+            )}
+          </div>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row gap-4 mt-4">
+      <div className="flex flex-col lg:flex-row gap-4 ">
         <InputProductForm
           placeholder="Acquisition Date"
           title="Acquisition Date"
@@ -137,11 +141,13 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             required="required"
             className="w-full "
           />
-          {errors.assignedEmail && (
-            <p className="text-red-500">
-              {(errors.assignedEmail as any).message}
-            </p>
-          )}
+          <div className="min-h-[24px]">
+            {errors.assignedEmail && (
+              <p className="text-red-500">
+                {(errors.assignedEmail as any).message}
+              </p>
+            )}
+          </div>
         </div>
 
         {selectedFullName === "None" || selectedFullName === "" ? (

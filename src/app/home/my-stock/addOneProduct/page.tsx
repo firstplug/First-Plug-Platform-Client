@@ -127,17 +127,17 @@ export default observer(function CreateProduct() {
                 </div>
               </div>
             )}
-            <div className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t">
-              <Button
-                body="Save"
-                variant="primary"
-                className="rounded lg"
-                size="big"
-                onClick={handleSubmit(handleAddProduct)}
-                disabled={isSubmitting}
-              />
-            </div>
           </div>
+          <aside className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t">
+            <Button
+              body="Save"
+              variant="primary"
+              className="rounded lg"
+              size={"big"}
+              onClick={handleSubmit(handleAddProduct)}
+              disabled={isSubmitting}
+            />
+          </aside>
         </div>
         <GenericAlertDialog
           open={showSuccessDialog}

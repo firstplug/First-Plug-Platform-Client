@@ -9,7 +9,7 @@ import {
   OrderAsideDetails,
   EditTeamsAsideDetails,
 } from "./";
-import { AssignProduct } from "./AsideContents";
+import { AssignProduct, EditProductAside } from "./AsideContents";
 
 export var AsideContent = observer(function () {
   const { aside } = useStore();
@@ -32,5 +32,7 @@ export var AsideContent = observer(function () {
       return <LoadAside />;
     case "OrderDetails":
       return <OrderAsideDetails />;
+    case "EditProduct":
+      return <EditProductAside />;
   }
 });

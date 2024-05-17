@@ -26,14 +26,16 @@ const GenericAlertDialog: React.FC<GenericAlertDialogProps> = ({
           <Dialog.Description className="mt-2">
             {description}
           </Dialog.Description>
-          <Dialog.Close asChild>
-            <button
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-              onClick={onButtonClick}
-            >
-              {buttonText}
-            </button>
-          </Dialog.Close>
+          <div className="mt-4 flex justify-end">
+            <Dialog.Close asChild>
+              <button
+                className="px-4 py-2 bg-blue text-black rounded"
+                onClick={onButtonClick}
+              >
+                {buttonText}
+              </button>
+            </Dialog.Close>
+          </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

@@ -20,9 +20,10 @@ export class ProductServices {
 
   static async createProduct(productData: CreationProduct): Promise<Product> {
     const response = await HTTPRequests.post(
-      `${BASE_URL}/apí/products`,
+      `${BASE_URL}/api/products`,
       productData
     );
+    console.log("Respuesta del servicio al crear producto:", response.data);
     return response.data;
   }
 

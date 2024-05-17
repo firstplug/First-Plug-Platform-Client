@@ -13,6 +13,7 @@ interface FormInputProps {
   options?: any[];
   required?: string;
   clear?: boolean;
+  value?: string;
 }
 
 export const FormInput = function ({

@@ -29,7 +29,7 @@ export default function Login() {
     setIsLoading(true);
     try {
       const res = await signIn("credentials", {
-        email: emailInput.value,
+        email: emailInput.value.toLowerCase(),
         password: passWordInput.value,
         redirect: false,
       });

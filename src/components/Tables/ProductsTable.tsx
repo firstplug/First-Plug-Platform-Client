@@ -11,6 +11,7 @@ import { Table } from "../Table";
 import {
   ArrowRight,
   Button,
+  PenIcon,
   ProductImage,
   ProductLocation,
   ShipmentStatusCard,
@@ -20,6 +21,7 @@ import PrdouctModelDetail from "@/common/PrdouctModelDetail";
 import MemberName from "./helpers/MemberName";
 import { ActionButton } from "./Product/ActionButton";
 import { DeleteAction } from "../Alerts";
+import EditProdcut from "./Product/EditProdcut";
 
 interface ProdcutColumnsInterface {
   handleSelectProducts: (products: Product[]) => void;
@@ -160,8 +162,9 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     id: "actiondelete",
     header: "",
-    cell: () => (
+    cell: ({ row }) => (
       <div className="flex justify-end px-2">
+        <EditProdcut product={row.original} />
         <DeleteAction type="product" />
       </div>
     ),

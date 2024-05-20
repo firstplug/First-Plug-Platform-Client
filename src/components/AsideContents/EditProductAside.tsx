@@ -16,6 +16,7 @@ import monitorData from "@/components/AddProduct/JSON/monitorform.json";
 import peripheralsData from "@/components/AddProduct/JSON/peripheralsform.json";
 import othersData from "@/components/AddProduct/JSON/othersform.json";
 import merchandisingData from "@/components/AddProduct/JSON/merchandisingform.json";
+import ProductDetail from "@/common/ProductDetail";
 
 const categoryComponents = {
   Computer: computerData,
@@ -61,6 +62,7 @@ export var EditProductAside = observer(function EditProductAside() {
   } = methods;
 
   const [selectedCategory, setSelectedCategory] = useState<Category | "">("");
+  const [assignedEmail, setAssignedEmail] = useState<string>("");
   const [attributes, setAttributes] = useState([]);
 
   useEffect(() => {
@@ -73,8 +75,13 @@ export var EditProductAside = observer(function EditProductAside() {
           console.log("Fetched product details:", res);
           setProduct(res);
           setSelectedCategory(res.category);
+          setAssignedEmail(res.assignedEmail);
           setAttributes(res.attributes);
           methods.reset(res);
+          Object.entries(res).forEach(([key, value]) => {
+            setValue(key as any, value);
+          });
+          console.log("res tiene todos los datos?:", res);
           setLoading(false);
         })
         .catch((err) => {
@@ -85,7 +92,7 @@ export var EditProductAside = observer(function EditProductAside() {
     } else {
       setLoading(false);
     }
-  }, [productToEdit, methods]);
+  }, [productToEdit, methods, setValue]);
 
   const handleInput = useCallback(
     (key: string, value: unknown) => {
@@ -136,6 +143,7 @@ export var EditProductAside = observer(function EditProductAside() {
   return (
     <FormProvider {...methods}>
       <PageLayout>
+        <ProductDetail product={product} />
         <div className="relative h-full w-full bg-gray-50">
           <div className="absolute max-h-[90%] h-[90%] w-full overflow-y-auto">
             <div className="px-10 py-4 rounded-3xl border">

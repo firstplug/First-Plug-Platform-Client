@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import { InputProductForm } from "./InputProductForm";
 import { useStore } from "@/models";
@@ -32,6 +32,22 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
   } = useFormContext();
   const [selectedFullName, setSelectedFullName] = useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
+
+  // useEffect(() => {
+  //   if (formState) {
+  //     setValue("name", formState.name || "");
+  //     setValue("assignedEmail", formState.assignedEmail || "");
+
+  //     const assignedMember = members.members.find(
+  //       (member) => member.email === formState.assignedEmail
+  //     );
+  //     setSelectedFullName(
+  //       assignedMember
+  //         ? `${assignedMember.firstName} ${assignedMember.lastName}`
+  //         : "None"
+  //     );
+  //   }
+  // }, [formState, setValue, members.members]);
 
   const memberFullNames = ["None", ...members.memberFullName];
   const handleInputChange = (name: string, value: string) => {

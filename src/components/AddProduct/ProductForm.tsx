@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Button, PageLayout, SectionTitle } from "@/common";
 import { useStore } from "@/models/root.store";
@@ -25,7 +25,6 @@ import { useRouter } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import GenericAlertDialog from "@/components/AddProduct/ui/GenericAlertDialog";
-import { set } from "zod";
 
 interface ProductFormProps {
   initialData?: Product;
@@ -61,13 +60,17 @@ const ProductForm: React.FC<ProductFormProps> = ({
   } = methods;
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<Category | "">(
-    initialData?.category || ""
-  );
-  const [assignedEmail, setAssignedEmail] = useState<string>(
-    initialData?.assignedEmail || ""
+  const [selectedCategory, setSelectedCategory] = useState<
+    Category | undefined
+  >(initialData?.category);
+  const [assignedEmail, setAssignedEmail] = useState(
+    initialData?.assignedEmail
   );
   const [attributes, setAttributes] = useState(initialData?.attributes || []);
+
+  useEffect(() => {
+    console.log("Initial Data", initialData);
+  }, [initialData]);
 
   type ProductField = keyof CreateProductModel;
 
@@ -80,7 +83,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   );
 
   const handleCategoryChange = useCallback(
-    (category: Category | "") => {
+    (category: Category | undefined) => {
       setSelectedCategory(category);
       setValue("category", category || undefined);
       handleInput("recoverable", category !== "Merchandising");
@@ -106,8 +109,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
         addProduct(response);
       }
       methods.reset();
-      setSelectedCategory("");
-      setAssignedEmail("");
+      setSelectedCategory(undefined);
+      setAssignedEmail(undefined);
       setShowSuccessDialog(true);
     } catch (error) {
       setShowErrorDialog(true);
@@ -119,11 +122,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
   return (
     <FormProvider {...methods}>
       <PageLayout>
-        <div className="relative h-full w-full">
-          <div className="absolute max-h-[90%] h-[90%] w-full overflow-y-auto">
+        <div className="flex h-full w-full">
+          <div className="absolute max-h-[90%] h-[90%] w-[80%] overflow-y-auto">
             <div className="px-10 py-4 rounded-3xl border">
               <SectionTitle className="text-[20px]">
-                {isUpdate ? "Update Product" : "Add Product"}
+                {isUpdate ? "" : "Add Product"}
               </SectionTitle>
               <section>
                 <CategoryForm

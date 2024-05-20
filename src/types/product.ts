@@ -74,7 +74,7 @@ export type Product = Instance<typeof ProductModel>;
 export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   _id: "",
   name: "",
-  category: "",
+  category: undefined,
   attributes: cast([]),
   status: "Available",
   deleted: false,
@@ -84,7 +84,7 @@ export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   updatedAt: "",
   deletedAt: "",
   location: "",
-  assignedEmail: "",
+  assignedEmail: undefined,
   serialNumber: "",
 };
 
@@ -135,9 +135,12 @@ export const zodCreateProductModel = z.object({
   assignedEmail: z
     .string()
     .optional()
-    .refine((value) => value !== undefined && value !== null && value !== "", {
-      message: "Assigned Member is required",
-    }),
+    .refine(
+      (value) => value !== undefined && value !== null && value !== "None",
+      {
+        message: "Assigned Member is required",
+      }
+    ),
   status: z.string().optional(),
   location: z.string().optional(),
   recoverable: z.boolean().optional(),

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Button, PageLayout, SectionTitle } from "@/common";
 import { useStore } from "@/models/root.store";
@@ -34,13 +34,30 @@ const categoryComponents = {
   Merchandising: merchandisingData,
 };
 
-export default observer(function ProductForm() {
+const ProductForm = ({ initialProduct = null }) => {
   const {
-    products: { addProduct },
+    products: { addProduct, updateProduct },
   } = useStore();
   const router = useRouter();
+  const defaultValues = initialProduct || {
+    _id: "",
+    name: "",
+    category: undefined,
+    assignedEmail: undefined,
+    status: "",
+    location: "",
+    recoverable: false,
+    acquisitionDate: "",
+    attributes: [],
+    createdAt: "",
+    updatedAt: "",
+    deletedAt: "",
+    deleted: false,
+    serialNumber: "",
+  };
   const methods = useForm({
     resolver: zodResolver(zodCreateProductModel),
+    defaultValues,
   });
   const {
     handleSubmit,
@@ -50,9 +67,13 @@ export default observer(function ProductForm() {
   } = methods;
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<Category | "">("");
-  const [assignedEmail, setAssignedEmail] = useState<string>("");
-  const [attributes, setAttributes] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState<Category | "">(
+    defaultValues.category || ""
+  );
+  const [assignedEmail, setAssignedEmail] = useState<string>(
+    defaultValues.assignedEmail || ""
+  );
+  const [attributes, setAttributes] = useState(defaultValues.attributes || []);
 
   const handleInput = useCallback(
     (key: string, value: unknown) => {
@@ -92,6 +113,25 @@ export default observer(function ProductForm() {
     }
   };
 
+  const handleUpdateProduct = async (data: Product) => {
+    const formatData: Product = {
+      ...initialProduct,
+      ...data,
+      category: selectedCategory || "Other",
+      attributes: cast(attributes.map((attr) => AttributeModel.create(attr))),
+    };
+    try {
+      const response = await ProductServices.updateProduct(
+        formatData._id,
+        formatData
+      );
+      updateProduct(response);
+      setShowSuccessDialog(true);
+    } catch (error) {
+      setShowErrorDialog(true);
+    }
+  };
+
   const FormConfig = categoryComponents[selectedCategory] || { fields: [] };
 
   return (
@@ -127,11 +167,13 @@ export default observer(function ProductForm() {
           </div>
           <aside className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t">
             <Button
-              body="Save"
+              body={initialProduct ? "Update" : "Save"}
               variant="primary"
               className="rounded lg"
               size={"big"}
-              onClick={handleSubmit(handleAddProduct)}
+              onClick={handleSubmit(
+                initialProduct ? handleUpdateProduct : handleAddProduct
+              )}
               disabled={isSubmitting}
             />
           </aside>
@@ -140,7 +182,11 @@ export default observer(function ProductForm() {
           open={showSuccessDialog}
           onClose={() => setShowSuccessDialog(false)}
           title="Success"
-          description="Your product has been successfully added to your stock."
+          description={
+            initialProduct
+              ? "Your product has been successfully updated."
+              : "Your product has been successfully added to your stock."
+          }
           buttonText="OK"
           onButtonClick={() => {
             setShowSuccessDialog(false);
@@ -151,7 +197,11 @@ export default observer(function ProductForm() {
           open={showErrorDialog}
           onClose={() => setShowErrorDialog(false)}
           title="Error"
-          description="Error creating your product, please check the data and try again."
+          description={
+            initialProduct
+              ? "Error updating your product, please check the data and try again."
+              : "Error creating your product, please check the data and try again."
+          }
           buttonText="OK"
           onButtonClick={() => {
             setShowErrorDialog(false);
@@ -160,4 +210,6 @@ export default observer(function ProductForm() {
       </PageLayout>
     </FormProvider>
   );
-});
+};
+
+export default observer(ProductForm);

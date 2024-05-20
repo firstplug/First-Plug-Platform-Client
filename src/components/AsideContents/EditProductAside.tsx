@@ -5,6 +5,7 @@ import { Product } from "@/types";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { Loader } from "../Loader";
+// import ProductForm from "../AddProduct/ProductForm";
 
 export var EditProductAside = observer(function EditProductAside() {
   const {
@@ -20,6 +21,7 @@ export var EditProductAside = observer(function EditProductAside() {
     <div>
       <p className="font-semibold text-lg">Prodcut To Edit ✒️ </p>
       <ProductDetail product={product} />
+      {/* <ProductForm /> */}
     </div>
   ) : (
     <Loader />

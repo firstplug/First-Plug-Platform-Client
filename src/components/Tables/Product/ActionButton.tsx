@@ -18,16 +18,16 @@ export function ActionButton({ product }: ActionButtonProps) {
   } = useStore();
   const ActionConfig: Record<Product["status"], ActionType> = {
     Available: {
-      text: "Assing To",
+      text: "Assign To",
       action: () => {
-        setAside("AssingProduct");
+        setAside("AssignProduct");
         setSelectedMemberEmail("");
       },
     },
     Delivered: {
       text: "Reassign",
       action: () => {
-        setAside("ReassingProduct");
+        setAside("ReassignProduct");
         setSelectedMemberEmail(product.assignedEmail);
       },
     },

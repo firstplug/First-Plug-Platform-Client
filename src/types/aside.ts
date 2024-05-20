@@ -6,8 +6,8 @@ export const ASIDE_TYPES = [
   "NewTeam",
   "MemberDetails",
   "OrderDetails",
-  "AssingProduct",
-  "ReassingProduct",
+  "AssignProduct",
+  "ReassignProduct",
 ] as const;
 
 export type AsideType = (typeof ASIDE_TYPES)[number];

@@ -70,7 +70,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           <DropdownInputProductForm
             options={CATEGORIES}
             placeholder="Category"
-            title="Category"
+            title="Category*"
             name="category"
             selectedOption={selectedCategory}
             onChange={(category: Category) => {
@@ -93,7 +93,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             value={watch("name") as string}
             onChange={(e) => handleInputChange("name", e.target.value)}
             placeholder="Product Name"
-            title="Product Name"
+            title="Product Name*"
             required="required"
           />
           <div className="min-h-[24px]">
@@ -134,7 +134,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           <DropdownInputProductForm
             options={memberFullNames}
             placeholder="Assigned Email"
-            title="Assigned Member"
+            title="Assigned Member*"
             name="assignedMember"
             selectedOption={selectedFullName}
             onChange={handleAssignedMemberChange}
@@ -154,7 +154,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           <DropdownInputProductForm
             options={["Our office", "FP warehouse"]}
             placeholder="Location"
-            title="Location"
+            title="Location*"
             name="location"
             selectedOption={selectedLocation}
             onChange={(value: Location) => {

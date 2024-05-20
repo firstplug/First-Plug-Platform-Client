@@ -23,5 +23,7 @@ export const AsideTitle = observer(function AsideTitle() {
       return "Load Members";
     case "OrderDetails":
       return `Order Detail `;
+    case "EditProduct":
+      return `Edit Prodcut `;
   }
 });

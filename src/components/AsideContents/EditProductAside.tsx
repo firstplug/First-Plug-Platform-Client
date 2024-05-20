@@ -24,10 +24,10 @@ export var EditProductAside = observer(() => {
 
   return product ? (
     <div>
-      <div>
+      {/* <div>
         <p className="font-semibold text-lg">Product To Edit ✒️ </p>
         <ProductDetail product={product} />
-      </div>
+      </div> */}
       <div>
         <ProductForm initialData={product} isUpdate={true} />
       </div>

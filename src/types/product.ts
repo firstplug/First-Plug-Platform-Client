@@ -128,10 +128,14 @@ export type PrdouctModelZod = z.infer<typeof zodProductModel>;
 export const zodCreateProductModel = z.object({
   _id: z.string().optional(),
   name: z.string().min(1, "Name is required"),
-  category: z.enum(CATEGORIES, { required_error: "Category is required" }),
+  category: z.enum(CATEGORIES, {
+    required_error: "Category is required",
+    invalid_type_error: "Invalid category",
+  }),
   assignedEmail: z
     .string()
-    .refine((value) => value === "" || value.length > 0, {
+    .optional()
+    .refine((value) => value !== undefined && value !== null && value !== "", {
       message: "Assigned Member is required",
     }),
   status: z.string().optional(),

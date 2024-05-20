@@ -25,6 +25,7 @@ import { useRouter } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import GenericAlertDialog from "@/components/AddProduct/ui/GenericAlertDialog";
+import { set } from "zod";
 
 interface ProductFormProps {
   initialData?: Product;
@@ -56,7 +57,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
     handleSubmit,
     setValue,
     clearErrors,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = methods;
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
@@ -79,12 +80,12 @@ const ProductForm: React.FC<ProductFormProps> = ({
   );
 
   const handleCategoryChange = useCallback(
-    (category: Category) => {
+    (category: Category | "") => {
       setSelectedCategory(category);
-      handleInput("category", category);
+      setValue("category", category || undefined);
       handleInput("recoverable", category !== "Merchandising");
     },
-    [handleInput]
+    [handleInput, setValue]
   );
 
   const handleSaveProduct = async (data: Product) => {
@@ -122,7 +123,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
           <div className="absolute max-h-[90%] h-[90%] w-full overflow-y-auto">
             <div className="px-10 py-4 rounded-3xl border">
               <SectionTitle className="text-[20px]">
-                Add Product
                 {isUpdate ? "Update Product" : "Add Product"}
               </SectionTitle>
               <section>
@@ -153,7 +153,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
           </div>
           <aside className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t">
             <Button
-              body={isUpdate ? "Update" : "Save"}
+              body={isUpdate ? "Actualizado" : "Save"}
               variant="primary"
               className="rounded lg"
               size={"big"}

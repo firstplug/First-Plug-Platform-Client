@@ -81,8 +81,8 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
 
   return (
     <div className="w-full">
-      <div className="flex flex-col lg:flex-row gap-4">
-        <div className="w-full lg:w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="w-full">
           <DropdownInputProductForm
             options={CATEGORIES}
             placeholder="Category"
@@ -102,7 +102,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           </div>
         </div>
 
-        <div className="w-full lg:w-full">
+        <div className="w-full">
           <InputProductForm
             name="name"
             type="text"
@@ -119,34 +119,41 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           </div>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row gap-4 ">
-        <InputProductForm
-          placeholder="Acquisition Date"
-          title="Acquisition Date"
-          type="date"
-          value={
-            watch("acquisitionDate")
-              ? (watch("acquisitionDate") as string).split("T")[0]
-              : ""
-          }
-          name="acquisitionDate"
-          onChange={(e) =>
-            handleInputChange(
-              "acquisitionDate",
-              new Date(e.target.value).toISOString()
-            )
-          }
-        />
-        <InputProductForm
-          placeholder="Serial Number"
-          title="Serial Number"
-          type="text"
-          value={watch("serialNumber") as string}
-          name="serialNumber"
-          onChange={(e) => handleInputChange("serialNumber", e.target.value)}
-          className="w-full "
-        />
-        <div className="w-full lg:w-full">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        <div className="w-full">
+          <InputProductForm
+            placeholder="Acquisition Date"
+            title="Acquisition Date"
+            type="date"
+            value={
+              watch("acquisitionDate")
+                ? (watch("acquisitionDate") as string).split("T")[0]
+                : ""
+            }
+            name="acquisitionDate"
+            onChange={(e) =>
+              handleInputChange(
+                "acquisitionDate",
+                new Date(e.target.value).toISOString()
+              )
+            }
+          />
+        </div>
+
+        <div className="w-full">
+          <InputProductForm
+            placeholder="Serial Number"
+            title="Serial Number"
+            type="text"
+            value={watch("serialNumber") as string}
+            name="serialNumber"
+            onChange={(e) => handleInputChange("serialNumber", e.target.value)}
+            className="w-full "
+          />
+        </div>
+
+        <div className="w-full">
           <DropdownInputProductForm
             options={memberFullNames}
             placeholder="Assigned Email"
@@ -166,40 +173,42 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           </div>
         </div>
 
-        {selectedFullName === "None" || selectedFullName === "" ? (
-          <div className="w-full lg:w-full">
-            <DropdownInputProductForm
-              options={["Our office", "FP warehouse"]}
+        <div className="w-full">
+          {selectedFullName === "None" || selectedFullName === "" ? (
+            <>
+              <DropdownInputProductForm
+                options={["Our office", "FP warehouse"]}
+                placeholder="Location"
+                title="Location*"
+                name="location"
+                selectedOption={selectedLocation}
+                onChange={(value: Location) => {
+                  setSelectedLocation(value);
+                  handleInput("location", value);
+                }}
+                required="required"
+                className="w-full"
+              />
+              <div className="min-h-[24px]">
+                {errors.location && (
+                  <p className="text-red-500">
+                    {(errors.location as any).message}
+                  </p>
+                )}
+              </div>
+            </>
+          ) : (
+            <InputProductForm
               placeholder="Location"
-              title="Location*"
+              title="Location"
+              type="text"
               name="location"
-              selectedOption={selectedLocation}
-              onChange={(value: Location) => {
-                setSelectedLocation(value);
-                handleInput("location", value);
-              }}
-              required="required"
+              value="Employee"
+              onChange={(e) => handleInputChange("location", e.target.value)}
               className="w-full"
             />
-            <div className="min-h-[24px]">
-              {errors.location && (
-                <p className="text-red-500">
-                  {(errors.location as any).message}
-                </p>
-              )}
-            </div>
-          </div>
-        ) : (
-          <InputProductForm
-            placeholder="Location"
-            title="Location"
-            type="text"
-            name="location"
-            value="Employee"
-            onChange={(e) => handleInputChange("location", e.target.value)}
-            className="w-full"
-          />
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

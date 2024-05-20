@@ -24,6 +24,6 @@ export const AsideTitle = observer(function AsideTitle() {
     case "OrderDetails":
       return `Order Detail `;
     case "EditProduct":
-      return `Edit Prodcut `;
+      return `Edit Product `;
   }
 });

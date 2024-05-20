@@ -8,6 +8,7 @@ const DynamicForm = ({ fields, handleAttributesChange }) => {
   const [attributes, setAttributes] = useState([]);
 
   useEffect(() => {
+    console.log("DynamicForm fields updated:", fields);
     const newAttributes = fields.map((field) => ({
       _id: "",
       key: field.name,

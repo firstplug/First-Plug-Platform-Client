@@ -13,6 +13,7 @@ import { AssignProduct, EditProductAside } from "./AsideContents";
 
 export var AsideContent = observer(function () {
   const { aside } = useStore();
+  console.log("Rendering AsideContent with type:", aside.type);
   switch (aside.type) {
     case "MemberDetails":
       return <MemberAsideDetails />;
@@ -34,5 +35,7 @@ export var AsideContent = observer(function () {
       return <OrderAsideDetails />;
     case "EditProduct":
       return <EditProductAside />;
+    default:
+      return null;
   }
 });

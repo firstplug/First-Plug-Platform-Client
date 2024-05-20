@@ -34,30 +34,13 @@ const categoryComponents = {
   Merchandising: merchandisingData,
 };
 
-const ProductForm = ({ initialProduct = null }) => {
+export const ProductForm = observer(function ProductForm() {
   const {
-    products: { addProduct, updateProduct },
+    products: { addProduct },
   } = useStore();
   const router = useRouter();
-  const defaultValues = initialProduct || {
-    _id: "",
-    name: "",
-    category: undefined,
-    assignedEmail: undefined,
-    status: "",
-    location: "",
-    recoverable: false,
-    acquisitionDate: "",
-    attributes: [],
-    createdAt: "",
-    updatedAt: "",
-    deletedAt: "",
-    deleted: false,
-    serialNumber: "",
-  };
   const methods = useForm({
     resolver: zodResolver(zodCreateProductModel),
-    defaultValues,
   });
   const {
     handleSubmit,
@@ -67,13 +50,9 @@ const ProductForm = ({ initialProduct = null }) => {
   } = methods;
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<Category | "">(
-    defaultValues.category || ""
-  );
-  const [assignedEmail, setAssignedEmail] = useState<string>(
-    defaultValues.assignedEmail || ""
-  );
-  const [attributes, setAttributes] = useState(defaultValues.attributes || []);
+  const [selectedCategory, setSelectedCategory] = useState<Category | "">("");
+  const [assignedEmail, setAssignedEmail] = useState<string>("");
+  const [attributes, setAttributes] = useState([]);
 
   const handleInput = useCallback(
     (key: string, value: unknown) => {
@@ -113,25 +92,6 @@ const ProductForm = ({ initialProduct = null }) => {
     }
   };
 
-  const handleUpdateProduct = async (data: Product) => {
-    const formatData: Product = {
-      ...initialProduct,
-      ...data,
-      category: selectedCategory || "Other",
-      attributes: cast(attributes.map((attr) => AttributeModel.create(attr))),
-    };
-    try {
-      const response = await ProductServices.updateProduct(
-        formatData._id,
-        formatData
-      );
-      updateProduct(response);
-      setShowSuccessDialog(true);
-    } catch (error) {
-      setShowErrorDialog(true);
-    }
-  };
-
   const FormConfig = categoryComponents[selectedCategory] || { fields: [] };
 
   return (
@@ -167,13 +127,11 @@ const ProductForm = ({ initialProduct = null }) => {
           </div>
           <aside className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t">
             <Button
-              body={initialProduct ? "Update" : "Save"}
+              body="Save"
               variant="primary"
               className="rounded lg"
               size={"big"}
-              onClick={handleSubmit(
-                initialProduct ? handleUpdateProduct : handleAddProduct
-              )}
+              onClick={handleSubmit(handleAddProduct)}
               disabled={isSubmitting}
             />
           </aside>
@@ -182,11 +140,7 @@ const ProductForm = ({ initialProduct = null }) => {
           open={showSuccessDialog}
           onClose={() => setShowSuccessDialog(false)}
           title="Success"
-          description={
-            initialProduct
-              ? "Your product has been successfully updated."
-              : "Your product has been successfully added to your stock."
-          }
+          description="Your product has been successfully added to your stock."
           buttonText="OK"
           onButtonClick={() => {
             setShowSuccessDialog(false);
@@ -197,11 +151,7 @@ const ProductForm = ({ initialProduct = null }) => {
           open={showErrorDialog}
           onClose={() => setShowErrorDialog(false)}
           title="Error"
-          description={
-            initialProduct
-              ? "Error updating your product, please check the data and try again."
-              : "Error creating your product, please check the data and try again."
-          }
+          description="Error creating your product, please check the data and try again."
           buttonText="OK"
           onButtonClick={() => {
             setShowErrorDialog(false);
@@ -210,6 +160,6 @@ const ProductForm = ({ initialProduct = null }) => {
       </PageLayout>
     </FormProvider>
   );
-};
+});
 
-export default observer(ProductForm);
+// export default observer(ProductForm);

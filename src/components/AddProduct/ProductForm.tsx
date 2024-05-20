@@ -122,11 +122,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
   return (
     <FormProvider {...methods}>
       <PageLayout>
-        <div className="flex h-full w-full">
-          <div className="absolute max-h-[90%] h-[90%] w-[80%] overflow-y-auto">
+        <div className="h-full w-full ">
+          <div className="absolute max-h-[90%] h-[90%] w-[80%] overflow-y-auto pr-4">
             <div className="px-10 py-4 rounded-3xl border">
               <SectionTitle className="text-[20px]">
-                {isUpdate ? "" : "Add Product"}
+                {isUpdate ? "Update Product" : "Add Product"}
               </SectionTitle>
               <section>
                 <CategoryForm
@@ -154,9 +154,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
               </div>
             )}
           </div>
-          <aside className="absolute flex justify-end bg-white w-full bottom-0 p-2 h-[10%] border-t">
+          <aside className="absolute flex justify-end bg-white w-[80%] bottom-0 p-2 h-[10%] border-t">
             <Button
-              body={isUpdate ? "Actualizado" : "Save"}
+              body={isUpdate ? "Update" : "Save"}
               variant="primary"
               className="rounded lg"
               size={"big"}

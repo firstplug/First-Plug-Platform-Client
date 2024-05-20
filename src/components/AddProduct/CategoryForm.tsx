@@ -46,8 +46,8 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
     if (selectedFullName === "None" || selectedFullName === "") {
       setAssignedEmail("");
       handleInput("assignedEmail", "");
-      setSelectedLocation("Our office");
-      handleInput("location", "Our office");
+      setSelectedLocation("");
+      handleInput("location", "");
       handleInput("status", "Available");
     } else {
       const selectedMember = members.members.find(
@@ -70,7 +70,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           <DropdownInputProductForm
             options={CATEGORIES}
             placeholder="Category"
-            title="Category"
+            title="Category*"
             name="category"
             selectedOption={selectedCategory}
             onChange={(category: Category) => {
@@ -93,7 +93,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             value={watch("name") as string}
             onChange={(e) => handleInputChange("name", e.target.value)}
             placeholder="Product Name"
-            title="Product Name"
+            title="Product Name*"
             required="required"
           />
           <div className="min-h-[24px]">
@@ -134,7 +134,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           <DropdownInputProductForm
             options={memberFullNames}
             placeholder="Assigned Email"
-            title="Assigned Member"
+            title="Assigned Member*"
             name="assignedMember"
             selectedOption={selectedFullName}
             onChange={handleAssignedMemberChange}
@@ -151,19 +151,28 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
         </div>
 
         {selectedFullName === "None" || selectedFullName === "" ? (
-          <DropdownInputProductForm
-            options={["Our office", "FP office"]}
-            placeholder="Location"
-            title="Location"
-            name="location"
-            selectedOption={selectedLocation}
-            onChange={(value: Location) => {
-              setSelectedLocation(value);
-              handleInput("location", value);
-            }}
-            required="required"
-            className="w-full"
-          />
+          <div className="w-full lg:w-full">
+            <DropdownInputProductForm
+              options={["Our office", "FP warehouse"]}
+              placeholder="Location"
+              title="Location*"
+              name="location"
+              selectedOption={selectedLocation}
+              onChange={(value: Location) => {
+                setSelectedLocation(value);
+                handleInput("location", value);
+              }}
+              required="required"
+              className="w-full"
+            />
+            <div className="min-h-[24px]">
+              {errors.location && (
+                <p className="text-red-500">
+                  {(errors.location as any).message}
+                </p>
+              )}
+            </div>
+          </div>
         ) : (
           <InputProductForm
             placeholder="Location"

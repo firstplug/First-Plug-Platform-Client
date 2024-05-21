@@ -21,7 +21,8 @@ import PrdouctModelDetail from "@/common/PrdouctModelDetail";
 import MemberName from "./helpers/MemberName";
 import { ActionButton } from "./Product/ActionButton";
 import { DeleteAction } from "../Alerts";
-import EditProdcut from "./Product/EditProduct";
+import { observer } from "mobx-react-lite";
+import EditProduct from "./Product/EditProduct";
 
 interface ProductColumnsInterface {
   handleSelectProducts: (products: Product[]) => void;

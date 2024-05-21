@@ -1,6 +1,10 @@
 import { types, Instance, cast } from "mobx-state-tree";
 import { z } from "zod";
-export const PRODUCT_STATUSES = ["Available", "Delivered"] as const;
+export const PRODUCT_STATUSES = [
+  "Available",
+  "Delivered",
+  "Deprecated",
+] as const;
 export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
 
 export const LOCATION = ["Our office", "FP warehouse", "Employee"] as const;
@@ -64,7 +68,7 @@ export const ProductModel = types.model({
   acquisitionDate: types.optional(types.string, ""),
   createdAt: types.optional(types.string, ""),
   updatedAt: types.optional(types.string, ""),
-  deletedAt: types.optional(types.string, ""),
+  deletedAt: types.maybeNull(types.string),
   location: types.optional(types.string, ""),
   assignedEmail: types.optional(types.string, ""),
   serialNumber: types.optional(types.string, ""),

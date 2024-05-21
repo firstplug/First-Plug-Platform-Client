@@ -50,4 +50,10 @@ export const ProductsStore = types
     addProduct(product: Product) {
       store.products.push(product);
     },
+    deleteProduct(id: string) {
+      const product = store.products.find((product) => product._id === id);
+      if (product) {
+        product.deleted = true;
+      }
+    },
   }));

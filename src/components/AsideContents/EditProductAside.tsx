@@ -18,7 +18,7 @@ export var EditProductAside = observer(function EditProductAside() {
   }, [productToEdit]);
   return product ? (
     <div>
-      <p className="font-semibold text-lg">Prodcut To Edit ✒️ </p>
+      <p className="font-semibold text-lg">Product To Edit ✒️ </p>
       <ProductDetail product={product} />
     </div>
   ) : (

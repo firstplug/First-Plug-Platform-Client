@@ -24,7 +24,7 @@ const shipmentsColumns: (
   },
   {
     accessorKey: "productsQuantity",
-    header: "Quantity Prodcuts",
+    header: "Quantity Products",
     cell: ({ getValue }) => getValue<Product[]>(),
   },
   {

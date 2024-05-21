@@ -38,7 +38,7 @@ export class ProductServices {
     return response.data;
   }
 
-  static async deleteProduct(id: Product["_id"]): Promise<Product> {
+  static async deleteProduct(id: Product["_id"]): Promise<{ message: string }> {
     const response = await HTTPRequests.delete(
       `${BASE_URL}/api/products/${id}`
     );

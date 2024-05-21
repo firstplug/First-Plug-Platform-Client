@@ -4,7 +4,7 @@ import { useStore } from "@/models";
 import { Product } from "@/types";
 import { observer } from "mobx-react-lite";
 
-export default observer(function EditProdcut({
+export default observer(function EditProduct({
   product,
 }: {
   product: Product;

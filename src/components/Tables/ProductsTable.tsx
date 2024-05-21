@@ -21,14 +21,14 @@ import PrdouctModelDetail from "@/common/PrdouctModelDetail";
 import MemberName from "./helpers/MemberName";
 import { ActionButton } from "./Product/ActionButton";
 import { DeleteAction } from "../Alerts";
-import EditProdcut from "./Product/EditProdcut";
+import EditProduct from "./Product/EditProduct";
 
-interface ProdcutColumnsInterface {
+interface ProductColumnsInterface {
   handleSelectProducts: (products: Product[]) => void;
 }
-export const prodcutColumns: ({
+export const productColumns: ({
   handleSelectProducts,
-}: ProdcutColumnsInterface) => ColumnDef<ProductTable>[] = ({
+}: ProductColumnsInterface) => ColumnDef<ProductTable>[] = ({
   handleSelectProducts,
 }) => [
   {
@@ -164,7 +164,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     header: "",
     cell: ({ row }) => (
       <div className="flex justify-end px-2">
-        <EditProdcut product={row.original} />
+        <EditProduct product={row.original} />
         <DeleteAction type="product" />
       </div>
     ),
@@ -183,7 +183,7 @@ export function ProductsTable({ products }: ProductTableProps) {
   return (
     <Table<ProductTable>
       data={products}
-      columns={prodcutColumns({ handleSelectProducts })}
+      columns={productColumns({ handleSelectProducts })}
       getRowCanExpand={() => true}
       subComponent={
         productsDetails ? (

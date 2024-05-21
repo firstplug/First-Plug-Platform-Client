@@ -31,6 +31,12 @@ export function ActionButton({ product }: ActionButtonProps) {
         setSelectedMemberEmail(product.assignedEmail);
       },
     },
+    Deprecated: {
+      text: "Deprecated",
+      action: () => {
+        console.log("Deprecated");
+      },
+    },
   };
   const { action, text } = ActionConfig[product.status];
 

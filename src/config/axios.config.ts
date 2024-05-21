@@ -28,7 +28,7 @@ export class HTTPRequests {
     return await axiosInstance.put(url, payload);
   }
   static async delete(url: string) {
-    return await axiosInstance.put(url);
+    return await axiosInstance.delete(url);
   }
   static async patch<T>(url: string, payload: T) {
     return await axiosInstance.patch(url, payload);

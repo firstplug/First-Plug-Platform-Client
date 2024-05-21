@@ -165,7 +165,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     cell: ({ row }) => (
       <div className="flex justify-end px-2">
         <EditProduct product={row.original} />
-        <DeleteAction type="product" />
+        <DeleteAction type="product" id={row.original._id} />
       </div>
     ),
   },

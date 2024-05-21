@@ -23,7 +23,6 @@ export class ProductServices {
       `${BASE_URL}/api/products`,
       productData
     );
-    console.log("Respuesta del servicio al crear producto:", response.data);
     return response.data;
   }
 
@@ -31,11 +30,15 @@ export class ProductServices {
     id: Product["_id"],
     data: Partial<Product>
   ): Promise<Product> {
-    const response = await HTTPRequests.put(
-      `${BASE_URL}/api/products/${id}`,
-      data
-    );
-    return response.data;
+    try {
+      const response = await HTTPRequests.patch(
+        `${BASE_URL}/api/products/${id}`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
   static async deleteProduct(id: Product["_id"]): Promise<Product> {

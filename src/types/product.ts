@@ -74,7 +74,7 @@ export type Product = Instance<typeof ProductModel>;
 export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   _id: "",
   name: "",
-  category: "",
+  category: undefined,
   attributes: cast([]),
   status: "Available",
   deleted: false,
@@ -84,7 +84,7 @@ export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   updatedAt: "",
   deletedAt: "",
   location: "",
-  assignedEmail: "",
+  assignedEmail: undefined,
   serialNumber: "",
 };
 
@@ -128,12 +128,19 @@ export type PrdouctModelZod = z.infer<typeof zodProductModel>;
 export const zodCreateProductModel = z.object({
   _id: z.string().optional(),
   name: z.string().min(1, "Name is required"),
-  category: z.enum(CATEGORIES, { required_error: "Category is required" }),
+  category: z.enum(CATEGORIES, {
+    required_error: "Category is required",
+    invalid_type_error: "Invalid category",
+  }),
   assignedEmail: z
     .string()
-    .refine((value) => value === "" || value.length > 0, {
-      message: "Assigned Member is required",
-    }),
+    .optional()
+    .refine(
+      (value) => value !== undefined && value !== null && value !== "None",
+      {
+        message: "Assigned Member is required",
+      }
+    ),
   status: z.string().optional(),
   location: z.string().min(1, "Location is required"),
   recoverable: z.boolean().optional(),
@@ -152,3 +159,5 @@ export const zodCreateProductModel = z.object({
   deleted: z.boolean().optional(),
   serialNumber: z.string().optional(),
 });
+
+export type CreateProductModel = z.infer<typeof zodCreateProductModel>;

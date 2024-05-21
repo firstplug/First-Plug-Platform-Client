@@ -126,7 +126,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
           <div className="absolute max-h-[90%] h-[90%] w-[80%] overflow-y-auto pr-4">
             <div className="px-10 py-4 rounded-3xl border">
               <SectionTitle className="text-[20px]">
-                {isUpdate ? "Update Product" : "Add Product"}
+                {isUpdate ? "" : "Add Product"}
               </SectionTitle>
               <section>
                 <CategoryForm
@@ -138,6 +138,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                   clearErrors={
                     clearErrors as (name?: string | string[]) => void
                   }
+                  isUpdate={isUpdate}
                 />
               </section>
             </div>

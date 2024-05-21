@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import { InputProductForm } from "./InputProductForm";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { Location, CATEGORIES, Category } from "@/types";
 import { FieldValues, useFormContext } from "react-hook-form";
+import { set } from "zod";
 
 interface CategoryFormProps {
   handleInput: (key: string, value: unknown) => void;
@@ -34,6 +35,26 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
   } = useFormContext();
   const [selectedFullName, setSelectedFullName] = useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
+
+  useEffect(() => {
+    if (isUpdate) {
+      const assignedEmail = formState.assignedEmail;
+      if (assignedEmail) {
+        const assignedMember = members.members.find(
+          (member) => member.email === assignedEmail
+        );
+        setSelectedFullName(
+          assignedMember
+            ? `${assignedMember.firstName} ${assignedMember.lastName}`
+            : "None"
+        );
+      } else {
+        setSelectedFullName("None");
+      }
+      const location = formState.location;
+      setSelectedLocation(location as string);
+    }
+  }, [isUpdate, formState, members.members]);
 
   const memberFullNames = ["None", ...members.memberFullName];
   const handleInputChange = (name: keyof FieldValues, value: string) => {

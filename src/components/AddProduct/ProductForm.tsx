@@ -149,6 +149,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
                     <DynamicForm
                       fields={FormConfig.fields}
                       handleAttributesChange={setAttributes}
+                      isUpdate={isUpdate}
+                      initialValues={initialData}
                     />
                   </section>
                 </div>

@@ -151,21 +151,6 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
         </div>
 
         {selectedFullName === "None" || selectedFullName === "" ? (
-<<<<<<< HEAD
-          <DropdownInputProductForm
-            options={["Our office", "FP warehouse"]}
-            placeholder="Location"
-            title="Location"
-            name="location"
-            selectedOption={selectedLocation}
-            onChange={(value: Location) => {
-              setSelectedLocation(value);
-              handleInput("location", value);
-            }}
-            required="required"
-            className="w-full"
-          />
-=======
           <div className="w-full lg:w-full">
             <DropdownInputProductForm
               options={["Our office", "FP warehouse"]}
@@ -188,7 +173,6 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
               )}
             </div>
           </div>
->>>>>>> origin/develop
         ) : (
           <InputProductForm
             placeholder="Location"

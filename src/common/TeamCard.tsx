@@ -33,7 +33,7 @@ export var TeamCard = observer(function TeamCard({
         team ? TEAM_COLORS[[...teams].sort().indexOf(team)] : "bg-grey"
       } `}
     >
-      {team || "Assing to a Team"}
+      {team || "Assign to a Team"}
     </span>
   );
 });

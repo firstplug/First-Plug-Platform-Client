@@ -92,7 +92,7 @@ export const LoadAside = function () {
 
           clearCsvData();
           return toast({
-            title: "csv Loaded succesfully",
+            title: "The file has been correctly uploaded.   ✅ ",
             variant: "success",
             duration: 1500,
           });
@@ -132,10 +132,10 @@ export const LoadAside = function () {
         } else {
           setCsvFile(null);
           toast({
-            title: "The file is not correct",
-            description:
-              "The uploaded file does not respect the provided structure",
+            title:
+              "The uploaded file is not correct. Please verify it and try again.  ",
             variant: "destructive",
+            duration: 1500,
           });
         }
       },
@@ -207,7 +207,6 @@ export const LoadAside = function () {
           />
         )}
       </div>
-
       <div className="fixed bottom-5 w-[85%] flex">
         <Button
           disabled={csvFile === null}

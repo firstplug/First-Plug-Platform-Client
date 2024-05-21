@@ -50,7 +50,10 @@ export const ProductsStore = types
     addProduct(product: Product) {
       store.products.push(product);
     },
-    addProducts(product: Product[]) {
-      store.products.push(product);
+    updateProduct(product: Product) {
+      const index = store.products.findIndex((p) => p._id === product._id);
+      if (index > -1) {
+        store.products[index] = product;
+      }
     },
   }));

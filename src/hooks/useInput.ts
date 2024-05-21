@@ -22,7 +22,9 @@ function validator(type: ValidatorType, passwordToCompare?: string) {
       return "The password must be at least 6 characters long.";
     }
 
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+    // Regex updated to allow special characters but not require them
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#\$%\^&\*\(\)_\+\-=\[\]\{\};':"\\|,.<>\/?]{6,}$/;
 
     if (!regex.test(value)) {
       return "The password must contain at least one uppercase letter, one lowercase letter, and one number.";
@@ -30,7 +32,6 @@ function validator(type: ValidatorType, passwordToCompare?: string) {
 
     return null;
   };
-
   const fullNameValidator = (value: string) => {
     if (value.length < 1) {
       return "This field is required";

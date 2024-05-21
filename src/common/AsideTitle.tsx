@@ -9,9 +9,9 @@ export const AsideTitle = observer(function AsideTitle() {
       return `Team Member Details `;
     case "EditMember":
       return "Edit Teams";
-    case "AssingProduct":
+    case "AssignProduct":
       return "Assign To";
-    case "ReassingProduct":
+    case "ReassignProduct":
       return "Assign To";
     case "NewTeam":
       return "New Team";
@@ -24,6 +24,6 @@ export const AsideTitle = observer(function AsideTitle() {
     case "OrderDetails":
       return `Order Detail `;
     case "EditProduct":
-      return `Edit Prodcut `;
+      return `Edit Product `;
   }
 });

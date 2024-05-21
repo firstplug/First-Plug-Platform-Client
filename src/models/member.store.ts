@@ -34,6 +34,11 @@ export const MemberStore = types
         store.teamFilterItems.some((value) => teams.includes(value.toString()))
       );
     },
+    get memberFullName() {
+      return store.members.map(
+        (member) => `${member.firstName} ${member.lastName}`
+      );
+    },
   }))
   .actions((store) => ({
     setMembers(members: TeamMember[]) {

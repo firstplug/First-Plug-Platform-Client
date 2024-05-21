@@ -1,6 +1,10 @@
-import { types, Instance } from "mobx-state-tree";
+import { types, Instance, cast } from "mobx-state-tree";
 import { z } from "zod";
-export const PRODUCT_STATUSES = ["Available", "Delivered"] as const;
+export const PRODUCT_STATUSES = [
+  "Available",
+  "Delivered",
+  "Deprecated",
+] as const;
 export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
 
 export const LOCATION = ["Our office", "FP warehouse", "Employee"] as const;
@@ -46,7 +50,7 @@ export const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
 };
 // -------------------- MOBX DEFINITION -----------------------
 
-const AttributeModel = types.model({
+export const AttributeModel = types.model({
   _id: types.string,
   key: types.enumeration(KEYS),
   value: types.optional(types.string, ""),
@@ -64,12 +68,29 @@ export const ProductModel = types.model({
   acquisitionDate: types.optional(types.string, ""),
   createdAt: types.optional(types.string, ""),
   updatedAt: types.optional(types.string, ""),
-  deletedAt: types.optional(types.string, ""),
+  deletedAt: types.maybeNull(types.string),
   location: types.optional(types.string, ""),
   assignedEmail: types.optional(types.string, ""),
   serialNumber: types.optional(types.string, ""),
 });
 export type Product = Instance<typeof ProductModel>;
+
+export const emptyProduct: Omit<Product, "category"> & { category: string } = {
+  _id: "",
+  name: "",
+  category: undefined,
+  attributes: cast([]),
+  status: "Available",
+  deleted: false,
+  recoverable: true,
+  acquisitionDate: "",
+  createdAt: "",
+  updatedAt: "",
+  deletedAt: "",
+  location: "",
+  assignedEmail: undefined,
+  serialNumber: "",
+};
 
 export const ProductTableModel = types.model({
   category: types.string,
@@ -105,3 +126,42 @@ export const zodProductModel = z.object({
 });
 
 export type PrdouctModelZod = z.infer<typeof zodProductModel>;
+
+// -------- create my own zod schema for the createProductform
+
+export const zodCreateProductModel = z.object({
+  _id: z.string().optional(),
+  name: z.string().min(1, "Name is required"),
+  category: z.enum(CATEGORIES, {
+    required_error: "Category is required",
+    invalid_type_error: "Invalid category",
+  }),
+  assignedEmail: z
+    .string()
+    .optional()
+    .refine(
+      (value) => value !== undefined && value !== null && value !== "None",
+      {
+        message: "Assigned Member is required",
+      }
+    ),
+  status: z.string().optional(),
+  location: z.string().min(1, "Location is required"),
+  recoverable: z.boolean().optional(),
+  acquisitionDate: z.string().optional(),
+  attributes: z
+    .array(
+      z.object({
+        key: z.enum(KEYS),
+        value: z.string().optional().nullable(),
+      })
+    )
+    .optional(),
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
+  deletedAt: z.string().optional(),
+  deleted: z.boolean().optional(),
+  serialNumber: z.string().optional(),
+});
+
+export type CreateProductModel = z.infer<typeof zodCreateProductModel>;

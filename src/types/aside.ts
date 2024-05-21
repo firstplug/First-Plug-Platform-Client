@@ -6,8 +6,8 @@ export const ASIDE_TYPES = [
   "NewTeam",
   "MemberDetails",
   "OrderDetails",
-  "AssingProduct",
-  "ReassingProduct",
+  "AssignProduct",
+  "ReassignProduct",
   "EditProduct",
 ] as const;
 

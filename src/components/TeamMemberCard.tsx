@@ -58,7 +58,7 @@ export const TeamMemberCard = observer(function ({
             <div className="ml-1 flex flex-col  w-full ">
               <div className="flex items-center gap-1">
                 {!member.teams.length ? (
-                  <TeamCard team={"Assing to team"} key={"no team"} />
+                  <TeamCard team={"Assign to team"} key={"no team"} />
                 ) : (
                   member.teams.map((team) => (
                     <TeamCard team={team} key={team} />

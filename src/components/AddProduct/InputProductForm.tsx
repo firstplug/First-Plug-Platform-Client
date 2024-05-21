@@ -25,6 +25,8 @@ export function InputProductForm({
     onChange && onChange(e);
   };
 
+  const today = new Date().toISOString().split("T")[0];
+
   return (
     <div className={`relative ${className}`}>
       <label className="block text-dark-grey ml-2 font-sans">{title}</label>
@@ -44,6 +46,7 @@ export function InputProductForm({
         placeholder={placeholder}
         className={`w-full h-14 py-2 rounded-xl border text-black p-4 font-sans focus:outline-none ${className}`}
         required={true}
+        max={type === "date" ? today : undefined}
       />
     </div>
   );

@@ -142,7 +142,7 @@ export const zodCreateProductModel = z.object({
       }
     ),
   status: z.string().optional(),
-  location: z.string().optional(),
+  location: z.string().min(1, "Location is required"),
   recoverable: z.boolean().optional(),
   acquisitionDate: z.string().optional(),
   attributes: z

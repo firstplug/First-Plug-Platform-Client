@@ -20,9 +20,9 @@ export var AsideContent = observer(function () {
       return <EditTeamsAsideDetails />;
     case "NewTeam":
       return <CreateTeamAside />;
-    case "AssingProduct":
+    case "AssignProduct":
       return <AssignProduct />;
-    case "ReassingProduct":
+    case "ReassignProduct":
       return <AssignProduct />;
     case "EditMember":
       return <MemberEditAside />;

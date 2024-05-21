@@ -14,7 +14,6 @@ export var EditProductAside = observer(() => {
   const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    console.log("Product to edit", productToEdit);
     if (productToEdit) {
       ProductServices.getProductById(productToEdit).then((res) => {
         setProduct(res);

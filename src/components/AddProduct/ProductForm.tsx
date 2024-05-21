@@ -68,27 +68,13 @@ const ProductForm: React.FC<ProductFormProps> = ({
   );
   const [attributes, setAttributes] = useState(initialData?.attributes || []);
 
-  useEffect(() => {
-    console.log("Initial Data", initialData);
-  }, [initialData]);
-
-  type ProductField = keyof CreateProductModel;
-
-  const handleInput = useCallback(
-    (key: ProductField, value: string | boolean) => {
-      setValue(key, value);
-      clearErrors(key);
-    },
-    [setValue, clearErrors]
-  );
-
   const handleCategoryChange = useCallback(
     (category: Category | undefined) => {
       setSelectedCategory(category);
       setValue("category", category || undefined);
-      handleInput("recoverable", category !== "Merchandising");
+      setValue("recoverable", category !== "Merchandising");
     },
-    [handleInput, setValue]
+    [setValue]
   );
 
   const handleSaveProduct = async (data: Product) => {
@@ -101,8 +87,12 @@ const ProductForm: React.FC<ProductFormProps> = ({
     };
 
     try {
+      console.log("isUpdate:", isUpdate);
+      console.log("initialData:", initialData);
+      console.log("formatData:", formatData);
       if (isUpdate && initialData) {
         await ProductServices.updateProduct(initialData._id, formatData);
+        console.log("despues de update", initialData._id, formatData);
         updateProduct(formatData);
       } else {
         const response = await ProductServices.createProduct(formatData);
@@ -113,6 +103,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       setAssignedEmail(undefined);
       setShowSuccessDialog(true);
     } catch (error) {
+      console.log("Error saving product", error);
       setShowErrorDialog(true);
     }
   };
@@ -130,7 +121,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
               </SectionTitle>
               <section>
                 <CategoryForm
-                  handleInput={handleInput}
                   handleCategoryChange={handleCategoryChange}
                   selectedCategory={selectedCategory}
                   setAssignedEmail={(email) => setValue("assignedEmail", email)}

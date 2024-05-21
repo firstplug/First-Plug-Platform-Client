@@ -6,10 +6,10 @@ import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { Location, CATEGORIES, Category } from "@/types";
 import { FieldValues, useFormContext } from "react-hook-form";
-import { set } from "zod";
+import { clear } from "console";
 
 interface CategoryFormProps {
-  handleInput: (key: string, value: unknown) => void;
+  // setValue: (key: string, value: unknown) => void;
   handleCategoryChange: (category: Category | "") => void;
   selectedCategory: Category | "";
   setAssignedEmail: (email: string) => void;
@@ -19,7 +19,7 @@ interface CategoryFormProps {
 }
 
 const CategoryForm: React.FC<CategoryFormProps> = function ({
-  handleInput,
+  // setValue,
   handleCategoryChange,
   selectedCategory,
   setAssignedEmail,
@@ -58,7 +58,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
 
   const memberFullNames = ["None", ...members.memberFullName];
   const handleInputChange = (name: keyof FieldValues, value: string) => {
-    handleInput(name, value);
+    // handleInput(name, value);
     setValue(name, value);
     clearErrors(name);
   };
@@ -68,20 +68,20 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
 
     if (selectedFullName === "None" || selectedFullName === "") {
       setAssignedEmail("");
-      handleInput("assignedEmail", "");
+      setValue("assignedEmail", "");
       setSelectedLocation("");
-      handleInput("location", "");
-      handleInput("status", "Available");
+      setValue("location", "");
+      setValue("status", "Available");
     } else {
       const selectedMember = members.members.find(
         (member) =>
           `${member.firstName} ${member.lastName}` === selectedFullName
       );
       setAssignedEmail(selectedMember?.email || "");
-      handleInput("assignedEmail", selectedMember?.email || "");
+      setValue("assignedEmail", selectedMember?.email || "");
       setSelectedLocation("Employee");
-      handleInput("location", "Employee");
-      handleInput("status", "Delivered");
+      setValue("location", "Employee");
+      setValue("status", "Delivered");
     }
     clearErrors("assignedEmail");
   };
@@ -197,7 +197,8 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
                 selectedOption={selectedLocation}
                 onChange={(value: Location) => {
                   setSelectedLocation(value);
-                  handleInput("location", value);
+                  setValue("location", value);
+                  clearErrors("location");
                 }}
                 required="required"
                 className="w-full"

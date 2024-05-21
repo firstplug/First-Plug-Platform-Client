@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import { DropdownInputProductForm } from "./DropDownProductForm";
 import { useFormContext, Controller } from "react-hook-form";
 
-const DynamicForm = ({ fields, handleAttributesChange }) => {
+const DynamicForm = ({
+  fields,
+  handleAttributesChange,
+  isUpdate,
+  initialValues,
+}) => {
   const { setValue, watch, control } = useFormContext();
   const [attributes, setAttributes] = useState([]);
 
@@ -17,8 +22,23 @@ const DynamicForm = ({ fields, handleAttributesChange }) => {
     handleAttributesChange(newAttributes);
   }, [fields, setValue, watch, handleAttributesChange]);
 
+  useEffect(() => {
+    if (isUpdate && initialValues) {
+      fields.forEach((field) => {
+        const value = initialValues.attributes.find(
+          (attr) => attr.key === field.name
+        )?.value;
+        setValue(field.name, value);
+      });
+    }
+  }, [isUpdate, initialValues, fields, setValue]);
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div
+      className={`grid gap-4 ${
+        isUpdate ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 lg:grid-cols-3"
+      }`}
+    >
       {fields.map((field) => (
         <div key={field.name}>
           <Controller

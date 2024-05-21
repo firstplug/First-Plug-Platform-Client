@@ -56,4 +56,10 @@ export const ProductsStore = types
         product.deleted = true;
       }
     },
+    updateProduct(product: Product) {
+      const index = store.products.findIndex((p) => p._id === product._id);
+      if (index > -1) {
+        store.products[index] = product;
+      }
+    },
   }));

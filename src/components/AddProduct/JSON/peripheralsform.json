@@ -96,7 +96,7 @@
       ]
     },
     {
-      "name": "keyboards",
+      "name": "keyboardLanguage",
       "title": "Keyboard Language",
       "options": ["English", "Spanish", "Other"]
     }

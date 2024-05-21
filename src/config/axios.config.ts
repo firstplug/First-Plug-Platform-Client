@@ -30,4 +30,7 @@ export class HTTPRequests {
   static async delete(url: string) {
     return await axiosInstance.put(url);
   }
+  static async patch<T>(url: string, payload: T) {
+    return await axiosInstance.patch(url, payload);
+  }
 }

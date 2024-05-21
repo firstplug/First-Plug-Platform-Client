@@ -1,4 +1,3 @@
-import ProductDetail from "@/common/ProductDetail";
 import { useStore } from "@/models";
 import { ProductServices } from "@/services";
 import { Product } from "@/types";

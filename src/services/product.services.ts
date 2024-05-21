@@ -23,7 +23,6 @@ export class ProductServices {
       `${BASE_URL}/api/products`,
       productData
     );
-    console.log("Respuesta del servicio al crear producto:", response.data);
     return response.data;
   }
 
@@ -36,13 +35,8 @@ export class ProductServices {
         `${BASE_URL}/api/products/${id}`,
         data
       );
-      console.log(
-        "Respuesta del servicio al actualizar producto:",
-        response.data
-      );
       return response.data;
     } catch (error) {
-      console.log("Error en el servicio al actualizar producto:", error);
       throw error;
     }
   }

@@ -45,7 +45,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   isUpdate = false,
 }) => {
   const {
-    products: { addProduct, updateProduct, setProductIdToEdit, setTable },
+    products: { addProduct, updateProduct },
     aside: { setAside },
   } = useStore();
   const router = useRouter();
@@ -57,7 +57,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
     handleSubmit,
     setValue,
     clearErrors,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting },
   } = methods;
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
@@ -94,18 +94,23 @@ const ProductForm: React.FC<ProductFormProps> = ({
           formatData
         );
         updateProduct(updatedProduct);
+        setTimeout(() => {
+          setAside(undefined);
+        }, 2000);
+        setShowSuccessDialog(true);
       } else {
         const response = await ProductServices.createProduct(formatData);
         addProduct(response);
+        setShowSuccessDialog(true);
       }
       methods.reset();
       setSelectedCategory(undefined);
       setAssignedEmail(undefined);
-      setShowSuccessDialog(true);
-      setAside(undefined);
       await ProductServices.getAllProducts();
 
-      router.push("/home/my-stock");
+      setTimeout(() => {
+        router.push("/home/my-stock");
+      }, 2000);
     } catch (error) {
       console.log("Error saving product", error);
       setShowErrorDialog(true);

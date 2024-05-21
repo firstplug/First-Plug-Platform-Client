@@ -45,7 +45,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
   isUpdate = false,
 }) => {
   const {
-    products: { addProduct, updateProduct },
+    products: { addProduct, updateProduct, setProductIdToEdit, setTable },
+    aside: { setAside },
   } = useStore();
   const router = useRouter();
   const methods = useForm({
@@ -87,13 +88,12 @@ const ProductForm: React.FC<ProductFormProps> = ({
     };
 
     try {
-      console.log("isUpdate:", isUpdate);
-      console.log("initialData:", initialData);
-      console.log("formatData:", formatData);
       if (isUpdate && initialData) {
-        await ProductServices.updateProduct(initialData._id, formatData);
-        console.log("despues de update", initialData._id, formatData);
-        updateProduct(formatData);
+        const updatedProduct = await ProductServices.updateProduct(
+          initialData._id,
+          formatData
+        );
+        updateProduct(updatedProduct);
       } else {
         const response = await ProductServices.createProduct(formatData);
         addProduct(response);
@@ -102,6 +102,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
       setSelectedCategory(undefined);
       setAssignedEmail(undefined);
       setShowSuccessDialog(true);
+      setAside(undefined);
+      await ProductServices.getAllProducts();
+
+      router.push("/home/my-stock");
     } catch (error) {
       console.log("Error saving product", error);
       setShowErrorDialog(true);
@@ -158,31 +162,33 @@ const ProductForm: React.FC<ProductFormProps> = ({
             />
           </aside>
         </div>
-        <GenericAlertDialog
-          open={showSuccessDialog}
-          onClose={() => setShowSuccessDialog(false)}
-          title="Success"
-          description={`Your product has been successfully ${
-            isUpdate ? "updated" : "added"
-          } to your stock.`}
-          buttonText="OK"
-          onButtonClick={() => {
-            setShowSuccessDialog(false);
-            router.push("/home/my-stock");
-          }}
-        />
-        <GenericAlertDialog
-          open={showErrorDialog}
-          onClose={() => setShowErrorDialog(false)}
-          title="Error"
-          description={`Error ${
-            isUpdate ? "updating" : "creating"
-          } your product, please check the data and try again.`}
-          buttonText="OK"
-          onButtonClick={() => {
-            setShowErrorDialog(false);
-          }}
-        />
+        <div className="z-50">
+          <GenericAlertDialog
+            open={showSuccessDialog}
+            onClose={() => setShowSuccessDialog(false)}
+            title="Success"
+            description={`Your product has been successfully ${
+              isUpdate ? "updated" : "added"
+            } to your stock.`}
+            buttonText="OK"
+            onButtonClick={() => {
+              setShowSuccessDialog(false);
+              router.push("/home/my-stock");
+            }}
+          />
+          <GenericAlertDialog
+            open={showErrorDialog}
+            onClose={() => setShowErrorDialog(false)}
+            title="Error"
+            description={`Error ${
+              isUpdate ? "updating" : "creating"
+            } your product, please check the data and try again.`}
+            buttonText="OK"
+            onButtonClick={() => {
+              setShowErrorDialog(false);
+            }}
+          />
+        </div>
       </PageLayout>
     </FormProvider>
   );

@@ -52,6 +52,8 @@ export const ProductsStore = types
     },
     updateProduct(product: Product) {
       const index = store.products.findIndex((p) => p._id === product._id);
-      store.products[index] = product;
+      if (index > -1) {
+        store.products[index] = product;
+      }
     },
   }));

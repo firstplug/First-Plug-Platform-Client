@@ -78,7 +78,7 @@ export type Product = Instance<typeof ProductModel>;
 export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   _id: "",
   name: "",
-  category: undefined,
+  category: "Other",
   attributes: cast([]),
   status: "Available",
   deleted: false,
@@ -159,7 +159,7 @@ export const zodCreateProductModel = z.object({
     .optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
-  deletedAt: z.string().optional(),
+  deletedAt: z.string().optional().nullable(),
   deleted: z.boolean().optional(),
   serialNumber: z.string().optional(),
 });

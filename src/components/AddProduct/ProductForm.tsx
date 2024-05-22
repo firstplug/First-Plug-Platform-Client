@@ -112,7 +112,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
         router.push("/home/my-stock");
       }, 2000);
     } catch (error) {
-      console.log("Error saving product", error);
       setShowErrorDialog(true);
     }
   };

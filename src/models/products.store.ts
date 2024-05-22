@@ -50,6 +50,12 @@ export const ProductsStore = types
     addProduct(product: Product) {
       store.products.push(product);
     },
+    deleteProduct(id: string) {
+      const product = store.products.find((product) => product._id === id);
+      if (product) {
+        product.deleted = true;
+      }
+    },
     updateProduct(product: Product) {
       const index = store.products.findIndex((p) => p._id === product._id);
       if (index > -1) {

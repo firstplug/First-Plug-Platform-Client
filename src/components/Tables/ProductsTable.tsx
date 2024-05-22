@@ -22,6 +22,7 @@ import MemberName from "./helpers/MemberName";
 import { ActionButton } from "./Product/ActionButton";
 import { DeleteAction } from "../Alerts";
 import EditProduct from "./Product/EditProduct";
+import FormatedDate from "./helpers/FormatedDate";
 
 interface ProductColumnsInterface {
   handleSelectProducts: (products: Product[]) => void;
@@ -126,11 +127,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     accessorFn: (row) => row.acquisitionDate,
     header: "Acquisition Date ",
 
-    cell: ({ getValue }) => (
-      <span className="text-md font-semibold">
-        {new Date(getValue<string>()).toLocaleDateString()}
-      </span>
-    ),
+    cell: ({ getValue }) => <FormatedDate date={getValue<string>()} />,
   },
   {
     accessorFn: (row) => row.assignedEmail,

@@ -108,7 +108,7 @@ export const LoadAside = function () {
         }
       }
     } catch (error) {
-      returntoast({
+      return toast({
             title:
               "The uploaded file is not correct. Please verify it and try again.  ",
             variant: "destructive",

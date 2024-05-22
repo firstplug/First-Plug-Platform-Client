@@ -23,6 +23,7 @@ import { ActionButton } from "./Product/ActionButton";
 import { DeleteAction } from "../Alerts";
 import { observer } from "mobx-react-lite";
 import EditProduct from "./Product/EditProduct";
+import FormatedDate from "./helpers/FormatedDate";
 
 interface ProductColumnsInterface {
   handleSelectProducts: (products: Product[]) => void;
@@ -127,11 +128,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     accessorFn: (row) => row.acquisitionDate,
     header: "Acquisition Date ",
 
-    cell: ({ getValue }) => (
-      <span className="text-md font-semibold">
-        {new Date(getValue<string>()).toLocaleDateString()}
-      </span>
-    ),
+    cell: ({ getValue }) => <FormatedDate date={getValue<string>()} />,
   },
   {
     accessorFn: (row) => row.assignedEmail,
@@ -166,7 +163,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     cell: ({ row }) => (
       <div className="flex justify-end px-2">
         <EditProduct product={row.original} />
-        <DeleteAction type="product" />
+        <DeleteAction type="product" id={row.original._id} />
       </div>
     ),
   },

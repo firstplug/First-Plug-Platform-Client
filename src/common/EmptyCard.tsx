@@ -59,6 +59,9 @@ const Config: Record<EmptyCardType, TConfig> = {
     linkText: "Shop Now",
     additionalButtonText: "Add Product",
     additionalButtonIcon: AddIcon,
+    additionalOnClick: () => {
+      window.location.href = "/home/my-stock/addOneProduct";
+    },
   },
   members: {
     image: "/girl.svg",
@@ -129,6 +132,7 @@ export function EmptyCard({ type }: EmptyCardProps) {
     paragraph2,
     additionalButtonIcon,
     additionalButtonText,
+    additionalOnClick,
   } = Config[type];
 
   const {
@@ -165,7 +169,7 @@ export function EmptyCard({ type }: EmptyCardProps) {
             size="big"
             icon={additionalButtonIcon()}
             className="p-3 rounded-md gap-2"
-            onClick={() => {}}
+            onClick={additionalOnClick}
           />
         )}
         {ButtonIcon && (

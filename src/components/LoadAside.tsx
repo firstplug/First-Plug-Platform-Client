@@ -68,11 +68,17 @@ export const LoadAside = function () {
           clearCsvData();
           setAside(undefined);
           return toast({
-            title: "csv Loaded succesfully",
+            title: "The file has been correctly uploaded.   ✅ ",
             variant: "success",
+            duration: 1500,
           });
         } else {
-          throw new Error("error en el tipo de archivo");
+          toast({
+            title:
+              "The uploaded file is not correct. Please verify it and try again.  ",
+            variant: "destructive",
+            duration: 1500,
+          });
         }
       }
 
@@ -97,14 +103,20 @@ export const LoadAside = function () {
             duration: 1500,
           });
         } else {
-          throw new Error("Error en el tipo de archivos");
+          toast({
+            title:
+              "The uploaded file is not correct. Please verify it and try again.  ",
+            variant: "destructive",
+            duration: 1500,
+          });
         }
       }
     } catch (error) {
       return toast({
-        title: "Errror en la carga de archivos",
-        description: "Por favor revisar los datos ingresados en el archivo csv",
+        title:
+          "The uploaded file is not correct. Please verify it and try again.  ",
         variant: "destructive",
+        duration: 1500,
       });
     } finally {
       setIsLoading(false);

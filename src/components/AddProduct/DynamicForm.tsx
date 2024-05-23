@@ -10,7 +10,7 @@ const DynamicForm = ({
   initialValues,
 }) => {
   const { setValue, watch, control } = useFormContext();
-  const [attributes, setAttributes] = useState([]);
+  const [attributes, setAttributes] = useState(initialValues?.attributes || []);
 
   useEffect(() => {
     const newAttributes = fields.map((field) => ({
@@ -33,6 +33,14 @@ const DynamicForm = ({
     }
   }, [isUpdate, initialValues, fields, setValue]);
 
+  const handleChange = (fieldKey, value) => {
+    const updatedAttributes = attributes.map((attr) =>
+      attr.key === fieldKey ? { ...attr, value } : attr
+    );
+    setAttributes(updatedAttributes);
+    handleAttributesChange(updatedAttributes);
+  };
+
   return (
     <div
       className={`grid gap-4   ${
@@ -53,6 +61,7 @@ const DynamicForm = ({
                 selectedOption={value || ""}
                 onChange={(option) => {
                   onChange(option);
+                  handleChange(field.name, option);
                   const updatedAttributes = attributes.map((attr) =>
                     attr.key === field.name ? { ...attr, value: option } : attr
                   );

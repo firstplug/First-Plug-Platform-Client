@@ -86,14 +86,45 @@ const ProductForm: React.FC<ProductFormProps> = ({
       ...data,
       status: data.assignedEmail ? "Delivered" : "Available",
       category: selectedCategory || "Other",
-      attributes: cast(attributes.map((attr) => AttributeModel.create(attr))),
+      attributes: cast(
+        attributes.map((attr) => {
+          const initialAttr = initialData?.attributes.find(
+            (ia) => ia.key === attr.key
+          );
+          return {
+            ...AttributeModel.create(attr),
+            value:
+              attr.value !== ""
+                ? attr.value
+                : initialAttr
+                ? initialAttr.value
+                : attr.value,
+          };
+        })
+      ),
     };
 
     try {
       if (isUpdate && initialData) {
+        const changes: Partial<Product> = {};
+        const requiredFields = ["name", "category", "location", "status"];
+        requiredFields.forEach((field) => {
+          changes[field] = formatData[field];
+        });
+
+        Object.keys(formatData).forEach((key) => {
+          if (formatData[key] !== initialData[key]) {
+            changes[key] = formatData[key];
+          }
+        });
+
+        if (Object.keys(changes).length === 0) {
+          setShowSuccessDialog(true);
+          return;
+        }
         const updatedProduct = await ProductServices.updateProduct(
           initialData._id,
-          formatData
+          changes
         );
         updateProduct(updatedProduct);
         setTimeout(() => {

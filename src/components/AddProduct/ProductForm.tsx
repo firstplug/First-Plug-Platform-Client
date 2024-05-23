@@ -126,11 +126,13 @@ const ProductForm: React.FC<ProductFormProps> = ({
           initialData._id,
           changes
         );
-        updateProduct(updatedProduct);
-        setTimeout(() => {
-          setAside(undefined);
-        }, 2000);
         setShowSuccessDialog(true);
+        updateProduct(updatedProduct);
+
+        setAside(undefined);
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
       } else {
         const response = await ProductServices.createProduct(formatData);
         addProduct(response);

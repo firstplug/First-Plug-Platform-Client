@@ -63,15 +63,17 @@ export const LoadAside = function () {
 
         if (success) {
           await CsvServices.bulkCreateProducts(data.prdoucts);
-          const prodcuts = await ProductServices.getTableFormat();
-          setTable(prodcuts);
+
           clearCsvData();
-          setAside(undefined);
-          return toast({
+          toast({
             title: "The file has been correctly uploaded.   ✅ ",
             variant: "success",
             duration: 1500,
           });
+          setAside(undefined);
+          const prodcuts = await ProductServices.getTableFormat();
+          setTable(prodcuts);
+          location.reload();
         } else {
           toast({
             title:

@@ -71,11 +71,13 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
   const handleCategoryChange = useCallback(
     (category: Category | undefined) => {
-      setSelectedCategory(category);
-      setValue("category", category || undefined);
-      setValue("recoverable", category !== "Merchandising");
+      if (!isUpdate) {
+        setSelectedCategory(category);
+        setValue("category", category || undefined);
+        setValue("recoverable", category !== "Merchandising");
+      }
     },
-    [setValue]
+    [isUpdate, setValue]
   );
 
   const handleSaveProduct = async (data: Product) => {
@@ -142,7 +144,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
             </div>
             {selectedCategory && (
               <div className="flex flex-col lg:flex:row gap-4 max-h-[100%] h-[90%] w-full  mt-4">
-                <div className="px-4 py-6 rounded-3xl border overflow-y-auto max-h-[400px] pb-24">
+                <div className="px-4 py-6 rounded-3xl border overflow-y-auto max-h-[500px] pb-40">
                   <section>
                     <DynamicForm
                       fields={FormConfig.fields}

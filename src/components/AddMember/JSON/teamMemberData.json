@@ -1,0 +1,26 @@
+[
+  {
+    "name": "teamName",
+    "title": "Team Name",
+    "type": "text",
+    "placeholder": "Team Name",
+    "required": "",
+    "width": "w-1/3"
+  },
+  {
+    "name": "jobPosition",
+    "title": "Job Position",
+    "type": "text",
+    "placeholder": "Job Position",
+    "required": "",
+    "width": "w-1/3"
+  },
+  {
+    "name": "startDate",
+    "title": "Start Date",
+    "type": "date",
+    "placeholder": "Start Date",
+    "required": "",
+    "width": "w-1/3"
+  }
+]

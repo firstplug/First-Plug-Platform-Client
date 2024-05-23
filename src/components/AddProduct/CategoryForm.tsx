@@ -101,6 +101,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
               clearErrors("category");
             }}
             required="required"
+            disabled={isUpdate}
           />
           <div className="min-h-[24px]">
             {errors.category && (

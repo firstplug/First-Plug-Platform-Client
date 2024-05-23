@@ -71,11 +71,13 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
   const handleCategoryChange = useCallback(
     (category: Category | undefined) => {
-      setSelectedCategory(category);
-      setValue("category", category || undefined);
-      setValue("recoverable", category !== "Merchandising");
+      if (!isUpdate) {
+        setSelectedCategory(category);
+        setValue("category", category || undefined);
+        setValue("recoverable", category !== "Merchandising");
+      }
     },
-    [setValue]
+    [isUpdate, setValue]
   );
 
   const handleSaveProduct = async (data: Product) => {
@@ -84,14 +86,45 @@ const ProductForm: React.FC<ProductFormProps> = ({
       ...data,
       status: data.assignedEmail ? "Delivered" : "Available",
       category: selectedCategory || "Other",
-      attributes: cast(attributes.map((attr) => AttributeModel.create(attr))),
+      attributes: cast(
+        attributes.map((attr) => {
+          const initialAttr = initialData?.attributes.find(
+            (ia) => ia.key === attr.key
+          );
+          return {
+            ...AttributeModel.create(attr),
+            value:
+              attr.value !== ""
+                ? attr.value
+                : initialAttr
+                ? initialAttr.value
+                : attr.value,
+          };
+        })
+      ),
     };
 
     try {
       if (isUpdate && initialData) {
+        const changes: Partial<Product> = {};
+        const requiredFields = ["name", "category", "location", "status"];
+        requiredFields.forEach((field) => {
+          changes[field] = formatData[field];
+        });
+
+        Object.keys(formatData).forEach((key) => {
+          if (formatData[key] !== initialData[key]) {
+            changes[key] = formatData[key];
+          }
+        });
+
+        if (Object.keys(changes).length === 0) {
+          setShowSuccessDialog(true);
+          return;
+        }
         const updatedProduct = await ProductServices.updateProduct(
           initialData._id,
-          formatData
+          changes
         );
         updateProduct(updatedProduct);
         setTimeout(() => {
@@ -123,8 +156,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
     <FormProvider {...methods}>
       <PageLayout>
         <div className="h-full w-full ">
-          <div className="absolute max-h-[90%] h-[90%] w-[80%] overflow-y-auto pr-4">
-            <div className="px-10 py-4 rounded-3xl border">
+          <div className="absolute h-[90%] w-[80%] overflow-y-auto pr-4">
+            <div className="px-4 py-2 rounded-3xl border">
               <SectionTitle className="text-[20px]">
                 {isUpdate ? "" : "Add Product"}
               </SectionTitle>
@@ -142,8 +175,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
               </section>
             </div>
             {selectedCategory && (
-              <div className="flex flex-col lg:flex:row gap-4 max-h-[90%] h-[90%] w-full overflow-y-auto mt-4">
-                <div className="px-10 py-4 rounded-3xl border">
+              <div className="flex flex-col lg:flex:row gap-4 max-h-[100%] h-[90%] w-full  mt-4">
+                <div className="px-4 py-6 rounded-3xl border overflow-y-auto max-h-[500px] pb-40">
                   <section>
                     <DynamicForm
                       fields={FormConfig.fields}

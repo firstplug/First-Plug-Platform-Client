@@ -78,7 +78,7 @@ export type Product = Instance<typeof ProductModel>;
 export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   _id: "",
   name: "",
-  category: "Other",
+  category: undefined,
   attributes: cast([]),
   status: "Available",
   deleted: false,

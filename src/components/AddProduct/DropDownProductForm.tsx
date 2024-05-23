@@ -12,6 +12,7 @@ interface DropdownInputProductFormProps {
   required?: string;
   name: string;
   value?: string;
+  disabled?: boolean;
 }
 
 export function DropdownInputProductForm({
@@ -22,19 +23,24 @@ export function DropdownInputProductForm({
   onChange,
   className,
   name,
+  disabled,
 }: DropdownInputProductFormProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string>(selectedOption);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    if (!disabled) {
+      setIsOpen(!isOpen);
+    }
   };
 
   const handleOptionClick = (option: string) => {
-    onChange && onChange(option);
-    setSelectedValue(option);
-    setIsOpen(false);
+    if (!disabled) {
+      onChange && onChange(option);
+      setSelectedValue(option);
+      setIsOpen(false);
+    }
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -69,6 +75,7 @@ export function DropdownInputProductForm({
           onClick={toggleDropdown}
           className={`w-full h-14 py-2 pl-4 pr-12 rounded-xl border text-black p-4 font-sans focus:outline-none`}
           name={name}
+          disabled={disabled}
         />
         <div onClick={toggleDropdown}>
           <ChevronDown

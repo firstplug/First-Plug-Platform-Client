@@ -11,6 +11,7 @@ import { useState } from "react";
 import { ProductServices } from "@/services";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
+import { Loader } from "../Loader";
 
 type DeleteTypes = "product" | "member";
 
@@ -27,6 +28,7 @@ interface DeleteAlertProps {
 export const DeleteAction: React.FC<DeleteAlertProps> = observer(
   ({ type, id }) => {
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const {
@@ -38,16 +40,15 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
         if (!id) {
           throw new Error("Product ID is undefined");
         }
+        setLoading(true);
         await ProductServices.deleteProduct(id);
         deleteProduct(id);
-
         setOpen(false);
+        setLoading(false);
         setShowSuccessDialog(true);
         setTimeout(async () => {
-          setShowSuccessDialog(false);
-          const updatedTable = await ProductServices.getTableFormat();
-          setTable(updatedTable);
-        }, 3000);
+          location.reload();
+        }, 1500);
       } catch (error) {
         setOpen(false);
         setTimeout(() => {
@@ -78,32 +79,39 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
           <DialogTrigger onClick={() => setOpen(true)}>
             <TrashIcon color="red" strokeWidth={2} />
           </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle className="text-xl   ">{title}</DialogTitle>
-              <DialogTitle className="text-md font-normal">
-                {description}
-              </DialogTitle>
-            </DialogHeader>
-            <DialogDescription className="text-md   ">
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="secondary"
-                  onClick={() => setOpen(false)}
-                  className="w-full "
-                >
-                  <p>Cancel</p>
-                </Button>
-                <Button
-                  variant="delete"
-                  onClick={deleteAction}
-                  className="w-full bg-error"
-                >
-                  <p>Delete</p>
-                </Button>
-              </div>
-            </DialogDescription>
-          </DialogContent>
+          {!loading ? (
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle className="text-xl   ">{title}</DialogTitle>
+                <DialogTitle className="text-md font-normal">
+                  {description}
+                </DialogTitle>
+              </DialogHeader>
+              <DialogDescription className="text-md   ">
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="secondary"
+                    onClick={() => setOpen(false)}
+                    className="w-full "
+                  >
+                    <p>Cancel</p>
+                  </Button>
+                  <Button
+                    disabled={loading}
+                    variant="delete"
+                    onClick={deleteAction}
+                    className="w-full bg-error"
+                  >
+                    <p>Delete</p>
+                  </Button>
+                </div>
+              </DialogDescription>
+            </DialogContent>
+          ) : (
+            <DialogContent>
+              <Loader />
+            </DialogContent>
+          )}
         </Dialog>
         <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
           <DialogContent>

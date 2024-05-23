@@ -21,6 +21,7 @@ import PrdouctModelDetail from "@/common/PrdouctModelDetail";
 import MemberName from "./helpers/MemberName";
 import { ActionButton } from "./Product/ActionButton";
 import { DeleteAction } from "../Alerts";
+import { observer } from "mobx-react-lite";
 import EditProduct from "./Product/EditProduct";
 import FormatedDate from "./helpers/FormatedDate";
 
@@ -171,7 +172,9 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
 interface ProductTableProps {
   products: ProductTable[];
 }
-export function ProductsTable({ products }: ProductTableProps) {
+export var ProductsTable = observer(function ProductsTable({
+  products,
+}: ProductTableProps) {
   const [productsDetails, setProductsDetails] = useState<Product[]>();
 
   const handleSelectProducts = (products: Product[]) =>
@@ -192,4 +195,4 @@ export function ProductsTable({ products }: ProductTableProps) {
       }
     />
   );
-}
+});

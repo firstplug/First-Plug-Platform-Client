@@ -14,7 +14,7 @@ import {
   csvProductModel,
   csvSquema,
 } from "@/types";
-import { CsvServices } from "@/services";
+import { CsvServices, ProductServices } from "@/services";
 import { isProductCompleted, parseProduct } from "@/utils";
 import { useToast } from "./ui/use-toast";
 import { DownloadStock } from "./Download";
@@ -30,7 +30,8 @@ export const LoadAside = function () {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const {
-    aside: { type },
+    aside: { type, setAside },
+    products: { setTable },
   } = useStore();
 
   const clearCsvData = () => {
@@ -62,12 +63,17 @@ export const LoadAside = function () {
 
         if (success) {
           await CsvServices.bulkCreateProducts(data.prdoucts);
+
           clearCsvData();
-            return toast({
+          toast({
             title: "The file has been correctly uploaded.   ✅ ",
             variant: "success",
             duration: 1500,
           });
+          setAside(undefined);
+          const prodcuts = await ProductServices.getTableFormat();
+          setTable(prodcuts);
+          location.reload();
         } else {
           toast({
             title:
@@ -109,11 +115,11 @@ export const LoadAside = function () {
       }
     } catch (error) {
       return toast({
-            title:
-              "The uploaded file is not correct. Please verify it and try again.  ",
-            variant: "destructive",
-            duration: 1500,
-          });
+        title:
+          "The uploaded file is not correct. Please verify it and try again.  ",
+        variant: "destructive",
+        duration: 1500,
+      });
     } finally {
       setIsLoading(false);
     }

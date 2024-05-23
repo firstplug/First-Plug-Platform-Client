@@ -45,7 +45,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   isUpdate = false,
 }) => {
   const {
-    products: { addProduct, updateProduct },
+    products: { addProduct, updateProduct, setTable },
     aside: { setAside },
   } = useStore();
   const router = useRouter();
@@ -106,7 +106,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
       methods.reset();
       setSelectedCategory(undefined);
       setAssignedEmail(undefined);
-      await ProductServices.getAllProducts();
+      const products = await ProductServices.getTableFormat();
+      setTable(products);
 
       setTimeout(() => {
         router.push("/home/my-stock");

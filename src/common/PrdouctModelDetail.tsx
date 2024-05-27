@@ -11,7 +11,7 @@ export default function PrdouctModelDetail({
 
   const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
     Merchandising: [],
-    Computer: ["brand", "model", "processor", "ram", "storage"],
+    Computer: [, "processor", "ram", "storage"],
     Monitor: ["brand", "model", "screen"],
     Audio: ["brand", "model"],
     Peripherals: ["brand", "model"],
@@ -27,15 +27,26 @@ export default function PrdouctModelDetail({
   };
 
   return (
-    <div className="flex gap-4 text-md">
-      {categoryKeys.map((cat) => (
-        <div className="flex flex-col    " key={cat}>
-          <span className="font-normal   ">{cat}</span>
-          <span className="font-thin text-dark-grey -mt-1">
-            {getValue(cat) || "-"}
-          </span>
-        </div>
-      ))}
+    <div className="flex flex-col">
+      {product.category === "Merchandising" ? (
+        <span className="text-xl">{product.name}</span>
+      ) : (
+        <span className="text-xl">
+          {getValue("brand")} {getValue("model")}
+        </span>
+      )}
+      <div className="flex gap-4 text-md">
+        {categoryKeys
+          .filter((c) => c !== "brand" && c !== "model")
+          .map((cat) => (
+            <div className="flex flex-col    " key={cat}>
+              <span className="font-normal   ">{cat} </span>
+              <span className="font-thin text-dark-grey -mt-1">
+                {getValue(cat) || "-"}
+              </span>
+            </div>
+          ))}
+      </div>
     </div>
   );
 }

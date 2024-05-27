@@ -50,10 +50,7 @@ export const productColumns: ({
     header: "Name",
     size: 200,
     cell: ({ row, getValue }) => (
-      <div className="flex flex-col">
-        <span className="text-xl">{getValue<string>()}</span>
-        <PrdouctModelDetail product={row.original.products[0]} />
-      </div>
+      <PrdouctModelDetail product={row.original.products[0]} />
     ),
     footer: (props) => props.column.id,
   },

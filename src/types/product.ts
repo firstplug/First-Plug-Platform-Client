@@ -87,7 +87,7 @@ export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   createdAt: "",
   updatedAt: "",
   deletedAt: "",
-  location: "",
+  location: undefined,
   assignedEmail: undefined,
   serialNumber: "",
 };
@@ -129,39 +129,76 @@ export type PrdouctModelZod = z.infer<typeof zodProductModel>;
 
 // -------- create my own zod schema for the createProductform
 
-export const zodCreateProductModel = z.object({
-  _id: z.string().optional(),
-  name: z.string().min(1, "Name is required"),
-  category: z.enum(CATEGORIES, {
-    required_error: "Category is required",
-    invalid_type_error: "Invalid category",
-  }),
-  assignedEmail: z
-    .string()
-    .optional()
-    .refine(
-      (value) => value !== undefined && value !== null && value !== "None",
-      {
-        message: "Assigned Member is required",
+export const zodCreateProductModel = z
+  .object({
+    _id: z.string().optional(),
+    name: z.string().optional(),
+    category: z.enum(CATEGORIES, {
+      required_error: "Category is required",
+      invalid_type_error: "Invalid category",
+    }),
+    attributes: z
+      .array(
+        z.object({
+          key: z.enum(KEYS),
+          value: z.string().optional().default(""),
+        })
+      )
+      .refine(
+        (attrs) => {
+          const keys = attrs.map((attr) => attr.key);
+          return new Set(keys).size === keys.length;
+        },
+        {
+          message: "Attribute keys must be unique.",
+        }
+      ),
+    serialNumber: z.string().optional(),
+    recoverable: z.boolean().default(true).optional(),
+    assignedEmail: z
+      .string()
+      .optional()
+      .refine(
+        (value) => value !== undefined && value !== null && value !== "None",
+        {
+          message: "Assigned Member is required",
+        }
+      ),
+    acquisitionDate: z.string().optional(),
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional(),
+    deletedAt: z.string().optional().nullable(),
+    deleted: z.boolean().optional(),
+    location: z.enum(LOCATION, {
+      required_error: "Location is required",
+      invalid_type_error: "Invalid location",
+    }),
+    status: z.string().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.category === "Merchandising" && !data.name) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Name is required for Merchandising category.",
+        path: ["name"],
+      });
+    }
+    if (data.category === "Merchandising") {
+      data.recoverable = false;
+    } else {
+      data.recoverable = true;
+    }
+  })
+  .refine(
+    (data) => {
+      if (data.category === "Merchandising" && data.recoverable) {
+        return false;
       }
-    ),
-  status: z.string().optional(),
-  location: z.string().min(1, "Location is required"),
-  recoverable: z.boolean().optional(),
-  acquisitionDate: z.string().optional(),
-  attributes: z
-    .array(
-      z.object({
-        key: z.enum(KEYS),
-        value: z.string().optional().nullable(),
-      })
-    )
-    .optional(),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
-  deletedAt: z.string().optional().nullable(),
-  deleted: z.boolean().optional(),
-  serialNumber: z.string().optional(),
-});
+      return true;
+    },
+    {
+      message: "Merchandising products must not be recoverable.",
+    }
+  );
 
 export type CreateProductModel = z.infer<typeof zodCreateProductModel>;

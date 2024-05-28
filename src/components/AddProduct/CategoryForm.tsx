@@ -86,7 +86,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
     <div className="w-full">
       <div
         className={`grid gap-4 ${
-          isUpdate ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 lg:grid-cols-2"
+          isUpdate ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 lg:grid-cols-3"
         }`}
       >
         <div className="w-full lg:w-full">
@@ -109,60 +109,6 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             )}
           </div>
         </div>
-
-        <div className="w-full lg:w-full">
-          <InputProductForm
-            name="name"
-            type="text"
-            value={watch("name") as string}
-            onChange={(e) => handleInputChange("name", e.target.value)}
-            placeholder="Product Name"
-            title="Product Name*"
-            required="required"
-          />
-          <div className="min-h-[24px]">
-            {errors.name && (
-              <p className="text-red-500">{(errors.name as any)?.message}</p>
-            )}
-          </div>
-        </div>
-      </div>
-      <div
-        className={`grid gap-4 mt-4 ${
-          isUpdate ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 lg:grid-cols-4"
-        }`}
-      >
-        <div className="w-full">
-          <InputProductForm
-            placeholder="Acquisition Date"
-            title="Acquisition Date"
-            type="date"
-            value={
-              watch("acquisitionDate")
-                ? (watch("acquisitionDate") as string).split("T")[0]
-                : ""
-            }
-            name="acquisitionDate"
-            onChange={(e) =>
-              handleInputChange(
-                "acquisitionDate",
-                new Date(e.target.value).toISOString()
-              )
-            }
-          />
-        </div>
-        <div className="w-full">
-          <InputProductForm
-            placeholder="Serial Number"
-            title="Serial Number"
-            type="text"
-            value={watch("serialNumber") as string}
-            name="serialNumber"
-            onChange={(e) => handleInputChange("serialNumber", e.target.value)}
-            className="w-full "
-          />
-        </div>
-
         <div className="w-full">
           <DropdownInputProductForm
             options={memberFullNames}
@@ -219,6 +165,42 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
               className="w-full"
             />
           )}
+        </div>
+      </div>
+      <div
+        className={`grid gap-4 mt-4 ${
+          isUpdate ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 lg:grid-cols-4"
+        }`}
+      >
+        <div className="w-full">
+          <InputProductForm
+            placeholder="Acquisition Date"
+            title="Acquisition Date"
+            type="date"
+            value={
+              watch("acquisitionDate")
+                ? (watch("acquisitionDate") as string).split("T")[0]
+                : ""
+            }
+            name="acquisitionDate"
+            onChange={(e) =>
+              handleInputChange(
+                "acquisitionDate",
+                new Date(e.target.value).toISOString()
+              )
+            }
+          />
+        </div>
+        <div className="w-full">
+          <InputProductForm
+            placeholder="Serial Number"
+            title="Serial Number"
+            type="text"
+            value={watch("serialNumber") as string}
+            name="serialNumber"
+            onChange={(e) => handleInputChange("serialNumber", e.target.value)}
+            className="w-full "
+          />
         </div>
       </div>
     </div>

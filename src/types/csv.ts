@@ -19,7 +19,24 @@ export const csvProductModel = z
     storage: z.string().optional(),
     gpu: z.string().optional(),
     serialNumber: z.string().optional(),
-    "location*": z.string().optional(),
+    "location*": z.enum(LOCATION).superRefine((value, ctx) => {
+      if (!value) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["location"],
+          message: `The field 'location' is required.`,
+        });
+      } else {
+        // @ts-ignore
+        if (!LOCATION.includes(value)) {
+          ctx.addIssue({
+            code: "custom",
+            path: ["location"],
+            message: ` "${value}" is not correct value for Location .`,
+          });
+        }
+      }
+    }),
     assignedEmail: z.string().optional(),
   })
   .superRefine((data, ctx) => {
@@ -44,23 +61,6 @@ export const csvProductModel = z
           code: "custom",
           path: ["brand*"],
           message: `The field 'brand' is required for ${data["category*"]} category.`,
-        });
-      }
-    }
-
-    if (!data["location*"]) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["location"],
-        message: `The field 'location' is required.`,
-      });
-    } else {
-      // @ts-ignore
-      if (!LOCATION.includes(data["location*"])) {
-        ctx.addIssue({
-          code: "custom",
-          path: ["location"],
-          message: ` "${data["location*"]}" is not correct value for Location .`,
         });
       }
     }

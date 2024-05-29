@@ -60,6 +60,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   } = methods;
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<
     Category | undefined
   >(initialData?.category);
@@ -80,6 +81,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
   );
 
   const handleSaveProduct = async (data: Product) => {
+    setShowSuccessDialog(false);
+    setShowErrorDialog(false);
+    setErrorMessage("");
+
     const formatData: Product = {
       ...emptyProduct,
       ...data,
@@ -101,6 +106,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
           };
         })
       ),
+      serialNumber: data.serialNumber?.trim() === "" ? null : data.serialNumber,
     };
 
     try {
@@ -118,6 +124,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
         });
 
         if (Object.keys(changes).length === 0) {
+          console.log("No hay cambios para actualizar");
           setShowSuccessDialog(true);
           return;
         }
@@ -147,6 +154,16 @@ const ProductForm: React.FC<ProductFormProps> = ({
         router.push("/home/my-stock");
       }, 2000);
     } catch (error) {
+      console.error("Error al guardar el producto", error);
+      if (error.response?.data?.message === "Serial Number already exists") {
+        setErrorMessage("Serial Number already exists");
+      } else {
+        setErrorMessage(
+          `Error ${
+            isUpdate ? "updating" : "creating"
+          } your product, please check the data and try again.`
+        );
+      }
       setShowErrorDialog(true);
     }
   };
@@ -219,9 +236,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
             open={showErrorDialog}
             onClose={() => setShowErrorDialog(false)}
             title="Error"
-            description={`Error ${
-              isUpdate ? "updating" : "creating"
-            } your product, please check the data and try again.`}
+            description={errorMessage}
             buttonText="OK"
             onButtonClick={() => {
               setShowErrorDialog(false);

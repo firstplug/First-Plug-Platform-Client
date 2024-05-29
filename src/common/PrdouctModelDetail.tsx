@@ -11,7 +11,7 @@ export default function PrdouctModelDetail({
 
   const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
     Merchandising: [],
-    Computer: [, "processor", "ram", "storage"],
+    Computer: ["processor", "ram", "storage", "screen"],
     Monitor: ["brand", "model", "screen"],
     Audio: ["brand", "model"],
     Peripherals: ["brand", "model"],
@@ -31,9 +31,14 @@ export default function PrdouctModelDetail({
       {product.category === "Merchandising" ? (
         <span className="text-xl">{product.name}</span>
       ) : (
-        <span className="text-xl">
-          {getValue("brand")} {getValue("model")}
-        </span>
+        <div className="flex gap-1 text-[18px]">
+          <span className="font-semibold">
+            {product.attributes.filter((at) => at.key === "brand")[0].value}
+          </span>
+          <span className=" font-normal">
+            {product.attributes.filter((at) => at.key === "model")[0].value}
+          </span>
+        </div>
       )}
       <div className="flex gap-4 text-md">
         {categoryKeys

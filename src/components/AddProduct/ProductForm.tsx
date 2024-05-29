@@ -9,7 +9,6 @@ import {
   AttributeModel,
   emptyProduct,
   zodCreateProductModel,
-  CreateProductModel,
 } from "@/types";
 import CategoryForm from "@/components/AddProduct/CategoryForm";
 import { ProductServices } from "@/services/product.services";

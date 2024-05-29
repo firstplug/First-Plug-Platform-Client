@@ -124,7 +124,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
         });
 
         if (Object.keys(changes).length === 0) {
-          console.log("No hay cambios para actualizar");
           setShowSuccessDialog(true);
           return;
         }
@@ -132,8 +131,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
           initialData._id,
           changes
         );
-        setShowSuccessDialog(true);
+
         updateProduct(updatedProduct);
+        setShowSuccessDialog(true);
 
         setAside(undefined);
         setTimeout(() => {
@@ -154,7 +154,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
         router.push("/home/my-stock");
       }, 2000);
     } catch (error) {
-      console.error("Error al guardar el producto", error);
       if (error.response?.data?.message === "Serial Number already exists") {
         setErrorMessage("Serial Number already exists");
       } else {

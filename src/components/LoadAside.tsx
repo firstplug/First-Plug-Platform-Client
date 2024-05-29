@@ -156,8 +156,10 @@ export const LoadAside = function () {
             description: (
               <ol className="text-xs font-normal">
                 File errors:
-                {errors.map((error, index) => (
-                  <li className="list-item"> - {error}</li>
+                {errors.map((error) => (
+                  <li className="list-item" key={error}>
+                    - {error}
+                  </li>
                 ))}
               </ol>
             ),

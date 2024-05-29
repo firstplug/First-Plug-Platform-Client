@@ -130,11 +130,12 @@ export const LoadAside = function () {
       skipEmptyLines: true,
       header: true,
       complete: function (results) {
+        // Here is the UPLOAD  🗃️⬆️  file validation:
         const fileData: CsvProduct[] = results.data.filter((p) =>
           isProductCompleted(p)
         );
         const { name, size } = csvFile;
-        const { success } = csvFileSquema.safeParse(fileData);
+        const { success, error } = csvFileSquema.safeParse(fileData);
 
         if (success) {
           setCsvFile(csvFile);
@@ -144,12 +145,26 @@ export const LoadAside = function () {
             currentDate: new Date().toLocaleString(),
           });
         } else {
+          const errorMessages = error.issues.map((e) => e.message);
+          // @ts-ignore
+          const errors = [...new Set(errorMessages)];
+
           setCsvFile(null);
           toast({
             title:
               "The uploaded file is not correct. Please verify it and try again.  ",
+            description: (
+              <ol className="text-xs font-normal">
+                File errors:
+                {errors.map((error) => (
+                  <li className="list-item" key={error}>
+                    - {error}
+                  </li>
+                ))}
+              </ol>
+            ),
             variant: "destructive",
-            duration: 1500,
+            duration: 4000,
           });
         }
       },

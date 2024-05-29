@@ -9,11 +9,11 @@ export function parseProduct(product: CsvProduct): PrdouctModelZod {
   const arrayOfAttributes: AtrributeZod[] = [
     {
       key: "brand",
-      value: product.brand || "",
+      value: product["brand*"] || "",
     },
     {
       key: "model",
-      value: product.model || "",
+      value: product["model*"] || "",
     },
     {
       key: "color",
@@ -53,13 +53,13 @@ export function parseProduct(product: CsvProduct): PrdouctModelZod {
   const response: PrdouctModelZod = {
     category: product["category*"],
     acquisitionDate: product.acquisitionDate,
-    name: product["name*"],
+    name: product.name,
     location: product["location*"],
     attributes,
     assignedEmail: product.assignedEmail,
     serialNumber: product.serialNumber,
     status: product.assignedEmail ? "Delivered" : "Available",
-    recoverable: false,
+    // recoverable: false,
   };
 
   return response;

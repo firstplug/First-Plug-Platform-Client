@@ -1,33 +1,70 @@
 import { z } from "zod";
 import { CATEGORIES, LOCATION, zodProductModel } from "./product";
 // TODO: After approving this. These types should be the main store types for each 'substore' (product.store and members.store)
-export const csvProductModel = z.object({
-  _id: z.string().optional(),
-  "name*": z
-    .string()
-    .min(1)
-    .refine((val) => val.trim() !== "", {
-      message: "No se pueden ingresar nombres vacíos",
+export const csvProductModel = z
+  .object({
+    _id: z.string().optional(),
+    name: z.string().optional(),
+    acquisitionDate: z.string().optional(),
+    "category*": z.enum(CATEGORIES).refine((val) => CATEGORIES.includes(val), {
+      message: "El valor ingresado no es una categoría válida",
     }),
-  acquisitionDate: z.string().optional(),
-  "category*": z.enum(CATEGORIES).refine((val) => CATEGORIES.includes(val), {
-    message: "El valor ingresado no es una categoría válida",
-  }),
-  model: z.string().optional(),
-  brand: z.string().optional(),
-  color: z.string().optional(),
-  screen: z.string().optional(),
-  keyboardLanguage: z.string().optional(),
-  processor: z.string().optional(),
-  ram: z.string().optional(),
-  storage: z.string().optional(),
-  gpu: z.string().optional(),
-  serialNumber: z.string().optional(),
-  "location*": z.enum(LOCATION).refine((val) => LOCATION.includes(val), {
-    message: "El valor ingresado no es una ubicación válida",
-  }),
-  assignedEmail: z.string().optional(),
-});
+    "model*": z.string().optional(),
+    "brand*": z.string().optional(),
+    color: z.string().optional(),
+    screen: z.string().optional(),
+    keyboardLanguage: z.string().optional(),
+    processor: z.string().optional(),
+    ram: z.string().optional(),
+    storage: z.string().optional(),
+    gpu: z.string().optional(),
+    serialNumber: z.string().optional(),
+    "location*": z.enum(LOCATION).superRefine((value, ctx) => {
+      if (!value) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["location"],
+          message: `The field 'location' is required.`,
+        });
+      } else {
+        // @ts-ignore
+        if (!LOCATION.includes(value)) {
+          ctx.addIssue({
+            code: "custom",
+            path: ["location"],
+            message: ` "${value}" is not correct value for Location .`,
+          });
+        }
+      }
+    }),
+    assignedEmail: z.string().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data["category*"] === "Merchandising") {
+      if (!data.name) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["name"],
+          message: `The field 'name' is required for ${data["category*"]} category`,
+        });
+      }
+    } else {
+      if (!data["model*"]) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["model*"],
+          message: `The field 'model' is required for ${data["category*"]} category.`,
+        });
+      }
+      if (!data["brand*"]) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["brand*"],
+          message: `The field 'brand' is required for ${data["category*"]} category.`,
+        });
+      }
+    }
+  });
 export type CsvProduct = z.infer<typeof csvProductModel>;
 export const csvFileSquema = z.array(csvProductModel);
 export const zodMemberModel = z.object({

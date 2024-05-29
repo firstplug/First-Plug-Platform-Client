@@ -110,7 +110,7 @@ export type AtrributeZod = z.infer<typeof zodAtrributesModel>;
 
 export const zodProductModel = z.object({
   _id: z.string().optional(),
-  name: z.string().min(1),
+  name: z.string().optional(),
   category: z.enum(CATEGORIES),
   acquisitionDate: z.string().optional(),
   attributes: z.array(zodAtrributesModel).optional(),

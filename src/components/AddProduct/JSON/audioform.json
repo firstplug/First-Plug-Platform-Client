@@ -2,12 +2,12 @@
   "fields": [
     {
       "name": "brand",
-      "title": "Brand",
+      "title": "Brand*",
       "options": ["Apple", "Logitech", "Sony", "Other"]
     },
     {
       "name": "model",
-      "title": "Model",
+      "title": "Model*",
       "options": [
         "AirPods 2nd Gen",
         "AirPods 3nd Gen",

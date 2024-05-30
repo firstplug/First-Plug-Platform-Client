@@ -2,7 +2,7 @@
   "fields": [
     {
       "name": "brand",
-      "title": "Brand",
+      "title": "Brand*",
       "options": [
         "Acer",
         "Apple",
@@ -25,7 +25,7 @@
     },
     {
       "name": "model",
-      "title": "Model",
+      "title": "Model*",
       "options": [
         "AirPods 2nd Gen",
         "AirPods 3nd Gen",

@@ -71,7 +71,7 @@ export const ProductModel = types.model({
   deletedAt: types.maybeNull(types.string),
   location: types.optional(types.string, ""),
   assignedEmail: types.optional(types.string, ""),
-  serialNumber: types.optional(types.string, ""),
+  serialNumber: types.maybeNull(types.string),
 });
 export type Product = Instance<typeof ProductModel>;
 

@@ -89,7 +89,7 @@ export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   deletedAt: "",
   location: undefined,
   assignedEmail: undefined,
-  serialNumber: null,
+  serialNumber: "",
 };
 
 export const ProductTableModel = types.model({
@@ -153,7 +153,7 @@ export const zodCreateProductModel = z
           message: "Attribute keys must be unique.",
         }
       ),
-    serialNumber: z.string().nullable().optional(),
+    serialNumber: z.string().optional(),
     recoverable: z.boolean().default(true).optional(),
     assignedEmail: z
       .string()

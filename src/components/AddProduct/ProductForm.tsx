@@ -106,7 +106,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
           };
         })
       ),
-      serialNumber: data.serialNumber?.trim() === "" ? null : data.serialNumber,
+      serialNumber: data.serialNumber?.trim() === "" ? "" : data.serialNumber,
     };
 
     try {

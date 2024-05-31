@@ -134,11 +134,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
         updateProduct(updatedProduct);
         setShowSuccessDialog(true);
-
-        setAside(undefined);
-        setTimeout(() => {
-          location.reload();
-        }, 2000);
       } else {
         const response = await ProductServices.createProduct(formatData);
         addProduct(response);
@@ -228,7 +223,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
             buttonText="OK"
             onButtonClick={() => {
               setShowSuccessDialog(false);
-              router.push("/home/my-stock");
+              setAside(undefined);
+              setTimeout(() => {
+                location.reload();
+              }, 2000);
+              // router.push("/home/my-stock");
             }}
           />
           <GenericAlertDialog

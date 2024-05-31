@@ -13,11 +13,11 @@ export const MemberStore = types
       return store.members.map((member) => ({
         _id: member._id,
         fullName: `${member.firstName}, ${member.lastName}`,
-        dateOfBirth: member.dateOfBirth,
-        jobPosition: member.jobPosition,
-        joiningDate: member.joiningDate,
+        dateOfBirth: member.birthDate,
+        jobPosition: member.birthDate,
+        joiningDate: member.birthDate,
         shipmentDetails: "Complete",
-        teams: member.teams,
+        teams: [member.team],
       }));
     },
     get memberCount() {
@@ -30,8 +30,8 @@ export const MemberStore = types
     get filterMembersByTeam() {
       if (!store.teamFilterItems.length) return store.members;
 
-      return store.members.filter(({ teams }) =>
-        store.teamFilterItems.some((value) => teams.includes(value.toString()))
+      return store.members.filter(({ team }) =>
+        store.teamFilterItems.some((value) => team.includes(value.toString()))
       );
     },
     get memberFullName() {
@@ -55,5 +55,11 @@ export const MemberStore = types
     },
     setSelectedMemberEmail(memberEmail?: TeamMember["email"]) {
       store.selectedMemberEmail = memberEmail;
+    },
+    updateMember(member: TeamMember) {
+      const index = store.members.findIndex((m) => m._id === member._id);
+      if (index !== -1) {
+        store.members[index] = member;
+      }
     },
   }));

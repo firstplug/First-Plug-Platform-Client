@@ -145,9 +145,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
       const products = await ProductServices.getTableFormat();
       setTable(products);
 
-      setTimeout(() => {
-        router.push("/home/my-stock");
-      }, 2000);
+      // setTimeout(() => {
+      //   router.push("/home/my-stock");
+      // }, 2000);
     } catch (error) {
       if (error.response?.data?.message === "Serial Number already exists") {
         setErrorMessage("Serial Number already exists");
@@ -224,10 +224,13 @@ const ProductForm: React.FC<ProductFormProps> = ({
             onButtonClick={() => {
               setShowSuccessDialog(false);
               setAside(undefined);
-              setTimeout(() => {
-                location.reload();
-              }, 2000);
-              // router.push("/home/my-stock");
+              if (isUpdate) {
+                setTimeout(() => {
+                  location.reload();
+                }, 2000);
+              } else {
+                router.push("/home/my-stock");
+              }
             }}
           />
           <GenericAlertDialog

@@ -2,10 +2,10 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { SectionTitle } from "@/common";
-import { DropdownInputProductForm } from "../AddProduct/DropDownProductForm";
 import { InputProductForm } from "../AddProduct/InputProductForm";
 import { CustomLink } from "@/common";
 import { useFormContext, Controller } from "react-hook-form";
+import { TeamDropdown } from "./TeamDropdown";
 
 const EmployeeData = function ({ teams, isUpdate, initialData }) {
   const {
@@ -25,7 +25,7 @@ const EmployeeData = function ({ teams, isUpdate, initialData }) {
           control={control}
           render={({ field }) => (
             <>
-              <DropdownInputProductForm
+              <TeamDropdown
                 name="team"
                 options={teams}
                 placeholder="Team Name"

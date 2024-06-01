@@ -1,14 +1,13 @@
 "use Client";
 import React from "react";
 import { observer } from "mobx-react-lite";
-import { Input, SectionTitle } from "@/common";
+import { SectionTitle } from "@/common";
 import { DropdownInputProductForm } from "../AddProduct/DropDownProductForm";
 import { InputProductForm } from "../AddProduct/InputProductForm";
-import { FormInput } from "@/components";
 import { CustomLink } from "@/common";
 import { useFormContext, Controller } from "react-hook-form";
 
-const EmployeeData = function ({ teams }) {
+const EmployeeData = function ({ teams, isUpdate, initialData }) {
   const {
     setValue,
     watch,
@@ -25,29 +24,41 @@ const EmployeeData = function ({ teams }) {
           name="team"
           control={control}
           render={({ field }) => (
-            <DropdownInputProductForm
-              name="team"
-              options={teams}
-              placeholder="Team Name"
-              title="Team Name"
-              selectedOption={field.value || ""}
-              onChange={(value) => field.onChange(value)}
-              required={"required"}
-            />
+            <>
+              <DropdownInputProductForm
+                name="team"
+                options={teams}
+                placeholder="Team Name"
+                title="Team Name"
+                selectedOption={field.value || ""}
+                onChange={(value) => field.onChange(value)}
+                required={"required"}
+              />
+              {errors.team && (
+                <p className="text-red-500">{String(errors.team?.message)}</p>
+              )}
+            </>
           )}
         />
         <Controller
           name="position"
           control={control}
           render={({ field }) => (
-            <InputProductForm
-              placeholder="Job Position"
-              title="Job Position"
-              type="text"
-              value={field.value || ""}
-              onChange={(e) => field.onChange(e.target.value)}
-              required={"required"}
-            />
+            <>
+              <InputProductForm
+                placeholder="Job Position"
+                title="Job Position"
+                type="text"
+                value={field.value || ""}
+                onChange={(e) => field.onChange(e.target.value)}
+                required={"required"}
+              />
+              {errors.position && (
+                <p className="text-red-500">
+                  {String(errors.position?.message)}
+                </p>
+              )}
+            </>
           )}
         />
 

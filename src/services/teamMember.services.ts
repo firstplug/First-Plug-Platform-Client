@@ -16,6 +16,7 @@ export class Memberservices {
 
   static async createMember(data: CreationMember): Promise<TeamMember> {
     const response = await HTTPRequests.post(`${BASE_URL}/api/members`, data);
+    console.log("response en el servicio", response);
     return response.data;
   }
 

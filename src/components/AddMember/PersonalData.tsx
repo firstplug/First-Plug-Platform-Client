@@ -8,7 +8,7 @@ import personalData from "./JSON/personaldata.json";
 import { InputProductForm } from "../AddProduct/InputProductForm";
 import { useFormContext, Controller } from "react-hook-form";
 
-const PersonalData = function ({ memberImage }) {
+const PersonalData = function ({ memberImage, isUpdate, initialData }) {
   const {
     control,
     formState: { errors },

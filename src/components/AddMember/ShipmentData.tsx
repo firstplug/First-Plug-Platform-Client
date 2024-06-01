@@ -6,7 +6,7 @@ import { InputProductForm } from "../AddProduct/InputProductForm";
 import { useFormContext, Controller } from "react-hook-form";
 import shipmentData from "./JSON/shipmentdata.json";
 
-const ShipmentData = function () {
+const ShipmentData = function ({ isUpdate, initialData }) {
   const { control } = useFormContext();
   return (
     <div>

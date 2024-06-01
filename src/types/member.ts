@@ -36,9 +36,33 @@ export type TeamMemberTable = {
   shipmentDetails: ShipmentStatus;
 };
 
+const nameRegex = /^[A-Za-z]+$/;
+const phoneRegex = /^\+?[0-9]*$/;
+const isAdult = (date: string) => {
+  const birthDate = new Date(date);
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  if (
+    monthDiff < 0 ||
+    (monthDiff === 0 && today.getDate() < birthDate.getDate())
+  ) {
+    return age - 1 >= 18;
+  }
+  return age >= 18;
+};
+
 export const zodCreateMembertModel = z.object({
-  firstName: z.string().min(1, { message: "First name is required" }).trim(),
-  lastName: z.string().min(1, { message: "Last name is required" }).trim(),
+  firstName: z
+    .string()
+    .min(1, { message: "First name is required" })
+    .regex(nameRegex, { message: "First name must only contain letters" })
+    .trim(),
+  lastName: z
+    .string()
+    .min(1, { message: "Last name is required" })
+    .regex(nameRegex, { message: "Last name must only contain letters" })
+    .trim(),
   email: z
     .string()
     .email({ message: "Invalid email address" })
@@ -48,7 +72,13 @@ export const zodCreateMembertModel = z.object({
   picture: z.string().optional(),
   position: z.string().trim().optional(),
   personalEmail: z.string().email().trim().toLowerCase().optional(),
-  phone: z.string().trim().optional(),
+  phone: z
+    .string()
+    .trim()
+    .regex(phoneRegex, {
+      message: "Phone number must only contain numbers and the '+' sign",
+    })
+    .optional(),
   city: z.string().trim().optional(),
   country: z.string().trim().optional(),
   zipCode: z.string().trim().optional(),
@@ -56,7 +86,11 @@ export const zodCreateMembertModel = z.object({
   apartment: z.string().trim().optional(),
   additionalInfo: z.string().trim().optional(),
   startDate: z.string().trim().optional(),
-  birthDate: z.string().trim().optional(),
+  birthDate: z
+    .string()
+    .trim()
+    .refine(isAdult, { message: "You must be at least 18 years old" })
+    .optional(),
   products: z.array(zodCreateProductModel).optional(),
   team: z.string().trim().optional(),
 });

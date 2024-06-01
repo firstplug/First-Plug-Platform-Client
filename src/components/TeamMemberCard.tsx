@@ -48,7 +48,7 @@ export const TeamMemberCard = observer(function ({
           <div className="flex gap-1 flex-grow">
             <div className="w-[150px] relative aspect-square">
               <Image
-                src={member.img || Photo}
+                src={member.picture || Photo}
                 alt="colabPhoto"
                 className="rounded-md"
                 objectFit="cover"
@@ -57,12 +57,11 @@ export const TeamMemberCard = observer(function ({
             </div>
             <div className="ml-1 flex flex-col  w-full ">
               <div className="flex items-center gap-1">
-                {!member.teams.length ? (
+                {!member.team ? (
                   <TeamCard team={"Assign to team"} key={"no team"} />
                 ) : (
-                  member.teams.map((team) => (
-                    <TeamCard team={team} key={team} />
-                  ))
+                  Array.isArray(member.team) &&
+                  member.team.map((team) => <TeamCard team={team} key={team} />)
                 )}
               </div>
               <h2
@@ -99,7 +98,7 @@ export const TeamMemberCard = observer(function ({
         <section className="flex flex-col gap-2 justify-start">
           <div className="flex   items-center gap-3">
             <h2 className="font-semibold text-lg">Job Position:</h2>
-            <p>{member.jobPosition}</p>
+            <p>{member.position}</p>
           </div>
           <div className="flex items-center  gap-3">
             <h2 className="font-semibold text-lg">Products</h2>

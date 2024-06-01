@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { InputProductForm } from "../AddProduct/InputProductForm";
 import { useFormContext, Controller } from "react-hook-form";
 
-const AdditionalData = function () {
+const AdditionalData = function ({ isUpdate, initialData }) {
   const { control } = useFormContext();
   return (
     <div>

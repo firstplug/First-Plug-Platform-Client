@@ -59,7 +59,7 @@ export type Atrribute = Instance<typeof AttributeModel>;
 
 export const ProductModel = types.model({
   _id: types.string,
-  name: types.optional(types.string, ""),
+  name: types.maybeNull(types.string),
   category: types.enumeration(CATEGORIES),
   attributes: types.array(AttributeModel),
   status: types.enumeration(PRODUCT_STATUSES),
@@ -94,7 +94,6 @@ export const emptyProduct: Omit<Product, "category"> & { category: string } = {
 
 export const ProductTableModel = types.model({
   category: types.string,
-  name: types.string,
   products: types.array(ProductModel),
 });
 export type ProductTable = Instance<typeof ProductTableModel>;

@@ -46,7 +46,7 @@ export const productColumns: ({
     footer: (props) => props.column.id,
   },
   {
-    accessorFn: (row) => row.name,
+    accessorFn: (row) => row.products,
     header: "Name",
     size: 200,
     cell: ({ row, getValue }) => (

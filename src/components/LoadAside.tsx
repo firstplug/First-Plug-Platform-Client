@@ -149,9 +149,9 @@ export const LoadAside = function () {
             currentDate: new Date().toLocaleString(),
           });
         } else {
-          const errorMessages = error.issues.map((e) => e.message);
-          // @ts-ignore
-          const errors = [...new Set(errorMessages)];
+          // const errorMessages = error.issues.map((e) => e.message);
+          // // @ts-ignore
+          // const errors = [...new Set(errorMessages)];
 
           setCsvFile(null);
           toast({

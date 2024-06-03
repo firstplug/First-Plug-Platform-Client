@@ -45,9 +45,6 @@ export default observer(function DataProvider({
         Memberservices.getAllMembers().then((res) => {
           setMembers(res);
         });
-        ProductServices.getAllProducts().then((res) => {
-          setProducts(res);
-        });
         ProductServices.getTableFormat().then((res) => {
           setTable(res);
         });

@@ -62,18 +62,22 @@ export const LoadAside = function () {
         });
 
         if (success) {
-          await CsvServices.bulkCreateProducts(data.prdoucts);
+          try {
+            await CsvServices.bulkCreateProducts(data.prdoucts);
 
-          clearCsvData();
-          toast({
-            title: "The file has been correctly uploaded.   ✅ ",
-            variant: "success",
-            duration: 1500,
-          });
-          setAside(undefined);
-          const prodcuts = await ProductServices.getTableFormat();
-          setTable(prodcuts);
-          location.reload();
+            clearCsvData();
+            toast({
+              title: "The file has been correctly uploaded.   ✅ ",
+              variant: "success",
+              duration: 1500,
+            });
+            setAside(undefined);
+            const prodcuts = await ProductServices.getTableFormat();
+            setTable(prodcuts);
+            location.reload();
+          } catch (error) {
+            console.log(error);
+          }
         } else {
           toast({
             title:

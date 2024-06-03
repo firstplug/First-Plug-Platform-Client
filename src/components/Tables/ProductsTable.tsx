@@ -128,9 +128,9 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     cell: ({ getValue }) => <FormatedDate date={getValue<string>()} />,
   },
   {
-    accessorFn: (row) => row.assignedEmail,
+    // accessorFn: (row) => row.assignedMember,
     header: "Currently with",
-    cell: ({ getValue }) => <MemberName email={getValue<string>()} />,
+    cell: ({ getValue, row }) => <MemberName product={row.original} />,
   },
   {
     accessorFn: (row) => row.status,

@@ -21,7 +21,7 @@ const GenericAlertDialog: React.FC<GenericAlertDialogProps> = ({
     <Dialog.Root open={open} onOpenChange={onClose}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50 z-50" />
-        <Dialog.Content className="fixed bg-white p-6 rounded-md shadow-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+        <Dialog.Content className="fixed bg-white p-6 rounded-md shadow-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-96">
           <Dialog.Title className="text-lg font-medium">{title}</Dialog.Title>
           <Dialog.Description className="mt-2">
             {description}

@@ -62,18 +62,22 @@ export const LoadAside = function () {
         });
 
         if (success) {
-          await CsvServices.bulkCreateProducts(data.prdoucts);
+          try {
+            await CsvServices.bulkCreateProducts(data.prdoucts);
 
-          clearCsvData();
-          toast({
-            title: "The file has been correctly uploaded.   ✅ ",
-            variant: "success",
-            duration: 1500,
-          });
-          setAside(undefined);
-          const prodcuts = await ProductServices.getTableFormat();
-          setTable(prodcuts);
-          location.reload();
+            clearCsvData();
+            toast({
+              title: "The file has been correctly uploaded.   ✅ ",
+              variant: "success",
+              duration: 1500,
+            });
+            setAside(undefined);
+            const prodcuts = await ProductServices.getTableFormat();
+            setTable(prodcuts);
+            location.reload();
+          } catch (error) {
+            console.log(error);
+          }
         } else {
           toast({
             title:
@@ -145,26 +149,26 @@ export const LoadAside = function () {
             currentDate: new Date().toLocaleString(),
           });
         } else {
-          const errorMessages = error.issues.map((e) => e.message);
-          // @ts-ignore
-          const errors = [...new Set(errorMessages)];
+          // const errorMessages = error.issues.map((e) => e.message);
+          // // @ts-ignore
+          // const errors = [...new Set(errorMessages)];
 
           setCsvFile(null);
           toast({
             title:
               "The uploaded file is not correct. Please verify it and try again.  ",
-            description: (
-              <ol className="text-xs font-normal">
-                File errors:
-                {errors.map((error) => (
-                  <li className="list-item" key={error}>
-                    - {error}
-                  </li>
-                ))}
-              </ol>
-            ),
+            // description: (
+            //   <ol className="text-xs font-normal">
+            //     File errors:
+            //     {errors.map((error) => (
+            //       <li className="list-item" key={error}>
+            //         - {error}
+            //       </li>
+            //     ))}
+            //   </ol>
+            // ),
             variant: "destructive",
-            duration: 4000,
+            duration: 15000,
           });
         }
       },

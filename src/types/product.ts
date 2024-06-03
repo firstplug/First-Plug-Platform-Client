@@ -71,6 +71,7 @@ export const ProductModel = types.model({
   deletedAt: types.maybeNull(types.string),
   location: types.optional(types.string, ""),
   assignedEmail: types.optional(types.string, ""),
+  assignedMember: types.optional(types.string, ""),
   serialNumber: types.maybeNull(types.string),
 });
 export type Product = Instance<typeof ProductModel>;
@@ -87,9 +88,10 @@ export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   createdAt: "",
   updatedAt: "",
   deletedAt: "",
+  serialNumber: "",
   location: undefined,
   assignedEmail: undefined,
-  serialNumber: "",
+  assignedMember: undefined,
 };
 
 export const ProductTableModel = types.model({
@@ -187,6 +189,23 @@ export const zodCreateProductModel = z
     } else {
       data.recoverable = true;
     }
+    // if (data.category !== "Merchandising") {
+    //   const attributekeys = data.attributes.map((attr) => attr.key);
+    //   if (!attributekeys.includes("brand")) {
+    //     ctx.addIssue({
+    //       code: z.ZodIssueCode.custom,
+    //       message: "Brand is required.",
+    //       path: ["attributes"],
+    //     });
+    //   }
+    //   if (!attributekeys.includes("model")) {
+    //     ctx.addIssue({
+    //       code: z.ZodIssueCode.custom,
+    //       message: "Model is required.",
+    //       path: ["attributes"],
+    //     });
+    //   }
+    // }
   })
   .refine(
     (data) => {

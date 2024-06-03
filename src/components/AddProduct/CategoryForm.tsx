@@ -62,6 +62,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
       setValue("assignedMember", "");
       setSelectedLocation("");
       setValue("location", "");
+
       setValue("status", "Available");
     } else {
       const selectedMember = members.members.find(

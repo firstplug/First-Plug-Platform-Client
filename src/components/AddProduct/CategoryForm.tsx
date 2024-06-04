@@ -37,11 +37,22 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
   useEffect(() => {
     if (isUpdate) {
       const assignedMember = formState.assignedMember as string;
+      console.log("Initial Assigned Member:", assignedMember);
+      console.log("assignedEmail:", formState.assignedEmail);
       setSelectedAssignedMember(assignedMember || "None");
+      setValue("assignedMember", assignedMember);
+
+      const selectedMember = members.members.find(
+        (member) => `${member.firstName} ${member.lastName}` === assignedMember
+      );
+      setAssignedEmail(selectedMember?.email || "");
+
       const location = formState.location as string;
+      console.log("Initial Location:", location);
       setSelectedLocation(location);
+      setValue("location", location);
     }
-  }, [isUpdate, formState, members.members]);
+  }, [isUpdate, formState, members.members, setValue, setAssignedEmail]);
 
   const memberFullNames = [
     "None",
@@ -62,7 +73,6 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
       setValue("assignedMember", "");
       setSelectedLocation("");
       setValue("location", "");
-
       setValue("status", "Available");
     } else {
       const selectedMember = members.members.find(

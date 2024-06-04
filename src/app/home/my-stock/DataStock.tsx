@@ -1,4 +1,5 @@
 "use client";
+import React, { useState } from "react";
 import { Button } from "@/common";
 import { AddIcon, ShopIcon, UploadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";
@@ -13,11 +14,30 @@ export default observer(function DataStock() {
     aside: { setAside },
   } = useStore();
 
+  // const [showOnlyAvaliable, setShowOnlyAvaliable] = useState(false);
+  // console.log("Initial tableProducts:", tableProducts);
+  // console.log("Initial products:", products);
+
+  // const filteredProducts = showOnlyAvaliable
+  //   ? products.filter((product) => {
+  //       console.log("filtered Products:", product);
+  //       if (!product.status) {
+  //         console.log("product sin status", product);
+  //       }
+  //       return product.status === "Available";
+  //     })
+  //   : tableProducts;
+  // console.log("productos filtrados", filteredProducts);
+
   return (
     <div className="h-full w-full flex flex-col gap-4 relative  ">
       <aside className="flex justify-between items-center h-[6%]   ">
         <div className="flex gap-2">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            // checked={showOnlyAvaliable}
+            // onChange={() => setShowOnlyAvaliable(!showOnlyAvaliable)}
+          />
           <label className="ml-2 text-gray-500">
             Show only avaliable stock
           </label>

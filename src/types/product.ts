@@ -156,6 +156,7 @@ export const zodCreateProductModel = z
       ),
     serialNumber: z.string().optional(),
     recoverable: z.boolean().default(true).optional(),
+    assignedMember: z.string().optional(),
     assignedEmail: z
       .string()
       .optional()

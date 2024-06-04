@@ -71,8 +71,8 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
     if (selectedFullName === "None" || selectedFullName === "") {
       setAssignedEmail("");
       setValue("assignedMember", "");
-      setSelectedLocation("");
-      setValue("location", "");
+      setSelectedLocation(undefined);
+      setValue("location", undefined);
       setValue("status", "Available");
     } else {
       const selectedMember = members.members.find(

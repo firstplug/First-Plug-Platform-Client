@@ -41,23 +41,20 @@ const DynamicForm = ({
     }
   }, [isUpdate, initialValues, fields, setValue]);
 
-  const handleChange = (fieldKey, value) => {
+  const handleChange = (key, value) => {
+    console.log({ key, value });
     const updatedAttributes = attributes.map((attr) =>
-      attr.key === fieldKey ? { ...attr, value } : attr
+      attr.key === key ? { ...attr, value } : attr
     );
+    console.log(updatedAttributes);
     setAttributes(updatedAttributes);
     handleAttributesChange(updatedAttributes);
+    clearErrors(`attributes.${key}`);
   };
 
-  const getAttributeError = (key) => {
-    if (errors.attributes && Array.isArray(errors.attributes)) {
-      const attributeError = errors.attributes.find(
-        (attrError) => attrError.key === key || attrError.path?.[1] === key
-      );
-      return attributeError ? attributeError.message : null;
-    }
-    return null;
-  };
+  useEffect(() => {
+    console.log({ fields, errors });
+  }, [fields, errors]);
 
   return (
     <div
@@ -93,7 +90,7 @@ const DynamicForm = ({
             control={control}
             render={({ field: { onChange, value } }) => (
               <DropdownInputProductForm
-                name={field.name}
+                name={`attributes.${field.name}`}
                 options={field.options}
                 placeholder={field.title}
                 title={field.title}
@@ -101,24 +98,17 @@ const DynamicForm = ({
                 onChange={(option) => {
                   onChange(option);
                   handleChange(field.name, option);
-                  const updatedAttributes = attributes.map((attr) =>
-                    attr.key === field.name ? { ...attr, value: option } : attr
-                  );
-                  setAttributes(updatedAttributes);
-                  handleAttributesChange(updatedAttributes);
+                  console.log(field.name, { errors });
                 }}
-                required={
-                  selectedCategory !== "Merchandising" &&
-                  ["brand", "model"].includes(field.name)
-                    ? "required"
-                    : undefined
-                }
+                required="required"
               />
             )}
           />
           <div className="min-h-[24px]">
-            {getAttributeError(field.name) && (
-              <p className="text-red-500">{getAttributeError(field.name)}</p>
+            {errors.attributes?.[field.name] && (
+              <p className="text-red-500">
+                {(errors.attributes[field.name] as any)?.message}
+              </p>
             )}
           </div>
         </div>

@@ -190,23 +190,27 @@ export const zodCreateProductModel = z
     } else {
       data.recoverable = true;
     }
-    // if (data.category !== "Merchandising") {
-    //   const attributekeys = data.attributes.map((attr) => attr.key);
-    //   if (!attributekeys.includes("brand")) {
-    //     ctx.addIssue({
-    //       code: z.ZodIssueCode.custom,
-    //       message: "Brand is required.",
-    //       path: ["attributes"],
-    //     });
-    //   }
-    //   if (!attributekeys.includes("model")) {
-    //     ctx.addIssue({
-    //       code: z.ZodIssueCode.custom,
-    //       message: "Model is required.",
-    //       path: ["attributes"],
-    //     });
-    //   }
-    // }
+    if (data.category !== "Merchandising") {
+      console.log(data.attributes);
+      console.log(data);
+      const attributekeys = data.attributes.map((attr) => attr.key);
+      if (!attributekeys.includes("brand")) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Brand is required.",
+          path: ["brand"],
+        });
+        console.log(attributekeys);
+      }
+      if (!attributekeys.includes("model")) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Model is required.",
+          path: ["model"],
+        });
+      }
+    }
+    console.log(ctx);
   })
   .refine(
     (data) => {

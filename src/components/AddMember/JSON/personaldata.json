@@ -33,7 +33,7 @@
       "name": "phone",
       "title": "Phone Number",
       "type": "text",
-      "placeholder": "Phone Number"
+      "placeholder": "+(54) 9 (11) [xxxxxxxx]"
     }
   ]
 }

@@ -85,6 +85,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
     setShowErrorDialog(false);
     setErrorMessage("");
 
+    console.log("Data received from form:", data);
+
     const formatData: Product = {
       ...emptyProduct,
       ...data,
@@ -109,6 +111,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
       serialNumber: data.serialNumber?.trim() === "" ? "" : data.serialNumber,
     };
 
+    console.log("Formatted data to be sent:", formatData);
+
     try {
       if (isUpdate && initialData) {
         const changes: Partial<Product> = {};
@@ -132,10 +136,13 @@ const ProductForm: React.FC<ProductFormProps> = ({
           changes
         );
 
+        console.log("Updated product response:", updatedProduct);
+
         updateProduct(updatedProduct);
         setShowSuccessDialog(true);
       } else {
         const response = await ProductServices.createProduct(formatData);
+        console.log("Create product response:", response);
         addProduct(response);
         setShowSuccessDialog(true);
       }
@@ -149,6 +156,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       //   router.push("/home/my-stock");
       // }, 2000);
     } catch (error) {
+      console.log("Error response:", error);
       if (error.response?.data?.message === "Serial Number already exists") {
         setErrorMessage("Serial Number already exists");
       } else {

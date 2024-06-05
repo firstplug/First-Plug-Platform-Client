@@ -49,16 +49,6 @@ const DynamicForm = ({
     handleAttributesChange(updatedAttributes);
   };
 
-  const getAttributeError = (key) => {
-    if (errors.attributes && Array.isArray(errors.attributes)) {
-      const attributeError = errors.attributes.find(
-        (attrError) => attrError.key === key || attrError.path?.[1] === key
-      );
-      return attributeError ? attributeError.message : null;
-    }
-    return null;
-  };
-
   return (
     <div
       className={`grid gap-4 ${
@@ -92,35 +82,36 @@ const DynamicForm = ({
             name={field.name}
             control={control}
             render={({ field: { onChange, value } }) => (
-              <DropdownInputProductForm
-                name={field.name}
-                options={field.options}
-                placeholder={field.title}
-                title={field.title}
-                selectedOption={value || ""}
-                onChange={(option) => {
-                  onChange(option);
-                  handleChange(field.name, option);
-                  const updatedAttributes = attributes.map((attr) =>
-                    attr.key === field.name ? { ...attr, value: option } : attr
-                  );
-                  setAttributes(updatedAttributes);
-                  handleAttributesChange(updatedAttributes);
-                }}
-                required={
-                  selectedCategory !== "Merchandising" &&
-                  ["brand", "model"].includes(field.name)
-                    ? "required"
-                    : undefined
-                }
-              />
+              <>
+                <DropdownInputProductForm
+                  name={field.name}
+                  options={field.options}
+                  placeholder={field.title}
+                  title={field.title}
+                  selectedOption={value || ""}
+                  onChange={(option) => {
+                    onChange(option);
+                    handleChange(field.name, option);
+                    const updatedAttributes = attributes.map((attr) =>
+                      attr.key === field.name
+                        ? { ...attr, value: option }
+                        : attr
+                    );
+                    setAttributes(updatedAttributes);
+                    handleAttributesChange(updatedAttributes);
+                  }}
+                  required="required"
+                />
+                <div className="min-h-[24px]">
+                  {errors[field.name] && (
+                    <p className="text-red-500">
+                      {(errors[field.name] as any)?.message}
+                    </p>
+                  )}
+                </div>
+              </>
             )}
           />
-          <div className="min-h-[24px]">
-            {getAttributeError(field.name) && (
-              <p className="text-red-500">{getAttributeError(field.name)}</p>
-            )}
-          </div>
         </div>
       ))}
     </div>

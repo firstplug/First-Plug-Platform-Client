@@ -1,16 +1,17 @@
 "use client";
-import { Button } from "@/common";
+import { Button, LoaderSpinner } from "@/common";
 import { AddIcon, ShopIcon, UploadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { ProductsTable } from "@/components/Tables";
 import { useState } from "react";
+import { BarLoader } from "@/components/Loader/BarLoader";
 
 export default observer(function DataStock() {
   const router = useRouter();
   const {
-    products: { products, tableProducts, availableProducts },
+    products: { tableProducts, availableProducts },
     aside: { setAside },
   } = useStore();
 
@@ -20,7 +21,7 @@ export default observer(function DataStock() {
     setFilter(!filter);
   };
 
-  return (
+  return tableProducts.length ? (
     <div className="h-full w-full flex flex-col gap-4 relative  ">
       <aside className="flex justify-between items-center h-[6%]   ">
         <div className="flex gap-2">
@@ -66,5 +67,7 @@ export default observer(function DataStock() {
         {!filter && <ProductsTable products={tableProducts} />}
       </div>
     </div>
+  ) : (
+    <BarLoader />
   );
 });

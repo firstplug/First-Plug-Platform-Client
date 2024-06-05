@@ -14,6 +14,17 @@ export const ProductsStore = types
     productToEdit: types.maybe(types.string),
   })
   .views((store) => ({
+    get availableProducts() {
+      // @ts-ignore
+      const result: ProductTable[] = store.tableProducts
+        .map((table) => ({
+          category: table.category,
+          products: table.products.filter((p) => p.status === "Available"),
+        }))
+        .filter((table) => table.products.length);
+
+      return result;
+    },
     get uniqueProducts() {
       const groupedProducts = store.products.reduce((result, product) => {
         if (!result[product.category]) {

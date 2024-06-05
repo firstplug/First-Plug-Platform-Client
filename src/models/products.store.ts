@@ -39,6 +39,7 @@ export const ProductsStore = types
       store.products.replace(products);
     },
     setTable(products: ProductTable[]) {
+      console.log("setting table", products);
       store.tableProducts.replace(products);
     },
     setSelectedTableId(id: string) {

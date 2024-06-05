@@ -28,6 +28,7 @@ import FormatedDate from "./helpers/FormatedDate";
 interface ProductColumnsInterface {
   handleSelectProducts: (products: Product[]) => void;
 }
+
 export const productColumns: ({
   handleSelectProducts,
 }: ProductColumnsInterface) => ColumnDef<ProductTable>[] = ({
@@ -169,6 +170,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
 interface ProductTableProps {
   products: ProductTable[];
 }
+
 export var ProductsTable = observer(function ProductsTable({
   products,
 }: ProductTableProps) {

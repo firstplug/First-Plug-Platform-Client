@@ -47,4 +47,11 @@ export class ProductServices {
     );
     return response.data;
   }
+
+  static async getAvailableProducts(): Promise<Product[]> {
+    const response = await HTTPRequests.get(
+      `${BASE_URL}/api/products/available`
+    );
+    return response.data;
+  }
 }

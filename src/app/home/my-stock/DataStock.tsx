@@ -6,28 +6,49 @@ import { useRouter } from "next/navigation";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { ProductsTable } from "@/components/Tables";
+import { ProductServices } from "@/services";
 
 export default observer(function DataStock() {
   const router = useRouter();
   const {
-    products: { products, tableProducts },
+    products: { products, tableProducts, setTable },
     aside: { setAside },
   } = useStore();
 
-  // const [showOnlyAvaliable, setShowOnlyAvaliable] = useState(false);
-  // console.log("Initial tableProducts:", tableProducts);
-  // console.log("Initial products:", products);
+  const [showOnlyAvaliable, setShowOnlyAvaliable] = useState(false);
 
-  // const filteredProducts = showOnlyAvaliable
-  //   ? products.filter((product) => {
-  //       console.log("filtered Products:", product);
-  //       if (!product.status) {
-  //         console.log("product sin status", product);
-  //       }
-  //       return product.status === "Available";
-  //     })
-  //   : tableProducts;
-  // console.log("productos filtrados", filteredProducts);
+  const transformProducts = (products) => {
+    if (!Array.isArray(products)) return [];
+    return products.map((product) => ({
+      category: product.category,
+      products: product.products ? product.products : [product],
+    }));
+  };
+
+  const toggleShowOnlyAvailable = async () => {
+    setShowOnlyAvaliable(!showOnlyAvaliable);
+    if (!showOnlyAvaliable) {
+      try {
+        const availableProducts = await ProductServices.getAvailableProducts();
+        console.log("availableProducts", availableProducts);
+        const transformedProducts = transformProducts(availableProducts);
+        console.log("transformedProducts", transformedProducts);
+        setTable(transformedProducts);
+      } catch (error) {
+        console.error("Error fetching available products", error);
+      }
+    } else {
+      try {
+        const allProducts = await ProductServices.getTableFormat();
+        console.log("allProducts", allProducts);
+        const transformedProducts = transformProducts(allProducts);
+        console.log("transformedProducts", transformedProducts);
+        setTable(transformedProducts);
+      } catch (error) {
+        console.error("Error fetching all products", error);
+      }
+    }
+  };
 
   return (
     <div className="h-full w-full flex flex-col gap-4 relative  ">
@@ -35,8 +56,8 @@ export default observer(function DataStock() {
         <div className="flex gap-2">
           <input
             type="checkbox"
-            // checked={showOnlyAvaliable}
-            // onChange={() => setShowOnlyAvaliable(!showOnlyAvaliable)}
+            checked={showOnlyAvaliable}
+            onChange={toggleShowOnlyAvailable}
           />
           <label className="ml-2 text-gray-500">
             Show only avaliable stock

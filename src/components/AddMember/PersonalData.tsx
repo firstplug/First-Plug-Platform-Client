@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { IconX } from "@/common/Icons";
-import { Button } from "@/common";
 import { observer } from "mobx-react-lite";
 import personalData from "./JSON/personaldata.json";
 import { InputProductForm } from "../AddProduct/InputProductForm";

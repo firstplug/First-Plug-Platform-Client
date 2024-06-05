@@ -26,10 +26,7 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
       try {
         const allTeams = await TeamServices.getAllTeams();
         setTeams(allTeams);
-        console.log("All teams:", allTeams);
-      } catch (error) {
-        console.error("Failed to fetch teams", error);
-      }
+      } catch (error) {}
     };
 
     fetchTeams();
@@ -39,7 +36,6 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
     setTeamValue(value);
     setValue("team", value);
     clearErrors("team");
-    console.log("Team selected:", value);
   };
 
   const handleCreateTeam = () => {

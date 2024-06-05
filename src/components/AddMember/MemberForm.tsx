@@ -47,10 +47,6 @@ const MemberForm: React.FC<MemberFormProps> = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [teams, setTeams] = useState<string[]>([]);
 
-  // useEffect(() => {
-  //   TeamServices.getAllTeams().then((res) => setTeams(res));
-  // }, [setTeams]);
-
   const handleSaveMember = async (data: TeamMember) => {
     setShowSuccessDialog(false);
     setShowErrorDialog(false);
@@ -59,11 +55,6 @@ const MemberForm: React.FC<MemberFormProps> = ({
     console.log("submitting", data);
 
     try {
-      // if (data.team) {
-      //   const newTeam = await TeamServices.createTeam({ name: data.team });
-      //   console.log("newTeam", newTeam);
-      //   data.team = newTeam._id;
-      // }
       let response;
       if (isUpdate && initialData) {
         response = await Memberservices.updateMember(initialData._id, data);
@@ -77,12 +68,10 @@ const MemberForm: React.FC<MemberFormProps> = ({
         response = await Memberservices.createMember(data);
         addMember(response);
         setShowSuccessDialog(true);
-        console.log("response", response);
       }
       methods.reset();
       setMembers([]);
     } catch (error) {
-      console.log("error saving member", error);
       setErrorMessage(error.message);
       setShowErrorDialog(true);
     }

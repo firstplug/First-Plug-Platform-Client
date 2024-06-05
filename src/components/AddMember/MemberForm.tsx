@@ -27,7 +27,6 @@ const MemberForm: React.FC<MemberFormProps> = ({
 }) => {
   const {
     members: { addMember, setMembers, updateMember },
-    teams: { setTeams, teams },
     aside: { setAside },
   } = useStore();
   const router = useRouter();
@@ -46,10 +45,11 @@ const MemberForm: React.FC<MemberFormProps> = ({
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [teams, setTeams] = useState<string[]>([]);
 
-  useEffect(() => {
-    TeamServices.getAllTeams().then((res) => setTeams(res));
-  }, [setTeams]);
+  // useEffect(() => {
+  //   TeamServices.getAllTeams().then((res) => setTeams(res));
+  // }, [setTeams]);
 
   const handleSaveMember = async (data: TeamMember) => {
     setShowSuccessDialog(false);
@@ -59,6 +59,11 @@ const MemberForm: React.FC<MemberFormProps> = ({
     console.log("submitting", data);
 
     try {
+      // if (data.team) {
+      //   const newTeam = await TeamServices.createTeam({ name: data.team });
+      //   console.log("newTeam", newTeam);
+      //   data.team = newTeam._id;
+      // }
       let response;
       if (isUpdate && initialData) {
         response = await Memberservices.updateMember(initialData._id, data);
@@ -71,6 +76,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
       } else {
         response = await Memberservices.createMember(data);
         addMember(response);
+        setShowSuccessDialog(true);
         console.log("response", response);
       }
       methods.reset();
@@ -100,6 +106,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
                 <hr />
                 <EmployeeData
                   teams={teams}
+                  setTeams={setTeams}
                   isUpdate={isUpdate}
                   initialData={initialData}
                 />
@@ -134,7 +141,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
             buttonText="OK"
             onButtonClick={() => {
               setShowSuccessDialog(false);
-              router.push("/home/my-stock");
+              router.push("/home//my-team");
             }}
           />
           <GenericAlertDialog

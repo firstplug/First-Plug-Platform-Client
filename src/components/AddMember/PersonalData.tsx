@@ -22,11 +22,11 @@ const PersonalData = function ({ memberImage, isUpdate, initialData }) {
           alt="emptyImage"
           className="object-cover h-full"
         />
-        <Button
+        {/* <Button
           icon={<IconX strokeWidth={2.0} />}
           variant="primary"
           className="w-1 h-5 absolute bottom-0 left-[110px] z-[1] py-4 px-4 rounded-full"
-        />
+        /> */}
       </section>
       <section className="w-full">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2">

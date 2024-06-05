@@ -85,6 +85,12 @@ export function TeamDropdown({
     }
   };
 
+  useEffect(() => {
+    if (!options.includes(inputValue) && inputValue) {
+      handleCreateNewTeam(inputValue);
+    }
+  }, []);
+
   return (
     <div className={`relative ${className || ""}`} ref={dropdownRef}>
       <label className="block text-dark-grey ml-2 font-sans">{title}</label>

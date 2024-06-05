@@ -59,7 +59,7 @@ export type Atrribute = Instance<typeof AttributeModel>;
 
 export const ProductModel = types.model({
   _id: types.string,
-  name: types.optional(types.string, ""),
+  name: types.maybeNull(types.string),
   category: types.enumeration(CATEGORIES),
   attributes: types.array(AttributeModel),
   status: types.enumeration(PRODUCT_STATUSES),
@@ -71,6 +71,7 @@ export const ProductModel = types.model({
   deletedAt: types.maybeNull(types.string),
   location: types.optional(types.string, ""),
   assignedEmail: types.optional(types.string, ""),
+  assignedMember: types.optional(types.string, ""),
   serialNumber: types.maybeNull(types.string),
 });
 export type Product = Instance<typeof ProductModel>;
@@ -87,14 +88,14 @@ export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   createdAt: "",
   updatedAt: "",
   deletedAt: "",
+  serialNumber: "",
   location: undefined,
   assignedEmail: undefined,
-  serialNumber: "",
+  assignedMember: undefined,
 };
 
 export const ProductTableModel = types.model({
   category: types.string,
-  name: types.string,
   products: types.array(ProductModel),
 });
 export type ProductTable = Instance<typeof ProductTableModel>;
@@ -155,6 +156,7 @@ export const zodCreateProductModel = z
       ),
     serialNumber: z.string().optional(),
     recoverable: z.boolean().default(true).optional(),
+    assignedMember: z.string().optional(),
     assignedEmail: z
       .string()
       .optional()
@@ -188,6 +190,23 @@ export const zodCreateProductModel = z
     } else {
       data.recoverable = true;
     }
+    // if (data.category !== "Merchandising") {
+    //   const attributekeys = data.attributes.map((attr) => attr.key);
+    //   if (!attributekeys.includes("brand")) {
+    //     ctx.addIssue({
+    //       code: z.ZodIssueCode.custom,
+    //       message: "Brand is required.",
+    //       path: ["attributes"],
+    //     });
+    //   }
+    //   if (!attributekeys.includes("model")) {
+    //     ctx.addIssue({
+    //       code: z.ZodIssueCode.custom,
+    //       message: "Model is required.",
+    //       path: ["attributes"],
+    //     });
+    //   }
+    // }
   })
   .refine(
     (data) => {

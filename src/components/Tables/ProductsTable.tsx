@@ -46,7 +46,7 @@ export const productColumns: ({
     footer: (props) => props.column.id,
   },
   {
-    accessorFn: (row) => row.name,
+    accessorFn: (row) => row.products,
     header: "Name",
     size: 200,
     cell: ({ row, getValue }) => (
@@ -128,9 +128,9 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     cell: ({ getValue }) => <FormatedDate date={getValue<string>()} />,
   },
   {
-    accessorFn: (row) => row.assignedEmail,
+    // accessorFn: (row) => row.assignedMember,
     header: "Currently with",
-    cell: ({ getValue }) => <MemberName email={getValue<string>()} />,
+    cell: ({ getValue, row }) => <MemberName product={row.original} />,
   },
   {
     accessorFn: (row) => row.status,

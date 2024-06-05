@@ -1,23 +1,31 @@
 "use client";
-import { Button } from "@/common";
+import { Button, LoaderSpinner } from "@/common";
 import { AddIcon, ShopIcon, UploadIcon } from "@/common/Icons";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { ProductsTable } from "@/components/Tables";
+import { useState } from "react";
+import { BarLoader } from "@/components/Loader/BarLoader";
 
 export default observer(function DataStock() {
   const router = useRouter();
   const {
-    products: { products, tableProducts },
+    products: { tableProducts, availableProducts },
     aside: { setAside },
   } = useStore();
 
-  return (
+  const [filter, setFilter] = useState(false);
+
+  const handleFilter = () => {
+    setFilter(!filter);
+  };
+
+  return tableProducts.length ? (
     <div className="h-full w-full flex flex-col gap-4 relative  ">
       <aside className="flex justify-between items-center h-[6%]   ">
         <div className="flex gap-2">
-          <input type="checkbox" />
+          <input type="checkbox" checked={filter} onChange={handleFilter} />
           <label className="ml-2 text-gray-500">
             Show only avaliable stock
           </label>
@@ -55,8 +63,11 @@ export default observer(function DataStock() {
       </aside>
 
       <div className="h-[90%] top-[8%] w-full overflow-y-auto  absolute ">
-        <ProductsTable products={tableProducts} />
+        {filter && <ProductsTable products={availableProducts} />}
+        {!filter && <ProductsTable products={tableProducts} />}
       </div>
     </div>
+  ) : (
+    <BarLoader />
   );
 });

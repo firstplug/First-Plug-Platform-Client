@@ -30,43 +30,49 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
     watch,
     formState: { errors },
   } = useFormContext();
-  const [selectedFullName, setSelectedFullName] = useState<string>("");
+  const [selectedAssignedMember, setSelectedAssignedMember] =
+    useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
 
   useEffect(() => {
     if (isUpdate) {
-      const assignedEmail = formState.assignedEmail;
-      if (assignedEmail) {
-        const assignedMember = members.members.find(
-          (member) => member.email === assignedEmail
-        );
-        setSelectedFullName(
-          assignedMember
-            ? `${assignedMember.firstName} ${assignedMember.lastName}`
-            : "None"
-        );
-      } else {
-        setSelectedFullName("None");
-      }
-      const location = formState.location;
-      setSelectedLocation(location as string);
-    }
-  }, [isUpdate, formState, members.members]);
+      const assignedMember = formState.assignedMember as string;
+      console.log("Initial Assigned Member:", assignedMember);
+      console.log("assignedEmail:", formState.assignedEmail);
+      setSelectedAssignedMember(assignedMember || "None");
+      setValue("assignedMember", assignedMember);
 
-  const memberFullNames = ["None", ...members.memberFullName];
+      const selectedMember = members.members.find(
+        (member) => `${member.firstName} ${member.lastName}` === assignedMember
+      );
+      setAssignedEmail(selectedMember?.email || "");
+
+      const location = formState.location as string;
+      console.log("Initial Location:", location);
+      setSelectedLocation(location);
+      setValue("location", location);
+    }
+  }, [isUpdate, formState, members.members, setValue, setAssignedEmail]);
+
+  const memberFullNames = [
+    "None",
+    ...members.members.map(
+      (member) => `${member.firstName} ${member.lastName}`
+    ),
+  ];
   const handleInputChange = (name: keyof FieldValues, value: string) => {
     setValue(name, value);
     clearErrors(name);
   };
 
   const handleAssignedMemberChange = (selectedFullName: string) => {
-    setSelectedFullName(selectedFullName);
+    setSelectedAssignedMember(selectedFullName);
 
     if (selectedFullName === "None" || selectedFullName === "") {
       setAssignedEmail("");
-      setValue("assignedEmail", "");
-      setSelectedLocation("");
-      setValue("location", "");
+      setValue("assignedMember", "");
+      setSelectedLocation(undefined);
+      setValue("location", undefined);
       setValue("status", "Available");
     } else {
       const selectedMember = members.members.find(
@@ -74,12 +80,12 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
           `${member.firstName} ${member.lastName}` === selectedFullName
       );
       setAssignedEmail(selectedMember?.email || "");
-      setValue("assignedEmail", selectedMember?.email || "");
+      setValue("assignedMember", selectedFullName);
       setSelectedLocation("Employee");
       setValue("location", "Employee");
       setValue("status", "Delivered");
     }
-    clearErrors("assignedEmail");
+    clearErrors("assignedMember");
   };
 
   return (
@@ -115,7 +121,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             placeholder="Assigned Email"
             title="Assigned Member*"
             name="assignedMember"
-            selectedOption={selectedFullName}
+            selectedOption={selectedAssignedMember}
             onChange={handleAssignedMemberChange}
             required="required"
             className="w-full "
@@ -130,7 +136,8 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
         </div>
 
         <div className="w-full">
-          {selectedFullName === "None" || selectedFullName === "" ? (
+          {selectedAssignedMember === "None" ||
+          selectedAssignedMember === "" ? (
             <>
               <DropdownInputProductForm
                 options={["Our office", "FP warehouse"]}

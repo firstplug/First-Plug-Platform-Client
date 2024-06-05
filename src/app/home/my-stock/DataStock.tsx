@@ -11,7 +11,7 @@ import { BarLoader } from "@/components/Loader/BarLoader";
 export default observer(function DataStock() {
   const router = useRouter();
   const {
-    products: { products, tableProducts, availableProducts },
+    products: { tableProducts, availableProducts },
     aside: { setAside },
   } = useStore();
 

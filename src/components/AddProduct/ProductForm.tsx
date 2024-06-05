@@ -9,6 +9,7 @@ import {
   AttributeModel,
   emptyProduct,
   zodCreateProductModel,
+  Atrribute,
 } from "@/types";
 import CategoryForm from "@/components/AddProduct/CategoryForm";
 import { ProductServices } from "@/services/product.services";
@@ -24,6 +25,7 @@ import { useRouter } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import GenericAlertDialog from "@/components/AddProduct/ui/GenericAlertDialog";
+import { Field } from "@/components/AddProduct/DynamicForm";
 
 interface ProductFormProps {
   initialData?: Product;
@@ -67,7 +69,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   const [assignedEmail, setAssignedEmail] = useState(
     initialData?.assignedEmail
   );
-  const [attributes, setAttributes] = useState(initialData?.attributes || []);
+  const [data, setData] = useState(initialData?.attributes || []);
 
   const handleCategoryChange = useCallback(
     (category: Category | undefined) => {
@@ -80,7 +82,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
     [isUpdate, setValue]
   );
 
-  const handleSaveProduct = async (data: Product) => {
+  const handleSaveProduct = async (newProduct: Product) => {
     setShowSuccessDialog(false);
     setShowErrorDialog(false);
     setErrorMessage("");
@@ -89,11 +91,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
     const formatData: Product = {
       ...emptyProduct,
-      ...data,
-      status: data.assignedEmail ? "Delivered" : "Available",
+      ...newProduct,
+      status: newProduct.assignedEmail ? "Delivered" : "Available",
       category: selectedCategory || "Other",
       attributes: cast(
-        attributes.map((attr) => {
+        data.map((attr) => {
           const initialAttr = initialData?.attributes.find(
             (ia) => ia.key === attr.key
           );
@@ -108,32 +110,33 @@ const ProductForm: React.FC<ProductFormProps> = ({
           };
         })
       ),
-      serialNumber: data.serialNumber?.trim() === "" ? "" : data.serialNumber,
+      serialNumber:
+        newProduct.serialNumber?.trim() === "" ? "" : newProduct.serialNumber,
     };
 
     console.log("Formatted data to be sent:", formatData);
 
     try {
       if (isUpdate && initialData) {
-        const changes: Partial<Product> = {};
-        const requiredFields = ["name", "category", "location", "status"];
-        requiredFields.forEach((field) => {
-          changes[field] = formatData[field];
-        });
+        // const changes: Partial<Product> = {};
+        // const requiredFields = ["name", "category", "location", "status"];
+        // requiredFields.forEach((field) => {
+        //   changes[field] = formatData[field];
+        // });
 
-        Object.keys(formatData).forEach((key) => {
-          if (formatData[key] !== initialData[key]) {
-            changes[key] = formatData[key];
-          }
-        });
+        // Object.keys(formatData).forEach((key) => {
+        //   if (formatData[key] !== initialData[key]) {
+        //     changes[key] = formatData[key];
+        //   }
+        // });
 
-        if (Object.keys(changes).length === 0) {
-          setShowSuccessDialog(true);
-          return;
-        }
+        // if (Object.keys(changes).length === 0) {
+        //   setShowSuccessDialog(true);
+        //   return;
+        // }
         const updatedProduct = await ProductServices.updateProduct(
           initialData._id,
-          changes
+          formatData
         );
 
         console.log("Updated product response:", updatedProduct);
@@ -170,6 +173,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
     }
   };
 
+  const onAttributesChange = (newAttribute: Atrribute) =>
+    setData((prev) =>
+      prev.map((attr) => (attr.key === newAttribute.key ? newAttribute : attr))
+    );
+
   const FormConfig = categoryComponents[selectedCategory] || { fields: [] };
 
   return (
@@ -199,8 +207,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 <div className="px-4 py-6 rounded-3xl border overflow-y-auto max-h-[500px] pb-40">
                   <section>
                     <DynamicForm
-                      fields={FormConfig.fields}
-                      handleAttributesChange={setAttributes}
+                      fields={FormConfig.fields as Field[]}
+                      handleAttributesChange={onAttributesChange}
                       isUpdate={isUpdate}
                       initialValues={initialData}
                     />

@@ -51,7 +51,7 @@ export const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
 // -------------------- MOBX DEFINITION -----------------------
 
 export const AttributeModel = types.model({
-  _id: types.string,
+  // _id: types.string,
   key: types.enumeration(KEYS),
   value: types.optional(types.string, ""),
 });
@@ -185,28 +185,29 @@ export const zodCreateProductModel = z
         path: ["name"],
       });
     }
+
     if (data.category === "Merchandising") {
       data.recoverable = false;
     } else {
       data.recoverable = true;
     }
-    // if (data.category !== "Merchandising") {
-    //   const attributeKeys = data.attributes.map((attr) => attr.key);
-    //   if (!attributeKeys.includes("brand")) {
-    //     ctx.addIssue({
-    //       code: z.ZodIssueCode.custom,
-    //       message: "Brand is required for this category.",
-    //       path: ["attributes"],
-    //     });
-    //   }
-    //   if (!attributeKeys.includes("model")) {
-    //     ctx.addIssue({
-    //       code: z.ZodIssueCode.custom,
-    //       message: "Model is required for this category.",
-    //       path: ["attributes"],
-    //     });
-    //   }
-    // }
+    if (data.category !== "Merchandising") {
+      const attributeKeys = data.attributes.map((attr) => attr.key);
+      if (!attributeKeys.includes("brand")) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Brand is required for this category.",
+          path: ["brand"],
+        });
+      }
+      if (!attributeKeys.includes("model")) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Model is required for this category.",
+          path: ["model"],
+        });
+      }
+    }
   })
   .refine(
     (data) => {

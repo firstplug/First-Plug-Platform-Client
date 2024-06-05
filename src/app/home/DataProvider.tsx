@@ -23,6 +23,7 @@ export default observer(function DataProvider({
     shipments: { setShipments },
     orders: { setOrders },
     teams: { setTeams },
+    fetch: { setFetching },
   } = store;
 
   useEffect(() => {
@@ -41,6 +42,7 @@ export default observer(function DataProvider({
       });
 
       if (sessionStorage.getItem("accessToken")) {
+        setFetching(true);
         setAuthInterceptor(sessionStorage.getItem("accessToken"));
         Memberservices.getAllMembers().then((res) => {
           setMembers(res);
@@ -52,6 +54,7 @@ export default observer(function DataProvider({
           setTeams(res);
         });
 
+        setFetching(false);
         setIsLoading(false);
       }
     }

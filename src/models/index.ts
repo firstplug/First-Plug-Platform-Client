@@ -6,3 +6,4 @@ export * from "./root.store";
 export * from "./shipment.store";
 export * from "./teams.store";
 export * from "./user.store";
+export * from "./fetch.store";

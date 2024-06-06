@@ -12,14 +12,8 @@ import { useStore } from "@/models";
 import { AsideType, DisplayView } from "@/types";
 import { observer } from "mobx-react-lite";
 
-interface MyTeamActionsProps {
-  toggleView: () => void;
-  display: DisplayView;
-}
-export const MyTeamActions = observer(function ({
-  toggleView,
-  display,
-}: MyTeamActionsProps) {
+interface MyTeamActionsProps {}
+export const MyTeamActions = observer(function ({}: MyTeamActionsProps) {
   const {
     teams: { teams },
     aside: { setAside },
@@ -28,7 +22,7 @@ export const MyTeamActions = observer(function ({
   const handleAside = (type: AsideType) => {
     setAside(type);
   };
-  const Icon = display === "grid" ? GridLayoutIcon : TableDisplayIcon;
+  // const Icon = display === "grid" ? GridLayoutIcon : TableDisplayIcon;
 
   return (
     <div className="w-full flex justify-between   h-[6%]  gap-2  ">
@@ -66,13 +60,13 @@ export const MyTeamActions = observer(function ({
           className={"p-2 text-sm rounded-md"}
           onClick={() => handleAside("EditTeam")}
         />
-        <span className="text-gray-400"> |</span>
+        {/* <span className="text-gray-400"> |</span>
 
         <div className="flex gap-2">
           <Button onClick={toggleView} variant="text">
             <Icon className={"text-black hover:shadow-md"} />
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

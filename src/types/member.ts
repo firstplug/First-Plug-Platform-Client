@@ -1,5 +1,4 @@
 import { Instance, types } from "mobx-state-tree";
-import { ShipmentStatus } from "./shipment";
 import { zodCreateProductModel, ProductModel, Product } from "./product";
 import { z } from "zod";
 

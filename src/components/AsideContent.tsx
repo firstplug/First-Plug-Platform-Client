@@ -4,12 +4,12 @@ import { observer } from "mobx-react-lite";
 import {
   MemberAsideDetails,
   CreateTeamAside,
-  MemberEditAside,
   LoadAside,
   OrderAsideDetails,
   EditTeamsAsideDetails,
 } from "./";
 import { AssignProduct, EditProductAside } from "./AsideContents";
+import MemberForm from "./AddMember/MemberForm";
 
 export var AsideContent = observer(function () {
   const { aside } = useStore();
@@ -25,7 +25,7 @@ export var AsideContent = observer(function () {
     case "ReassignProduct":
       return <AssignProduct />;
     case "EditMember":
-      return <MemberEditAside />;
+      return <MemberForm />;
     case "LoadStock":
       return <LoadAside />;
     case "LoadMembers":

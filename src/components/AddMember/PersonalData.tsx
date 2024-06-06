@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { observer } from "mobx-react-lite";
 import personalData from "./JSON/personaldata.json";
@@ -10,7 +10,16 @@ const PersonalData = function ({ memberImage, isUpdate, initialData }) {
   const {
     control,
     formState: { errors },
+    setValue,
   } = useFormContext();
+
+  useEffect(() => {
+    if (isUpdate) {
+      Object.keys(initialData).forEach((key) => {
+        setValue(key, initialData[key]);
+      });
+    }
+  }, [isUpdate, initialData, setValue]);
 
   return (
     <div className="flex items-center gap-7">
@@ -20,16 +29,17 @@ const PersonalData = function ({ memberImage, isUpdate, initialData }) {
           alt="emptyImage"
           className="object-cover h-full"
         />
-        {/* <Button
-          icon={<IconX strokeWidth={2.0} />}
-          variant="primary"
-          className="w-1 h-5 absolute bottom-0 left-[110px] z-[1] py-4 px-4 rounded-full"
-        /> */}
       </section>
-      <section className="w-full">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+      <div className="w-full lg:w-full">
+        <div
+          className={`grid gap-4 ${
+            isUpdate
+              ? "grid-cols-1 sm:grid-cols-2"
+              : "grid-cols-1 lg:grid-cols-3"
+          }`}
+        >
           {personalData.fields.map((field, index) => (
-            <div key={index}>
+            <div className="w-full lg:w-full" key={index}>
               <Controller
                 name={field.name}
                 control={control}
@@ -57,7 +67,7 @@ const PersonalData = function ({ memberImage, isUpdate, initialData }) {
             </div>
           ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 };

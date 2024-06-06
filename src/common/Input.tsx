@@ -24,7 +24,7 @@ export function Input({
   type,
   defaultValue,
   className,
-  value,
+  value = "",
   onChange,
   onBlur,
   onFocus,

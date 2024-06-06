@@ -1,6 +1,6 @@
 import { Instance, types } from "mobx-state-tree";
 import { ShipmentStatus } from "./shipment";
-import { zodCreateProductModel, ProductModel } from "./product";
+import { zodCreateProductModel, ProductModel, Product } from "./product";
 import { z } from "zod";
 
 export const TeamMemberModel = types.model({
@@ -29,11 +29,11 @@ export type TeamMember = Instance<typeof TeamMemberModel>;
 export type TeamMemberTable = {
   _id: string;
   fullName: string;
-  joiningDate: string;
-  dateOfBirth: string;
-  teams: string[];
-  jobPosition: string;
-  shipmentDetails: ShipmentStatus;
+  startDate: string;
+  birthDate: string;
+  team: string[];
+  position: string;
+  products: Product[];
 };
 
 const nameRegex = /^[A-Za-z]+$/;

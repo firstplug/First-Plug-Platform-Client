@@ -1,60 +1,60 @@
 import { useStore } from "@/models";
 import { Memberservices } from "@/services";
-import { ShipmentStatus, TeamMember, TeamMemberTable } from "@/types";
+import { TeamMember, TeamMemberTable } from "@/types";
 import React from "react";
 import { Table } from "../Table";
-import {
-  Button,
-  PenIcon,
-  ShipmentStatusCard,
-  TeamCard,
-  TrashIcon,
-} from "@/common";
+import { Button, PenIcon, TeamCard, TrashIcon } from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
-import { DMY_Date } from "@/utils";
+
+const formatDate = (dateString: string) => {
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  return `${day}/${month}/${year}`;
+};
+
 const membersColumns: (
   handleEdit: (memberId: TeamMember["_id"]) => void,
   handleDelete: (memberId: TeamMember["_id"]) => void
 ) => ColumnDef<TeamMemberTable>[] = (handleEdit, handleDelete) => [
   {
     accessorKey: "fullName",
-    header: "FullName",
+    header: "Full Name",
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
   },
-  // {
-  //   accessorKey: "dateOfBirth",
-  //   header: "Date Of Birth",
-  //   cell: ({ getValue }) => (
-  //     <span className="font-normal"> {DMY_Date(getValue<string>())} </span>
-  //   ),
-  // },
   {
-    accessorKey: "joiningDate",
-    header: "Joining Date",
+    accessorKey: "birthDate",
+    header: "Date Of Birth",
     cell: ({ getValue }) => (
-      <span className="font-normal">
-        {DMY_Date(getValue<string>().toString())}
-      </span>
+      <span className="font-normal"> {formatDate(getValue<string>())} </span>
     ),
   },
   {
-    accessorKey: "teams",
-    header: "Team",
-    cell: (info) => <TeamCard team={info.getValue<string[]>()[0]} />,
+    accessorKey: "startDate",
+    header: "Joining Date",
+    cell: ({ getValue }) => (
+      <span className="font-normal">{formatDate(getValue<string>())}</span>
+    ),
   },
   {
-    accessorKey: "jobPosition",
+    accessorKey: "team",
+    header: "Team",
+    cell: (info) => <TeamCard team={info.getValue<string>()} />,
+  },
+  {
+    accessorKey: "position",
     header: "Job Position",
     cell: ({ getValue }) => (
       <span className="font-normal">{getValue<string>()}</span>
     ),
   },
   {
-    accessorKey: "Products Assigned",
-    header: "Products Assigned",
-    // cell: ({ getValue }) => (
-    //   <ShipmentStatusCard status={getValue<ShipmentStatus>()} />
-    // ),
+    accessorKey: "products",
+    header: "Products",
+    cell: ({ row }) => (
+      <span className="font-semibold text-lg bg-lightPurple/25 rounded-md  h-6 w-6 px-2 grid place-items-center">
+        {(row.original.products || []).length}
+      </span>
+    ),
   },
   {
     accessorKey: "",

@@ -12,12 +12,12 @@ export const MemberStore = types
     get membersTable(): TeamMemberTable[] {
       return store.members.map((member) => ({
         _id: member._id,
-        fullName: `${member.firstName}, ${member.lastName}`,
-        dateOfBirth: member.birthDate,
-        jobPosition: member.birthDate,
-        joiningDate: member.birthDate,
-        shipmentDetails: "Complete",
-        teams: [member.team],
+        fullName: `${member.firstName} ${member.lastName}`,
+        birthDate: member.birthDate || "",
+        position: member.position || "",
+        startDate: member.startDate || "",
+        team: [member.team],
+        products: member.products,
       }));
     },
     get memberCount() {

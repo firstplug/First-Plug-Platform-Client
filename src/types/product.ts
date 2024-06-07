@@ -156,16 +156,19 @@ export const zodCreateProductModel = z
       ),
     serialNumber: z.string().optional(),
     recoverable: z.boolean().default(true).optional(),
-    assignedMember: z.string().optional(),
-    assignedEmail: z
-      .string()
-      .optional()
-      .refine(
-        (value) => value !== undefined && value !== null && value !== "None",
-        {
-          message: "Assigned Member is required",
-        }
-      ),
+    assignedMember: z.string({
+      required_error: "Assigned Member is required",
+    }),
+    assignedEmail: z.string().optional(),
+    // assignedEmail: z
+    //   .string()
+    //   .optional()
+    //   .refine(
+    //     (value) => value !== undefined && value !== null && value !== "None",
+    //     {
+    //       message: "Assigned Member is required",
+    //     }
+    // ),
     acquisitionDate: z.string().optional(),
     createdAt: z.string().optional(),
     updatedAt: z.string().optional(),
@@ -178,18 +181,37 @@ export const zodCreateProductModel = z
     status: z.string().optional(),
   })
   .superRefine((data, ctx) => {
-    if (data.category === "Merchandising" && !data.name) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Name is required for Merchandising category.",
-        path: ["name"],
-      });
-    }
+    // if (data.category === "Merchandising" && !data.name) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: "Name is required for Merchandising category.",
+    //     path: ["name"],
+    //   });
+    // }
     if (data.category === "Merchandising") {
       data.recoverable = false;
     } else {
       data.recoverable = true;
     }
+    // if (data.category !== "Merchandising") {
+    //   const requiredKeys = ["brand", "model"];
+    //   requiredKeys.forEach((key) => {
+    //     const hasKey = data.attributes?.some(
+    //       (attr) => attr.key === key && attr.value
+    //     );
+    //     if (!hasKey) {
+    //       const index = data.attributes.findIndex((attr) => attr.key === key);
+    //       ctx.addIssue({
+    //         code: z.ZodIssueCode.custom,
+    //         message: `${key} is required for ${data.category} category.`,
+    //         path: ["attributes", index, "value"],
+    //       });
+    //     }
+    //   });
+    //   console.log("Data", data);
+    //   console.log("keys", requiredKeys);
+    //   console.log(ctx);
+    // }
     // if (data.category !== "Merchandising") {
     //   const attributekeys = data.attributes.map((attr) => attr.key);
     //   if (!attributekeys.includes("brand")) {
@@ -221,3 +243,5 @@ export const zodCreateProductModel = z
   );
 
 export type CreateProductModel = z.infer<typeof zodCreateProductModel>;
+
+export type CreationProduct = CreateProductModel;

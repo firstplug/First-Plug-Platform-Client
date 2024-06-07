@@ -9,7 +9,7 @@ interface DropdownInputProductFormProps {
   options?: readonly string[];
   selectedOption?: string;
   onChange?: (option: string) => void;
-  required?: string;
+  // required?: string;
   name: string;
   value?: string;
   disabled?: boolean;

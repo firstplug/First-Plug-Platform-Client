@@ -13,16 +13,17 @@
       "placeholder": "Last Name"
     },
     {
-      "name": "birthDate",
-      "title": "Date of Birth",
-      "type": "date"
-    },
-    {
       "name": "email",
       "title": "Assigned Email*",
       "type": "email",
       "placeholder": "Assigned Email"
     },
+    {
+      "name": "birthDate",
+      "title": "Date of Birth",
+      "type": "date"
+    },
+
     {
       "name": "personalEmail",
       "title": "Personal Email",

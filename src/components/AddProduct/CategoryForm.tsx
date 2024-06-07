@@ -190,6 +190,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
                 : ""
             }
             name="acquisitionDate"
+            allowFutureDates={false}
             onChange={(e) =>
               handleInputChange(
                 "acquisitionDate",

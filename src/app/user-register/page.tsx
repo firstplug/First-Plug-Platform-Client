@@ -9,18 +9,20 @@ import { AccessForm, BillingForm, CompanyForm } from "@/components";
 export default function UserRegister() {
   const [state, setState] = useState<CreationTeamMember>({
     firstName: "",
-    img: "",
+    picture: "",
     lastName: "",
-    dateOfBirth: "",
+    birthDate: "",
     phone: "",
     email: "",
-    jobPosition: "",
+    position: "",
     city: "",
     zipCode: "",
     address: "",
-    appartment: "",
-    joiningDate: "",
-    timeSlotForDelivery: "",
+    apartment: "",
+    startDate: "",
+    team: "",
+    personalEmail: "",
+    country: "",
     additionalInfo: "",
   });
   const handleInput = useCallback((key: string, value: unknown) => {

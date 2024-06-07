@@ -18,7 +18,7 @@ export default observer(function DataProvider({
 
   const {
     user: { setUser },
-    members: { setMembers },
+    members: { setMembers, setFetchMembers },
     products: { setProducts, setTable, setFetchStock },
     shipments: { setShipments },
     orders: { setOrders },
@@ -42,8 +42,10 @@ export default observer(function DataProvider({
 
       if (sessionStorage.getItem("accessToken")) {
         setAuthInterceptor(sessionStorage.getItem("accessToken"));
+        setFetchMembers(true);
         Memberservices.getAllMembers().then((res) => {
           setMembers(res);
+          setFetchMembers(false);
         });
         setFetchStock(true);
         ProductServices.getTableFormat().then((res) => {

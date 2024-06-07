@@ -107,6 +107,7 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
               type="date"
               value={field.value || ""}
               onChange={(e) => field.onChange(e.target.value)}
+              allowFutureDates={true}
               required={"required"}
             />
           )}

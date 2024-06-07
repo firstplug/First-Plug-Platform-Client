@@ -4,15 +4,22 @@ import { useStore } from "@/models";
 import DataStock from "./DataStock";
 import EmptyStock from "./EmptyStock";
 import { PageLayout } from "@/common";
+import { BarLoader } from "@/components/Loader/BarLoader";
 
 export default observer(function MyStock() {
   const {
-    products: { tableProducts },
+    products: { tableProducts, fetchingStock },
   } = useStore();
 
   return (
     <PageLayout>
-      {tableProducts.length === 0 ? <EmptyStock /> : <DataStock />}
+      {fetchingStock ? (
+        <BarLoader />
+      ) : tableProducts.length ? (
+        <DataStock />
+      ) : (
+        <EmptyStock />
+      )}
     </PageLayout>
   );
 });

@@ -7,6 +7,7 @@ export const MemberStore = types
     memberId: types.optional(types.string, ""),
     selectedMemberEmail: types.optional(types.string, ""),
     teamFilterItems: types.array(types.string),
+    fetchingMembers: types.optional(types.boolean, false),
   })
   .views((store) => ({
     get membersTable(): TeamMemberTable[] {
@@ -41,6 +42,9 @@ export const MemberStore = types
     },
   }))
   .actions((store) => ({
+    setFetchMembers(fetchValue: boolean) {
+      store.fetchingMembers = fetchValue;
+    },
     setMembers(members: TeamMember[]) {
       store.members.replace(members);
     },

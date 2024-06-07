@@ -22,18 +22,17 @@ export const CreateTeamAside = observer(function ({
   const [name, setName] = useState("");
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
-  // TODO: check and make createTeam in Services
+  // TODO: REVIEW THE LOGI OF TEAM CREATION, THIS IS AN UPDATE OF MEMBERS!
   const handleCreateTeam = async () => {
     try {
-      // TODO:  Review this endpoint, and check the backend steps for the team creation
-      TeamServices.createTeam().then((res) => {
-        TeamServices.getAllTeams().then((res) => {
-          setTeams(res);
-        });
-        Memberservices.getAllMembers().then((res) => {
-          setMembers(res);
-        });
-      });
+      // TeamServices.createTeam().then((res) => {
+      //   TeamServices.getAllTeams().then((res) => {
+      //     setTeams(res);
+      //   });
+      //   Memberservices.getAllMembers().then((res) => {
+      //     setMembers(res);
+      //   });
+      // });
 
       setAside(undefined);
     } catch (error) {

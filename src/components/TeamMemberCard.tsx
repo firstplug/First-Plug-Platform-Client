@@ -13,7 +13,6 @@ interface TeamMemberCardProps {
   member: TeamMember;
   _id: string;
   shipmentDetails?: ShipmentStatus;
-  teams: string[];
   className?: string;
 }
 

@@ -25,16 +25,16 @@ const DynamicAttributesForm: React.FC<DynamicAttributesFormProps> = ({
   const name = watch("name");
 
   useEffect(() => {
-    const newAttributes = fields.map((field, index) => ({
+    const newAttributes = fields.map((field) => ({
       key: field.name as Key,
-      value: watch(`attributes.${index}.value`) || "",
+      value: watch(`attributes.${field.name}.value`) || "",
     }));
     onAttributesChange(newAttributes);
   }, [fields, watch, onAttributesChange]);
 
   const handleChange = () => {
-    const attributes = fields.map((field, index) => {
-      const value = watch(`attributes.${index}.value`, "");
+    const attributes = fields.map((field) => {
+      const value = watch(`attributes.${field.name}.value`, "");
       return { key: field.name as Key, value };
     });
     onAttributesChange(attributes);

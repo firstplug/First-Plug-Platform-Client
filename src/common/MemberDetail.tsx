@@ -29,9 +29,7 @@ export function MemberDetail({ className }: MemberDetailProps) {
       <div className="flex flex-col w-full  justify-start  ">
         <div className="flex w-full justify-between items-center">
           <div className="flex items-center gap-1">
-            {selectedMember.teams.map((team) => (
-              <TeamCard team={team} key={team} />
-            ))}
+            <TeamCard team={selectedMember.team} />
           </div>
           <div className="flex  text-dark-grey font-semibold">
             <Button variant="text">
@@ -59,14 +57,14 @@ export function MemberDetail({ className }: MemberDetailProps) {
           <div className="flex items-center gap-1 ">
             <span className="font-semibold "> Date Of Birth: </span>
             <span className="font-normal">
-              {dateTo_DDMMYY(selectedMember.dateOfBirth)}{" "}
+              {dateTo_DDMMYY(selectedMember.birthDate)}{" "}
             </span>
           </div>
           <span className="text-dark-grey/50">|</span>
           <div className="flex items-center gap-1 ">
             <span className="font-semibold ">Joining Date:</span>
             <span className="font-normal">
-              {dateTo_DDMMYY(selectedMember.joiningDate)}
+              {dateTo_DDMMYY(selectedMember.startDate)}
             </span>
           </div>
         </div>

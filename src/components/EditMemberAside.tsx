@@ -43,7 +43,9 @@ export const EditMemberAside = observer(function () {
         <div className="relative w-36 h-36">
           <Image
             src={
-              selectedMember.img ? selectedMember.img : "/employees/member.jpg"
+              selectedMember.picture
+                ? selectedMember.picture
+                : "/employees/member.jpg"
             }
             alt="Colaborator"
             fill

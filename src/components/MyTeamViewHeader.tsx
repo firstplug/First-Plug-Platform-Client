@@ -7,7 +7,7 @@ export function MyTeamViewHeader() {
       <CustomLink
         className={"rounded-md text-sm p-2 flex items-center gap-2"}
         variant={"secondary"}
-        href="/home/addTeam"
+        href="/home/my-team/addTeam"
       >
         <AddIcon /> Add Team Member
       </CustomLink>

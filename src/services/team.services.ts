@@ -1,7 +1,7 @@
 import { Team } from "@/types";
 import { BASE_URL, HTTPRequests } from "@/config/axios.config";
 
-type TeamCreation = Omit<Team, "_id" | "__v">;
+type TeamCreation = { name: string };
 
 export class TeamServices {
   static async getAllTeams(): Promise<Team[]> {
@@ -9,8 +9,8 @@ export class TeamServices {
     return response.data;
   }
 
-  static async createTeam(): Promise<Team[]> {
-    const response = await HTTPRequests.get(`${BASE_URL}/api/teams`);
+  static async createTeam(team: TeamCreation): Promise<Team> {
+    const response = await HTTPRequests.post(`${BASE_URL}/api/teams`, team);
     return response.data;
   }
 

@@ -7,19 +7,21 @@ import { CreationTeamMember } from "@/types";
 export default function Settings() {
   const [state, setState] = useState<CreationTeamMember>({
     firstName: "",
-    img: "",
     lastName: "",
-    dateOfBirth: "",
-    phone: "",
     email: "",
-    jobPosition: "",
+    picture: "",
+    position: "",
+    personalEmail: "",
+    phone: "",
     city: "",
+    country: "",
     zipCode: "",
     address: "",
-    appartment: "",
-    joiningDate: "",
-    timeSlotForDelivery: "",
+    apartment: "",
     additionalInfo: "",
+    startDate: "",
+    birthDate: "",
+    team: "",
   });
   const handleInput = useCallback((key: string, value: unknown) => {
     setState((prev) => ({

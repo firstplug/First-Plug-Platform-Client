@@ -8,7 +8,7 @@ interface joinerProps {
 }
 
 export function JoinerRow({ joiner }: joinerProps) {
-  const backgroundColorClass = JobPositionColors[joiner.jobPosition];
+  const backgroundColorClass = JobPositionColors[joiner.team];
 
   return (
     <div className=" flex items-center gap-2 justify-between p-2 border-b rounded-md border-border   ">
@@ -24,7 +24,7 @@ export function JoinerRow({ joiner }: joinerProps) {
           </h2>
           <div className="flex gap-2 justify-start">
             <span className="font-medium text-dark-grey">Joining Date:</span>
-            <span className=" text-dark-grey">{joiner.joiningDate}</span>
+            <span className=" text-dark-grey">{joiner.startDate}</span>
           </div>
         </div>
       </div>
@@ -32,7 +32,7 @@ export function JoinerRow({ joiner }: joinerProps) {
         <span
           className={` ${backgroundColorClass} bg-opacity-70 p-2 text-sm text-gray-800 rounded-md`}
         >
-          {joiner.jobPosition}
+          {joiner.team}
         </span>
       </div>
     </div>

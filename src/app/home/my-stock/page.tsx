@@ -8,15 +8,14 @@ import { BarLoader } from "@/components/Loader/BarLoader";
 
 export default observer(function MyStock() {
   const {
-    products: { tableProducts },
-    fetch: { isFetching },
+    products: { tableProducts, fetchingStock },
   } = useStore();
 
   return (
     <PageLayout>
-      {isFetching ? (
+      {fetchingStock ? (
         <BarLoader />
-      ) : tableProducts ? (
+      ) : tableProducts.length ? (
         <DataStock />
       ) : (
         <EmptyStock />

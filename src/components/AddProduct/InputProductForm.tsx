@@ -11,6 +11,7 @@ interface InputProps {
   name?: string;
   required?: string;
   allowFutureDates?: boolean;
+  disabled?: boolean;
 }
 
 export function InputProductForm({
@@ -22,6 +23,7 @@ export function InputProductForm({
   onChange,
   name,
   allowFutureDates = true,
+  disabled = false,
 }: InputProps) {
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(e);
@@ -49,6 +51,7 @@ export function InputProductForm({
         className={`w-full h-14 py-2 rounded-xl border text-black p-4 font-sans focus:outline-none ${className}`}
         required={true}
         max={type === "date" && !allowFutureDates ? today : undefined}
+        disabled={disabled}
       />
     </div>
   );

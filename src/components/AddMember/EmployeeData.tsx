@@ -87,6 +87,7 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
                 value={field.value || ""}
                 onChange={(e) => field.onChange(e.target.value)}
                 required={"required"}
+                disabled={!teamValue}
               />
               {errors.position && (
                 <p className="text-red-500">

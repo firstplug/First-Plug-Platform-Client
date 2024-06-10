@@ -18,12 +18,11 @@ export default observer(function DataProvider({
 
   const {
     user: { setUser },
-    members: { setMembers },
-    products: { setProducts, setTable },
+    members: { setMembers, setFetchMembers },
+    products: { setProducts, setTable, setFetchStock },
     shipments: { setShipments },
     orders: { setOrders },
     teams: { setTeams },
-    fetch: { setFetching },
   } = store;
 
   useEffect(() => {
@@ -42,19 +41,21 @@ export default observer(function DataProvider({
       });
 
       if (sessionStorage.getItem("accessToken")) {
-        setFetching(true);
         setAuthInterceptor(sessionStorage.getItem("accessToken"));
+        setFetchMembers(true);
         Memberservices.getAllMembers().then((res) => {
           setMembers(res);
+          setFetchMembers(false);
         });
+        setFetchStock(true);
         ProductServices.getTableFormat().then((res) => {
           setTable(res);
+          setFetchStock(false);
         });
         TeamServices.getAllTeams().then((res) => {
           setTeams(res);
         });
 
-        setFetching(false);
         setIsLoading(false);
       }
     }

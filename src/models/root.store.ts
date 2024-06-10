@@ -20,7 +20,6 @@ export const RootStore = types.model({
   members: types.late(() => MemberStore),
   aside: types.late(() => AsideStore),
   user: types.late(() => UserStore),
-  fetch: types.late(() => FetchStore),
 });
 
 export type RootStoreInstance = Instance<typeof RootStore>;

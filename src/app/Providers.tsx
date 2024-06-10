@@ -18,9 +18,6 @@ export default function Providers({ children }: ProvidersProps) {
     members: {},
     aside: {},
     user: {},
-    fetch: {
-      isFetching: false,
-    },
   });
   useEffect(() => {
     const setupAxiosInterceptor = async () => {

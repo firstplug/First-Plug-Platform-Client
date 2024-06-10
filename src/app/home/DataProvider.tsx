@@ -59,7 +59,18 @@ export default observer(function DataProvider({
         setIsLoading(false);
       }
     }
-  }, [session, setUser, setMembers, setProducts, setOrders, setShipments]);
+  }, [
+    session,
+    setUser,
+    setMembers,
+    setProducts,
+    setOrders,
+    setShipments,
+    setTeams,
+    setTable,
+    setFetchMembers,
+    setFetchStock,
+  ]);
 
   const tenantNameExists = session.data?.user?.tenantName;
   if (isLoading) {

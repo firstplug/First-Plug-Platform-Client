@@ -118,7 +118,7 @@ export default function useInput<T>(
           : setError(validateFunction(selectedOption as string));
       }
     },
-    [validateFunction, isOptionInput, value, selectedOption]
+    [validateFunction, isOptionInput, value, selectedOption, type]
   );
 
   const handleOption = useCallback((option: T) => {
@@ -135,7 +135,7 @@ export default function useInput<T>(
           : setError(validateFunction(value as string))
         : setError(validateFunction(selectedOption as string));
     }
-  }, [validateFunction, isOptionInput, value, selectedOption]);
+  }, [validateFunction, isOptionInput, value, selectedOption, type]);
 
   const onFocus = useCallback(() => {
     setTouched(false);
@@ -147,7 +147,7 @@ export default function useInput<T>(
           : setError(validateFunction(value as string))
         : setError(validateFunction(selectedOption as string));
     }
-  }, [validateFunction, isOptionInput, value, selectedOption]);
+  }, [validateFunction, isOptionInput, value, selectedOption, type]);
 
   const clearInput = useCallback(() => {
     setValue(initialValue);

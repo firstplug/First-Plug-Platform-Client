@@ -24,6 +24,7 @@ export default function UserRegister() {
     personalEmail: "",
     country: "",
     additionalInfo: "",
+    isDeleted: false,
   });
   const handleInput = useCallback((key: string, value: unknown) => {
     setState((prev) => ({

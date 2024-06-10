@@ -21,6 +21,7 @@ export const TeamMemberModel = types.model({
   birthDate: types.optional(types.string, ""),
   products: types.optional(types.array(ProductModel), []),
   team: types.optional(types.string, ""),
+  isDeleted: types.optional(types.boolean, false),
 });
 
 export type TeamMember = Instance<typeof TeamMemberModel>;

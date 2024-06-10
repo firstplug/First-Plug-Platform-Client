@@ -13,7 +13,11 @@ const ShipmentData = function ({ isUpdate, initialData }) {
     <div>
       <SectionTitle>Shipment Details</SectionTitle>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+      <div
+        className={`grid gap-2 ${
+          isUpdate ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 lg:grid-cols-3"
+        }`}
+      >
         {shipmentData.fields.map((field, index) => (
           <div key={index}>
             <Controller

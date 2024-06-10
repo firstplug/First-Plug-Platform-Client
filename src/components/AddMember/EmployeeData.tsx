@@ -54,7 +54,14 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
     <div>
       <SectionTitle>Employee information</SectionTitle>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+      <div 
+      className={`grid gap-2 ${
+        isUpdate
+          ? "grid-cols-1 sm:grid-cols-3"
+          : "grid-cols-1 lg:grid-cols-4"
+      }`}
+      // className={"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+      >
         <Controller
           name="team"
           control={control}

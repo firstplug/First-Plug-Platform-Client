@@ -24,7 +24,7 @@ export class Memberservices {
     id: TeamMember["_id"],
     data: Partial<CreationMember>
   ): Promise<TeamMember> {
-    const response = await HTTPRequests.put(
+    const response = await HTTPRequests.patch(
       `${BASE_URL}/api/members/${id}`,
       data
     );

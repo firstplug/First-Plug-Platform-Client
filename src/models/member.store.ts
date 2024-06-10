@@ -71,4 +71,10 @@ export const MemberStore = types
     setAside(aside: "EditMember" | "None") {
       store.aside = aside;
     },
+    deleteMember(member: TeamMember) {
+      const index = store.members.findIndex((m) => m._id === member._id);
+      if (index > -1) {
+        store.members[index] = member;
+      }
+    },
   }));

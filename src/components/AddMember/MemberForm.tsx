@@ -59,10 +59,10 @@ const MemberForm: React.FC<MemberFormProps> = ({
         response = await Memberservices.updateMember(initialData._id, data);
         updateMember(response);
         setShowSuccessDialog(true);
-        setAside(undefined);
-        setTimeout(() => {
-          location.reload();
-        }, 2000);
+        // setAside(undefined);
+        // setTimeout(() => {
+        //   location.reload();
+        // }, 2000);
       } else {
         response = await Memberservices.createMember(data);
         addMember(response);
@@ -130,7 +130,14 @@ const MemberForm: React.FC<MemberFormProps> = ({
             buttonText="OK"
             onButtonClick={() => {
               setShowSuccessDialog(false);
-              router.push("/home//my-team");
+              setAside(undefined);
+              if (isUpdate) {
+                setTimeout(() => {
+                  location.reload();
+                }, 2000);
+              } else {
+                router.push("/home/my-team");
+              }
             }}
           />
           <GenericAlertDialog

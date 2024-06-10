@@ -7,7 +7,7 @@ import { useFormContext, Controller } from "react-hook-form";
 const AdditionalData = function ({ isUpdate, initialData }) {
   const { control } = useFormContext();
   return (
-    <div className="mb-16">
+    <div className={` ${isUpdate ? "mb-24" : "mb-16"}`}>
       <Controller
         name="additionalInfo"
         control={control}

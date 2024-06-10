@@ -36,7 +36,7 @@ export type TeamMemberTable = {
   products: Product[];
 };
 
-const nameRegex = /^[A-Za-z]+$/;
+const nameRegex = /^[A-Za-z\s]+$/;
 const phoneRegex = /^\+?[0-9]*$/;
 const isAdult = (date: string) => {
   const birthDate = new Date(date);

@@ -51,18 +51,12 @@ const MemberForm: React.FC<MemberFormProps> = ({
     setShowErrorDialog(false);
     setErrorMessage("");
 
-    console.log("submitting", data);
-
     try {
       let response;
       if (isUpdate && initialData) {
         response = await Memberservices.updateMember(initialData._id, data);
         updateMember(response);
         setShowSuccessDialog(true);
-        // setAside(undefined);
-        // setTimeout(() => {
-        //   location.reload();
-        // }, 2000);
       } else {
         response = await Memberservices.createMember(data);
         addMember(response);

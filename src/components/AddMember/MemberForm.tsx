@@ -76,6 +76,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
       setShowErrorDialog(true);
     }
   };
+
   return (
     <PageLayout>
       <FormProvider {...methods}>

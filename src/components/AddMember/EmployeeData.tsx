@@ -67,7 +67,6 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
                 title="Team Name"
                 selectedOption={teamValue}
                 onChange={handleTeamChange}
-                required={"required"}
               />
               {errors.team && (
                 <p className="text-red-500">{String(errors.team?.message)}</p>

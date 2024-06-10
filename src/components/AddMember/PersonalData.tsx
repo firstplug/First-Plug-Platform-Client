@@ -56,9 +56,11 @@ const PersonalData = function ({ memberImage, isUpdate, initialData }) {
                     />
                     <div className="min-h-[24px]">
                       {errors[field.name] && (
-                        <>
-                          <p className="text-red-500">{field.errorMessage}</p>
-                        </>
+                        <p className="text-red-500">
+                          {String(
+                            errors[field.name]?.message || field.errorMessage
+                          )}
+                        </p>
                       )}
                     </div>
                   </>

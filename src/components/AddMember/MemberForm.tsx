@@ -65,7 +65,11 @@ const MemberForm: React.FC<MemberFormProps> = ({
       methods.reset();
       setMembers([]);
     } catch (error) {
-      setErrorMessage(error.message);
+      if (error.response?.data?.message === "Email is already in use") {
+        setErrorMessage("Email is already in use");
+      } else {
+        setErrorMessage(error.message);
+      }
       setShowErrorDialog(true);
     }
   };

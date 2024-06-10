@@ -1,4 +1,5 @@
-// "use client";
+// commented this component, I think is useless for now
+//"use client";
 // import { Button, Input, DropdownInput } from "@/common";
 // import { TrashIcon } from "@/common/Icons";
 // import { useStore } from "@/models/root.store";

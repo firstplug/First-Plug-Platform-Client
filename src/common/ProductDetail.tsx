@@ -31,7 +31,7 @@ export default function ProductDetail({
         <hr />
 
         <div className="flex gap-2 items-center">
-          <h1 className="font-normal text-lg">Model:</h1>
+          <h1 className="font-normal text-lg">Detail:</h1>
           <PrdouctModelDetail product={product} />
         </div>
       </div>

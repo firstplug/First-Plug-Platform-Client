@@ -3,6 +3,7 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import { SectionTitle } from "@/common";
 import { InputProductForm } from "../AddProduct/InputProductForm";
+import { DropdownInputProductForm } from "../AddProduct/DropDownProductForm";
 import { useFormContext, Controller } from "react-hook-form";
 import shipmentData from "./JSON/shipmentdata.json";
 
@@ -18,17 +19,31 @@ const ShipmentData = function ({ isUpdate, initialData }) {
             <Controller
               name={field.name}
               control={control}
-              render={({ field: controllerField }) => (
-                <InputProductForm
-                  name={field.name}
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  title={field.title}
-                  value={controllerField.value || ""}
-                  onChange={controllerField.onChange}
-                  required={"required"}
-                />
-              )}
+              render={({ field: controllerField }) => {
+                if (field.type === "dropdown") {
+                  return (
+                    <DropdownInputProductForm
+                      title={field.title}
+                      placeholder={field.placeholder}
+                      options={field.options}
+                      selectedOption={controllerField.value || ""}
+                      onChange={controllerField.onChange}
+                      name={field.name}
+                    />
+                  );
+                } else {
+                  return (
+                    <InputProductForm
+                      name={field.name}
+                      type={field.type}
+                      placeholder={field.placeholder}
+                      title={field.title}
+                      value={controllerField.value || ""}
+                      onChange={controllerField.onChange}
+                    />
+                  );
+                }
+              }}
             />
           </div>
         ))}

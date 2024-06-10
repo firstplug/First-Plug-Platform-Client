@@ -77,7 +77,6 @@ const DynamicForm = ({
             }}
             placeholder="Product Name"
             title="Product Name*"
-            required="required"
           />
           <div className="min-h-[24px]">
             {errors.name && (

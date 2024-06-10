@@ -53,7 +53,6 @@ const PersonalData = function ({ memberImage, isUpdate, initialData }) {
                       value={controllerField.value || ""}
                       onChange={controllerField.onChange}
                       allowFutureDates={false}
-                      required={"required"}
                     />
                     <div className="min-h-[24px]">
                       {errors[field.name] && (

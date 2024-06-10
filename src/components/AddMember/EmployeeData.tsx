@@ -86,7 +86,6 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
                 type="text"
                 value={field.value || ""}
                 onChange={(e) => field.onChange(e.target.value)}
-                required={"required"}
                 disabled={!teamValue}
               />
               {errors.position && (
@@ -109,7 +108,6 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
               value={field.value || ""}
               onChange={(e) => field.onChange(e.target.value)}
               allowFutureDates={true}
-              required={"required"}
             />
           )}
         />

@@ -3,8 +3,30 @@
     {
       "name": "country",
       "title": "Country",
-      "type": "text",
-      "placeholder": "Country"
+      "type": "dropdown",
+      "placeholder": "Country",
+      "options": [
+        "Argentina",
+        "Bolivia",
+        "Brasil",
+        "Chile",
+        "Colombia",
+        "Costa Rica",
+        "Ecuador",
+        "El Salvador",
+        "Guatemala",
+        "Honduras",
+        "Israel",
+        "Mexico",
+        "Nicaragua",
+        "Panama",
+        "Paraguay",
+        "Perú",
+        "Spain",
+        "United States",
+        "Uruguay",
+        "Venezuela"
+      ]
     },
     {
       "name": "city",

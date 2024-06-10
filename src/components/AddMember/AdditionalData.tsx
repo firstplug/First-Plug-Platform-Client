@@ -7,7 +7,7 @@ import { useFormContext, Controller } from "react-hook-form";
 const AdditionalData = function ({ isUpdate, initialData }) {
   const { control } = useFormContext();
   return (
-    <div>
+    <div className="mb-16">
       <Controller
         name="additionalInfo"
         control={control}
@@ -19,7 +19,6 @@ const AdditionalData = function ({ isUpdate, initialData }) {
             type="text"
             value={field.value || ""}
             onChange={(e) => field.onChange(e.target.value)}
-            required={"required"}
           />
         )}
       />

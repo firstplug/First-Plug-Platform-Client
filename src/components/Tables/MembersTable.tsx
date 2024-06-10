@@ -91,12 +91,12 @@ interface TableMembersProps {
 }
 export function MembersTable({ members }: TableMembersProps) {
   const {
-    members: { setSelectedMember, setMembers },
+    members: { setSelectedMember, setMembers, setMemberToEdit },
     aside: { setAside },
   } = useStore();
 
   const handleEdit = (memberId: TeamMember["_id"]) => {
-    setSelectedMember(memberId);
+    setMemberToEdit(memberId);
     setAside("EditMember");
   };
   const handleDelete = (memberId: TeamMember["_id"]) => {

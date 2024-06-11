@@ -37,8 +37,6 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
   useEffect(() => {
     if (isUpdate) {
       const assignedMember = formState.assignedMember as string;
-      console.log("Initial Assigned Member:", assignedMember);
-      console.log("assignedEmail:", formState.assignedEmail);
       setSelectedAssignedMember(assignedMember || "None");
       setValue("assignedMember", assignedMember);
 
@@ -48,7 +46,6 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
       setAssignedEmail(selectedMember?.email || "");
 
       const location = formState.location as string;
-      console.log("Initial Location:", location);
       setSelectedLocation(location);
       setValue("location", location);
     }
@@ -86,6 +83,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
       setValue("status", "Delivered");
     }
     clearErrors("assignedMember");
+    clearErrors("assignedEmail");
   };
 
   return (

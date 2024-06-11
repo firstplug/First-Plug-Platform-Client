@@ -123,7 +123,6 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
             name="assignedMember"
             selectedOption={selectedAssignedMember}
             onChange={handleAssignedMemberChange}
-            required="required"
             className="w-full "
           />
           <div className="min-h-[24px]">

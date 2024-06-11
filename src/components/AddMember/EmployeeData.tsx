@@ -54,7 +54,14 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
     <div>
       <SectionTitle>Employee information</SectionTitle>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+      <div 
+      className={`grid gap-2 ${
+        isUpdate
+          ? "grid-cols-1 sm:grid-cols-3"
+          : "grid-cols-1 lg:grid-cols-4"
+      }`}
+      // className={"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+      >
         <Controller
           name="team"
           control={control}
@@ -67,7 +74,6 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
                 title="Team Name"
                 selectedOption={teamValue}
                 onChange={handleTeamChange}
-                required={"required"}
               />
               {errors.team && (
                 <p className="text-red-500">{String(errors.team?.message)}</p>
@@ -86,7 +92,6 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
                 type="text"
                 value={field.value || ""}
                 onChange={(e) => field.onChange(e.target.value)}
-                required={"required"}
                 disabled={!teamValue}
               />
               {errors.position && (
@@ -109,7 +114,6 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
               value={field.value || ""}
               onChange={(e) => field.onChange(e.target.value)}
               allowFutureDates={true}
-              required={"required"}
             />
           )}
         />

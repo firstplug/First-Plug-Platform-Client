@@ -4,19 +4,22 @@
       "name": "firstName",
       "title": "First Name*",
       "type": "text",
-      "placeholder": "First Name"
+      "placeholder": "First Name",
+      "errorMessage": "First name is required"
     },
     {
       "name": "lastName",
       "title": "Last Name*",
       "type": "text",
-      "placeholder": "Last Name"
+      "placeholder": "Last Name",
+      "errorMessage": "Last name is required"
     },
     {
       "name": "email",
       "title": "Assigned Email*",
       "type": "email",
-      "placeholder": "Assigned Email"
+      "placeholder": "Assigned Email",
+      "errorMessage": "Email is required"
     },
     {
       "name": "birthDate",

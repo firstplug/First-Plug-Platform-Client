@@ -22,14 +22,15 @@ const PersonalData = function ({ memberImage, isUpdate, initialData }) {
   }, [isUpdate, initialData, setValue]);
 
   return (
-    <div className="flex items-center gap-7">
-      <section className="h-full rounded-[30px] relative">
+    <div className="flex items-start gap-7">
+      <div className="relative w-1/4 h-auto rounded-[30px] mt-4">
         <Image
           src={memberImage}
           alt="emptyImage"
-          className="object-cover h-full"
+          objectFit="cover"
+          className="rounded-[20px]"
         />
-      </section>
+      </div>
       <div className="w-full lg:w-full">
         <div
           className={`grid gap-4 ${
@@ -53,12 +54,13 @@ const PersonalData = function ({ memberImage, isUpdate, initialData }) {
                       value={controllerField.value || ""}
                       onChange={controllerField.onChange}
                       allowFutureDates={false}
-                      required={"required"}
                     />
                     <div className="min-h-[24px]">
                       {errors[field.name] && (
                         <p className="text-red-500">
-                          {String(errors[field.name]?.message)}
+                          {String(
+                            errors[field.name]?.message || field.errorMessage
+                          )}
                         </p>
                       )}
                     </div>

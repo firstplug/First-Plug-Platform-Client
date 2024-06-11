@@ -9,7 +9,7 @@ interface InputProps {
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name?: string;
-  required?: string;
+  // required?: string;
   allowFutureDates?: boolean;
   disabled?: boolean;
 }
@@ -49,7 +49,6 @@ export function InputProductForm({
         }}
         placeholder={placeholder}
         className={`w-full h-14 py-2 rounded-xl border text-black p-4 font-sans focus:outline-none ${className}`}
-        required={true}
         max={type === "date" && !allowFutureDates ? today : undefined}
         disabled={disabled}
       />

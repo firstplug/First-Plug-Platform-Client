@@ -4,8 +4,7 @@ import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Memberservices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
-import { TeamServices } from "@/services/team.services";
-import { TeamMember, zodCreateMembertModel } from "@/types";
+import { TeamMember, TeamMemberModel, zodCreateMembertModel } from "@/types";
 import PersonalData from "./PersonalData";
 import memberImage from "../../../public/member.png";
 import EmployeeData from "./EmployeeData";
@@ -52,18 +51,12 @@ const MemberForm: React.FC<MemberFormProps> = ({
     setShowErrorDialog(false);
     setErrorMessage("");
 
-    console.log("submitting", data);
-
     try {
       let response;
       if (isUpdate && initialData) {
         response = await Memberservices.updateMember(initialData._id, data);
         updateMember(response);
         setShowSuccessDialog(true);
-        setAside(undefined);
-        setTimeout(() => {
-          location.reload();
-        }, 2000);
       } else {
         response = await Memberservices.createMember(data);
         addMember(response);
@@ -76,12 +69,13 @@ const MemberForm: React.FC<MemberFormProps> = ({
       setShowErrorDialog(true);
     }
   };
+
   return (
     <PageLayout>
       <FormProvider {...methods}>
-        <div className="relative h-full   w-full  ">
-          <div className=" absolute max-h-[90%] h-[90%] w-full overflow-y-auto   ">
-            <div className=" px-10 py-4 rounded-3xl  border  ">
+        <div className=" h-full w-full flex flex-col  ">
+          <div className=" absolute h-[90%] w-[80%]  flex-grow overflow-y-auto p-4 ">
+            <div className=" px-4 py-5 rounded-3xl  border  ">
               <SectionTitle className="text-[20px]">
                 {isUpdate ? "" : "Add Team Member"}
               </SectionTitle>
@@ -108,7 +102,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
               </section>
             </div>
           </div>
-          <aside className="absolute  flex justify-end bg-white w-full  bottom-0 p-2 h-[10%] border-t rou">
+          <aside className="absolute flex justify-end bg-white w-[80%] bottom-0 p-2 h-[10%] border-t">
             <Button
               body={isUpdate ? "Update" : "Save"}
               variant="primary"
@@ -130,7 +124,14 @@ const MemberForm: React.FC<MemberFormProps> = ({
             buttonText="OK"
             onButtonClick={() => {
               setShowSuccessDialog(false);
-              router.push("/home//my-team");
+              setAside(undefined);
+              if (isUpdate) {
+                setTimeout(() => {
+                  location.reload();
+                }, 2000);
+              } else {
+                router.push("/home/my-team");
+              }
             }}
           />
           <GenericAlertDialog

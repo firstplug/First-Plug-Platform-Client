@@ -22,6 +22,7 @@ export default function Settings() {
     startDate: "",
     birthDate: "",
     team: "",
+    isDeleted: false,
   });
   const handleInput = useCallback((key: string, value: unknown) => {
     setState((prev) => ({

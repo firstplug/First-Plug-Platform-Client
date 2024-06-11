@@ -5,6 +5,7 @@ import React from "react";
 import { Table } from "../Table";
 import { Button, PenIcon, TeamCard, TrashIcon } from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
+import { DeleteAction } from "../Alerts";
 
 const formatDate = (dateString: string) => {
   if (!dateString) return "";
@@ -72,16 +73,7 @@ const membersColumns: (
             />
           }
         />
-        <Button
-          variant="text"
-          onClick={() => handleDelete(row.original._id)}
-          body={
-            <TrashIcon
-              strokeWidth={2}
-              className=" text-dark-grey w-[1.2rem] h-[1.2rem] hover:text-error"
-            />
-          }
-        />
+        <DeleteAction type="member" id={row.original._id} />
       </div>
     ),
   },
@@ -91,12 +83,12 @@ interface TableMembersProps {
 }
 export function MembersTable({ members }: TableMembersProps) {
   const {
-    members: { setSelectedMember, setMembers },
+    members: { setSelectedMember, setMembers, setMemberToEdit },
     aside: { setAside },
   } = useStore();
 
   const handleEdit = (memberId: TeamMember["_id"]) => {
-    setSelectedMember(memberId);
+    setMemberToEdit(memberId);
     setAside("EditMember");
   };
   const handleDelete = (memberId: TeamMember["_id"]) => {

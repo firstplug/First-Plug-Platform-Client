@@ -1,5 +1,6 @@
 import { types } from "mobx-state-tree";
 import { TeamMemberModel, TeamMember, TeamMemberTable } from "@/types";
+import { ASIDE_TYPES, AsideType } from "@/types";
 
 export const MemberStore = types
   .model({
@@ -7,6 +8,8 @@ export const MemberStore = types
     memberId: types.optional(types.string, ""),
     selectedMemberEmail: types.optional(types.string, ""),
     teamFilterItems: types.array(types.string),
+    memberToEdit: types.maybe(types.string),
+    aside: types.optional(types.enumeration(["EditMember", "None"]), "None"),
     fetchingMembers: types.optional(types.boolean, false),
   })
   .views((store) => ({
@@ -63,6 +66,18 @@ export const MemberStore = types
     updateMember(member: TeamMember) {
       const index = store.members.findIndex((m) => m._id === member._id);
       if (index !== -1) {
+        store.members[index] = member;
+      }
+    },
+    setMemberToEdit(memberId: string) {
+      store.memberToEdit = memberId;
+    },
+    setAside(aside: "EditMember" | "None") {
+      store.aside = aside;
+    },
+    deleteMember(member: TeamMember) {
+      const index = store.members.findIndex((m) => m._id === member._id);
+      if (index > -1) {
         store.members[index] = member;
       }
     },

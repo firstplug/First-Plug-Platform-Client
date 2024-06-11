@@ -3,6 +3,7 @@ import React from "react";
 interface PrdouctModelDetailProps {
   product: Product;
 }
+
 export default function PrdouctModelDetail({
   product,
 }: PrdouctModelDetailProps) {
@@ -23,8 +24,10 @@ export default function PrdouctModelDetail({
   );
 
   const getValue = (key: Key) => {
-    return attributesToShow.filter((at) => at.key === key)[0]?.value;
+    return attributesToShow.find((at) => at.key === key)?.value || "-";
   };
+  console.log("brand", getValue("brand"));
+  console.log("model", getValue("model"));
 
   return (
     <div className="flex flex-col">
@@ -32,12 +35,8 @@ export default function PrdouctModelDetail({
         <span className="text-xl">{product.name}</span>
       ) : (
         <div className="flex gap-1 text-[18px]">
-          <span className="font-semibold">
-            {product.attributes.filter((at) => at.key === "brand")[0].value}
-          </span>
-          <span className=" font-normal">
-            {product.attributes.filter((at) => at.key === "model")[0].value}
-          </span>
+          <span className="font-semibold">{getValue("brand")}</span>
+          <span className="font-normal">{getValue("model")}</span>
         </div>
       )}
       <div className="flex gap-4 text-md">

@@ -15,12 +15,24 @@ const formatDate = (dateString: string) => {
 
 const membersColumns: (
   handleEdit: (memberId: TeamMember["_id"]) => void,
-  handleDelete: (memberId: TeamMember["_id"]) => void
-) => ColumnDef<TeamMemberTable>[] = (handleEdit, handleDelete) => [
+  handleDelete: (memberId: TeamMember["_id"]) => void,
+  handleViewDetail: (memberId: TeamMember["_id"]) => void
+) => ColumnDef<TeamMemberTable>[] = (
+  handleEdit,
+  handleDelete,
+  handleViewDetail
+) => [
   {
     accessorKey: "fullName",
     header: "Full Name",
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    cell: ({ row }) => (
+      <span
+        className="cursor-pointer text-blue-500"
+        onClick={() => handleViewDetail(row.original._id)}
+      >
+        {row.getValue<string>("fullName")}
+      </span>
+    ),
   },
   {
     accessorKey: "birthDate",
@@ -99,10 +111,15 @@ export function MembersTable({ members }: TableMembersProps) {
       });
     });
   };
+  const handleViewDetail = (memberId: TeamMember["_id"]) => {
+    setSelectedMember(memberId);
+    setAside("MemberDetails");
+  };
+
   return (
     <Table<TeamMemberTable>
       data={members}
-      columns={membersColumns(handleEdit, handleDelete)}
+      columns={membersColumns(handleEdit, handleDelete, handleViewDetail)}
     />
   );
 }

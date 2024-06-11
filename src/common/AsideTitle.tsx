@@ -4,9 +4,12 @@ import { observer } from "mobx-react-lite";
 
 export const AsideTitle = observer(function AsideTitle() {
   const { aside, orders, members } = useStore();
+  const selectedMember = members.selectedMember;
   switch (aside.type) {
     case "MemberDetails":
-      return `Team Member Details `;
+      return selectedMember
+        ? `${selectedMember.firstName} ${selectedMember.lastName}`
+        : "Team Member Details";
     case "EditMember":
       return "Edit Teams";
     case "AssignProduct":

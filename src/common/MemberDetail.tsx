@@ -4,7 +4,6 @@ import { Button } from "./Button";
 import { TeamCard } from "./TeamCard";
 import Image from "next/image";
 import Photo from "../../public/employees/member.jpg";
-import { dateTo_DDMMYY } from "@/utils/dateFormat";
 import { useStore } from "@/models/root.store";
 import memberImage from "../../public/member.png";
 
@@ -56,6 +55,12 @@ export function MemberDetail({ className }: MemberDetailProps) {
             <span className="font-semibold">Joining Date: </span>
             <span className="font-normal">
               {selectedMember.startDate || ""}
+            </span>
+          </div>
+          <div className="flex items-center gap-2 text-md">
+            <span className="font-semibold">Birth Date: </span>
+            <span className="font-normal">
+              {selectedMember.birthDate || ""}
             </span>
           </div>
           <div className="flex items-center gap-2 text-md">

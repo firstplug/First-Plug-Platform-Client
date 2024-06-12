@@ -34,7 +34,7 @@ export const MemberAsideDetails = observer(function ({
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 overflow-y-auto max-h-96 mb-6">
                 {selectedMember.products.length
                   ? selectedMember.products.map((product) => (
                       <ProductDetail product={product} key={product._id} />

@@ -1,7 +1,11 @@
 import { AddIcon, Button, CustomLink, UploadIcon } from "@/common";
+import { useStore } from "@/models";
 import React from "react";
 
 export function MyTeamViewHeader() {
+  const {
+    aside: { setAside },
+  } = useStore();
   return (
     <div className="w-full flex  h-[6%]  justify-end gap-2 ">
       <CustomLink
@@ -17,6 +21,7 @@ export function MyTeamViewHeader() {
         icon={<UploadIcon />}
         className={"rounded-md text-sm p-2"}
         variant={"primary"}
+        onClick={() => setAside("LoadMembers")}
       />
     </div>
   );

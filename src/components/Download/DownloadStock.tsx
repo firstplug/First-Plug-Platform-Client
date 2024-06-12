@@ -16,13 +16,19 @@ import { saveAs } from "file-saver";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { DownloadIcon } from "@/common";
+import { useStore } from "@/models";
 export function DownloadStock() {
+  const {
+    aside: { type },
+  } = useStore();
+
+  const fileToDownload = type === "LoadStock" ? "stock.xlsm" : "members.xlsm";
   const downloadTemplate = async () => {
     try {
-      const filePath = "/excel/stock.xlsm";
+      const filePath = `/excel/${fileToDownload}`;
       const response = await fetch(filePath);
       const blob = await response.blob();
-      saveAs(blob, "stock.xlsm");
+      saveAs(blob, fileToDownload);
     } catch (error) {
       console.error("Error al descargar el archivo:", error);
     }
@@ -50,7 +56,7 @@ export function DownloadStock() {
                 </li>
                 <li className="list-item list-decimal">
                   Right-click on the downloaded file
-                  <span className="font-medium"> (stock.xlsm 📁)</span>
+                  <span className="font-medium"> ({fileToDownload} 📁)</span>
                   and select “Properties”;.
                 </li>
 

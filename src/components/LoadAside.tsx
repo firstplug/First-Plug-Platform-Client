@@ -5,19 +5,20 @@ import { AddStockCard, Button } from "@/common";
 import Papa from "papaparse";
 import { useStore } from "@/models";
 import {
+  CreateMemberZodModel,
   CsvInfo,
+  CsvMember,
   CsvProduct,
   PrdouctModelZod,
-  Product,
-  TeamMember,
-  csvFileSquema,
-  csvProductModel,
+  csvMemberSchema,
+  csvPrdocutSchema,
   csvSquema,
 } from "@/types";
 import { CsvServices, ProductServices } from "@/services";
-import { isProductCompleted, parseProduct } from "@/utils";
+import { isCsvCompleted, parseProduct } from "@/utils";
 import { useToast } from "./ui/use-toast";
 import { DownloadStock } from "./Download";
+import { parseMembers } from "@/utils/parseMembers";
 const EMPTY_FILE_INFO: CsvInfo = {
   title: "",
   file: "",
@@ -89,26 +90,33 @@ export const LoadAside = function () {
       }
 
       if (type === "LoadMembers") {
-        const members = parsedData.map((member) => {
-          return {
-            ...member,
-            dateOfBirth: new Date(member.dateOfBirth).toISOString(),
-            joiningDate: new Date(member.joiningDate).toISOString(),
-            teams: member.teams.split(","),
-          };
-        });
-        const { success, data } = csvSquema.safeParse({ members });
+        const members = parsedData
+          .map((member) => {
+            return {
+              ...member,
+            };
+          })
+          .filter((e) => isCsvCompleted(e));
+        const parsedMembers: CreateMemberZodModel[] = members.map((member) =>
+          parseMembers(member)
+        );
 
+        const { success, error } = csvSquema.safeParse({
+          members: parsedMembers,
+        });
         if (success) {
-          await CsvServices.bulkCreateTeams(data.members);
+          // ACA HAY QUE PARSEAR LA DATA COMO SE HACE CON PRODCUTS CON LA FUNCION:  parseProduct
+          // await CsvServices.bulkCreateTeams(data.members);
 
           clearCsvData();
           return toast({
-            title: "The file has been correctly uploaded.   ✅ ",
+            title:
+              "Esta es una carga fictcia, falta conectar con la parte del back.   ✅ ",
             variant: "success",
             duration: 1500,
           });
         } else {
+          console.log("ERRROR CARGA MASIVA MEMBERSN", { error });
           toast({
             title:
               "The uploaded file is not correct. Please verify it and try again.  ",
@@ -135,41 +143,56 @@ export const LoadAside = function () {
       header: true,
       complete: function (results) {
         // Here is the UPLOAD  🗃️⬆️  file validation:
-        const fileData: CsvProduct[] = results.data.filter((p) =>
-          isProductCompleted(p)
-        );
-        const { name, size } = csvFile;
-        const { success, error } = csvFileSquema.safeParse(fileData);
+        if (type === "LoadStock") {
+          const fileData: CsvProduct[] = results.data.filter((p) =>
+            isCsvCompleted(p)
+          );
+          const { name, size } = csvFile;
+          const { success } = csvPrdocutSchema.safeParse(fileData);
 
-        if (success) {
-          setCsvFile(csvFile);
-          setCsvInfo({
-            title: name,
-            file: `${(size / 1024).toFixed(2)}kb`,
-            currentDate: new Date().toLocaleString(),
-          });
-        } else {
-          // const errorMessages = error.issues.map((e) => e.message);
-          // // @ts-ignore
-          // const errors = [...new Set(errorMessages)];
+          if (success) {
+            setCsvFile(csvFile);
+            setCsvInfo({
+              title: name,
+              file: `${(size / 1024).toFixed(2)}kb`,
+              currentDate: new Date().toLocaleString(),
+            });
+          } else {
+            setCsvFile(null);
+            toast({
+              title:
+                "The uploaded file is not correct. Please verify it and try again.  ",
+              variant: "destructive",
+              duration: 15000,
+            });
+          }
+        }
 
-          setCsvFile(null);
-          toast({
-            title:
-              "The uploaded file is not correct. Please verify it and try again.  ",
-            // description: (
-            //   <ol className="text-xs font-normal">
-            //     File errors:
-            //     {errors.map((error) => (
-            //       <li className="list-item" key={error}>
-            //         - {error}
-            //       </li>
-            //     ))}
-            //   </ol>
-            // ),
-            variant: "destructive",
-            duration: 15000,
-          });
+        if (type === "LoadMembers") {
+          const fileData: CsvMember[] = results.data.filter((p) =>
+            isCsvCompleted(p)
+          );
+
+          const { name, size } = csvFile;
+          const { success, error } = csvMemberSchema.safeParse(fileData);
+
+          if (success) {
+            setCsvFile(csvFile);
+            setCsvInfo({
+              title: name,
+              file: `${(size / 1024).toFixed(2)}kb`,
+              currentDate: new Date().toLocaleString(),
+            });
+          } else {
+            console.log("ERROR EN LA SUBIDAD DE CSV MEMBERS", error);
+            setCsvFile(null);
+            toast({
+              title:
+                "The uploaded file is not correct. Please verify it and try again.  ",
+              variant: "destructive",
+              duration: 15000,
+            });
+          }
         }
       },
     });

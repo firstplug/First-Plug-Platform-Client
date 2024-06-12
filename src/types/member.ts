@@ -71,7 +71,8 @@ export const zodCreateMembertModel = z.object({
     .min(1, { message: "Email is required" }),
   picture: z.string().optional(),
   position: z.string().trim().optional(),
-  personalEmail: z.string().email().trim().toLowerCase().optional(),
+  personalEmail: z.string().optional(),
+  // personalEmail: z.string().email().trim().toLowerCase().optional(),
   phone: z
     .string()
     .trim()
@@ -88,11 +89,12 @@ export const zodCreateMembertModel = z.object({
   startDate: z.string().trim().optional(),
   birthDate: z
     .string()
-    .trim()
-    .refine(isAdult, { message: "You must be at least 18 years old" })
+    // .trim()
+    // .refine(isAdult, { message: "You must be at least 18 years old" })
     .optional(),
   products: z.array(zodCreateProductModel).optional(),
   team: z.string().trim().optional(),
 });
 
+export type CreateMemberZodModel = z.infer<typeof zodCreateMembertModel>;
 export type CreationTeamMember = Omit<TeamMember, "_id" | "teams" | "products">;

@@ -5,6 +5,7 @@ import { AddStockCard, Button } from "@/common";
 import Papa from "papaparse";
 import { useStore } from "@/models";
 import {
+  CreateMemberZodModel,
   CsvInfo,
   CsvMember,
   CsvProduct,
@@ -17,6 +18,7 @@ import { CsvServices, ProductServices } from "@/services";
 import { isCsvCompleted, parseProduct } from "@/utils";
 import { useToast } from "./ui/use-toast";
 import { DownloadStock } from "./Download";
+import { parseMembers } from "@/utils/parseMembers";
 const EMPTY_FILE_INFO: CsvInfo = {
   title: "",
   file: "",
@@ -88,23 +90,33 @@ export const LoadAside = function () {
       }
 
       if (type === "LoadMembers") {
-        const members = parsedData.map((member) => {
-          return {
-            ...member,
-          };
-        });
-        const { success, data } = csvSquema.safeParse({ members });
+        const members = parsedData
+          .map((member) => {
+            return {
+              ...member,
+            };
+          })
+          .filter((e) => isCsvCompleted(e));
+        const parsedMembers: CreateMemberZodModel[] = members.map((member) =>
+          parseMembers(member)
+        );
 
+        const { success, error } = csvSquema.safeParse({
+          members: parsedMembers,
+        });
         if (success) {
-          await CsvServices.bulkCreateTeams(data.members);
+          // ACA HAY QUE PARSEAR LA DATA COMO SE HACE CON PRODCUTS CON LA FUNCION:  parseProduct
+          // await CsvServices.bulkCreateTeams(data.members);
 
           clearCsvData();
           return toast({
-            title: "The file has been correctly uploaded.   ✅ ",
+            title:
+              "Esta es una carga fictcia, falta conectar con la parte del back.   ✅ ",
             variant: "success",
             duration: 1500,
           });
         } else {
+          console.log("ERRROR CARGA MASIVA MEMBERSN", { error });
           toast({
             title:
               "The uploaded file is not correct. Please verify it and try again.  ",

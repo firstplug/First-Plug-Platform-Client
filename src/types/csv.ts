@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CATEGORIES, LOCATION, zodProductModel } from "./product";
+import { zodCreateMembertModel } from "./member";
 
 // PRDUCTS ZOD CSV SCHEMA
 export const csvProductModel = z
@@ -91,7 +92,7 @@ export type CsvMember = z.infer<typeof zodMemberCsvSchema>;
 export const csvMemberSchema = z.array(zodMemberCsvSchema);
 export const csvSquema = z.object({
   prdoucts: z.array(zodProductModel).optional(),
-  members: z.array(zodMemberCsvSchema).optional(),
+  members: z.array(zodCreateMembertModel).optional(),
 });
 export type CsvInfo = {
   title: string;

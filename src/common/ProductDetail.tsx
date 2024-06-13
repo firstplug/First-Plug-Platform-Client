@@ -16,7 +16,7 @@ export default function ProductDetail({
 ProductDetailProps) {
   return (
     <div
-      className={`relative flex gap-2 border rounded-md p-2  text-black mb-2 ${className}`}
+      className={`relative flex gap-2 border rounded-md p-2 mr-2 text-black mb-2 ${className}`}
     >
       <input type="checkbox" className="absolute top-2 left-2 w-5 h-5 z-10" />
 

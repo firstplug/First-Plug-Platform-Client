@@ -23,7 +23,7 @@ export const AddMemberForm = observer(function ({
 }: AddMemberFormProps) {
   const [filteredMembers, setFilteredMembers] =
     React.useState<TeamMember[]>(members);
-  const { updateProductAside } = useStore().products;
+  const { updateProduct } = useStore().products;
   const [successAlertOpen, setSuccessAlertOpen] = React.useState(false);
   const [errorAlertOpen, setErrorAlertOpen] = React.useState(false);
 
@@ -36,26 +36,6 @@ export const AddMemberForm = observer(function ({
           member.email.toLowerCase().includes(query.toLowerCase())
       )
     );
-  };
-
-  const handleSave = async () => {
-    console.log("saving product---", productToEdit, selectedMember);
-    if (productToEdit) {
-      try {
-        await updateProductAside(productToEdit._id, {
-          assignedMember: selectedMember
-            ? `${selectedMember.firstName} ${selectedMember.lastName}`
-            : "",
-          assignedEmail: selectedMember ? selectedMember.email : "",
-        });
-        console.log("product updated");
-        setSuccessAlertOpen(true);
-        setAside(undefined);
-      } catch (error) {
-        console.log("error", error);
-        setErrorAlertOpen(true);
-      }
-    }
   };
 
   return (
@@ -102,7 +82,7 @@ export const AddMemberForm = observer(function ({
           variant="primary"
           size="big"
           className="flex-grow rounded-md"
-          onClick={handleSave}
+          onClick={() => {}}
         >
           Save
         </Button>

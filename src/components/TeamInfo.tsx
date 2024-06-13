@@ -120,8 +120,6 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
             handleSelectedMembers={handleSelectedMembers}
             members={members}
             selectedMember={member}
-            setAside={setAside}
-            productToEdit={productToEdit as any}
           />
           <Button
             variant="primary"

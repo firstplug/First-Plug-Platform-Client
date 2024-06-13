@@ -1,29 +1,23 @@
 "use client";
 import React from "react";
 import { Button, SearchInput } from "@/common";
-import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
-import { Product, TeamMember } from "@/types";
+import { TeamMember } from "@/types";
 import GenericAlertDialog from "../components/AddProduct/ui/GenericAlertDialog";
 
 interface AddMemberFormProps {
   members: TeamMember[];
   selectedMember?: TeamMember | null;
   handleSelectedMembers: (member: TeamMember | null) => void;
-  productToEdit: Product | null;
-  setAside: (value: string | undefined) => void;
 }
 
 export const AddMemberForm = observer(function ({
   members = [],
   selectedMember,
   handleSelectedMembers,
-  productToEdit,
-  setAside,
 }: AddMemberFormProps) {
   const [filteredMembers, setFilteredMembers] =
     React.useState<TeamMember[]>(members);
-  const { updateProduct } = useStore().products;
   const [successAlertOpen, setSuccessAlertOpen] = React.useState(false);
   const [errorAlertOpen, setErrorAlertOpen] = React.useState(false);
 
@@ -74,7 +68,7 @@ export const AddMemberForm = observer(function ({
           variant="secondary"
           size="big"
           className="flex-grow rounded-md"
-          onClick={() => setAside(undefined)}
+          onClick={() => {}}
         >
           Cancel
         </Button>

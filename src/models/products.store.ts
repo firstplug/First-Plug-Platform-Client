@@ -12,7 +12,6 @@ export const ProductsStore = types
     tableProducts: types.array(ProductTableModel),
     selectedTableId: types.maybe(types.string),
     productToEdit: types.maybe(types.string),
-    selectedProduct: types.maybe(types.reference(ProductModel)),
     fetchingStock: types.optional(types.boolean, false),
   })
   .views((store) => ({
@@ -62,9 +61,6 @@ export const ProductsStore = types
     },
     setProductIdToEdit(id: string) {
       store.productToEdit = id;
-    },
-    setSelectedProduct(product: typeof ProductModel.Type) {
-      store.selectedProduct = product;
     },
     addProduct(product: Product) {
       store.products.push(product);

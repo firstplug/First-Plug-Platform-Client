@@ -15,7 +15,7 @@ export const AsideTitle = observer(function AsideTitle() {
     case "AssignProduct":
       return "Assign To";
     case "ReassignProduct":
-      return "Assign To";
+      return "Reassign To";
     case "NewTeam":
       return "New Team";
     case "EditTeam":

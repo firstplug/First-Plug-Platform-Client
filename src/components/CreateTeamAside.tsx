@@ -18,9 +18,11 @@ export const CreateTeamAside = observer(function ({
     aside: { setAside },
     members: { memberCount, setMembers, members },
     teams: { setTeams },
+    products: { productToEdit },
   } = useStore();
   const [name, setName] = useState("");
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [member, setMember] = useState<TeamMember | null>(null);
 
   // TODO: REVIEW THE LOGI OF TEAM CREATION, THIS IS AN UPDATE OF MEMBERS!
   const handleCreateTeam = async () => {
@@ -79,6 +81,9 @@ export const CreateTeamAside = observer(function ({
           <AddMemberForm
             handleSelectedMembers={handleSelectedMembers}
             members={members}
+            selectedMember={member}
+            setAside={setAside}
+            productToEdit={productToEdit as any}
           />
         </div>
       </div>

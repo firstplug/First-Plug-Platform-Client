@@ -12,6 +12,7 @@ export const ProductsStore = types
     tableProducts: types.array(ProductTableModel),
     selectedTableId: types.maybe(types.string),
     productToEdit: types.maybe(types.string),
+    selectedProduct: types.maybe(types.reference(ProductModel)),
     fetchingStock: types.optional(types.boolean, false),
   })
   .views((store) => ({
@@ -62,6 +63,9 @@ export const ProductsStore = types
     setProductIdToEdit(id: string) {
       store.productToEdit = id;
     },
+    setSelectedProduct(product: typeof ProductModel.Type) {
+      store.selectedProduct = product;
+    },
     addProduct(product: Product) {
       store.products.push(product);
     },
@@ -69,6 +73,12 @@ export const ProductsStore = types
       const product = store.products.find((product) => product._id === id);
       if (product) {
         product.deleted = true;
+      }
+    },
+    updateProductAside(id: string, data: Partial<typeof ProductModel.Type>) {
+      const index = store.products.findIndex((p) => p._id === id);
+      if (index > -1) {
+        store.products[index] = { ...store.products[index], ...data };
       }
     },
     updateProduct(product: Product) {

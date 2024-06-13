@@ -19,7 +19,7 @@ export var Aside = observer(function Aside() {
       ></div>
 
       <aside
-        className={`flex flex-col fixed top-0 right-0 h-full w-[35%] min-w-[600px] shadow-md shadow-gray-400 px-14 py-10 bg-white z-30 transform transition-transform duration-300 ${
+        className={`flex flex-col fixed top-0 right-0 h-full w-[50%] min-w-[600px] shadow-md shadow-gray-400 px-14 py-10 bg-white z-30 transform transition-transform duration-300 ${
           type ? "translate-x-0" : "translate-x-full"
         } `}
       >

@@ -17,10 +17,13 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
   const {
     members: { setMembers, members },
     teams: { setTeams },
+    aside: { setAside },
+    products: { productToEdit },
   } = useStore();
 
   const [selectedMembers, setSelectedMembers] = useState<TeamMember[]>([]);
   const [showAddMember, setShowAddMember] = useState(false);
+  const [member, setMember] = useState<TeamMember | null>(null);
 
   const handleAddTeam = () => {
     selectedMembers.forEach((member) => {
@@ -116,6 +119,9 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
           <AddMemberForm
             handleSelectedMembers={handleSelectedMembers}
             members={members}
+            selectedMember={member}
+            setAside={setAside}
+            productToEdit={productToEdit as any}
           />
           <Button
             variant="primary"

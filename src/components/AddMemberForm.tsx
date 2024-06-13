@@ -27,6 +27,10 @@ export const AddMemberForm = observer(function ({
   const [successAlertOpen, setSuccessAlertOpen] = React.useState(false);
   const [errorAlertOpen, setErrorAlertOpen] = React.useState(false);
 
+  React.useEffect(() => {
+    setFilteredMembers(members);
+  }, [members]);
+
   const handleSearch = (query: string) => {
     setFilteredMembers(
       members.filter(
@@ -89,11 +93,11 @@ export const AddMemberForm = observer(function ({
           </div>
         ))}
       </div>
-      <div className="flex gap-2 mt-auto">
+      <aside className="absolute flex justify-end bg-white w-[80%] bottom-0 p-2 h-[10%] border-t">
         <Button
           variant="secondary"
           size="big"
-          className="flex-grow rounded-md"
+          className="flex-grow rounded-md mr-2"
           onClick={() => setAside(undefined)}
         >
           Cancel
@@ -106,7 +110,7 @@ export const AddMemberForm = observer(function ({
         >
           Save
         </Button>
-      </div>
+      </aside>
       <GenericAlertDialog
         open={successAlertOpen}
         onClose={() => setSuccessAlertOpen(false)}

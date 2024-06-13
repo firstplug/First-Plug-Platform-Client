@@ -1,7 +1,7 @@
 "use client";
 import { useStore } from "@/models";
 import { AddMemberForm } from "../AddMemberForm";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { TeamMember } from "@/types";
 import { observer } from "mobx-react-lite";
 import { Product } from "@/types";
@@ -9,10 +9,11 @@ import { Product } from "@/types";
 export const AssignProduct = observer(() => {
   const {
     members: { members, selectedMemberEmail },
-    products: { productToEdit },
+    products: { productToEdit, setProductIdToEdit, productById },
     aside: { setAside },
   } = useStore();
   const [member, setMember] = useState<TeamMember | null>(null);
+  const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     if (selectedMemberEmail) {
@@ -29,6 +30,16 @@ export const AssignProduct = observer(() => {
     setMember(selectedMember);
   };
 
+  useEffect(() => {
+    if (productToEdit) {
+      const product = productById(productToEdit);
+      if (product) {
+        setProduct(product);
+        console.log("Product to edit", product);
+      }
+    }
+  }, [productToEdit, productById]);
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex justify-between">
@@ -40,7 +51,7 @@ export const AssignProduct = observer(() => {
         selectedMember={member}
         handleSelectedMembers={handleSelectedMembers}
         members={members.filter((memb) => memb.email !== selectedMemberEmail)}
-        productToEdit={productToEdit as any}
+        productToEdit={product}
         setAside={setAside}
       />
     </div>

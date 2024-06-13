@@ -15,7 +15,6 @@ export function ActionButton({ product }: ActionButtonProps) {
   const {
     aside: { setAside },
     members: { setSelectedMemberEmail },
-    products: { setSelectedProduct },
   } = useStore();
   const ActionConfig: Record<Product["status"], ActionType> = {
     Available: {
@@ -23,7 +22,6 @@ export function ActionButton({ product }: ActionButtonProps) {
       action: () => {
         setAside("AssignProduct");
         setSelectedMemberEmail("");
-        setSelectedProduct(product);
       },
     },
     Delivered: {
@@ -31,7 +29,6 @@ export function ActionButton({ product }: ActionButtonProps) {
       action: () => {
         setAside("ReassignProduct");
         setSelectedMemberEmail(product.assignedEmail);
-        setSelectedProduct(product);
       },
     },
     Deprecated: {

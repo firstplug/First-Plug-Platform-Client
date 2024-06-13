@@ -75,12 +75,6 @@ export const ProductsStore = types
         product.deleted = true;
       }
     },
-    updateProductAside(id: string, data: Partial<typeof ProductModel.Type>) {
-      const index = store.products.findIndex((p) => p._id === id);
-      if (index > -1) {
-        store.products[index] = { ...store.products[index], ...data };
-      }
-    },
     updateProduct(product: Product) {
       const index = store.products.findIndex((p) => p._id === product._id);
       if (index > -1) {

@@ -3,37 +3,30 @@ import { useStore } from "@/models";
 import { AddMemberForm } from "../AddMemberForm";
 import { useState, useEffect } from "react";
 import { TeamMember } from "@/types";
-import { Button } from "@/common";
 import { observer } from "mobx-react-lite";
+import { Product } from "@/types";
 
 export const AssignProduct = observer(() => {
   const {
     members: { members, selectedMemberEmail },
-    products: { selectedProduct, updateProduct },
+    products: { productToEdit },
     aside: { setAside },
   } = useStore();
-  const [member, setMember] = useState<TeamMember>();
+  const [member, setMember] = useState<TeamMember | null>(null);
 
   useEffect(() => {
     if (selectedMemberEmail) {
+      console.log("selectedMemberEmail", selectedMemberEmail);
       const currentMember = members.find(
         (member) => member.email === selectedMemberEmail
       );
-      setMember(currentMember);
+      setMember(currentMember || null);
+      console.log("currentMember", currentMember);
     }
   }, [selectedMemberEmail, members]);
 
-  const handleSelectedMembers = (selectedMember: TeamMember) => {
+  const handleSelectedMembers = (selectedMember: TeamMember | null) => {
     setMember(selectedMember);
-  };
-
-  const handleSave = async () => {
-    if (selectedProduct) {
-      await updateProduct(selectedProduct._id, {
-        assignedMember: member ? `${member.firstName} ${member.lastName}` : "",
-        assignedEmail: member ? member.email : "",
-      });
-    }
   };
 
   return (
@@ -47,25 +40,9 @@ export const AssignProduct = observer(() => {
         selectedMember={member}
         handleSelectedMembers={handleSelectedMembers}
         members={members.filter((memb) => memb.email !== selectedMemberEmail)}
+        productToEdit={productToEdit as any}
+        setAside={setAside}
       />
-      <div className="flex gap-2">
-        <Button
-          variant="secondary"
-          size="big"
-          className="flex-grow rounded-md"
-          onClick={() => setAside(undefined)}
-        >
-          Cancel
-        </Button>
-        <Button
-          variant="primary"
-          size="big"
-          className="flex-grow rounded-md"
-          onClick={handleSave}
-        >
-          Save
-        </Button>
-      </div>
     </div>
   );
 });

@@ -1,23 +1,32 @@
 "use client";
 import React from "react";
-import { SearchInput } from "@/common";
+import { Button, SearchInput } from "@/common";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
-import { TeamMember } from "@/types";
+import { Product, TeamMember } from "@/types";
+import GenericAlertDialog from "../components/AddProduct/ui/GenericAlertDialog";
 
 interface AddMemberFormProps {
   members: TeamMember[];
   selectedMember?: TeamMember | null;
   handleSelectedMembers: (member: TeamMember | null) => void;
+  productToEdit: Product | null;
+  setAside: (value: string | undefined) => void;
 }
 
 export const AddMemberForm = observer(function ({
   members = [],
   selectedMember,
   handleSelectedMembers,
+  productToEdit,
+  setAside,
 }: AddMemberFormProps) {
   const [filteredMembers, setFilteredMembers] =
     React.useState<TeamMember[]>(members);
+  const { updateProductAside } = useStore().products;
+  const [successAlertOpen, setSuccessAlertOpen] = React.useState(false);
+  const [errorAlertOpen, setErrorAlertOpen] = React.useState(false);
+
   const handleSearch = (query: string) => {
     setFilteredMembers(
       members.filter(
@@ -29,10 +38,30 @@ export const AddMemberForm = observer(function ({
     );
   };
 
+  const handleSave = async () => {
+    console.log("saving product---", productToEdit, selectedMember);
+    if (productToEdit) {
+      try {
+        await updateProductAside(productToEdit._id, {
+          assignedMember: selectedMember
+            ? `${selectedMember.firstName} ${selectedMember.lastName}`
+            : "",
+          assignedEmail: selectedMember ? selectedMember.email : "",
+        });
+        console.log("product updated");
+        setSuccessAlertOpen(true);
+        setAside(undefined);
+      } catch (error) {
+        console.log("error", error);
+        setErrorAlertOpen(true);
+      }
+    }
+  };
+
   return (
-    <section className="flex flex-col gap-6">
+    <section className="flex flex-col gap-6 h-full">
       <SearchInput placeholder="Search Member" onSearch={handleSearch} />
-      <div className="flex flex-col gap-3 mt-3">
+      <div className="flex flex-col gap-3 mt-3 flex-grow overflow-y-auto">
         <div
           className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue ${
             selectedMember === null ? "bg-hoverBlue" : ""
@@ -60,6 +89,40 @@ export const AddMemberForm = observer(function ({
           </div>
         ))}
       </div>
+      <div className="flex gap-2 mt-auto">
+        <Button
+          variant="secondary"
+          size="big"
+          className="flex-grow rounded-md"
+          onClick={() => setAside(undefined)}
+        >
+          Cancel
+        </Button>
+        <Button
+          variant="primary"
+          size="big"
+          className="flex-grow rounded-md"
+          onClick={handleSave}
+        >
+          Save
+        </Button>
+      </div>
+      <GenericAlertDialog
+        open={successAlertOpen}
+        onClose={() => setSuccessAlertOpen(false)}
+        title="Success"
+        description="Product assigned successfully"
+        buttonText="Close"
+        onButtonClick={() => setSuccessAlertOpen(false)}
+      />
+      <GenericAlertDialog
+        open={errorAlertOpen}
+        onClose={() => setErrorAlertOpen(false)}
+        title="Error"
+        description="An error occurred while assigning product"
+        buttonText="Close"
+        onButtonClick={() => setErrorAlertOpen(false)}
+      />
     </section>
   );
 });

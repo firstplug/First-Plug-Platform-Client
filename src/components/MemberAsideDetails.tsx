@@ -34,7 +34,7 @@ export const MemberAsideDetails = observer(function ({
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2 overflow-y-auto max-h-96 mb-6">
+              <div className="flex flex-col gap-2 overflow-y-auto max-h-56 mb-6">
                 {selectedMember.products.length
                   ? selectedMember.products.map((product) => (
                       <ProductDetail product={product} key={product._id} />
@@ -49,7 +49,7 @@ export const MemberAsideDetails = observer(function ({
           )}
         </div>
       </div>
-      <div className="flex gap-2 w-full flex-nowrap">
+      <aside className="absolute flex justify-end bg-white w-[80%] bottom-0 p-2 h-[10%] border-t">
         <Button
           body={"Remove"}
           variant={"delete"}
@@ -68,7 +68,7 @@ export const MemberAsideDetails = observer(function ({
           size={"big"}
           className={"rounded-md w-1/3 "}
         />
-      </div>
+      </aside>
     </article>
   );
 });

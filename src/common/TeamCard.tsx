@@ -30,10 +30,6 @@ export var TeamCard = observer(function TeamCard({
   team,
   className,
 }: TeamCardProps) {
-  const {
-    teams: { teams },
-  } = useStore();
-
   const teamColor = useMemo(
     () => (team ? getTeamColor(team) : "bg-grey"),
     [team]
@@ -45,7 +41,7 @@ export var TeamCard = observer(function TeamCard({
         className || ""
       } py-0.5 px-2 rounded text-md text-black font-medium ${teamColor}`}
     >
-      {team || "Assign to a Team"}
+      {team || "Not assign"}
     </span>
   );
 });

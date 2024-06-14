@@ -37,8 +37,8 @@
     {
       "name": "zipCode",
       "title": "Zip Code",
-      "type": "number",
-      "placeholder": "0000"
+      "type": "text",
+      "placeholder": "zip code"
     },
     {
       "name": "address",

@@ -17,20 +17,16 @@ const membersColumns: (
   handleEdit: (memberId: TeamMember["_id"]) => void,
   handleDelete: (memberId: TeamMember["_id"]) => void,
   handleViewDetail: (memberId: TeamMember["_id"]) => void
-) => ColumnDef<TeamMemberTable>[] = (
-  handleEdit,
-  handleDelete,
-  handleViewDetail
-) => [
+) => ColumnDef<TeamMember>[] = (handleEdit, handleDelete, handleViewDetail) => [
   {
-    accessorKey: "fullName",
+    accessorKey: "name",
     header: "Full Name",
     cell: ({ row }) => (
       <span
         className="cursor-pointer text-blue-500"
         onClick={() => handleViewDetail(row.original._id)}
       >
-        {row.getValue<string>("fullName")}
+        {row.original.firstName} {row.original.lastName}
       </span>
     ),
   },
@@ -51,7 +47,7 @@ const membersColumns: (
   {
     accessorKey: "team",
     header: "Team",
-    cell: (info) => <TeamCard team={info.getValue<string>()} />,
+    cell: ({ getValue }) => <TeamCard team={getValue<string>()} />,
   },
   {
     accessorKey: "position",
@@ -91,7 +87,7 @@ const membersColumns: (
   },
 ];
 interface TableMembersProps {
-  members: TeamMemberTable[];
+  members: TeamMember[];
 }
 export function MembersTable({ members }: TableMembersProps) {
   const {
@@ -117,7 +113,7 @@ export function MembersTable({ members }: TableMembersProps) {
   };
 
   return (
-    <Table<TeamMemberTable>
+    <Table<TeamMember>
       data={members}
       columns={membersColumns(handleEdit, handleDelete, handleViewDetail)}
     />

@@ -1,26 +1,19 @@
 "use client";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
-import { GridTeam } from "./";
-import { DisplayView } from "@/types";
 import { MembersTable } from "./Tables";
 
-interface TeamMembersProps {
-  display?: DisplayView;
-}
-
-export const TeamMembers = observer(function ({ display }: TeamMembersProps) {
+export var TeamMembers = observer(function TeamMembers() {
   const {
-    members: { membersTable },
+    members: { filterMembersByTeam, teamFilterItems, members },
   } = useStore();
 
   return (
     <section className="flex flex-col gap-4 w-full absolute  bottom-0 left-0 overflow-auto  h-[80%] ">
-      {display === "grid" ? (
-        <GridTeam />
-      ) : (
-        <MembersTable members={membersTable} />
+      {teamFilterItems.length > 0 && (
+        <MembersTable members={filterMembersByTeam} />
       )}
+      {teamFilterItems.length === 0 && <MembersTable members={members} />}
     </section>
   );
 });

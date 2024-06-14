@@ -6,7 +6,7 @@ export default function DataTeam() {
       <MyTeamViewHeader />
       <hr />
       <MyTeamActions />
-      <TeamMembers display="table" />
+      <TeamMembers />
     </div>
   );
 }

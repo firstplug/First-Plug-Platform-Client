@@ -48,9 +48,7 @@ export class ProductServices {
     return response.data;
   }
 
-  static async getProductForReassign(
-    id: Product["_id"]
-  ): Promise<{
+  static async getProductForReassign(id: Product["_id"]): Promise<{
     product: Product;
     options: { email: string; name: string; team: string }[];
     currentMember: { email: string; name: string } | null;
@@ -63,7 +61,7 @@ export class ProductServices {
 
   static async reassignProduct(
     id: Product["_id"],
-    data: { email: string; team: string }
+    data: Partial<Product>
   ): Promise<Product> {
     const response = await HTTPRequests.patch(
       `${BASE_URL}/api/products/reassign/${id}`,
@@ -71,9 +69,8 @@ export class ProductServices {
     );
     return response.data;
   }
-  static async getProductForAssign(
-    id: Product["_id"]
-  ): Promise<{
+
+  static async getProductForAssign(id: Product["_id"]): Promise<{
     product: Product;
     options: { email: string; name: string; team: string }[];
   }> {

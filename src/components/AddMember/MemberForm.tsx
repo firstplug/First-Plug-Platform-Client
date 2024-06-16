@@ -27,6 +27,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
   const {
     members: { addMember, setMembers, updateMember },
     aside: { setAside },
+    alerts: { setAlert },
   } = useStore();
   const router = useRouter();
 
@@ -56,11 +57,12 @@ const MemberForm: React.FC<MemberFormProps> = ({
       if (isUpdate && initialData) {
         response = await Memberservices.updateMember(initialData._id, data);
         updateMember(response);
-        setShowSuccessDialog(true);
+        setAlert("updateMember");
       } else {
         response = await Memberservices.createMember(data);
         addMember(response);
-        setShowSuccessDialog(true);
+        // setShowSuccessDialog(true);
+        setAlert("createMember");
       }
       methods.reset();
       setMembers([]);
@@ -118,26 +120,6 @@ const MemberForm: React.FC<MemberFormProps> = ({
           </aside>
         </div>
         <div className="z-50">
-          <GenericAlertDialog
-            open={showSuccessDialog}
-            onClose={() => setShowSuccessDialog(false)}
-            title="Success"
-            description={`Your Member has been successfully ${
-              isUpdate ? "updated" : "added"
-            } to your team.`}
-            buttonText="OK"
-            onButtonClick={() => {
-              setShowSuccessDialog(false);
-              setAside(undefined);
-              if (isUpdate) {
-                setTimeout(() => {
-                  location.reload();
-                }, 2000);
-              } else {
-                router.push("/home/my-team");
-              }
-            }}
-          />
           <GenericAlertDialog
             open={showErrorDialog}
             onClose={() => setShowErrorDialog(false)}

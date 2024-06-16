@@ -33,6 +33,7 @@ export const LoadAside = function () {
   const {
     aside: { type, setAside },
     products: { setTable },
+    alerts: { setAlert },
   } = useStore();
 
   const clearCsvData = () => {
@@ -65,19 +66,19 @@ export const LoadAside = function () {
         if (success) {
           try {
             await CsvServices.bulkCreateProducts(data.prdoucts);
-
             clearCsvData();
-            toast({
-              title: "The file has been correctly uploaded.   ✅ ",
-              variant: "success",
-              duration: 1500,
-            });
+            setAlert("csvSuccess");
             setAside(undefined);
             const prodcuts = await ProductServices.getTableFormat();
             setTable(prodcuts);
             location.reload();
           } catch (error) {
-            console.log(error);
+            toast({
+              title:
+                "The uploaded file is not correct. Please verify it and try again.  ",
+              variant: "destructive",
+              duration: 1500,
+            });
           }
         } else {
           toast({

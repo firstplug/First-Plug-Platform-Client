@@ -35,6 +35,7 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
     const {
       products: { deleteProduct, setTable },
       members: { deleteMember },
+      alerts: { setAlert },
     } = useStore();
 
     const handleDelete = async () => {

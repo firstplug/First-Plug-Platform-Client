@@ -3,6 +3,7 @@ import { Navbar, Sidebar } from "@/components";
 import { Layout } from "@/common";
 import DataProvider from "./DataProvider";
 import { Aside } from "@/components/Aside";
+import AlertProvider from "@/components/Alerts/AlertProvider";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Layout>{children}</Layout>
         </section>
         <Aside />
+        <AlertProvider />
       </div>
     </DataProvider>
   );

@@ -18,21 +18,21 @@ export var AsideContent = observer(function () {
       return <MemberAsideDetails />;
     case "EditTeam":
       return <EditTeamsAsideDetails />;
+    case "EditMember":
+      return <EditMemberAside />;
+    case "EditProduct":
+      return <EditProductAside />;
     case "NewTeam":
       return <CreateTeamAside />;
     case "AssignProduct":
       return <AssignProduct />;
     case "ReassignProduct":
       return <AssignProduct />;
-    case "EditMember":
-      return <EditMemberAside />;
     case "LoadStock":
       return <LoadAside />;
     case "LoadMembers":
       return <LoadAside />;
     case "OrderDetails":
       return <OrderAsideDetails />;
-    case "EditProduct":
-      return <EditProductAside />;
   }
 });

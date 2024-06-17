@@ -6,12 +6,10 @@ import {
   ProductTable,
   ShipmentStatus,
 } from "@/types";
-import React, { useState } from "react";
-import { Table } from "../Table";
+import { useState } from "react";
 import {
   ArrowRight,
   Button,
-  PenIcon,
   ProductImage,
   ProductLocation,
   ShipmentStatusCard,

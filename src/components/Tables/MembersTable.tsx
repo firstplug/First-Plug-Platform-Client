@@ -1,9 +1,7 @@
 import { useStore } from "@/models";
 import { Memberservices } from "@/services";
-import { TeamMember, TeamMemberTable } from "@/types";
-import React from "react";
-import { Table } from "../Table";
-import { Button, PenIcon, TeamCard, TrashIcon } from "@/common";
+import { TeamMember } from "@/types";
+import { Button, PenIcon, TeamCard } from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
 import { DeleteAction } from "../Alerts";
 import { RootTable } from "./RootTable";

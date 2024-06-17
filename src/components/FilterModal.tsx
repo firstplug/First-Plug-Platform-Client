@@ -49,7 +49,7 @@ export const FilterModal = function ({
   };
 
   return (
-    <div className="relative  text-left  h-full   ">
+    <div className="relative  text-left  h-10   ">
       <button
         onClick={() => setIsOpen(!isOpen)}
         type="button"

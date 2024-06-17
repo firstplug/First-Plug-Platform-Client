@@ -29,7 +29,7 @@ export const Navbar = function ({
   const { status } = useSession();
 
   return (
-    <nav className="flex justify-between items-center h-[8vh] px-4  ">
+    <nav className="flex justify-between items-center min-h-[10vh] max-h-[10vh] h-[10vh] px-4   ">
       <div className="flex gap-6 items-center">
         {title === "logo" ? (
           <Image src={Logo} alt="Logo" width={140} height={300} priority />

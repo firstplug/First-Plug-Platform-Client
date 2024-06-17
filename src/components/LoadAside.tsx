@@ -9,21 +9,17 @@ import {
   CsvInfo,
   CsvMember,
   CsvProduct,
+  EMPTY_FILE_INFO,
   PrdouctModelZod,
   csvMemberSchema,
   csvPrdocutSchema,
   csvSquema,
 } from "@/types";
-import { CsvServices, ProductServices } from "@/services";
+import { CsvServices, Memberservices, ProductServices } from "@/services";
 import { isCsvCompleted, parseProduct } from "@/utils";
 import { useToast } from "./ui/use-toast";
 import { DownloadStock } from "./Download";
 import { parseMembers } from "@/utils/parseMembers";
-const EMPTY_FILE_INFO: CsvInfo = {
-  title: "",
-  file: "",
-  currentDate: "",
-} as const;
 
 export const LoadAside = function () {
   const [csvInfo, setCsvInfo] = useState(EMPTY_FILE_INFO);
@@ -33,6 +29,7 @@ export const LoadAside = function () {
   const {
     aside: { type, setAside },
     products: { setTable },
+    members: { setMembers },
     alerts: { setAlert },
   } = useStore();
 
@@ -106,15 +103,13 @@ export const LoadAside = function () {
           members: parsedMembers,
         });
         if (success) {
-          // ACA HAY QUE PARSEAR LA DATA COMO SE HACE CON PRODCUTS CON LA FUNCION:  parseProduct
           try {
-            console.log(data.members);
             await CsvServices.bulkCreateTeams(data.members);
-
+            const members = await Memberservices.getAllMembers();
+            setMembers(members);
             clearCsvData();
             setAlert("csvSuccess");
           } catch (error) {
-            console.log({ error });
             toast({
               title:
                 "The uploaded file is not correct. Please verify it and try again.  ",

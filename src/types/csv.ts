@@ -1,7 +1,11 @@
 import { z } from "zod";
 import { CATEGORIES, LOCATION, zodProductModel } from "./product";
 import { zodCreateMembertModel } from "./member";
-
+export const EMPTY_FILE_INFO: CsvInfo = {
+  title: "",
+  file: "",
+  currentDate: "",
+} as const;
 // PRDUCTS ZOD CSV SCHEMA
 export const csvProductModel = z
   .object({

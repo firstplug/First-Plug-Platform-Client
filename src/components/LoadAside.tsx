@@ -102,22 +102,27 @@ export const LoadAside = function () {
           parseMembers(member)
         );
 
-        const { success, error } = csvSquema.safeParse({
+        const { success, data } = csvSquema.safeParse({
           members: parsedMembers,
         });
         if (success) {
           // ACA HAY QUE PARSEAR LA DATA COMO SE HACE CON PRODCUTS CON LA FUNCION:  parseProduct
-          // await CsvServices.bulkCreateTeams(data.members);
+          try {
+            console.log(data.members);
+            await CsvServices.bulkCreateTeams(data.members);
 
-          clearCsvData();
-          return toast({
-            title:
-              "Esta es una carga fictcia, falta conectar con la parte del back.   ✅ ",
-            variant: "success",
-            duration: 1500,
-          });
+            clearCsvData();
+            setAlert("csvSuccess");
+          } catch (error) {
+            console.log({ error });
+            toast({
+              title:
+                "The uploaded file is not correct. Please verify it and try again.  ",
+              variant: "destructive",
+              duration: 1500,
+            });
+          }
         } else {
-          console.log("ERRROR CARGA MASIVA MEMBERSN", { error });
           toast({
             title:
               "The uploaded file is not correct. Please verify it and try again.  ",

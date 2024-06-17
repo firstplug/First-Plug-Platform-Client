@@ -6,7 +6,15 @@ import { AsideType } from "@/types";
 import { observer } from "mobx-react-lite";
 import { Table } from "@tanstack/react-table";
 import { MyTeamViewHeader } from "./MyTeamViewHeader";
-
+import { Input } from "./ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup,
+} from "@/components/ui/select";
 interface MyTeamActionsProps<TData> {
   table: Table<TData>;
 }
@@ -22,26 +30,36 @@ export const MyTeamActions = observer(function <TData>({
     setAside(type);
   };
 
+  // table.getColumn("firstName")?.setFilterValue(event.target.value);
+
   return (
     <section className="flex flex-col gap-4 w-full h-full">
       <MyTeamViewHeader />
+
       <div className="w-full flex justify-between  items-center    gap-2  ">
         <div className="flex gap-2 items-center ">
-          <FilterModal
-            title="Filter By Teams"
-            items={teams.map((t) => t.toString())}
-            handleFilter={setFilter}
-          />
-          <div className="flex gap-4 items-center  ">
-            <span className="font-semibold text-black opacity-70">
-              ({filterMembersByTeam.length})
-            </span>
-            <div className="flex items-center gap-1  p-2 flex-grow ">
-              {teamFilterItems.map((team, i) => {
-                return <TeamCard team={team} key={i} />;
-              })}
-            </div>
-          </div>
+          <Select
+            onValueChange={(value) => {
+              if (value === "all") {
+                table.getColumn("team").setFilterValue(null);
+              }
+              table.getColumn("team")?.setFilterValue(value);
+            }}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select Team" />
+            </SelectTrigger>
+            <SelectContent className="bg-white">
+              <SelectGroup>
+                <SelectItem value="all">All</SelectItem>
+                {teams.map((t) => (
+                  <SelectItem value={t} key={t}>
+                    <TeamCard team={t} />
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="flex gap-2 items-center ">

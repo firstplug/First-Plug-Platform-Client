@@ -5,6 +5,7 @@ import { observer } from "mobx-react-lite";
 import { TeamMember, Product } from "@/types";
 import GenericAlertDialog from "../components/AddProduct/ui/GenericAlertDialog";
 import { useStore } from "@/models";
+import { useRouter } from "next/navigation";
 
 interface AddMemberFormProps {
   members: TeamMember[];
@@ -28,6 +29,7 @@ export const AddMemberForm = observer(function ({
   const [errorAlertOpen, setErrorAlertOpen] = useState(false);
   const [noneOption, setNoneOption] = useState<string | null>(null);
   const { products } = useStore();
+  const router = useRouter();
 
   const handleSearch = (query: string) => {
     setFilteredMembers(
@@ -49,45 +51,46 @@ export const AddMemberForm = observer(function ({
   );
 
   const handleSaveClick = async () => {
+    if (!currentProduct) return;
+
+    let updatedProduct: Partial<Product> = {
+      assignedEmail: "",
+      assignedMember: "",
+      status: "Available",
+      location: noneOption,
+      category: currentProduct.category,
+      attributes: currentProduct.attributes,
+      name: currentProduct.name,
+    };
+
     if (selectedMember === null && noneOption) {
       try {
-        await products.reassignProduct(currentProduct?._id, {
-          assignedEmail: "",
-          assignedMember: "",
-          status: "Available",
-          location: noneOption,
-          category: currentProduct?.category,
-          attributes: currentProduct?.attributes,
-        });
+        await products.reassignProduct(currentProduct._id, updatedProduct);
         setSuccessAlertOpen(true);
-        aside(undefined);
       } catch (error) {
         setErrorAlertOpen(true);
         console.error("Failed to reassign product", error);
       }
     } else if (selectedMember) {
-      const updatedProduct: Partial<Product> = {
+      updatedProduct = {
+        ...updatedProduct,
         assignedEmail: selectedMember.email,
         assignedMember:
           selectedMember.firstName + " " + selectedMember.lastName,
         status: "Delivered",
         location: "Employee",
-        category: currentProduct?.category,
-        attributes: currentProduct?.attributes,
       };
 
-      if (currentProduct?.assignedMember) {
+      if (currentProduct.assignedMember) {
         updatedProduct.lastAssigned =
           currentMember?.firstName + " " + currentMember?.lastName || "";
       }
 
       try {
-        await products.reassignProduct(currentProduct?._id, updatedProduct);
+        await products.reassignProduct(currentProduct._id, updatedProduct);
         setSuccessAlertOpen(true);
-        aside(undefined);
       } catch (error) {
         setErrorAlertOpen(true);
-        console.error("Failed to reassign product", error);
       }
     }
   };
@@ -112,7 +115,7 @@ export const AddMemberForm = observer(function ({
               </div>
             </div>
             {selectedMember === null && (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 ml-6">
                 <div
                   className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue ${
                     noneOption === "FP warehouse" ? "bg-hoverBlue" : ""
@@ -180,15 +183,19 @@ export const AddMemberForm = observer(function ({
         onClose={() => setSuccessAlertOpen(false)}
         title="Success"
         description="Product assigned successfully"
-        buttonText="Close"
-        onButtonClick={() => setSuccessAlertOpen(false)}
+        buttonText="OK"
+        onButtonClick={() => {
+          setSuccessAlertOpen(false);
+          aside(undefined);
+          router.push("/home/my-stock");
+        }}
       />
       <GenericAlertDialog
         open={errorAlertOpen}
         onClose={() => setErrorAlertOpen(false)}
         title="Error"
         description="An error occurred while assigning product"
-        buttonText="Close"
+        buttonText="OK"
         onButtonClick={() => setErrorAlertOpen(false)}
       />
     </section>

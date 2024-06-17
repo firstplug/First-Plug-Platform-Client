@@ -36,9 +36,12 @@ export const productColumns: ({
   {
     accessorFn: (row) => row.category,
     header: "Category",
+    meta: {
+      filterVariant: "select",
+    },
     size: 20,
     cell: ({ row, getValue }) => (
-      <div className="flex  gap-2 text-xl  items-center w-[150px]   ">
+      <div className="flex  gap-2 text-lg  items-center w-[150px]   ">
         <ProductImage category={getValue<string>()} />
         <p>{getValue<string>()}</p>
       </div>
@@ -135,6 +138,9 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.status,
     header: "Status",
+    meta: {
+      filterVariant: "select",
+    },
     cell: ({ getValue }) => (
       <ShipmentStatusCard status={getValue<ShipmentStatus>()} />
     ),

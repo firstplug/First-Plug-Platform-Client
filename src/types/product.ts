@@ -1,10 +1,6 @@
 import { types, Instance, cast } from "mobx-state-tree";
 import { z } from "zod";
-export const PRODUCT_STATUSES = [
-  "Available",
-  "Delivered",
-  "Deprecated",
-] as const;
+export const PRODUCT_STATUSES = ["Available", "Delivered"] as const;
 export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
 
 export const LOCATION = ["Our office", "FP warehouse", "Employee"] as const;

@@ -10,13 +10,14 @@ import {
 } from "@/components/ui/select";
 import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
+import SelectFilter from "./SelectFilter";
 interface IHeaderFilter<TData> {
   column: Column<any, unknown>;
   tableType: TableType;
   table: Table<TData>;
 }
 
-export default observer(function HeaderFilter<TData>({
+export default function HeaderFilter<TData>({
   column,
   tableType,
   table,
@@ -32,23 +33,10 @@ export default observer(function HeaderFilter<TData>({
     column.setFilterValue(value);
   };
   return filterVariant === "select" ? (
-    <Select
-      onValueChange={(value) => handleFilterTeams(value)}
+    <SelectFilter
+      tableType={tableType}
+      onValueChange={handleFilterTeams}
       value={columnFilterValue?.toString()}
-    >
-      <SelectTrigger className="w-[110px] bg-white  text-xs ">
-        <SelectValue placeholder="Filter by Team" />
-      </SelectTrigger>
-      <SelectContent className="bg-white text-xs">
-        <SelectGroup>
-          <SelectItem value="all">All</SelectItem>
-          {teams.map((t) => (
-            <SelectItem value={t} key={t}>
-              {t}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    />
   ) : null;
-});
+}

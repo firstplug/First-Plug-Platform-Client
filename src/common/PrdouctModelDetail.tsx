@@ -7,7 +7,7 @@ export default function PrdouctModelDetail({
   product,
 }: PrdouctModelDetailProps) {
   if (!product) return null;
-  const { attributes, category, name } = product;
+  const { attributes } = product;
 
   const CATEGORY_KEYS: Record<Category, readonly Key[]> = {
     Merchandising: [],
@@ -29,9 +29,9 @@ export default function PrdouctModelDetail({
   return (
     <div className="flex flex-col">
       {product.category === "Merchandising" ? (
-        <span className="text-xl">{product.name}</span>
+        <span className="text-lg">{product.name}</span>
       ) : (
-        <div className="flex gap-1 text-[18px]">
+        <div className="flex gap-1 text-lg  ">
           <span className="font-semibold">
             {product.attributes.filter((at) => at.key === "brand")[0].value}
           </span>

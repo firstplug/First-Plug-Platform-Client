@@ -23,7 +23,7 @@ export function SearchInput({
   };
   return (
     <div
-      className={`flex  border border-grey gap-2 items-center py-2 px-3  rounded-lg  ${
+      className={`flex  border border-grey gap-2 items-center py-1 px-2  rounded-md  ${
         className || ""
       }`}
     >

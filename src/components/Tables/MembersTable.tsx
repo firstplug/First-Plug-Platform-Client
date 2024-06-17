@@ -48,6 +48,9 @@ const membersColumns: (
     accessorKey: "team",
     header: "Team",
     cell: ({ getValue }) => <TeamCard team={getValue<string>()} />,
+    meta: {
+      filterVariant: "select",
+    },
   },
   {
     accessorKey: "position",

@@ -18,11 +18,12 @@ const membersColumns: (
   handleViewDetail: (memberId: TeamMember["_id"]) => void
 ) => ColumnDef<TeamMember>[] = (handleEdit, handleDelete, handleViewDetail) => [
   {
-    accessorKey: "name",
-    header: "Full Name",
+    id: "firstName",
+    accessorKey: "firstName",
+    header: "Name",
     cell: ({ row }) => (
       <span
-        className="cursor-pointer text-blue-500"
+        className="cursor-pointer font-semibold  text-lg text-blue-500"
         onClick={() => handleViewDetail(row.original._id)}
       >
         {row.original.firstName} {row.original.lastName}

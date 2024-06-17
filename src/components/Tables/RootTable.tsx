@@ -57,7 +57,7 @@ export function RootTable<TData, TValue>({
   });
 
   return (
-    <div className="h-full flex flex-col gap-2">
+    <div className="h-full flex flex-col gap-2 ">
       {tableType !== "subRow" && (
         <div className="   max-h-[50%] flex items-center   ">
           <TableActions table={table} type={tableType} />

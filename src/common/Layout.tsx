@@ -5,5 +5,9 @@ interface LayoutProps {
 }
 
 export function Layout({ children }: LayoutProps) {
-  return <section className={`   flex-grow p-4 `}>{children}</section>;
+  return (
+    <section className={`w-[96%] flex-grow mx-auto max-h-[88vh]    `}>
+      {children}
+    </section>
+  );
 }

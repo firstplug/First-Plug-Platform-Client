@@ -1,11 +1,8 @@
 "use client";
-import { MyTeamActions, MyTeamViewHeader, TeamMembers } from "@/components";
+import { TeamMembers } from "@/components";
 export default function DataTeam() {
   return (
-    <div className="flex flex-col gap-4 w-full h-full  relative">
-      <MyTeamViewHeader />
-      <hr />
-      <MyTeamActions />
+    <div className="h-full max-h-full   ">
       <TeamMembers />
     </div>
   );

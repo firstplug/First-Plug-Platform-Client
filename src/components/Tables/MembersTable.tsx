@@ -1,11 +1,10 @@
 import { useStore } from "@/models";
 import { Memberservices } from "@/services";
-import { TeamMember, TeamMemberTable } from "@/types";
-import React from "react";
-import { Table } from "../Table";
-import { Button, PenIcon, TeamCard, TrashIcon } from "@/common";
+import { TeamMember } from "@/types";
+import { Button, PenIcon, TeamCard } from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
 import { DeleteAction } from "../Alerts";
+import { RootTable } from "./RootTable";
 
 const formatDate = (dateString: string) => {
   if (!dateString) return "";
@@ -19,11 +18,12 @@ const membersColumns: (
   handleViewDetail: (memberId: TeamMember["_id"]) => void
 ) => ColumnDef<TeamMember>[] = (handleEdit, handleDelete, handleViewDetail) => [
   {
-    accessorKey: "name",
-    header: "Full Name",
+    id: "firstName",
+    accessorKey: "firstName",
+    header: "Name",
     cell: ({ row }) => (
       <span
-        className="cursor-pointer text-blue-500"
+        className="cursor-pointer font-semibold  text-lg text-blue-500"
         onClick={() => handleViewDetail(row.original._id)}
       >
         {row.original.firstName} {row.original.lastName}
@@ -113,9 +113,10 @@ export function MembersTable({ members }: TableMembersProps) {
   };
 
   return (
-    <Table<TeamMember>
-      data={members}
+    <RootTable
+      tableType="members"
       columns={membersColumns(handleEdit, handleDelete, handleViewDetail)}
+      data={members}
     />
   );
 }

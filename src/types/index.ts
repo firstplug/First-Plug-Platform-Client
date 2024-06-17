@@ -7,3 +7,4 @@ export * from "./aside";
 export * from "./display";
 export * from "./user";
 export * from "./product";
+export * from "./tables";

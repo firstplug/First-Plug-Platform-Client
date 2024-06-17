@@ -73,11 +73,8 @@ export default observer(function DataProvider({
   ]);
 
   const tenantNameExists = session.data?.user?.tenantName;
-  if (isLoading) {
-    return <LoaderSpinner />;
-  }
 
-  if (!tenantNameExists) {
+  if (!tenantNameExists && !isLoading) {
     return (
       <div className="h-[100vh] p-10">
         <EmptyCardLayout>

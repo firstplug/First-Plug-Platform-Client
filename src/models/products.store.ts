@@ -14,6 +14,7 @@ export const ProductsStore = types
     selectedTableId: types.maybe(types.string),
     productToEdit: types.maybe(types.string),
     fetchingStock: types.optional(types.boolean, false),
+    onlyAvaliable: types.optional(types.boolean, false),
     members: types.array(types.frozen()),
     currentProduct: types.maybe(ProductModel),
     currentMember: types.maybe(types.frozen()),
@@ -53,6 +54,9 @@ export const ProductsStore = types
   .actions((store) => ({
     setFetchStock(fetchValue: boolean) {
       store.fetchingStock = fetchValue;
+    },
+    toggleStockToShow() {
+      store.onlyAvaliable = !store.onlyAvaliable;
     },
     setProducts(products: Product[]) {
       store.products.replace(products);

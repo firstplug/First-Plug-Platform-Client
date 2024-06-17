@@ -18,6 +18,7 @@ export default function Providers({ children }: ProvidersProps) {
     members: {},
     aside: {},
     user: {},
+    alerts: {},
   });
   useEffect(() => {
     const setupAxiosInterceptor = async () => {

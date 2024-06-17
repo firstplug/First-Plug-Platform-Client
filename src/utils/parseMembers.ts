@@ -1,7 +1,7 @@
 import { CreateMemberZodModel, CsvMember } from "@/types";
 
 export function parseMembers(member: CsvMember): CreateMemberZodModel {
-  return {
+  const obj = {
     firstName: member["First Name *"],
     lastName: member["Last Name *"],
     email: member["Email *"],
@@ -18,4 +18,10 @@ export function parseMembers(member: CsvMember): CreateMemberZodModel {
     zipCode: member["Zip Code"],
     position: member["Job Position"],
   };
+
+  const filteredObj = Object.fromEntries(
+    Object.entries(obj).filter(([key, value]) => value)
+  );
+
+  return filteredObj;
 }

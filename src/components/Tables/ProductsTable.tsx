@@ -6,12 +6,10 @@ import {
   ProductTable,
   ShipmentStatus,
 } from "@/types";
-import React, { useState } from "react";
-import { Table } from "../Table";
+import { useState } from "react";
 import {
   ArrowRight,
   Button,
-  PenIcon,
   ProductImage,
   ProductLocation,
   ShipmentStatusCard,
@@ -24,6 +22,8 @@ import { DeleteAction } from "../Alerts";
 import { observer } from "mobx-react-lite";
 import EditProduct from "./Product/EditProduct";
 import FormatedDate from "./helpers/FormatedDate";
+import { RootTable } from "./RootTable";
+import { useStore } from "@/models";
 
 interface ProductColumnsInterface {
   handleSelectProducts: (products: Product[]) => void;
@@ -166,29 +166,26 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   },
 ];
 
-interface ProductTableProps {
-  products: ProductTable[];
-}
-export var ProductsTable = observer(function ProductsTable({
-  products,
-}: ProductTableProps) {
+export var ProductsTable = observer(function ProductsTable() {
   const [productsDetails, setProductsDetails] = useState<Product[]>();
-
+  const {
+    products: { tableProducts, availableProducts, onlyAvaliable },
+  } = useStore();
   const handleSelectProducts = (products: Product[]) =>
     setProductsDetails(products);
 
   return (
-    <Table<ProductTable>
-      data={products}
+    <RootTable
+      tableType="stock"
+      data={onlyAvaliable ? availableProducts : tableProducts}
       columns={productColumns({ handleSelectProducts })}
       getRowCanExpand={() => true}
       subComponent={
-        productsDetails ? (
-          <Table<Product>
-            data={productsDetails}
-            columns={InternalProductsColumns}
-          />
-        ) : null
+        <RootTable
+          tableType="subRow"
+          data={productsDetails}
+          columns={InternalProductsColumns}
+        />
       }
     />
   );

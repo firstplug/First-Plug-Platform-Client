@@ -1,3 +1,4 @@
+"use client";
 import { Button, TrashIcon } from "@/common";
 import {
   Dialog,
@@ -29,41 +30,60 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
   ({ type, id }) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [showSuccessDialog, setShowSuccessDialog] = useState(false);
-    const [showErrorDialog, setShowErrorDialog] = useState(false);
-    const [showRecoverableDialog, setShowRecoverableDialog] = useState(false);
     const {
-      products: { deleteProduct, setTable },
+      products: { deleteProduct },
       members: { deleteMember },
       alerts: { setAlert },
     } = useStore();
 
-    const handleDelete = async () => {
+    const checkMemberProducts = async () => {
+      try {
+        const member = await Memberservices.getOneMember(id);
+        const hasRecoverableProducts = member.products.some(
+          (product) => product.recoverable
+        );
+
+        if (hasRecoverableProducts) {
+          return false;
+        }
+
+        return true;
+      } catch (error) {
+        return false;
+      }
+    };
+    const handleDeleteProduct = async () => {
       try {
         if (!id) {
           throw new Error("Product ID is undefined");
         }
+
         setLoading(true);
         await ProductServices.deleteProduct(id);
         deleteProduct(id);
         setOpen(false);
         setLoading(false);
-        setShowSuccessDialog(true);
+        setAlert("deleteStock");
         setTimeout(async () => {
           location.reload();
         }, 1500);
       } catch (error) {
         setOpen(false);
-        setTimeout(() => {
-          setShowErrorDialog(true);
-        }, 3000);
       }
     };
 
     const handleDeleteMember = async () => {
       try {
+        console.log("entramo");
         if (!id) {
           throw new Error("Member ID is undefined");
+        }
+        const canDelete = await checkMemberProducts();
+
+        console.log({ canDelete });
+        if (!canDelete) {
+          setAlert("errorRecoverableStock");
+          return;
         }
         setLoading(true);
         const result = await Memberservices.deleteMember(id);
@@ -77,33 +97,6 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
       } catch (error) {
         setOpen(false);
         setLoading(false);
-        setShowErrorDialog(true);
-      }
-    };
-
-    const checkMemberProducts = async () => {
-      try {
-        const member = await Memberservices.getOneMember(id);
-        const hasRecoverableProducts = member.products.some(
-          (product) => product.recoverable
-        );
-
-        if (hasRecoverableProducts) {
-          setShowRecoverableDialog(true);
-          return false;
-        }
-
-        return true;
-      } catch (error) {
-        setShowErrorDialog(true);
-        return false;
-      }
-    };
-
-    const handleTriggerClick = async () => {
-      const canDelete = await checkMemberProducts();
-      if (canDelete) {
-        setOpen(true);
       }
     };
 
@@ -111,7 +104,7 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
       product: {
         title: " Are you sure you want to delete this product? 🗑️",
         description: "This product will be permanently deleted",
-        deleteAction: handleDelete,
+        deleteAction: handleDeleteProduct,
       },
       member: {
         title:
@@ -124,7 +117,7 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
     return (
       <>
         <Dialog open={open}>
-          <DialogTrigger onClick={handleTriggerClick}>
+          <DialogTrigger onClick={() => setOpen(true)}>
             <TrashIcon
               className=" text-dark-grey w-[1.2rem] h-[1.2rem] hover:text-error"
               strokeWidth={2}
@@ -163,52 +156,6 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
               <Loader />
             </DialogContent>
           )}
-        </Dialog>
-        <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle className="text-xl">Success</DialogTitle>
-              <DialogDescription className="text-md font-normal">
-                {type === "product"
-                  ? "The product has been successfully deleted."
-                  : "The member has been successfully deleted."}
-              </DialogDescription>
-            </DialogHeader>
-            <DialogDescription className="text-md"></DialogDescription>
-          </DialogContent>
-        </Dialog>
-        <Dialog open={showErrorDialog} onOpenChange={setShowErrorDialog}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle className="text-xl">Error</DialogTitle>
-              <DialogDescription className="text-md font-normal">
-                There was an error deleting the {type}. Please try again.
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-        <Dialog
-          open={showRecoverableDialog}
-          onOpenChange={setShowRecoverableDialog}
-        >
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle className="text-xl">
-                Cannot Delete Member
-              </DialogTitle>
-              <DialogDescription className="text-md font-normal">
-                Cannot delete a member with recoverable products assigned.
-                Please unassign the products first.
-              </DialogDescription>
-              <Button
-                variant="primary"
-                onClick={() => setShowRecoverableDialog(false)}
-                className="mt-4"
-              >
-                OK
-              </Button>
-            </DialogHeader>
-          </DialogContent>
         </Dialog>
       </>
     );

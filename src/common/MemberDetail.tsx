@@ -6,6 +6,7 @@ import Image from "next/image";
 import Photo from "../../public/employees/member.jpg";
 import { useStore } from "@/models/root.store";
 import memberImage from "../../public/member.png";
+import { DeleteAction } from "@/components/Alerts";
 
 interface MemberDetailProps {
   className?: string;
@@ -42,9 +43,7 @@ export function MemberDetail({ className }: MemberDetailProps) {
                   strokeWidth={2}
                 />
               </Button>
-              <Button variant="text">
-                <TrashIcon className="h-[1rem] aspect-square text-dark-grey font-semibold" />
-              </Button>
+              <DeleteAction id={selectedMember._id} type="member" />
             </div>
           </div>
           <div className="flex items-center gap-2 text-md">

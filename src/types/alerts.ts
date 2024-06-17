@@ -5,7 +5,9 @@ export const ALERTS_TYPES = [
   "createProduct",
   "createMember",
   "deleteMember",
+  "deleteStock",
   "errorDeleteStock",
   "errorDeleteMember",
+  "errorRecoverableStock",
 ] as const;
 export type AlertType = (typeof ALERTS_TYPES)[number];

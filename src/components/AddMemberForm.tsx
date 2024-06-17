@@ -6,6 +6,7 @@ import { TeamMember, Product } from "@/types";
 import GenericAlertDialog from "../components/AddProduct/ui/GenericAlertDialog";
 import { useStore } from "@/models";
 import { useRouter } from "next/navigation";
+import { ProductServices } from "@/services";
 
 interface AddMemberFormProps {
   members: TeamMember[];
@@ -28,7 +29,10 @@ export const AddMemberForm = observer(function ({
   const [successAlertOpen, setSuccessAlertOpen] = useState(false);
   const [errorAlertOpen, setErrorAlertOpen] = useState(false);
   const [noneOption, setNoneOption] = useState<string | null>(null);
-  const { products } = useStore();
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const {
+    products: { reassignProduct, setTable },
+  } = useStore();
   const router = useRouter();
 
   const handleSearch = (query: string) => {
@@ -53,6 +57,11 @@ export const AddMemberForm = observer(function ({
   const handleSaveClick = async () => {
     if (!currentProduct) return;
 
+    if (selectedMember === null && !noneOption) {
+      setValidationError("Please select a location");
+      return;
+    }
+
     let updatedProduct: Partial<Product> = {
       assignedEmail: "",
       assignedMember: "",
@@ -65,10 +74,12 @@ export const AddMemberForm = observer(function ({
 
     if (selectedMember === null && noneOption) {
       try {
-        await products.reassignProduct(currentProduct._id, updatedProduct);
+        await reassignProduct(currentProduct._id, updatedProduct);
         setSuccessAlertOpen(true);
       } catch (error) {
         setErrorAlertOpen(true);
+        const updatedProducts = await ProductServices.getTableFormat();
+        setTable(updatedProducts);
         console.error("Failed to reassign product", error);
       }
     } else if (selectedMember) {
@@ -87,12 +98,33 @@ export const AddMemberForm = observer(function ({
       }
 
       try {
-        await products.reassignProduct(currentProduct._id, updatedProduct);
+        await reassignProduct(currentProduct._id, updatedProduct);
         setSuccessAlertOpen(true);
+        const updatedProducts = await ProductServices.getTableFormat();
+        setTable(updatedProducts);
       } catch (error) {
         setErrorAlertOpen(true);
       }
     }
+  };
+
+  const handleAlertClose = async () => {
+    setSuccessAlertOpen(false);
+    aside(undefined);
+    const updatedProducts = await ProductServices.getTableFormat();
+    setTable(updatedProducts);
+    router.push("/home/my-stock");
+  };
+
+  const handleSelectNoneOption = (option: string) => {
+    setNoneOption(option);
+    setValidationError(null);
+  };
+
+  const handleSelectMember = (member: TeamMember | null) => {
+    handleSelectedMembers(member);
+    setNoneOption(null);
+    setValidationError(null);
   };
 
   return (
@@ -107,7 +139,7 @@ export const AddMemberForm = observer(function ({
               }`}
               onClick={() => {
                 handleSelectedMembers(null);
-                setNoneOption(null);
+                // setNoneOption(null);
               }}
             >
               <div className="flex gap-2">
@@ -120,7 +152,7 @@ export const AddMemberForm = observer(function ({
                   className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue ${
                     noneOption === "FP warehouse" ? "bg-hoverBlue" : ""
                   }`}
-                  onClick={() => setNoneOption("FP warehouse")}
+                  onClick={() => handleSelectNoneOption("FP warehouse")}
                 >
                   <div className="flex gap-2">
                     <p className="text-black font-bold">FP warehouse</p>
@@ -130,7 +162,7 @@ export const AddMemberForm = observer(function ({
                   className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue ${
                     noneOption === "Our office" ? "bg-hoverBlue" : ""
                   }`}
-                  onClick={() => setNoneOption("Our office")}
+                  onClick={() => handleSelectNoneOption("Our office")}
                 >
                   <div className="flex gap-2">
                     <p className="text-black font-bold">Our office</p>
@@ -140,6 +172,9 @@ export const AddMemberForm = observer(function ({
             )}
           </>
         )}
+        {validationError && (
+          <p className="text-red-500 text-md">{validationError}</p>
+        )}
         {displayedMembers.map((member) => (
           <div
             className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue ${
@@ -148,7 +183,6 @@ export const AddMemberForm = observer(function ({
             key={member._id}
             onClick={() => {
               handleSelectedMembers(member);
-              setNoneOption(null);
             }}
           >
             <div className="flex gap-2">
@@ -160,6 +194,7 @@ export const AddMemberForm = observer(function ({
           </div>
         ))}
       </div>
+
       <aside className="absolute flex justify-end bg-white w-[80%] bottom-0 p-2 h-[10%] border-t space-x-4">
         <Button
           variant="secondary"
@@ -184,11 +219,7 @@ export const AddMemberForm = observer(function ({
         title="Success"
         description="Product assigned successfully"
         buttonText="OK"
-        onButtonClick={() => {
-          setSuccessAlertOpen(false);
-          aside(undefined);
-          router.push("/home/my-stock");
-        }}
+        onButtonClick={handleAlertClose}
       />
       <GenericAlertDialog
         open={errorAlertOpen}

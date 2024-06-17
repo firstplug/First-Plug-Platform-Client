@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 
 export const AssignProduct = observer(() => {
   const {
-    members: { members, selectedMemberEmail },
+    members: { members },
     aside: { setAside },
     products: { currentProduct, currentMember, reassignProduct },
   } = useStore();
@@ -15,15 +15,6 @@ export const AssignProduct = observer(() => {
 
   const handleSelectedMembers = (selectedMember: TeamMember | null) => {
     setMember(selectedMember);
-  };
-
-  const handleSave = async (data: Partial<Product>) => {
-    try {
-      await reassignProduct(currentProduct?._id, data);
-      setAside(undefined);
-    } catch (error) {
-      console.error("Failed to reassign product", error);
-    }
   };
 
   return (
@@ -40,7 +31,6 @@ export const AssignProduct = observer(() => {
         aside={setAside}
         currentProduct={currentProduct}
         currentMember={currentMember}
-        // handleSave={handleSave}
       />
     </div>
   );

@@ -13,13 +13,7 @@ export default observer(function MyTeam() {
 
   return (
     <PageLayout>
-      {fetchingMembers ? (
-        <BarLoader />
-      ) : members.length ? (
-        <DataTeam />
-      ) : (
-        <EmptyTeam />
-      )}
+      {fetchingMembers ? <BarLoader /> : members ? <DataTeam /> : <EmptyTeam />}
     </PageLayout>
   );
 });

@@ -1,9 +1,15 @@
 "use client";
-import { TeamMembers } from "@/components";
-export default function DataTeam() {
+import { BarLoader } from "@/components/Loader/BarLoader";
+import { MembersTable } from "@/components/Tables";
+import { useStore } from "@/models";
+import { observer } from "mobx-react-lite";
+export default observer(function DataTeam() {
+  const {
+    members: { members },
+  } = useStore();
   return (
     <div className="h-full max-h-full   ">
-      <TeamMembers />
+      {members.length ? <MembersTable members={members} /> : <BarLoader />}
     </div>
   );
-}
+});

@@ -43,6 +43,16 @@ export default observer(function AlertProvider() {
       closeAction: () => {
         setAlert(undefined);
         router.push("/home/my-team");
+        location.reload();
+      },
+    },
+    deleteMember: {
+      title: " Success",
+      description: " The member has been successfully deleted.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
+        router.push("/home/my-team");
       },
     },
     errorDeleteStock: {
@@ -52,6 +62,15 @@ export default observer(function AlertProvider() {
       closeAction: () => {
         setAlert(undefined);
         router.push("/home/my-team");
+      },
+    },
+    errorDeleteMember: {
+      title: " Error",
+      description:
+        "There was an error deleting this memeber. Please try again.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
       },
     },
   };

@@ -10,11 +10,11 @@ interface TeamCardProps {
 }
 
 const TEAM_COLORS = [
-  "bg-hr",
   "bg-design",
-  "bg-sales",
-  "bg-dev",
   "bg-finance",
+  "bg-dev",
+  "bg-sales",
+  "bg-hr",
   "bg-grey",
 ];
 
@@ -39,7 +39,7 @@ export var TeamCard = observer(function TeamCard({
     <span
       className={`  ${
         className || ""
-      } py-0.5 px-2 rounded text-md text-black font-medium ${teamColor}`}
+      } py-0.5 px-2 rounded  text-black font-medium ${teamColor}`}
     >
       {team || "Not assign"}
     </span>

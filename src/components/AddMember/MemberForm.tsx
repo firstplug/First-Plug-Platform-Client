@@ -42,16 +42,9 @@ const MemberForm: React.FC<MemberFormProps> = ({
     formState: { isSubmitting },
   } = methods;
 
-  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
-  const [showErrorDialog, setShowErrorDialog] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [teams, setTeams] = useState<string[]>([]);
 
   const handleSaveMember = async (data: TeamMember) => {
-    setShowSuccessDialog(false);
-    setShowErrorDialog(false);
-    setErrorMessage("");
-
     try {
       let response;
       if (isUpdate && initialData) {
@@ -61,18 +54,17 @@ const MemberForm: React.FC<MemberFormProps> = ({
       } else {
         response = await Memberservices.createMember(data);
         addMember(response);
-        // setShowSuccessDialog(true);
         setAlert("createMember");
       }
       methods.reset();
       setMembers([]);
     } catch (error) {
+      console.error(error.response?.data?.message);
       if (error.response?.data?.message === "Email is already in use") {
-        setErrorMessage("Email is already in use");
+        setAlert("errorDeleteMember");
       } else {
-        setErrorMessage(error.message);
+        setAlert("errorDeleteMember");
       }
-      setShowErrorDialog(true);
     }
   };
 
@@ -99,7 +91,6 @@ const MemberForm: React.FC<MemberFormProps> = ({
                   isUpdate={isUpdate}
                   initialData={initialData}
                 />
-
                 <hr />
                 <ShipmentData isUpdate={isUpdate} initialData={initialData} />
 
@@ -118,18 +109,6 @@ const MemberForm: React.FC<MemberFormProps> = ({
               disabled={isSubmitting}
             />
           </aside>
-        </div>
-        <div className="z-50">
-          <GenericAlertDialog
-            open={showErrorDialog}
-            onClose={() => setShowErrorDialog(false)}
-            title="Error"
-            description={errorMessage}
-            buttonText="OK"
-            onButtonClick={() => {
-              setShowErrorDialog(false);
-            }}
-          />
         </div>
       </FormProvider>
     </PageLayout>

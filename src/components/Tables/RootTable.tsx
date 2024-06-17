@@ -2,13 +2,11 @@ import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
-  Table as ITable,
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
   getFilteredRowModel,
   useReactTable,
-  Column,
   RowData,
 } from "@tanstack/react-table";
 
@@ -22,13 +20,13 @@ import {
 } from "@/components/ui/table";
 
 declare module "@tanstack/react-table" {
-  //allows us to define custom properties for our columns
   interface ColumnMeta<TData extends RowData, TValue> {
     filterVariant?: "text" | "range" | "select";
+    filterPositon?: "inline" | "bottom";
   }
 }
 
-import { Fragment, ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 
 import { TableType } from "@/types";
 import { TableActions } from "./TableActions";

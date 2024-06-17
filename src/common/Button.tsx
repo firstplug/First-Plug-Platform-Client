@@ -18,18 +18,19 @@ interface ButtonProps {
 
 const btnStyle = {
   variant: {
-    primary: "bg-blue text-white from-blue to-green ",
+    primary: "bg-blue rounded-md text-white from-blue to-green hover:bg ",
     secondary:
       "bg-white border border-blue hover:bg-hoverBlue  text-blue  rounded-md",
     delete:
       "bg-error text-white border border-red-500 hover:bg-error/80 rounded-md ",
     text: "bg-white text-blue hover:bg-hoverBlue rounded-full",
+    outline: "bg-white text-blue  rounded-full",
     alert: "text-error  hover:bg-hoverRed",
   },
   size: {
     default: "p-2",
     big: "text-lg py-3 px-6",
-    small: "text-sm",
+    small: "text-sm py-1 px-3",
   },
   disabled: {
     primary: "bg-light-grey    text-grey ",
@@ -56,11 +57,11 @@ export function Button({
     <button
       type={type}
       onClick={onClick}
-      className={`text-center flex items-center justify-center gap-2 font-bold leading-5 capitalize transition-all duration-150 ease-in   ${
+      className={`text-center flex items-center justify-center gap-2 font-bold leading-5 capitalize transition-all duration-150 ease-in    ${
         disabled
           ? `${btnStyle.disabled[variant]} ${btnStyle.size[size]}`
           : `${btnStyle.variant[variant]} ${btnStyle.size[size]}`
-      } ${className || ""} `}
+      } ${className} `}
       {...buttonProps}
       disabled={disabled}
     >

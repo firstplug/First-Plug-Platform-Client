@@ -46,6 +46,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   const {
     products: { addProduct, updateProduct, setTable },
     aside: { setAside },
+    alerts: { setAlert },
   } = useStore();
   const router = useRouter();
   const methods = useForm({
@@ -131,23 +132,18 @@ const ProductForm: React.FC<ProductFormProps> = ({
           initialData._id,
           changes
         );
-
         updateProduct(updatedProduct);
-        setShowSuccessDialog(true);
+        setAlert("updateStock");
       } else {
         const response = await ProductServices.createProduct(formatData);
         addProduct(response);
-        setShowSuccessDialog(true);
+        setAlert("createProduct");
       }
       methods.reset();
       setSelectedCategory(undefined);
       setAssignedEmail(undefined);
       const products = await ProductServices.getTableFormat();
       setTable(products);
-
-      // setTimeout(() => {
-      //   router.push("/home/my-stock");
-      // }, 2000);
     } catch (error) {
       if (error.response?.data?.message === "Serial Number already exists") {
         setErrorMessage("Serial Number already exists");
@@ -213,26 +209,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
           </aside>
         </div>
         <div className="z-50">
-          <GenericAlertDialog
-            open={showSuccessDialog}
-            onClose={() => setShowSuccessDialog(false)}
-            title="Success"
-            description={`Your product has been successfully ${
-              isUpdate ? "updated" : "added"
-            } to your stock.`}
-            buttonText="OK"
-            onButtonClick={() => {
-              setShowSuccessDialog(false);
-              setAside(undefined);
-              if (isUpdate) {
-                setTimeout(() => {
-                  location.reload();
-                }, 2000);
-              } else {
-                router.push("/home/my-stock");
-              }
-            }}
-          />
           <GenericAlertDialog
             open={showErrorDialog}
             onClose={() => setShowErrorDialog(false)}

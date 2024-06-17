@@ -31,7 +31,7 @@ export default function PrdouctModelDetail({
       {product.category === "Merchandising" ? (
         <span className="text-lg">{product.name}</span>
       ) : (
-        <div className="flex gap-1 text-lg  ">
+        <div className="flex gap-1 text-md ">
           <span className="font-semibold">
             {product.attributes.filter((at) => at.key === "brand")[0].value}
           </span>
@@ -40,13 +40,13 @@ export default function PrdouctModelDetail({
           </span>
         </div>
       )}
-      <div className="flex gap-4 text-md">
+      <div className="flex gap-4 text-sm">
         {categoryKeys
           .filter((c) => c !== "brand" && c !== "model")
           .map((cat) => (
-            <div className="flex flex-col    " key={cat}>
-              <span className="font-normal   ">{cat} </span>
-              <span className="font-thin text-dark-grey -mt-1">
+            <div className="flex flex-col gap-1  font-normal  " key={cat}>
+              <span className="">{cat} </span>
+              <span className=" text-dark-grey -mt-1">
                 {getValue(cat) || "-"}
               </span>
             </div>

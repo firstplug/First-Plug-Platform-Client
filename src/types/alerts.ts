@@ -1,6 +1,8 @@
 export const ALERTS_TYPES = [
   "csvSuccess",
   "updateMember",
+  "updateStock",
+  "createProduct",
   "createMember",
   "deleteMember",
   "errorDeleteStock",

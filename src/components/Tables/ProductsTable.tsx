@@ -51,7 +51,7 @@ export const productColumns: ({
   {
     accessorFn: (row) => row.products,
     header: "Name",
-    size: 200,
+    size: 20,
     cell: ({ row, getValue }) => (
       <PrdouctModelDetail product={row.original.products[0]} />
     ),

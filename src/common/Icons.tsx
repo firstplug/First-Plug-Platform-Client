@@ -348,7 +348,7 @@ export function SearchIcon({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="currentColor"
-      className={`w-6 h-6 ${className || ""}`}
+      className={`w-4  ${className || ""}`}
     >
       <path
         strokeLinecap="round"
@@ -695,7 +695,7 @@ export function PenIcon({ className, strokeWidth }: PenIconProps) {
       viewBox="0 0 24 24"
       strokeWidth={strokeWidth}
       stroke="currentColor"
-      className={`w-6 h-6 ${className || ""}`}
+      className={`w-4${className || ""}`}
     >
       <path
         strokeLinecap="round"

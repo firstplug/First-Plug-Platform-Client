@@ -22,14 +22,16 @@ export default observer(function TableStockActions<TData>({
   };
   return (
     <div className=" flex items-center justify-between   h-full w-full ">
-      <div className="flex gap-2">
+      <div className="flex gap-1">
         <input type="checkbox" checked={filter} onChange={handleFilter} />
-        <label className="ml-2 text-gray-500">Show only avaliable stock</label>
+        <label className=" text-gray-500 text-md">
+          Show only avaliable stock
+        </label>
       </div>
 
       <div className="flex gap-2   ">
         <Button
-          className="rounded-md py-2 px-4"
+          size="small"
           variant="secondary"
           body="Add Product"
           icon={<AddIcon />}
@@ -39,7 +41,7 @@ export default observer(function TableStockActions<TData>({
         />
 
         <Button
-          className="rounded-md py-2 px-4"
+          size="small"
           variant="secondary"
           body="Load Stock"
           icon={<UploadIcon />}
@@ -47,7 +49,7 @@ export default observer(function TableStockActions<TData>({
         />
 
         <Button
-          className="rounded-md py-2 px-4"
+          size="small"
           variant="primary"
           icon={<ShopIcon />}
           body="Shop Now"

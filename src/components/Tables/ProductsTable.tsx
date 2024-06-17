@@ -36,9 +36,11 @@ export const productColumns: ({
   {
     accessorFn: (row) => row.category,
     header: "Category",
-    size: 20,
-    cell: ({ row, getValue }) => (
-      <div className="flex  gap-2 text-xl  items-center w-[150px]   ">
+    meta: {
+      filterVariant: "select",
+    },
+    cell: ({ getValue }) => (
+      <div className="flex  gap-2 text-lg  items-center w-[150px]   ">
         <ProductImage category={getValue<string>()} />
         <p>{getValue<string>()}</p>
       </div>
@@ -48,29 +50,26 @@ export const productColumns: ({
   {
     accessorFn: (row) => row.products,
     header: "Name",
-    size: 200,
-    cell: ({ row, getValue }) => (
+    cell: ({ row }) => (
       <PrdouctModelDetail product={row.original.products[0]} />
     ),
     footer: (props) => props.column.id,
   },
-  // UNA SOLA COLUMNA CON EL STOCK TOTAL Y DISPONIBLE
   {
     accessorFn: (row) => row.products,
     header: "Stock",
-    size: 20,
     cell: ({ getValue }) => (
       <div className="flex flex-col  gap-2 justify-center font-normal   font-montserrat ">
         <span className=" flex justify-between  rounded-md p-1  px-2">
           <span> Total</span>
-          <span className="font-semibold text-lg bg-lightPurple/25 rounded-md  h-6 w-6 px-2 grid place-items-center">
+          <span className="font-semibold bg-lightBlue rounded-md  h-6 w-6 px-2 grid place-items-center">
             {" "}
             {getValue<Product[]>().length}
           </span>
         </span>
         <span className="  flex justify-between shadow-sm rounded-md p-1 px-2">
           <span> Available</span>
-          <span className="font-semibold text-lg bg-lightGreen/25 rounded-md  h-6  px-2 grid place-items-center">
+          <span className="font-semibold bg-lightGreen rounded-md  h-6  px-2 grid place-items-center">
             {" "}
             {
               getValue<Product[]>().filter(
@@ -128,13 +127,19 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     cell: ({ getValue }) => <FormatedDate date={getValue<string>()} />,
   },
   {
-    // accessorFn: (row) => row.assignedMember,
+    accessorFn: (row) => row.assignedMember,
+    meta: {
+      filterVariant: "text",
+    },
     header: "Currently with",
     cell: ({ getValue, row }) => <MemberName product={row.original} />,
   },
   {
     accessorFn: (row) => row.status,
     header: "Status",
+    meta: {
+      filterVariant: "select",
+    },
     cell: ({ getValue }) => (
       <ShipmentStatusCard status={getValue<ShipmentStatus>()} />
     ),

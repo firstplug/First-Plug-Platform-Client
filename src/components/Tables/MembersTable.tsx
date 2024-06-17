@@ -23,7 +23,7 @@ const membersColumns: (
     header: "Name",
     cell: ({ row }) => (
       <span
-        className="cursor-pointer font-semibold  text-lg text-blue-500"
+        className="cursor-pointer font-semibold   text-blue-500"
         onClick={() => handleViewDetail(row.original._id)}
       >
         {row.original.firstName} {row.original.lastName}
@@ -47,13 +47,20 @@ const membersColumns: (
   {
     accessorKey: "team",
     header: "Team",
-    cell: ({ getValue }) => <TeamCard team={getValue<string>()} />,
+    cell: ({ getValue }) => (
+      <section className="flex justify-center">
+        <TeamCard team={getValue<string>()} />
+      </section>
+    ),
+    meta: {
+      filterVariant: "select",
+    },
   },
   {
     accessorKey: "position",
     header: "Job Position",
     cell: ({ getValue }) => (
-      <span className="font-normal">{getValue<string>()}</span>
+      <span className="font-semibold">{getValue<string>()}</span>
     ),
   },
   {

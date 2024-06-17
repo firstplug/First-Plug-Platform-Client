@@ -69,8 +69,8 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
         const result = await Memberservices.deleteMember(id);
         deleteMember(result);
         setOpen(false);
+        setAlert("deleteMember");
         setLoading(false);
-        setShowSuccessDialog(true);
         setTimeout(() => {
           location.reload();
         }, 1500);

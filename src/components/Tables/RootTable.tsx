@@ -2,12 +2,12 @@ import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
-  Table as ITable,
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
   getFilteredRowModel,
   useReactTable,
+  RowData,
 } from "@tanstack/react-table";
 
 import {
@@ -19,10 +19,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+declare module "@tanstack/react-table" {
+  interface ColumnMeta<TData extends RowData, TValue> {
+    filterVariant?: "text" | "range" | "select";
+    filterPositon?: "inline" | "bottom";
+  }
+}
+
 import { ReactNode, useState } from "react";
 
 import { TableType } from "@/types";
 import { TableActions } from "./TableActions";
+import HeaderFilter from "./Filters/HeaderFilter";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -69,23 +77,39 @@ export function RootTable<TData, TValue>({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 key={headerGroup.id}
-                className="border-b- border-gray-200 bg-light-grey rounded-md "
+                className="border-b-  border-gray-200 bg-light-grey rounded-md "
               >
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead
-                      key={header.id}
-                      className={` py-3 px-4 border-r     text-start  text-black font-semibold   `}
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead
+                    key={header.id}
+                    className={` py-3 px-4 border-r       text-start  text-black font-semibold   `}
+                  >
+                    <div className="flex w-full justify-between items-center">
+                      <div>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </div>
+
+                      <div
+                        className={`${
+                          header.column.getCanFilter() ? "" : "hidden"
+                        }`}
+                      >
+                        {header.column.getCanFilter() ? (
+                          <HeaderFilter
+                            column={header.column}
+                            tableType={tableType}
+                            table={table}
+                          />
+                        ) : null}
+                      </div>
+                    </div>
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>

@@ -9,14 +9,7 @@ interface TeamCardProps {
   className?: string;
 }
 
-const TEAM_COLORS = [
-  "bg-hr",
-  "bg-design",
-  "bg-sales",
-  "bg-dev",
-  "bg-finance",
-  "bg-grey",
-];
+const TEAM_COLORS = ["bg-design", "bg-finance", "bg-dev", "bg-sales", "bg-hr"];
 
 const getTeamColor = (team: string) => {
   const hash = Array.from(team).reduce(
@@ -31,7 +24,7 @@ export var TeamCard = observer(function TeamCard({
   className,
 }: TeamCardProps) {
   const teamColor = useMemo(
-    () => (team ? getTeamColor(team) : "bg-grey"),
+    () => (team ? getTeamColor(team) : "bg-lightRed"),
     [team]
   );
 
@@ -39,7 +32,7 @@ export var TeamCard = observer(function TeamCard({
     <span
       className={`  ${
         className || ""
-      } py-0.5 px-2 rounded text-md text-black font-medium ${teamColor}`}
+      } py-0.5 px-2 rounded  text-black font-medium ${teamColor}`}
     >
       {team || "Not assign"}
     </span>

@@ -37,11 +37,37 @@ export default observer(function AlertProvider() {
         location.reload();
       },
     },
+    updateStock: {
+      title: " Success",
+      description: " Your product has been successfully updated to your stock.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
+      },
+    },
     createMember: {
       title: " Success",
       description: " Your Member has been successfully added to your team.",
       closeAction: () => {
         setAlert(undefined);
+        router.push("/home/my-team");
+        location.reload();
+      },
+    },
+    createProduct: {
+      title: " Success",
+      description: " Your product has been created successfully.",
+      closeAction: () => {
+        setAlert(undefined);
+        router.push("/home/my-stock");
+      },
+    },
+    deleteMember: {
+      title: " Success",
+      description: " The member has been successfully deleted.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
         router.push("/home/my-team");
       },
     },
@@ -52,6 +78,15 @@ export default observer(function AlertProvider() {
       closeAction: () => {
         setAlert(undefined);
         router.push("/home/my-team");
+      },
+    },
+    errorDeleteMember: {
+      title: " Error",
+      description:
+        "There was an error deleting this memeber. Please try again.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
       },
     },
   };

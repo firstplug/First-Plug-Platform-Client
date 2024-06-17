@@ -5,13 +5,17 @@ import { useStore } from "@/models";
 import { observer } from "mobx-react-lite";
 import { AlertType } from "@/types/alerts";
 import { useRouter } from "next/navigation";
+import { XCircleIcon } from "lucide-react";
 function CheckIcon() {
   return <img src="/svg/checkIcon.svg" alt="" />;
 }
-
+function XIcon() {
+  return <XCircleIcon className="text-white " size={40} />;
+}
 interface IConfig {
   title: string;
   description: string;
+  type: "succes" | "error";
   closeAction: () => void;
 }
 
@@ -23,6 +27,7 @@ export default observer(function AlertProvider() {
   const Config: Record<AlertType, IConfig> = {
     csvSuccess: {
       title: "Congratulations!",
+      type: "succes",
       description: " The csv file has been uploaded successfully.",
       closeAction: () => {
         setAlert(undefined);
@@ -31,6 +36,7 @@ export default observer(function AlertProvider() {
     },
     updateMember: {
       title: " Success",
+      type: "succes",
       description: " Your Member has been successfully updated to your team.",
       closeAction: () => {
         setAlert(undefined);
@@ -39,6 +45,7 @@ export default observer(function AlertProvider() {
     },
     updateStock: {
       title: " Success",
+      type: "succes",
       description: " Your product has been successfully updated to your stock.",
       closeAction: () => {
         setAlert(undefined);
@@ -47,6 +54,7 @@ export default observer(function AlertProvider() {
     },
     createMember: {
       title: " Success",
+      type: "succes",
       description: " Your Member has been successfully added to your team.",
       closeAction: () => {
         setAlert(undefined);
@@ -56,6 +64,7 @@ export default observer(function AlertProvider() {
     },
     createProduct: {
       title: " Success",
+      type: "succes",
       description: " Your product has been created successfully.",
       closeAction: () => {
         setAlert(undefined);
@@ -64,6 +73,7 @@ export default observer(function AlertProvider() {
     },
     deleteMember: {
       title: " Success",
+      type: "succes",
       description: " The member has been successfully deleted.",
       closeAction: () => {
         setAlert(undefined);
@@ -71,8 +81,17 @@ export default observer(function AlertProvider() {
         router.push("/home/my-team");
       },
     },
+    deleteStock: {
+      title: " Success",
+      type: "succes",
+      description: " The product has been successfully deleted.",
+      closeAction: () => {
+        setAlert(undefined);
+      },
+    },
     errorDeleteStock: {
       title: " Error",
+      type: "error",
       description:
         " There was an error deleting the product. Please try again.",
       closeAction: () => {
@@ -82,6 +101,7 @@ export default observer(function AlertProvider() {
     },
     errorDeleteMember: {
       title: " Error",
+      type: "error",
       description:
         "There was an error deleting this memeber. Please try again.",
       closeAction: () => {
@@ -89,9 +109,18 @@ export default observer(function AlertProvider() {
         location.reload();
       },
     },
+    errorRecoverableStock: {
+      title: " Cannot Delete Member",
+      type: "error",
+      description:
+        " Cannot delete a member with recoverable products assigned. Please unassign the products first.",
+      closeAction: () => {
+        setAlert(undefined);
+      },
+    },
   };
   if (!alertType) return null;
-  const { description, title, closeAction } = Config[alertType];
+  const { description, title, closeAction, type } = Config[alertType];
 
   return (
     <Dialog.Root open={alertType !== undefined}>
@@ -99,9 +128,16 @@ export default observer(function AlertProvider() {
         <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50 z-50" />
         <Dialog.Content className="fixed bg-white p-6 rounded-md shadow-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-96">
           <Dialog.Title className="text-center flex justify-center flex-col items-center">
-            <div className="p-1 rounded-full bg-success/50 animate-pulse">
-              <CheckIcon />
-            </div>
+            {type === "succes" && (
+              <div className="p-1 rounded-full bg-success/50 animate-pulse">
+                <CheckIcon />
+              </div>
+            )}
+            {type === "error" && (
+              <div className=" rounded-full bg-error ">
+                <XIcon />
+              </div>
+            )}
             <h2 className="font-semibold text-black text-2xl">{title}</h2>
           </Dialog.Title>
           <Dialog.Description className="text-lg text-center my-2 ">

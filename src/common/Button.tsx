@@ -33,11 +33,11 @@ const btnStyle = {
     small: "text-sm py-1 px-3",
   },
   disabled: {
-    primary: "bg-light-grey    text-grey ",
+    primary: "bg-light-grey border border-disabled   text-grey ",
     delete: "bg-light-grey    text-grey ",
-    secondary: "bg-white   text-grey ",
+    secondary: "bg-white  border border-disabled rounded-md  text-grey ",
     text: "bg-white    text-grey   ",
-    alert: "bg-white   text-grey ",
+    alert: "bg-white border border-disabled  text-grey ",
   },
 } as const;
 
@@ -57,7 +57,7 @@ export function Button({
     <button
       type={type}
       onClick={onClick}
-      className={`text-center flex items-center justify-center gap-2 font-bold leading-5 capitalize transition-all duration-150 ease-in    ${
+      className={`text-center flex items-center justify-center gap-2  font-bold leading-5 capitalize transition-all duration-150 ease-in    ${
         disabled
           ? `${btnStyle.disabled[variant]} ${btnStyle.size[size]}`
           : `${btnStyle.variant[variant]} ${btnStyle.size[size]}`

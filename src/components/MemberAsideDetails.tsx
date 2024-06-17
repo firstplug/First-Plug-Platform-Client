@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button, EmptyCard, EmptyCardLayout, MemberDetail } from "@/common";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import ProductDetail from "@/common/ProductDetail";
+import { Product } from "@/types";
 
 interface MemberAsideDetailsProps {
   className?: string;
@@ -15,6 +16,16 @@ export const MemberAsideDetails = observer(function ({
   const {
     members: { members, selectedMember },
   } = useStore();
+
+  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+
+  const handleSelectProducts = (productId: string) => {
+    if (selectedProducts.includes(productId)) {
+      return setSelectedProducts((s) => s.filter((id) => id !== productId));
+    }
+
+    setSelectedProducts((s) => [...s, productId]);
+  };
 
   return (
     <article
@@ -28,8 +39,8 @@ export const MemberAsideDetails = observer(function ({
           {selectedMember.products.length ? (
             <div className="flex flex-col gap-2">
               <div className="flex justify-between">
-                <h1 className="font-semibold text-xl">Products</h1>
-                <p className="bg-border  rounded-full h-6 w-6 text-center  grid place-items-center items text-sm">
+                <h1 className="font-semibold text-lg">Products</h1>
+                <p className="border border-black text-black font-bold  rounded-full h-6 w-6  grid place-items-center  text-sm">
                   {selectedMember.products.length || 0}
                 </p>
               </div>
@@ -37,7 +48,12 @@ export const MemberAsideDetails = observer(function ({
               <div className="flex flex-col gap-2 overflow-y-auto max-h-56 mb-6 ">
                 {selectedMember.products.length
                   ? selectedMember.products.map((product) => (
-                      <ProductDetail product={product} key={product._id} />
+                      <ProductDetail
+                        product={product}
+                        key={product._id}
+                        handleSelect={handleSelectProducts}
+                        isChecked={selectedProducts.includes(product._id)}
+                      />
                     ))
                   : null}
               </div>
@@ -49,25 +65,27 @@ export const MemberAsideDetails = observer(function ({
           )}
         </div>
       </div>
-      <aside className="absolute flex justify-end bg-white w-[80%] bottom-0 p-2 h-[10%] border-t space-x-4">
-        <Button
-          body={"Remove"}
-          variant={"delete"}
-          size={"default"}
-          className={"rounded-md w-1/3 "}
-        />
-        <Button
-          body={"Return"}
-          variant={"secondary"}
-          size={"default"}
-          className={"rounded-md w-1/3 "}
-        />
-        <Button
-          body={"Relocate"}
-          variant={"secondary"}
-          size={"default"}
-          className={"rounded-md w-1/3 "}
-        />
+      <aside className=" absolute  bg-white  py-2    bottom-0   left-0 w-full border-t ">
+        <div className="flex    w-5/6 mx-auto gap-2 justify-end">
+          <Button
+            body={"Remove"}
+            variant={"delete"}
+            size={"small"}
+            disabled={selectedProducts.length === 0}
+          />
+          <Button
+            body={"Return"}
+            variant={"secondary"}
+            size={"small"}
+            disabled={selectedProducts.length === 0}
+          />
+          <Button
+            body={"Relocate"}
+            variant={"secondary"}
+            size={"small"}
+            disabled={selectedProducts.length === 0}
+          />
+        </div>
       </aside>
     </article>
   );

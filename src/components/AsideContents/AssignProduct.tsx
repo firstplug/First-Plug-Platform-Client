@@ -17,23 +17,26 @@ export const AssignProduct = observer(() => {
     },
   } = useStore();
   const [member, setMember] = useState<TeamMember | null>(null);
-  const [reassignFilteredMembers, setReassignFilteredMembers] = useState<
-    TeamMember[]
-  >([]);
-  const [assignFilteredMembers, setAssignFilteredMembers] = useState<
-    TeamMember[]
-  >([]);
+  const [filteredMembers, setFilteredMembers] = useState<TeamMember[]>([]);
+  const [showNoneOption, setShowNoneOption] = useState(false);
 
   useEffect(() => {
-    if (
-      currentProduct?.assignedEmail === "" ||
-      currentProduct?.assignedMember === ""
-    ) {
-      setAssignFilteredMembers(members);
-    } else if (members && currentMember) {
-      setReassignFilteredMembers(
-        members.filter((member) => member.email !== currentMember.email)
-      );
+    if (currentProduct) {
+      if (
+        currentProduct.assignedEmail === "" &&
+        currentProduct.assignedMember === ""
+      ) {
+        setFilteredMembers(members);
+        setShowNoneOption(false);
+      } else {
+        if (members && currentMember) {
+          const reassignFilteredMembers = members.filter(
+            (member) => member.email !== currentMember.email
+          );
+          setFilteredMembers(reassignFilteredMembers);
+        }
+        setShowNoneOption(true);
+      }
     }
   }, [members, currentMember, currentProduct]);
 
@@ -45,28 +48,17 @@ export const AssignProduct = observer(() => {
     <div className="flex flex-col gap-2">
       <div className="flex justify-between">
         <span>Members</span>
-        <span>
-          (
-          {currentProduct?.assignedEmail === "" ||
-          currentProduct?.assignedMember === ""
-            ? assignFilteredMembers.length
-            : reassignFilteredMembers.length}
-          )
-        </span>
+        <span>{filteredMembers.length}</span>
       </div>
 
       <AddMemberForm
         selectedMember={member}
         handleSelectedMembers={handleSelectedMembers}
-        members={
-          currentProduct?.assignedEmail === "" ||
-          currentProduct?.assignedMember === ""
-            ? assignFilteredMembers
-            : reassignFilteredMembers
-        }
+        members={filteredMembers}
         aside={setAside}
         currentProduct={currentProduct}
         currentMember={currentMember}
+        showNoneOption={showNoneOption}
       />
     </div>
   );

@@ -15,6 +15,7 @@ interface AddMemberFormProps {
   aside: (value: string | undefined) => void;
   currentProduct?: Product | null;
   currentMember?: TeamMember | null;
+  showNoneOption?: boolean;
 }
 
 export const AddMemberForm = observer(function ({
@@ -24,8 +25,9 @@ export const AddMemberForm = observer(function ({
   aside,
   currentProduct,
   currentMember,
+  showNoneOption,
 }: AddMemberFormProps) {
-  const [filteredMembers, setFilteredMembers] = useState<TeamMember[]>(members);
+  const [searchedMembers, setSearchedMembers] = useState<TeamMember[]>(members);
   const [successAlertOpen, setSuccessAlertOpen] = useState(false);
   const [errorAlertOpen, setErrorAlertOpen] = useState(false);
   const [noneOption, setNoneOption] = useState<string | null>(null);
@@ -36,11 +38,11 @@ export const AddMemberForm = observer(function ({
   const router = useRouter();
 
   useEffect(() => {
-    setFilteredMembers(members);
+    setSearchedMembers(members);
   }, [members]);
 
   const handleSearch = (query: string) => {
-    setFilteredMembers(
+    setSearchedMembers(
       members.filter(
         (member) =>
           member.firstName.toLowerCase().includes(query.toLowerCase()) ||
@@ -50,11 +52,7 @@ export const AddMemberForm = observer(function ({
     );
   };
 
-  const showNoneOption =
-    currentProduct?.assignedEmail !== "" &&
-    currentProduct?.assignedMember !== "";
-
-  const displayedMembers = filteredMembers.filter(
+  const displayedMembers = searchedMembers.filter(
     (member) => member.email !== currentMember?.email
   );
 

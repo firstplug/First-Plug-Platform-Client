@@ -38,7 +38,6 @@ export const AddMemberForm = observer(function ({
   const router = useRouter();
 
   useEffect(() => {
-    console.log("Members in AddMemberForm (useEffect): ", members);
     setSearchedMembers(members);
   }, [members]);
 
@@ -56,9 +55,6 @@ export const AddMemberForm = observer(function ({
   const displayedMembers = searchedMembers.filter(
     (member) => member.email !== currentMember?.email
   );
-
-  console.log("Displayed Members: ", displayedMembers);
-  console.log("Show None Option: ", showNoneOption);
 
   const handleSaveClick = async () => {
     if (!currentProduct) return;

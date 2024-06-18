@@ -21,10 +21,6 @@ export const AssignProduct = observer(() => {
   const [showNoneOption, setShowNoneOption] = useState(false);
 
   useEffect(() => {
-    console.log("Current Product (AssignProduct useEffect): ", currentProduct);
-    console.log("Current Member (AssignProduct useEffect): ", currentMember);
-    console.log("Members (AssignProduct useEffect): ", members);
-
     if (currentProduct) {
       if (
         currentProduct.assignedEmail === "" &&
@@ -38,10 +34,6 @@ export const AssignProduct = observer(() => {
             (member) => member.email !== currentMember.email
           );
           setFilteredMembers(reassignFilteredMembers);
-          console.log(
-            "Filtered Members for Reassign: ",
-            reassignFilteredMembers
-          );
         }
         setShowNoneOption(true);
       }
@@ -71,23 +63,3 @@ export const AssignProduct = observer(() => {
     </div>
   );
 });
-
-{
-  /* <AddMemberForm
-        selectedMember={member}
-        handleSelectedMembers={handleSelectedMembers}
-        members={
-          currentProduct?.assignedEmail === "" ||
-          currentProduct?.assignedMember === ""
-            ? assignFilteredMembers
-            : reassignFilteredMembers
-        }
-        aside={setAside}
-        currentProduct={currentProduct}
-        currentMember={currentMember}
-        showNoneOption={
-          currentProduct?.assignedEmail !== "" &&
-          currentProduct?.assignedMember !== ""
-        }
-      /> */
-}

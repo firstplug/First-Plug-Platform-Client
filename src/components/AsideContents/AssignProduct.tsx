@@ -17,23 +17,34 @@ export const AssignProduct = observer(() => {
     },
   } = useStore();
   const [member, setMember] = useState<TeamMember | null>(null);
-  const [reassignFilteredMembers, setReassignFilteredMembers] = useState<
-    TeamMember[]
-  >([]);
-  const [assignFilteredMembers, setAssignFilteredMembers] = useState<
-    TeamMember[]
-  >([]);
+  const [filteredMembers, setFilteredMembers] = useState<TeamMember[]>([]);
+  const [showNoneOption, setShowNoneOption] = useState(false);
 
   useEffect(() => {
-    if (
-      currentProduct?.assignedEmail === "" ||
-      currentProduct?.assignedMember === ""
-    ) {
-      setAssignFilteredMembers(members);
-    } else if (members && currentMember) {
-      setReassignFilteredMembers(
-        members.filter((member) => member.email !== currentMember.email)
-      );
+    console.log("Current Product (AssignProduct useEffect): ", currentProduct);
+    console.log("Current Member (AssignProduct useEffect): ", currentMember);
+    console.log("Members (AssignProduct useEffect): ", members);
+
+    if (currentProduct) {
+      if (
+        currentProduct.assignedEmail === "" &&
+        currentProduct.assignedMember === ""
+      ) {
+        setFilteredMembers(members);
+        setShowNoneOption(false);
+      } else {
+        if (members && currentMember) {
+          const reassignFilteredMembers = members.filter(
+            (member) => member.email !== currentMember.email
+          );
+          setFilteredMembers(reassignFilteredMembers);
+          console.log(
+            "Filtered Members for Reassign: ",
+            reassignFilteredMembers
+          );
+        }
+        setShowNoneOption(true);
+      }
     }
   }, [members, currentMember, currentProduct]);
 
@@ -45,17 +56,24 @@ export const AssignProduct = observer(() => {
     <div className="flex flex-col gap-2">
       <div className="flex justify-between">
         <span>Members</span>
-        <span>
-          (
-          {currentProduct?.assignedEmail === "" ||
-          currentProduct?.assignedMember === ""
-            ? assignFilteredMembers.length
-            : reassignFilteredMembers.length}
-          )
-        </span>
+        <span>{filteredMembers.length}</span>
       </div>
 
       <AddMemberForm
+        selectedMember={member}
+        handleSelectedMembers={handleSelectedMembers}
+        members={filteredMembers}
+        aside={setAside}
+        currentProduct={currentProduct}
+        currentMember={currentMember}
+        showNoneOption={showNoneOption}
+      />
+    </div>
+  );
+});
+
+{
+  /* <AddMemberForm
         selectedMember={member}
         handleSelectedMembers={handleSelectedMembers}
         members={
@@ -67,7 +85,9 @@ export const AssignProduct = observer(() => {
         aside={setAside}
         currentProduct={currentProduct}
         currentMember={currentMember}
-      />
-    </div>
-  );
-});
+        showNoneOption={
+          currentProduct?.assignedEmail !== "" &&
+          currentProduct?.assignedMember !== ""
+        }
+      /> */
+}

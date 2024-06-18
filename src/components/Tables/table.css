@@ -1,0 +1,6 @@
+
+  
+  /* Asegúrate de que la tabla no se redimensione cuando se apliquen filtros */
+  .table {
+    table-layout: fixed;
+  }

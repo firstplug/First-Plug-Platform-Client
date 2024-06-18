@@ -69,18 +69,18 @@ export function RootTable<TData, TValue>({
           <TableActions table={table} type={tableType} />
         </div>
       )}
-      <div className="rounded-md border    max-h-[85%] overflow-y-auto ">
+      <div className="rounded-md border     max-h-[85%] overflow-y-auto ">
         <Table className="">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 key={headerGroup.id}
-                className="border-b-  border-gray-200 bg-light-grey rounded-md "
+                className=" border-gray-200 bg-light-grey rounded-md "
               >
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className={` py-3 px-4 border-r       text-start  text-black font-semibold   `}
+                    className={` py-3 px-4 border-r  w-[10px]   table_data   text-start  text-black font-semibold   `}
                   >
                     <div className="flex w-full justify-between items-center">
                       <div>
@@ -117,7 +117,7 @@ export function RootTable<TData, TValue>({
                 <Fragment key={row.id}>
                   <TableRow
                     key={row.id}
-                    className={` text-black border-b text-md border-gray-200 text-left  ${
+                    className={` text-black border-b text-md  border-gray-200 text-left  ${
                       row.getIsExpanded() &&
                       "border-l-2 border-l-black bg-hoverBlue"
                     }`}

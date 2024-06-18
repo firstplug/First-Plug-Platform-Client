@@ -82,6 +82,7 @@ export const CreateTeamAside = observer(function ({
             handleSelectedMembers={handleSelectedMembers}
             members={members}
             selectedMember={member}
+            aside={setAside}
           />
         </div>
       </div>

@@ -14,22 +14,30 @@ interface ActionButtonProps {
 export function ActionButton({ product }: ActionButtonProps) {
   const {
     aside: { setAside },
-    members: { setSelectedMemberEmail },
+    members: { setSelectedMemberEmail, setMembers },
+    products,
   } = useStore();
+
+  const handleAssignAction = async () => {
+    setAside("AssignProduct");
+    setSelectedMemberEmail("");
+    await products.getProductForAssign(product._id);
+  };
+
+  const handleReassignAction = async () => {
+    setAside("ReassignProduct");
+    setSelectedMemberEmail(product.assignedEmail);
+    await products.getProductForReassign(product._id);
+  };
+
   const ActionConfig: Record<Product["status"], ActionType> = {
     Available: {
       text: "Assign To",
-      action: () => {
-        setAside("AssignProduct");
-        setSelectedMemberEmail("");
-      },
+      action: handleAssignAction,
     },
     Delivered: {
       text: "Reassign",
-      action: () => {
-        setAside("ReassignProduct");
-        setSelectedMemberEmail(product.assignedEmail);
-      },
+      action: handleReassignAction,
     },
     Deprecated: {
       text: "Deprecated",

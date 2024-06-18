@@ -73,6 +73,7 @@ export const ProductModel = types.model({
   assignedEmail: types.optional(types.string, ""),
   assignedMember: types.optional(types.string, ""),
   serialNumber: types.maybeNull(types.string),
+  lastAssigned: types.maybeNull(types.string),
 });
 export type Product = Instance<typeof ProductModel>;
 
@@ -92,6 +93,7 @@ export const emptyProduct: Omit<Product, "category"> & { category: string } = {
   location: undefined,
   assignedEmail: undefined,
   assignedMember: undefined,
+  lastAssigned: "",
 };
 
 export const ProductTableModel = types.model({

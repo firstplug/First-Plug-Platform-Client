@@ -47,4 +47,36 @@ export class ProductServices {
     );
     return response.data;
   }
+
+  static async getProductForReassign(id: Product["_id"]): Promise<{
+    product: Product;
+    options: { email: string; name: string; team: string }[];
+    currentMember: { email: string; name: string } | null;
+  }> {
+    const response = await HTTPRequests.get(
+      `${BASE_URL}/api/products/reassign/${id}`
+    );
+    return response.data;
+  }
+
+  static async reassignProduct(
+    id: Product["_id"],
+    data: Partial<Product>
+  ): Promise<Product> {
+    const response = await HTTPRequests.patch(
+      `${BASE_URL}/api/products/reassign/${id}`,
+      data
+    );
+    return response.data;
+  }
+
+  static async getProductForAssign(id: Product["_id"]): Promise<{
+    product: Product;
+    options: { email: string; name: string; team: string }[];
+  }> {
+    const response = await HTTPRequests.get(
+      `${BASE_URL}/api/products/assign/${id}`
+    );
+    return response.data;
+  }
 }

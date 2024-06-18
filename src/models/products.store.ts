@@ -1,10 +1,11 @@
-import { types } from "mobx-state-tree";
+import { types, flow } from "mobx-state-tree";
 import {
   Product,
   ProductModel,
   ProductTable,
   ProductTableModel,
 } from "@/types";
+import { ProductServices } from "@/services";
 
 export const ProductsStore = types
   .model({
@@ -14,6 +15,9 @@ export const ProductsStore = types
     productToEdit: types.maybe(types.string),
     fetchingStock: types.optional(types.boolean, false),
     onlyAvaliable: types.optional(types.boolean, false),
+    members: types.array(types.frozen()),
+    currentProduct: types.maybe(ProductModel),
+    currentMember: types.maybe(types.frozen()),
   })
   .views((store) => ({
     get availableProducts() {
@@ -81,4 +85,56 @@ export const ProductsStore = types
         store.products[index] = product;
       }
     },
+    getProductForAssign: flow(function* (
+      productId: string,
+      fetchValue: boolean = true
+    ) {
+      store.fetchingStock = fetchValue;
+      try {
+        const response = yield ProductServices.getProductForAssign(productId);
+        store.members.replace(response.options);
+        store.currentProduct = response.product;
+        store.currentMember = null;
+      } catch (error) {
+        console.error("Failed to get product for assign", error);
+      } finally {
+        store.fetchingStock = false;
+      }
+    }),
+    getProductForReassign: flow(function* (
+      productId: string,
+      fetchValue: boolean = true
+    ) {
+      store.fetchingStock = fetchValue;
+      try {
+        const response = yield ProductServices.getProductForReassign(productId);
+        store.members.replace(response.options);
+        store.currentProduct = response.product;
+        store.currentMember = response.currentMember;
+      } catch (error) {
+        console.error("Failed to get product for reassign", error);
+      } finally {
+        store.fetchingStock = false;
+      }
+    }),
+    reassignProduct: flow(function* (
+      productId: string,
+      data: Partial<Product>,
+      fetchValue: boolean = true
+    ) {
+      store.fetchingStock = fetchValue;
+      try {
+        const response = yield ProductServices.reassignProduct(productId, data);
+        const index = store.products.findIndex((p) => p._id === response._id);
+        if (index > -1) {
+          store.products[index] = response;
+        }
+        const updatedTable = yield ProductServices.getTableFormat();
+        store.tableProducts.replace(updatedTable);
+      } catch (error) {
+        console.error("Failed to reassign product", error);
+      } finally {
+        store.fetchingStock = false;
+      }
+    }),
   }));

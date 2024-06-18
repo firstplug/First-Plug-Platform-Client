@@ -17,7 +17,6 @@ const useLoadMemberData = () => {
     }
   }, [members.memberToEdit]);
 
-  console.log("initialData from hook", initialData);
   return initialData;
 };
 

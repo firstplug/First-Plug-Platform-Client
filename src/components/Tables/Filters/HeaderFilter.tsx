@@ -50,7 +50,7 @@ export default function HeaderFilter<TData>({
       {filterVariant === "text" && (
         <input
           className="outline-none border px-2 py-1 rounded-md text-[11px] "
-          placeholder="Serach by Name"
+          placeholder="Search by Name"
           onChange={(e) => handleSearchInput(e.target.value)}
           value={columnFilterValue?.toString()}
         />

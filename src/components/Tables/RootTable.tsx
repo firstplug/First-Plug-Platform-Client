@@ -25,9 +25,7 @@ declare module "@tanstack/react-table" {
     filterPositon?: "inline" | "bottom";
   }
 }
-
-import { ReactNode, useState } from "react";
-
+import { Fragment, ReactNode, useState } from "react";
 import { TableType } from "@/types";
 import { TableActions } from "./TableActions";
 import HeaderFilter from "./Filters/HeaderFilter";
@@ -36,7 +34,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   getRowCanExpand?: () => boolean;
-  subComponent?: ReactNode;
+  renderSubComponent?: (row: TData) => ReactNode;
   tableType: TableType;
 }
 
@@ -44,7 +42,7 @@ export function RootTable<TData, TValue>({
   columns,
   data,
   getRowCanExpand,
-  subComponent,
+  renderSubComponent,
   tableType,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -116,10 +114,9 @@ export function RootTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <>
+                <Fragment>
                   <TableRow
                     key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
                     className={` text-black border-b text-md border-gray-200 text-left  ${
                       row.getIsExpanded() &&
                       "border-l-2 border-l-black bg-hoverBlue"
@@ -137,11 +134,11 @@ export function RootTable<TData, TValue>({
                   {row.getIsExpanded() && (
                     <tr className="border-l-2 border-l-black">
                       <td colSpan={row.getVisibleCells().length}>
-                        {subComponent}
+                        {renderSubComponent && renderSubComponent(row.original)}
                       </td>
                     </tr>
                   )}
-                </>
+                </Fragment>
               ))
             ) : (
               <TableRow>
@@ -149,7 +146,7 @@ export function RootTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  -
                 </TableCell>
               </TableRow>
             )}

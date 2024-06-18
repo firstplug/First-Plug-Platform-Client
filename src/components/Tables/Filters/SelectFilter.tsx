@@ -71,11 +71,13 @@ export default observer(function SelectFilter({
           <SelectContent className="bg-white text-xs">
             <SelectGroup>
               <SelectItem value="all">All</SelectItem>
-              {PRODUCT_STATUSES.map((t) => (
-                <SelectItem value={t} key={t}>
-                  {t}
-                </SelectItem>
-              ))}
+              {PRODUCT_STATUSES.filter((status) => status !== "Deprecated").map(
+                (t) => (
+                  <SelectItem value={t} key={t}>
+                    {t}
+                  </SelectItem>
+                )
+              )}
             </SelectGroup>
           </SelectContent>
         </Select>

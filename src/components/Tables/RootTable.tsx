@@ -114,7 +114,7 @@ export function RootTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <Fragment>
+                <Fragment key={row.id}>
                   <TableRow
                     key={row.id}
                     className={` text-black border-b text-md border-gray-200 text-left  ${

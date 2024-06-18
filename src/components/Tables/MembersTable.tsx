@@ -5,12 +5,7 @@ import { Button, PenIcon, TeamCard } from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
 import { DeleteAction } from "../Alerts";
 import { RootTable } from "./RootTable";
-
-const formatDate = (dateString: string) => {
-  if (!dateString) return "";
-  const [year, month, day] = dateString.split("-");
-  return `${day}/${month}/${year}`;
-};
+import FormatedDate from "./helpers/FormatedDate";
 
 const membersColumns: (
   handleEdit: (memberId: TeamMember["_id"]) => void,
@@ -34,14 +29,19 @@ const membersColumns: (
     accessorKey: "birthDate",
     header: "Date Of Birth",
     cell: ({ getValue }) => (
-      <span className="font-normal"> {formatDate(getValue<string>())} </span>
+      <span className="font-normal">
+        {" "}
+        <FormatedDate date={getValue<string>()} />{" "}
+      </span>
     ),
   },
   {
     accessorKey: "startDate",
     header: "Joining Date",
     cell: ({ getValue }) => (
-      <span className="font-normal">{formatDate(getValue<string>())}</span>
+      <span className="font-normal">
+        <FormatedDate date={getValue<string>()} />
+      </span>
     ),
   },
   {

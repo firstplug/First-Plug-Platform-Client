@@ -6,11 +6,12 @@ import { observer } from "mobx-react-lite";
 import { RootTable } from "./RootTable";
 import { useStore } from "@/models";
 import ProdcutsDetailsTable from "./Product/ProdcutsDetailsTable";
-
+import "./table.css";
 export const productColumns: ColumnDef<ProductTable>[] = [
   {
     accessorFn: (row) => row.category,
     header: "Category",
+    size: 200,
     meta: {
       filterVariant: "select",
     },
@@ -25,6 +26,7 @@ export const productColumns: ColumnDef<ProductTable>[] = [
   {
     accessorFn: (row) => row.products,
     header: "Name",
+    size: 200,
     cell: ({ row }) => (
       <PrdouctModelDetail product={row.original.products[0]} />
     ),
@@ -33,6 +35,7 @@ export const productColumns: ColumnDef<ProductTable>[] = [
   {
     accessorFn: (row) => row.products,
     header: "Stock",
+    size: 200,
     cell: ({ getValue }) => (
       <div className="flex flex-col gap-2 justify-center font-normal font-montserrat">
         <span className="flex justify-between rounded-md p-1 px-2">

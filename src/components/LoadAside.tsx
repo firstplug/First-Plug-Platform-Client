@@ -99,7 +99,7 @@ export const LoadAside = function () {
           parseMembers(member)
         );
 
-        const { success, data } = csvSquema.safeParse({
+        const { success, data, error } = csvSquema.safeParse({
           members: parsedMembers,
         });
         if (success) {
@@ -110,6 +110,7 @@ export const LoadAside = function () {
             clearCsvData();
             setAlert("csvSuccess");
           } catch (error) {
+            console.log({ error: error.response.data });
             toast({
               title:
                 "The uploaded file is not correct. Please verify it and try again.  ",
@@ -118,6 +119,7 @@ export const LoadAside = function () {
             });
           }
         } else {
+          console.log({ error });
           toast({
             title:
               "The uploaded file is not correct. Please verify it and try again.  ",
@@ -127,6 +129,7 @@ export const LoadAside = function () {
         }
       }
     } catch (error) {
+      console.log({ error });
       return toast({
         title:
           "The uploaded file is not correct. Please verify it and try again.  ",

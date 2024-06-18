@@ -7,6 +7,7 @@ import Photo from "../../public/employees/member.jpg";
 import { useStore } from "@/models/root.store";
 import memberImage from "../../public/member.png";
 import { DeleteAction } from "@/components/Alerts";
+import FormatedDate from "@/components/Tables/helpers/FormatedDate";
 
 interface MemberDetailProps {
   className?: string;
@@ -52,15 +53,11 @@ export function MemberDetail({ className }: MemberDetailProps) {
           </div>
           <div className="flex items-center gap-2 text-md">
             <span className="font-semibold">Joining Date: </span>
-            <span className="font-normal">
-              {selectedMember.startDate || ""}
-            </span>
+            <FormatedDate date={selectedMember.startDate} />
           </div>
           <div className="flex items-center gap-2 text-md">
             <span className="font-semibold">Birth Date: </span>
-            <span className="font-normal">
-              {selectedMember.birthDate || ""}
-            </span>
+            <FormatedDate date={selectedMember.birthDate} />
           </div>
           <div className="flex items-center gap-2 text-md">
             <span className="font-semibold">Email: </span>

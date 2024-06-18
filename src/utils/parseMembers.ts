@@ -5,8 +5,14 @@ export function parseMembers(member: CsvMember): CreateMemberZodModel {
     firstName: member["First Name *"],
     lastName: member["Last Name *"],
     email: member["Email *"],
-    startDate: new Date(member["Start Date"]).toISOString(),
-    birthDate: new Date(member["Birth Date"]).toISOString(),
+    startDate:
+      member["Start Date"] !== ""
+        ? new Date(member["Start Date"]).toISOString()
+        : member["Start Date"],
+    birthDate:
+      member["Birth Date"] !== ""
+        ? new Date(member["Birth Date"]).toISOString()
+        : member["Birth Date"],
     team: member.Team,
     personalEmail: member["Personal Email"],
     phone: member.Phone,

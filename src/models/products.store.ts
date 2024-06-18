@@ -129,6 +129,8 @@ export const ProductsStore = types
         if (index > -1) {
           store.products[index] = response;
         }
+        const updatedTable = yield ProductServices.getTableFormat();
+        store.tableProducts.replace(updatedTable);
       } catch (error) {
         console.error("Failed to reassign product", error);
       } finally {

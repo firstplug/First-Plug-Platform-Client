@@ -2,7 +2,6 @@
 import { Button } from "@/common";
 import { useStore } from "@/models";
 import { Product } from "@/types";
-import { ProductServices } from "@/services";
 
 type ActionType = {
   text: string;

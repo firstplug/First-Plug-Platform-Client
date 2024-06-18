@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, SearchInput } from "@/common";
 import { observer } from "mobx-react-lite";
 import { TeamMember, Product } from "@/types";
@@ -34,6 +34,10 @@ export const AddMemberForm = observer(function ({
     products: { reassignProduct, setTable },
   } = useStore();
   const router = useRouter();
+
+  useEffect(() => {
+    setFilteredMembers(members);
+  }, [members]);
 
   const handleSearch = (query: string) => {
     setFilteredMembers(
@@ -138,8 +142,7 @@ export const AddMemberForm = observer(function ({
                 selectedMember === null ? "bg-hoverBlue" : ""
               }`}
               onClick={() => {
-                handleSelectedMembers(null);
-                // setNoneOption(null);
+                handleSelectMember(null);
               }}
             >
               <div className="flex gap-2">

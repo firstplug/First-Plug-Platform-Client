@@ -110,7 +110,7 @@ export const LoadAside = function () {
             clearCsvData();
             setAlert("csvSuccess");
           } catch (error) {
-            console.log({ error: error.response.data });
+            console.error({ error: error.response.data });
             toast({
               title:
                 "The uploaded file is not correct. Please verify it and try again.  ",

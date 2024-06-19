@@ -11,17 +11,17 @@ const membersColumns: (
   handleEdit: (memberId: TeamMember["_id"]) => void,
   handleDelete: (memberId: TeamMember["_id"]) => void,
   handleViewDetail: (memberId: TeamMember["_id"]) => void
-) => ColumnDef<TeamMember>[] = (handleEdit, handleDelete, handleViewDetail) => [
+) => ColumnDef<TeamMember>[] = (handleEdit, handleViewDetail) => [
   {
-    id: "firstName",
-    accessorKey: "firstName",
+    id: "name",
+    accessorKey: "fullName",
     header: "Name",
-    cell: ({ row }) => (
+    cell: ({ getValue, row }) => (
       <span
         className="cursor-pointer font-semibold   text-blue-500"
         onClick={() => handleViewDetail(row.original._id)}
       >
-        {row.original.firstName} {row.original.lastName}
+        {getValue<string>()}
       </span>
     ),
   },

@@ -6,6 +6,7 @@ export const TeamMemberModel = types.model({
   _id: types.optional(types.string, ""),
   firstName: types.string,
   lastName: types.string,
+  fullName: types.string,
   email: types.string,
   picture: types.optional(types.string, ""),
   position: types.optional(types.string, ""),
@@ -94,4 +95,7 @@ export const zodCreateMembertModel = z.object({
 });
 
 export type CreateMemberZodModel = z.infer<typeof zodCreateMembertModel>;
-export type CreationTeamMember = Omit<TeamMember, "_id" | "teams" | "products">;
+export type CreationTeamMember = Omit<
+  TeamMember,
+  "_id" | "teams" | "products" | "fullName"
+>;

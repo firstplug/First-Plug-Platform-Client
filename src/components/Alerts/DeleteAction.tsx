@@ -31,8 +31,8 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const {
-      products: { deleteProduct },
-      members: { deleteMember },
+      products: { deleteProduct, setFetchStock },
+      members: { deleteMember, setFetchMembers, setMembers },
       alerts: { setAlert },
     } = useStore();
 
@@ -63,6 +63,7 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
         deleteProduct(id);
         setOpen(false);
         setLoading(false);
+        // await ProductServices.getAllProducts()
         setAlert("deleteStock");
         setTimeout(async () => {
           location.reload();
@@ -74,13 +75,11 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
 
     const handleDeleteMember = async () => {
       try {
-        console.log("entramo");
         if (!id) {
           throw new Error("Member ID is undefined");
         }
         const canDelete = await checkMemberProducts();
 
-        console.log({ canDelete });
         if (!canDelete) {
           setAlert("errorRecoverableStock");
           return;
@@ -89,11 +88,15 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
         const result = await Memberservices.deleteMember(id);
         deleteMember(result);
         setOpen(false);
+        setFetchMembers(true);
+        const response = await Memberservices.getAllMembers();
+        setMembers(response);
+        setFetchMembers(false);
         setAlert("deleteMember");
         setLoading(false);
-        setTimeout(() => {
-          location.reload();
-        }, 1500);
+        // setTimeout(() => {
+        //   location.reload();
+        // }, 1500);
       } catch (error) {
         setOpen(false);
         setLoading(false);

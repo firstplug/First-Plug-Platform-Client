@@ -1,10 +1,10 @@
 "use client";
 import { Button, SectionTitle, PageLayout } from "@/common";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Memberservices } from "@/services/teamMember.services";
 import { useStore } from "@/models/root.store";
-import { TeamMember, TeamMemberModel, zodCreateMembertModel } from "@/types";
+import { TeamMember, zodCreateMembertModel } from "@/types";
 import PersonalData from "./PersonalData";
 import memberImage from "../../../public/member.png";
 import EmployeeData from "./EmployeeData";
@@ -12,9 +12,6 @@ import ShipmentData from "./ShipmentData";
 import AdditionalData from "./AdditionalData";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import GenericAlertDialog from "../AddProduct/ui/GenericAlertDialog";
-import { useRouter } from "next/navigation";
-
 interface MemberFormProps {
   initialData?: TeamMember;
   isUpdate?: boolean;
@@ -25,11 +22,10 @@ const MemberForm: React.FC<MemberFormProps> = ({
   isUpdate = false,
 }) => {
   const {
-    members: { addMember, setMembers, updateMember },
-    aside: { setAside },
+    members: { setMembers, updateMember, setFetchMembers },
     alerts: { setAlert },
+    aside: { setAside },
   } = useStore();
-  const router = useRouter();
 
   const methods = useForm({
     resolver: zodResolver(zodCreateMembertModel),
@@ -38,7 +34,6 @@ const MemberForm: React.FC<MemberFormProps> = ({
 
   const {
     handleSubmit,
-    setValue,
     formState: { isSubmitting },
   } = methods;
 
@@ -46,18 +41,15 @@ const MemberForm: React.FC<MemberFormProps> = ({
 
   const handleSaveMember = async (data: TeamMember) => {
     try {
-      let response;
       if (isUpdate && initialData) {
-        response = await Memberservices.updateMember(initialData._id, data);
-        updateMember(response);
+        await Memberservices.updateMember(initialData._id, data);
+        setAside(undefined);
         setAlert("updateMember");
       } else {
-        response = await Memberservices.createMember(data);
-        addMember(response);
+        await Memberservices.createMember(data);
         setAlert("createMember");
       }
       methods.reset();
-      setMembers([]);
     } catch (error) {
       console.error(error.response?.data?.message);
       if (error.response?.data?.message === "Email is already in use") {

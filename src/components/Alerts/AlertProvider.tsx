@@ -6,26 +6,8 @@ import { observer } from "mobx-react-lite";
 import { AlertType } from "@/types/alerts";
 import { useRouter } from "next/navigation";
 import { XCircleIcon } from "lucide-react";
-function CheckIcon() {
-  return (
-    <svg
-      width="48"
-      height="48"
-      viewBox="0 0 48 48"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect width="48" height="48" rx="24" fill="#15CC8A" />
-      <path
-        d="M14.6665 25.3334L19.9998 30.6667L33.3332 17.3334"
-        stroke="#FEFEFF"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
-}
+import { CheckIcon } from "@/common";
+
 function XIcon() {
   return <XCircleIcon className="text-white " size={40} />;
 }

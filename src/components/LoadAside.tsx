@@ -94,15 +94,16 @@ export const LoadAside = function () {
             };
           })
           .filter((e) => isCsvCompleted(e));
+
         const parsedMembers: CreateMemberZodModel[] = members.map((member) =>
           parseMembers(member)
         );
-
         const { success, data, error } = csvSquema.safeParse({
           members: parsedMembers,
         });
         if (success) {
           try {
+            console.log(data.members);
             await CsvServices.bulkCreateTeams(data.members);
             const members = await Memberservices.getAllMembers();
             setMembers(members);

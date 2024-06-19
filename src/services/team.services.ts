@@ -3,6 +3,8 @@ import { BASE_URL, HTTPRequests } from "@/config/axios.config";
 
 type TeamCreation = { name: string };
 
+const http = new HTTPRequests();
+
 export class TeamServices {
   static async getAllTeams(): Promise<Team[]> {
     const response = await HTTPRequests.get(`${BASE_URL}/api/teams`);
@@ -19,13 +21,24 @@ export class TeamServices {
     return response.data;
   }
 
-  static async addToTeam(team: string, member: string): Promise<Team[]> {
-    const response = await HTTPRequests.get(`${BASE_URL}/api/teams`);
+  static async addToTeam(teamId: string, memberId: string): Promise<Team> {
+    const response = await HTTPRequests.put(
+      `${BASE_URL}/api/teams/${teamId}/members/${memberId}`,
+      {}
+    );
     return response.data;
   }
 
-  static async deleteFromTeam(team: string, member: string): Promise<Team[]> {
-    const response = await HTTPRequests.get(`${BASE_URL}/api/teams`);
+  static async removeFromTeam(teamId: string, memberId: string): Promise<Team> {
+    const response = await HTTPRequests.put(
+      `${BASE_URL}/api/teams/change-member/${memberId}`,
+      { teamId: null }
+    );
     return response.data;
+  }
+  static async bulkDeleteTeams(teamIds: string[]): Promise<void> {
+    await HTTPRequests.delete(`${BASE_URL}/api/teams/bulk-delete`, {
+      data: { ids: teamIds },
+    });
   }
 }

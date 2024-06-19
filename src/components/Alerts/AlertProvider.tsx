@@ -58,7 +58,6 @@ export default observer(function AlertProvider() {
       closeAction: () => {
         setAlert(undefined);
         router.push("/home/my-team");
-        location.reload();
       },
     },
     createProduct: {

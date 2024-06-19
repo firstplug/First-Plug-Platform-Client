@@ -6,9 +6,8 @@ import { observer } from "mobx-react-lite";
 import { AlertType } from "@/types/alerts";
 import { useRouter } from "next/navigation";
 import { XCircleIcon } from "lucide-react";
-function CheckIcon() {
-  return <img src="/svg/checkIcon.svg" alt="" />;
-}
+import { CheckIcon } from "@/common";
+
 function XIcon() {
   return <XCircleIcon className="text-white " size={40} />;
 }

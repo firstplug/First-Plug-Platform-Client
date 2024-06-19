@@ -79,7 +79,7 @@ export const MemberAsideDetails = observer(function ({
                   <Image src={"/office.svg"} alt={"first plug sv"} fill />
                 </div>
                 <span className="text-md text-dark-grey">
-                  This member doesn't have any items.
+                  This member doesn&apos;t have any items.
                 </span>
 
                 <Button

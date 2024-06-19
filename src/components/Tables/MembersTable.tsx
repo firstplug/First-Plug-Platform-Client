@@ -11,7 +11,7 @@ const membersColumns: (
   handleEdit: (memberId: TeamMember["_id"]) => void,
   handleDelete: (memberId: TeamMember["_id"]) => void,
   handleViewDetail: (memberId: TeamMember["_id"]) => void
-) => ColumnDef<TeamMember>[] = (handleEdit, handleViewDetail) => [
+) => ColumnDef<TeamMember>[] = (handleEdit, handleDelete, handleViewDetail) => [
   {
     id: "name",
     accessorKey: "fullName",

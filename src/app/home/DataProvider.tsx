@@ -1,8 +1,9 @@
 "use client";
 import { EmptyCard, EmptyCardLayout, LoaderSpinner } from "@/common";
 import { setAuthInterceptor } from "@/config/axios.config";
+import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/models";
-import { Memberservices, ProductServices, TeamServices } from "@/services";
+import { TeamServices } from "@/services";
 import { observer } from "mobx-react-lite";
 import { useSession } from "next-auth/react";
 import { ReactNode, useEffect, useState } from "react";
@@ -15,11 +16,11 @@ export default observer(function DataProvider({
   const store = useStore();
   const [isLoading, setIsLoading] = useState(true);
   const session = useSession();
-
+  const { fetchMembers, fetchStock } = useFetch();
   const {
     user: { setUser },
-    members: { setMembers, setFetchMembers },
-    products: { setProducts, setTable, setFetchStock },
+    members: { setFetchMembers },
+    products: { setProducts, setFetchStock },
     shipments: { setShipments },
     orders: { setOrders },
     teams: { setTeams },
@@ -42,16 +43,8 @@ export default observer(function DataProvider({
 
       if (sessionStorage.getItem("accessToken")) {
         setAuthInterceptor(sessionStorage.getItem("accessToken"));
-        setFetchMembers(true);
-        Memberservices.getAllMembers().then((res) => {
-          setMembers(res);
-          setFetchMembers(false);
-        });
-        setFetchStock(true);
-        ProductServices.getTableFormat().then((res) => {
-          setTable(res);
-          setFetchStock(false);
-        });
+        fetchMembers();
+        fetchStock();
         TeamServices.getAllTeams().then((res) => {
           setTeams(res);
         });
@@ -62,12 +55,10 @@ export default observer(function DataProvider({
   }, [
     session,
     setUser,
-    setMembers,
     setProducts,
     setOrders,
     setShipments,
     setTeams,
-    setTable,
     setFetchMembers,
     setFetchStock,
   ]);

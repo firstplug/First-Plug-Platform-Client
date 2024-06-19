@@ -28,9 +28,7 @@ export const MyTeamActions = observer(function <TData>({
         <div className="flex gap-2 items-center ">
           <SearchInput
             placeholder="Search by Name"
-            onSearch={(value) =>
-              table.getColumn("firstName")?.setFilterValue(value)
-            }
+            onSearch={(value) => table.getColumn("name")?.setFilterValue(value)}
           />
         </div>
 

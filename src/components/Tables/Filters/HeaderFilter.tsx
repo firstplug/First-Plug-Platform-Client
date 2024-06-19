@@ -1,18 +1,8 @@
 import { TableType } from "@/types";
 import { Column, Table } from "@tanstack/react-table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  SelectGroup,
-} from "@/components/ui/select";
 import { useStore } from "@/models";
-import { observer } from "mobx-react-lite";
 import SelectFilter from "./SelectFilter";
 import { Fragment } from "react";
-import { Input } from "@/components/ui/input";
 interface IHeaderFilter<TData> {
   column: Column<any, unknown>;
   tableType: TableType;

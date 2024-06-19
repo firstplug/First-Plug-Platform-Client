@@ -695,7 +695,7 @@ export function PenIcon({ className, strokeWidth }: PenIconProps) {
       viewBox="0 0 24 24"
       strokeWidth={strokeWidth}
       stroke="currentColor"
-      className={`w-4${className || ""}`}
+      className={`w-4 ${className || ""}`}
     >
       <path
         strokeLinecap="round"

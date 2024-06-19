@@ -80,7 +80,7 @@ export function RootTable<TData, TValue>({
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className={` py-3 px-4 border-r  w-[10px]   table_data   text-start  text-black font-semibold   `}
+                    className={` py-3 px-4 border-r    table_data   text-start  text-black font-semibold   `}
                   >
                     <div className="flex w-full justify-between items-center">
                       <div>

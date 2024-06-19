@@ -56,6 +56,12 @@ export function RootTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    columnResizeMode: "onChange",
+    defaultColumn: {
+      size: 200,
+      minSize: 50,
+      maxSize: 500,
+    },
     state: {
       sorting,
       columnFilters,
@@ -63,14 +69,14 @@ export function RootTable<TData, TValue>({
   });
 
   return (
-    <div className="h-full flex flex-col gap-2 ">
+    <div className="h-full flex-grow  flex flex-col gap-2 ">
       {tableType !== "subRow" && (
         <div className="   max-h-[50%] flex items-center   ">
           <TableActions table={table} type={tableType} />
         </div>
       )}
-      <div className="rounded-md border     max-h-[85%] overflow-y-auto ">
-        <Table className="">
+      <div className="rounded-md border   w-full  mx-auto max-h-[85%] overflow-y-auto ">
+        <Table className="table">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
@@ -80,7 +86,8 @@ export function RootTable<TData, TValue>({
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className={` py-3 px-4 border-r    table_data   text-start  text-black font-semibold   `}
+                    style={{ width: `${header.getSize()}px` }}
+                    className={` py-3 px-4 border-r       text-start  text-black font-semibold   `}
                   >
                     <div className="flex w-full justify-between items-center">
                       <div>
@@ -117,13 +124,13 @@ export function RootTable<TData, TValue>({
                 <Fragment key={row.id}>
                   <TableRow
                     key={row.id}
-                    className={` text-black border-b text-md  border-gray-200 text-left  ${
+                    className={` text-black border-b text-md   border-gray-200 text-left  ${
                       row.getIsExpanded() &&
                       "border-l-2 border-l-black bg-hoverBlue"
                     }`}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="text-xs">
+                      <TableCell key={cell.id} className="text-xs  ">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -145,6 +152,7 @@ export function RootTable<TData, TValue>({
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
+                  style={{ width: "5px" }}
                 >
                   -
                 </TableCell>

@@ -16,6 +16,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.serialNumber,
     header: "Serial",
+    size: 80,
     cell: ({ getValue }) => (
       <span className="text-md font-semibold">#{getValue<string>()}</span>
     ),
@@ -23,7 +24,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.acquisitionDate,
     header: "Acquisition Date ",
-
+    size: 100,
     cell: ({ getValue }) => <FormatedDate date={getValue<string>()} />,
   },
   {
@@ -31,12 +32,14 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
     meta: {
       filterVariant: "text",
     },
+    size: 200,
     header: "Currently with",
     cell: ({ getValue, row }) => <MemberName product={row.original} />,
   },
   {
     accessorFn: (row) => row.status,
     header: "Status",
+    size: 200,
     meta: {
       filterVariant: "select",
     },
@@ -47,6 +50,7 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.location,
     header: "Location",
+    size: 100,
     cell: ({ getValue }) => (
       <div>
         {" "}
@@ -57,11 +61,13 @@ const InternalProductsColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.status,
     header: "Actions",
+    size: 85,
     cell: ({ row, getValue }) => <ActionButton product={row.original} />,
   },
   {
     id: "actiondelete",
     header: "",
+    size: 85,
     cell: ({ row }) => (
       <div className="flex justify-end px-2">
         <EditProduct product={row.original} />

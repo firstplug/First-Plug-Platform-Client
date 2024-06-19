@@ -11,7 +11,7 @@ export const productColumns: ColumnDef<ProductTable>[] = [
   {
     accessorFn: (row) => row.category,
     header: "Category",
-    size: 200,
+    size: 120,
     meta: {
       filterVariant: "select",
     },
@@ -35,7 +35,7 @@ export const productColumns: ColumnDef<ProductTable>[] = [
   {
     accessorFn: (row) => row.products,
     header: "Stock",
-    size: 200,
+    size: 80,
     cell: ({ getValue }) => (
       <div className="flex flex-col gap-2 justify-center font-normal font-montserrat">
         <span className="flex justify-between rounded-md p-1 px-2">
@@ -60,7 +60,7 @@ export const productColumns: ColumnDef<ProductTable>[] = [
   {
     id: "expander",
     header: () => null,
-    size: 10,
+    size: 20,
     cell: ({ row }) =>
       row.getCanExpand() && (
         <div

@@ -1,10 +1,19 @@
 "use client";
 import React, { useState } from "react";
-import { Button, EmptyCard, EmptyCardLayout, MemberDetail } from "@/common";
+import {
+  Button,
+  CustomLink,
+  EmptyCard,
+  EmptyCardLayout,
+  MemberDetail,
+} from "@/common";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import ProductDetail from "@/common/ProductDetail";
 import { Product } from "@/types";
+import Image from "next/image";
+import { LinkIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface MemberAsideDetailsProps {
   className?: string;
@@ -15,8 +24,10 @@ export const MemberAsideDetails = observer(function ({
 }: MemberAsideDetailsProps) {
   const {
     members: { members, selectedMember },
+    aside: { setAside },
   } = useStore();
 
+  const router = useRouter();
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
 
   const handleSelectProducts = (productId: string) => {
@@ -27,15 +38,18 @@ export const MemberAsideDetails = observer(function ({
     setSelectedProducts((s) => [...s, productId]);
   };
 
+  const handleNavtoStock = () => {
+    setAside(undefined);
+    router.push("/home/my-stock");
+  };
+
   return (
     <article
       className={`${className || ""} flex flex-col justify-between h-full`}
     >
-      <div className="flex flex-col gap-6  flex-grow">
+      <div className="flex flex-col gap-6   h-full   ">
         <MemberDetail />
-
-        <hr />
-        <div className="flex-grow  h-full p-1">
+        <div className=" flex-grow p-1">
           {selectedMember.products.length ? (
             <div className="flex flex-col gap-2">
               <div className="flex justify-between">
@@ -60,7 +74,24 @@ export const MemberAsideDetails = observer(function ({
             </div>
           ) : (
             <EmptyCardLayout>
-              <EmptyCard type="noStockMember" />
+              <section className="flex flex-col gap-2 items-center justify-center">
+                <div className="w-32 aspect-square relative">
+                  <Image src={"/office.svg"} alt={"first plug sv"} fill />
+                </div>
+                <span className="text-md text-dark-grey">
+                  This member doesn't have any items.
+                </span>
+
+                <Button
+                  variant="text"
+                  size="small"
+                  className="rounded-md flex gap-2 items-center"
+                  onClick={handleNavtoStock}
+                >
+                  <LinkIcon size={14} />
+                  <p>stock</p>
+                </Button>
+              </section>
             </EmptyCardLayout>
           )}
         </div>

@@ -128,22 +128,16 @@ const ProductForm: React.FC<ProductFormProps> = ({
           setShowSuccessDialog(true);
           return;
         }
-        const updatedProduct = await ProductServices.updateProduct(
-          initialData._id,
-          changes
-        );
-        updateProduct(updatedProduct);
+        await ProductServices.updateProduct(initialData._id, changes);
         setAlert("updateStock");
+        setAside(undefined);
       } else {
-        const response = await ProductServices.createProduct(formatData);
-        addProduct(response);
+        await ProductServices.createProduct(formatData);
         setAlert("createProduct");
       }
       methods.reset();
       setSelectedCategory(undefined);
       setAssignedEmail(undefined);
-      const products = await ProductServices.getTableFormat();
-      setTable(products);
     } catch (error) {
       if (error.response?.data?.message === "Serial Number already exists") {
         setErrorMessage("Serial Number already exists");

@@ -103,7 +103,6 @@ export const LoadAside = function () {
         });
         if (success) {
           try {
-            console.log(data.members);
             await CsvServices.bulkCreateTeams(data.members);
             const members = await Memberservices.getAllMembers();
             setMembers(members);

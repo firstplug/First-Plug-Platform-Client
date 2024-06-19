@@ -8,13 +8,7 @@ import { observer } from "mobx-react-lite";
 export const AssignProduct = observer(() => {
   const {
     members: { members },
-    aside: { setAside },
-    products: {
-      currentProduct,
-      currentMember,
-      reassignProduct,
-      getProductForAssign,
-    },
+    products: { currentProduct, currentMember },
   } = useStore();
   const [member, setMember] = useState<TeamMember | null>(null);
   const [filteredMembers, setFilteredMembers] = useState<TeamMember[]>([]);
@@ -55,7 +49,6 @@ export const AssignProduct = observer(() => {
         selectedMember={member}
         handleSelectedMembers={handleSelectedMembers}
         members={filteredMembers}
-        aside={setAside}
         currentProduct={currentProduct}
         currentMember={currentMember}
         showNoneOption={showNoneOption}

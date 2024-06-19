@@ -24,6 +24,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
   const {
     members: { setMembers, updateMember, setFetchMembers },
     alerts: { setAlert },
+    aside: { setAside },
   } = useStore();
 
   const methods = useForm({
@@ -40,17 +41,12 @@ const MemberForm: React.FC<MemberFormProps> = ({
 
   const handleSaveMember = async (data: TeamMember) => {
     try {
-      let response;
       if (isUpdate && initialData) {
-        response = await Memberservices.updateMember(initialData._id, data);
-        updateMember(response);
+        await Memberservices.updateMember(initialData._id, data);
+        setAside(undefined);
         setAlert("updateMember");
       } else {
         await Memberservices.createMember(data);
-        setFetchMembers(true);
-        response = await Memberservices.getAllMembers();
-        setMembers(response);
-        setFetchMembers(false);
         setAlert("createMember");
       }
       methods.reset();

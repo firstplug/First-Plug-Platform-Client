@@ -21,7 +21,7 @@ export function MemberDetail({ className }: MemberDetailProps) {
   if (!selectedMember) return null;
 
   return (
-    <div className={`flex flex-col gap-4 ${className || ""}`}>
+    <div className={`flex flex-col gap-4   ${className || ""}`}>
       <div className="flex gap-4">
         <div className="h-[150px] relative aspect-square">
           <Image
@@ -31,35 +31,34 @@ export function MemberDetail({ className }: MemberDetailProps) {
             className="object-cover rounded-md"
           />
         </div>
-        <div className="flex flex-col w-full justify-start gap-2">
+        <div className="flex flex-col w-full justify-start text-md">
           <div className="flex w-full justify-between items-center">
             <div className="flex items-center gap-1">
-              <span className="font-semibold">Team: </span>
               <TeamCard team={selectedMember.team || ""} />
             </div>
             <div className="flex text-dark-grey font-semibold gap-2">
               <Button variant="text">
                 <PenIcon
-                  className="h-[1rem] aspect-square text-dark-grey font-semibold"
+                  className="w-4 text-dark-grey font-semibold"
                   strokeWidth={2}
                 />
               </Button>
               <DeleteAction id={selectedMember._id} type="member" />
             </div>
           </div>
-          <div className="flex items-center gap-2 text-md">
+          <div className="flex items-center gap-2 ">
             <span className="font-semibold">Job Position: </span>
             <span className="font-normal">{selectedMember.position || ""}</span>
           </div>
-          <div className="flex items-center gap-2 text-md">
+          <div className="flex items-center gap-2 ">
             <span className="font-semibold">Joining Date: </span>
             <FormatedDate date={selectedMember.startDate} />
           </div>
-          <div className="flex items-center gap-2 text-md">
+          <div className="flex items-center gap-2 ">
             <span className="font-semibold">Birth Date: </span>
             <FormatedDate date={selectedMember.birthDate} />
           </div>
-          <div className="flex items-center gap-2 text-md">
+          <div className="flex items-center gap-2 ">
             <span className="font-semibold">Email: </span>
             <span className="font-normal">{selectedMember.email || ""}</span>
           </div>

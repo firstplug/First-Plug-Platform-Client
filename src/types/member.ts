@@ -88,11 +88,7 @@ export const zodCreateMembertModel = z.object({
   apartment: z.string().trim().optional(),
   additionalInfo: z.string().trim().optional(),
   startDate: z.string().trim().optional(),
-  birthDate: z
-    .string()
-    // .trim()
-    // .refine(isAdult, { message: "You must be at least 18 years old" })
-    .optional(),
+  birthDate: z.string().trim().optional(),
   products: z.array(zodCreateProductModel).optional(),
   team: z.string().trim().optional(),
 });

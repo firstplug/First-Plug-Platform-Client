@@ -64,11 +64,10 @@ export const LoadAside = function () {
           try {
             await CsvServices.bulkCreateProducts(data.prdoucts);
             clearCsvData();
-            setAlert("csvSuccess");
-            setAside(undefined);
             const prodcuts = await ProductServices.getTableFormat();
             setTable(prodcuts);
-            location.reload();
+            setAside(undefined);
+            setAlert("csvSuccess");
           } catch (error) {
             toast({
               title:

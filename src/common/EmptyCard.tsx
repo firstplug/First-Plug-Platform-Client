@@ -150,7 +150,11 @@ export function EmptyCard({ type }: EmptyCardProps) {
   return (
     <div className="flex flex-col items-center gap-3 ">
       <div className="flex flex-col items-center mt-[-50px]">
-        <div className="w-52 h-52 relative">
+        <div
+          className={` ${
+            type === "noStockMember" ? "w-32 h-32" : "w-52 h-52"
+          } relative`}
+        >
           <Image src={image} alt={paragraph} fill />
         </div>
         {paragraphstrong && (

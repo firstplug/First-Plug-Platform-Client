@@ -48,15 +48,19 @@ export const TeamStore = types
       }
     });
 
-    const getOrCreateTeam = flow(function* (teamName: string) {
-      const existingTeam = store.teams.find((team) => team.name === teamName);
-      if (existingTeam) {
-        return existingTeam;
-      } else {
-        const newTeam = yield createTeam({ name: teamName });
-        return newTeam;
+    const getOrCreateTeam = async (teamName: string) => {
+      try {
+        const teams = await TeamServices.getAllTeams();
+        let team = teams.find((team) => team.name === teamName);
+        if (!team) {
+          team = await TeamServices.createTeam({ name: teamName });
+        }
+        return team;
+      } catch (error) {
+        console.error("Error in getOrCreateTeam:", error);
+        throw error;
       }
-    });
+    };
 
     const deleteTeam = flow(function* (teamId: string) {
       try {

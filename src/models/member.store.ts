@@ -1,6 +1,5 @@
 import { types } from "mobx-state-tree";
-import { TeamMemberModel, TeamMember, TeamMemberTable } from "@/types";
-import { ASIDE_TYPES, AsideType } from "@/types";
+import { TeamMemberModel, TeamMember, TeamMemberTable, Team } from "@/types";
 
 export const MemberStore = types
   .model({
@@ -20,7 +19,7 @@ export const MemberStore = types
         birthDate: member.birthDate || "",
         position: member.position || "",
         startDate: member.startDate || "",
-        team: [member.team],
+        team: member.team,
         products: member.products,
       }));
     },
@@ -35,7 +34,11 @@ export const MemberStore = types
       if (!store.teamFilterItems.length) return store.members;
 
       return store.members.filter(({ team }) =>
-        store.teamFilterItems.some((value) => team.includes(value.toString()))
+        store.teamFilterItems.some(
+          (value) =>
+            (typeof team === "string" && team.includes(value)) ||
+            (typeof team === "object" && team._id === value)
+        )
       );
     },
     get memberFullName() {
@@ -50,6 +53,16 @@ export const MemberStore = types
     },
     setMembers(members: TeamMember[]) {
       store.members.replace(members);
+    },
+    setTeams(teams: Team[]) {
+      store.members.forEach((member) => {
+        const team = teams.find(
+          (team) => team._id === (member.team as Team)._id
+        );
+        if (team) {
+          member.team = team;
+        }
+      });
     },
     setFilter(filterTeams: string[]) {
       store.teamFilterItems.replace(filterTeams);

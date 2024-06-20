@@ -2,9 +2,15 @@
 import { Button, SectionTitle, PageLayout } from "@/common";
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { Memberservices } from "@/services/teamMember.services";
+import { Memberservices, TeamServices } from "@/services";
 import { useStore } from "@/models/root.store";
-import { TeamMember, TeamMemberModel, zodCreateMembertModel } from "@/types";
+import {
+  TeamMember,
+  TeamMemberModel,
+  TeamModel,
+  zodCreateMembertModel,
+  Team,
+} from "@/types";
 import PersonalData from "./PersonalData";
 import memberImage from "../../../public/member.png";
 import EmployeeData from "./EmployeeData";
@@ -12,7 +18,6 @@ import ShipmentData from "./ShipmentData";
 import AdditionalData from "./AdditionalData";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import GenericAlertDialog from "../AddProduct/ui/GenericAlertDialog";
 import { useRouter } from "next/navigation";
 
 interface MemberFormProps {
@@ -28,6 +33,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
     members: { addMember, setMembers, updateMember },
     aside: { setAside },
     alerts: { setAlert },
+    teams: { getOrCreateTeam },
   } = useStore();
   const router = useRouter();
 
@@ -42,17 +48,33 @@ const MemberForm: React.FC<MemberFormProps> = ({
     formState: { isSubmitting },
   } = methods;
 
-  const [teams, setTeams] = useState<string[]>([]);
-
   const handleSaveMember = async (data: TeamMember) => {
     try {
+      let teamId: string | undefined;
+
+      if (data.team && typeof data.team === "object" && data.team._id) {
+        teamId = data.team._id;
+      } else if (
+        data.team &&
+        typeof data.team === "string" &&
+        data.team.trim() !== ""
+      ) {
+        const team = await getOrCreateTeam(data.team);
+        teamId = team._id;
+      }
+
+      const memberData = { ...data, team: teamId };
+
       let response;
       if (isUpdate && initialData) {
-        response = await Memberservices.updateMember(initialData._id, data);
+        response = await Memberservices.updateMember(
+          initialData._id,
+          memberData
+        );
         updateMember(response);
         setAlert("updateMember");
       } else {
-        response = await Memberservices.createMember(data);
+        response = await Memberservices.createMember(memberData);
         addMember(response);
         setAlert("createMember");
       }
@@ -85,12 +107,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
                   initialData={initialData}
                 />
                 <hr />
-                <EmployeeData
-                  teams={teams}
-                  setTeams={setTeams}
-                  isUpdate={isUpdate}
-                  initialData={initialData}
-                />
+                <EmployeeData isUpdate={isUpdate} initialData={initialData} />
                 <hr />
                 <ShipmentData isUpdate={isUpdate} initialData={initialData} />
 

@@ -109,7 +109,7 @@ export function MembersTable({ members }: TableMembersProps) {
   const handleDelete = (memberId: TeamMember["_id"]) => {
     Memberservices.deleteMember(memberId).then(() => {
       Memberservices.getAllMembers().then((res) => {
-        setMembers(res);
+        setMembers(res.members);
         alert("Member has been deleted!");
       });
     });

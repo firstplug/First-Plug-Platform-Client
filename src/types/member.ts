@@ -1,6 +1,7 @@
 import { Instance, types } from "mobx-state-tree";
 import { zodCreateProductModel, ProductModel, Product } from "./product";
 import { z } from "zod";
+import { TeamModel, Team } from "./teams";
 
 export const TeamMemberModel = types.model({
   _id: types.optional(types.string, ""),
@@ -20,7 +21,7 @@ export const TeamMemberModel = types.model({
   startDate: types.optional(types.string, ""),
   birthDate: types.optional(types.string, ""),
   products: types.optional(types.array(ProductModel), []),
-  team: types.optional(types.string, ""),
+  team: types.union(types.string, types.maybe(types.reference(TeamModel))),
   isDeleted: types.optional(types.boolean, false),
 });
 
@@ -31,7 +32,7 @@ export type TeamMemberTable = {
   fullName: string;
   startDate: string;
   birthDate: string;
-  team: string[];
+  team: Team | string;
   position: string;
   products: Product[];
 };

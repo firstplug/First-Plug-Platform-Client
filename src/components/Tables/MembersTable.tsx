@@ -1,6 +1,6 @@
 import { useStore } from "@/models";
 import { Memberservices } from "@/services";
-import { TeamMember } from "@/types";
+import { Team, TeamMember } from "@/types";
 import { Button, PenIcon, TeamCard } from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
 import { DeleteAction } from "../Alerts";
@@ -49,7 +49,7 @@ const membersColumns: (
     header: "Team",
     cell: ({ getValue }) => (
       <section className="flex justify-center">
-        <TeamCard team={getValue<string>()} />
+        <TeamCard team={getValue<Team>()} />
       </section>
     ),
     meta: {

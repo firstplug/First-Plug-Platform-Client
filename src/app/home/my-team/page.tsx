@@ -17,24 +17,37 @@ export default observer(function MyTeam() {
       setMembers,
       setTeams,
     },
-    teams: { fetchTeams },
   } = useStore();
 
   useEffect(() => {
     const fetchAllData = async () => {
       try {
         setFetchMembers(true);
-        const [membersResponse, teamsResponse] = await Promise.all([
-          Memberservices.getAllMembers(),
-          TeamServices.getAllTeams(),
-        ]);
+        console.log("Fetching data...");
 
-        setMembers(membersResponse.members);
+        const { members: membersResponse, teams: teamsResponse } =
+          await Memberservices.getAllMembers();
+
+        console.log("Members response:", membersResponse);
+        console.log("Teams response:", teamsResponse);
+
+        const transformedMembers = membersResponse.map((member) => ({
+          ...member,
+          team:
+            typeof member.team === "object" && member.team._id
+              ? member.team._id
+              : member.team,
+        }));
+
+        console.log("Transformed members:", transformedMembers);
+
+        setMembers(transformedMembers);
         setTeams(teamsResponse);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
         setFetchMembers(false);
+        console.log("Fetching completed.");
       }
     };
 

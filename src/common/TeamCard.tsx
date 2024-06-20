@@ -1,10 +1,11 @@
 "use client";
 
+import { Team } from "@/types";
 import { observer } from "mobx-react-lite";
 import { useMemo } from "react";
 
 interface TeamCardProps {
-  team?: string;
+  team?: Team;
   className?: string;
 }
 
@@ -22,6 +23,7 @@ const TEAM_COLORS = [
 ];
 
 const getTeamColor = (team: string) => {
+  if (!team) return "bg-lightRed";
   const hash = Array.from(team).reduce(
     (acc, char) => acc + char.charCodeAt(0),
     0
@@ -34,7 +36,7 @@ export var TeamCard = observer(function TeamCard({
   className,
 }: TeamCardProps) {
   const teamColor = useMemo(
-    () => (team ? getTeamColor(team) : "bg-lightRed"),
+    () => (team ? getTeamColor(team.name) : "bg-lightRed"),
     [team]
   );
 
@@ -44,7 +46,7 @@ export var TeamCard = observer(function TeamCard({
         className || ""
       } py-0.5 px-2 rounded  text-black font-medium ${teamColor}`}
     >
-      {team || "Not Assigned"}
+      {team ? team.name : "Not Assigned"}
     </span>
   );
 });

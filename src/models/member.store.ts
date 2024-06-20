@@ -56,11 +56,11 @@ export const MemberStore = types
     },
     setTeams(teams: Team[]) {
       store.members.forEach((member) => {
-        const team = teams.find(
-          (team) => team._id === (member.team as Team)._id
-        );
-        if (team) {
-          member.team = team;
+        if (typeof member.team === "string") {
+          const team = teams.find((team) => team._id === member.team);
+          if (team) {
+            member.team = team;
+          }
         }
       });
     },

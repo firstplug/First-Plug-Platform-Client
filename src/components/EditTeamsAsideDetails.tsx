@@ -57,11 +57,11 @@ export const EditTeamsAsideDetails = observer(function ({
       <div className="flex flex-col gap-2 h-[70vh] overflow-y-auto">
         {teams.map((team) => (
           <TeamDetails
-            key={team}
+            key={team._id}
             team={team}
             members={members}
             handleSelectedTeams={handleCheckbox}
-            onDelete={() => handleDeleteSelectedTeams(team)}
+            onDelete={() => handleDeleteSelectedTeams(team._id)}
           />
         ))}
       </div>

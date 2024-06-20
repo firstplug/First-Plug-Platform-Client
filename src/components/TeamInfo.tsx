@@ -28,12 +28,12 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
   const handleAddTeam = () => {
     selectedMembers.forEach((member) => {
       //TODO: Review the way teams are added
-      TeamServices.addToTeam(team, member._id).then((res) => {
+      TeamServices.addToTeam(team._id, member._id).then((res) => {
         TeamServices.getAllTeams().then((res) => {
           setTeams(res);
         });
         Memberservices.getAllMembers().then((res) => {
-          setMembers(res);
+          setMembers(res.members);
         });
       });
     });
@@ -41,12 +41,12 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
 
   const handleDeleteMember = (member: { _id: string }) => {
     //TODO: Review the way teams are delete from team
-    TeamServices.deleteFromTeam(team, member._id).then((res) => {
+    TeamServices.deleteTeam(team._id).then((res) => {
       TeamServices.getAllTeams().then((res) => {
         setTeams(res);
       });
       Memberservices.getAllMembers().then((res) => {
-        setMembers(res);
+        setMembers(res.members);
       });
     });
   };
@@ -73,7 +73,7 @@ export const TeamInfo = observer(function ({ team }: TeamInfoProps) {
         <span className="text-grey">Team Name</span>
         <input
           type="text"
-          defaultValue={team}
+          defaultValue={team.name}
           className="border-2 rounded-xl p-2 flex-grow w-full"
         />
       </header>

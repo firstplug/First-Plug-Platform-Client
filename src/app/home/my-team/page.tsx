@@ -20,9 +20,6 @@ const transformData = (members, teams) => {
       ? teamMap[member.team._id].name
       : member.team.name,
   }));
-
-  console.log("Transformed Members:", transformedMembers);
-
   return transformedMembers;
 };
 
@@ -41,19 +38,14 @@ export default observer(function MyTeam() {
     const fetchAllData = async () => {
       try {
         setFetchMembers(true);
-        console.log("Fetching data...");
 
         const { members: membersResponse, teams: teamsResponse } =
           await Memberservices.getAllMembers();
-
-        console.log("Members response:", membersResponse);
-        console.log("Teams response:", teamsResponse);
 
         const transformedMembers = transformData(
           membersResponse,
           teamsResponse
         );
-        console.log("Transformed members:", transformedMembers);
 
         setMembers(transformedMembers);
         setTeams(teamsResponse);
@@ -61,7 +53,6 @@ export default observer(function MyTeam() {
         console.error("Error fetching data:", error);
       } finally {
         setFetchMembers(false);
-        console.log("Fetching completed.");
       }
     };
 

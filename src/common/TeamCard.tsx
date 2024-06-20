@@ -41,7 +41,6 @@ export var TeamCard = observer(function TeamCard({
     () => (teamName ? getTeamColor(teamName) : "bg-lightRed"),
     [teamName]
   );
-  console.log("TeamCard teamName:", teamName);
   return (
     <span
       className={`  ${

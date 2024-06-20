@@ -10,6 +10,22 @@ interface DataProvidersProps {
   children: ReactNode;
 }
 
+const transformData = (members, teams) => {
+  const teamMap = teams.reduce((acc, team) => {
+    acc[team._id] = team;
+    return acc;
+  }, {});
+
+  const transformedMembers = members.map((member) => ({
+    ...member,
+    team: teamMap[member.team._id]
+      ? teamMap[member.team._id].name
+      : member.team.name,
+  }));
+
+  return transformedMembers;
+};
+
 export default observer(function DataProvider({
   children,
 }: DataProvidersProps) {
@@ -50,7 +66,8 @@ export default observer(function DataProvider({
           setTeams(teamRes);
 
           const res = await Memberservices.getAllMembers();
-          setMembers(res.members);
+          const transformedMembers = transformData(res.members, teamRes);
+          setMembers(transformedMembers);
 
           setFetchMembers(false);
 

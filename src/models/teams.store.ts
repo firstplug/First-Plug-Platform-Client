@@ -41,8 +41,20 @@ export const TeamStore = types
       try {
         const newTeam = yield TeamServices.createTeam(team);
         addTeam(newTeam);
+        return newTeam;
       } catch (error) {
         console.error("Failed to create team", error);
+        throw error;
+      }
+    });
+
+    const getOrCreateTeam = flow(function* (teamName: string) {
+      const existingTeam = store.teams.find((team) => team.name === teamName);
+      if (existingTeam) {
+        return existingTeam;
+      } else {
+        const newTeam = yield createTeam({ name: teamName });
+        return newTeam;
       }
     });
 
@@ -93,5 +105,8 @@ export const TeamStore = types
       addToTeam,
       removeFromTeam,
       bulkDeleteTeams,
+      getOrCreateTeam,
     };
   });
+
+export const useTeamStore = TeamStore.create({});

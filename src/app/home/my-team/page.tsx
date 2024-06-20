@@ -8,6 +8,24 @@ import { BarLoader } from "@/components/Loader/BarLoader";
 import { useEffect } from "react";
 import { Memberservices, TeamServices } from "@/services";
 
+const transformData = (members, teams) => {
+  const teamMap = teams.reduce((acc, team) => {
+    acc[team._id] = team;
+    return acc;
+  }, {});
+
+  const transformedMembers = members.map((member) => ({
+    ...member,
+    team: teamMap[member.team._id]
+      ? teamMap[member.team._id].name
+      : member.team.name,
+  }));
+
+  console.log("Transformed Members:", transformedMembers);
+
+  return transformedMembers;
+};
+
 export default observer(function MyTeam() {
   const {
     members: {
@@ -31,14 +49,10 @@ export default observer(function MyTeam() {
         console.log("Members response:", membersResponse);
         console.log("Teams response:", teamsResponse);
 
-        const transformedMembers = membersResponse.map((member) => ({
-          ...member,
-          team:
-            typeof member.team === "object" && member.team._id
-              ? member.team._id
-              : member.team,
-        }));
-
+        const transformedMembers = transformData(
+          membersResponse,
+          teamsResponse
+        );
         console.log("Transformed members:", transformedMembers);
 
         setMembers(transformedMembers);

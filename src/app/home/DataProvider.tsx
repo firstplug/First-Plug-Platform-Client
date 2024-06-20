@@ -9,6 +9,7 @@ import { ReactNode, useEffect, useState } from "react";
 interface DataProvidersProps {
   children: ReactNode;
 }
+
 export default observer(function DataProvider({
   children,
 }: DataProvidersProps) {
@@ -26,39 +27,44 @@ export default observer(function DataProvider({
   } = store;
 
   useEffect(() => {
-    if (session.data) {
-      sessionStorage.setItem(
-        "accessToken",
-        session.data.backendTokens.accessToken
-      );
+    const setup = async () => {
+      if (session.data) {
+        sessionStorage.setItem(
+          "accessToken",
+          session.data.backendTokens.accessToken
+        );
 
-      setUser({
-        _id: session.data.user._id,
-        name: session.data.user.name,
-        image: session.data.user.image,
-        email: session.data.user.email,
-        tenantName: session.data.user.tenantName,
-      });
+        setUser({
+          _id: session.data.user._id,
+          name: session.data.user.name,
+          image: session.data.user.image,
+          email: session.data.user.email,
+          tenantName: session.data.user.tenantName,
+        });
 
-      if (sessionStorage.getItem("accessToken")) {
-        setAuthInterceptor(sessionStorage.getItem("accessToken"));
-        setFetchMembers(true);
-        Memberservices.getAllMembers().then((res) => {
-          setMembers(res);
+        if (sessionStorage.getItem("accessToken")) {
+          setAuthInterceptor(sessionStorage.getItem("accessToken"));
+          setFetchMembers(true);
+
+          const teamRes = await TeamServices.getAllTeams();
+          setTeams(teamRes);
+
+          const res = await Memberservices.getAllMembers();
+          setMembers(res.members);
+
           setFetchMembers(false);
-        });
-        setFetchStock(true);
-        ProductServices.getTableFormat().then((res) => {
-          setTable(res);
-          setFetchStock(false);
-        });
-        TeamServices.getAllTeams().then((res) => {
-          setTeams(res);
-        });
 
-        setIsLoading(false);
+          setFetchStock(true);
+          const tableRes = await ProductServices.getTableFormat();
+          setTable(tableRes);
+          setFetchStock(false);
+
+          setIsLoading(false);
+        }
       }
-    }
+    };
+
+    setup();
   }, [
     session,
     setUser,

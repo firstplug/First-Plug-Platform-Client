@@ -24,8 +24,9 @@ export default function Providers({ children }: ProvidersProps) {
     const setupAxiosInterceptor = async () => {
       const session = await getSession();
       const accessToken = session?.backendTokens.accessToken;
-
-      setAuthInterceptor(accessToken);
+      if (accessToken) {
+        setAuthInterceptor(accessToken);
+      }
     };
 
     setupAxiosInterceptor();

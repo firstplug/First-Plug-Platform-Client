@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { useMemo } from "react";
 
 interface TeamCardProps {
-  team?: Team;
+  team?: Team | string;
   className?: string;
 }
 
@@ -35,18 +35,20 @@ export var TeamCard = observer(function TeamCard({
   team,
   className,
 }: TeamCardProps) {
+  const teamName =
+    typeof team === "string" ? team : team?.name || "Not Assigned";
   const teamColor = useMemo(
-    () => (team ? getTeamColor(team.name) : "bg-lightRed"),
-    [team]
+    () => (teamName ? getTeamColor(teamName) : "bg-lightRed"),
+    [teamName]
   );
-
+  console.log("TeamCard teamName:", teamName);
   return (
     <span
       className={`  ${
         className || ""
       } py-0.5 px-2 rounded  text-black font-medium ${teamColor}`}
     >
-      {team ? team.name : "Not Assigned"}
+      {teamName}
     </span>
   );
 });

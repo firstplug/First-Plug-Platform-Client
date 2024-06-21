@@ -60,24 +60,17 @@ export const EditTeamsAsideDetails = observer(function ({
 
   const handleDeleteSelectedTeams = async () => {
     try {
-      console.log("Starting to unassign teams from members...");
-
       for (const team of selectedTeams) {
         const membersWithTeam = await Memberservices.getAllMembersByTeam(
           team._id
         );
         for (const member of membersWithTeam) {
-          console.log(`Unassigning team from member: ${member._id}`);
           member.team = null;
           await Memberservices.updateMember(member._id, member);
         }
       }
 
-      console.log("Teams unassigned from members, now deleting teams...");
-
       await TeamServices.bulkDeleteTeams(selectedTeams.map((team) => team._id));
-
-      console.log("Teams deleted, now fetching updated members and teams...");
 
       const { members: updatedMembers } = await Memberservices.getAllMembers();
       const updatedTeams = await TeamServices.getAllTeams();
@@ -87,18 +80,15 @@ export const EditTeamsAsideDetails = observer(function ({
       setMembers(transformedMembers);
       setTeams(transformedTeams);
 
-      console.log("Teams and members updated successfully");
       setAlert("deleteTeam");
       setSelectedTeams([]);
     } catch (error) {
-      console.error("Failed to delete teams:", error);
       setAlert("errorDeleteTeam");
     }
   };
 
   const handleUpdateTeam = async () => {
     try {
-      console.log("Starting team update...");
       const teamToUpdate = selectedTeams[0];
       const updatedTeam = { ...teamToUpdate, name: newName };
 
@@ -116,11 +106,9 @@ export const EditTeamsAsideDetails = observer(function ({
         transformData(updatedMembers, updatedTeams);
       setMembers(transformedMembers);
       setTeams(transformedTeams);
-      console.log("Team updated successfully");
       setAlert("updateTeam");
       setAside(undefined);
     } catch (error) {
-      console.error("Failed to update team:", error);
       setAlert("errorUpdateTeam");
     }
   };

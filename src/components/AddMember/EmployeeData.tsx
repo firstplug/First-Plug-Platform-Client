@@ -7,6 +7,7 @@ import { CustomLink } from "@/common";
 import { useFormContext, Controller } from "react-hook-form";
 import { DropdownInputProductForm } from "../AddProduct/DropDownProductForm";
 import { TeamServices } from "@/services/team.services";
+import { set } from "zod";
 
 const EmployeeData = function ({ isUpdate, initialData }) {
   const {
@@ -27,13 +28,22 @@ const EmployeeData = function ({ isUpdate, initialData }) {
       try {
         const allTeams = await TeamServices.getAllTeams();
         setTeams(allTeams.map((team) => team.name));
+
+        if (initialData?.team) {
+          const teamName =
+            typeof initialData.team === "object"
+              ? initialData.team.name
+              : initialData.team;
+          setTeamValue(teamName);
+          setValue("team", teamName);
+        }
       } catch (error) {
-        console.log("Failed to fetch teams", error);
+        throw error;
       }
     };
 
     fetchTeams();
-  }, [setTeams]);
+  }, [setTeams, setValue, initialData]);
 
   const handleTeamChange = (value: string) => {
     setTeamValue(value);
@@ -72,7 +82,7 @@ const EmployeeData = function ({ isUpdate, initialData }) {
                 name="team"
                 options={teams}
                 placeholder="Team Name"
-                title="Team Name"
+                title="Select a Team"
                 selectedOption={teamValue}
                 onChange={handleTeamChange}
               />

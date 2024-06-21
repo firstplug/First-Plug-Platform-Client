@@ -9,5 +9,11 @@ export const ALERTS_TYPES = [
   "errorDeleteStock",
   "errorDeleteMember",
   "errorRecoverableStock",
+  "createTeam",
+  "errorCreateTeam",
+  "deleteTeam",
+  "errorDeleteTeam",
+  "updateTeam",
+  "errorUpdateTeam",
 ] as const;
 export type AlertType = (typeof ALERTS_TYPES)[number];

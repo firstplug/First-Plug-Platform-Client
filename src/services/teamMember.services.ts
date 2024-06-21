@@ -41,4 +41,11 @@ export class Memberservices {
     const response = await HTTPRequests.delete(`${BASE_URL}/api/members/${id}`);
     return response.data;
   }
+
+  static async getAllMembersByTeam(teamId: string): Promise<TeamMember[]> {
+    const response = await HTTPRequests.get(
+      `${BASE_URL}/api/members/team/${teamId}`
+    );
+    return response.data;
+  }
 }

@@ -1,14 +1,17 @@
 "use client";
 import React, { useState } from "react";
-import { Button } from "@/common";
-import { TeamDetails } from "./";
-import { TeamServices } from "../services";
+import { AddIcon, Button, IconX } from "@/common";
+import { Memberservices, TeamServices } from "../services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
+import { Team } from "@/types/teams";
+import { AddMembersToTeamForm } from "./AddMembersToTeamForm";
+import { TeamDetails } from ".";
+import { TeamMember } from "@/types";
 
 interface EditTeamsAsideDetailsProps {
   className?: string | "";
-  members?: string[];
+  members?: TeamMember[];
 }
 
 export const EditTeamsAsideDetails = observer(function ({
@@ -16,12 +19,17 @@ export const EditTeamsAsideDetails = observer(function ({
   members,
 }: EditTeamsAsideDetailsProps) {
   const {
-    teams: { setTeams, teams },
+    teams: { setTeams, teams, updateTeam },
+    alerts: { setAlert },
+    members: { setMembers },
+    aside: { setAside },
   } = useStore();
 
-  const [selectedTeams, setSelectedTeams] = useState<any[]>([]);
+  const [selectedTeams, setSelectedTeams] = useState<Team[]>([]);
+  const [newName, setNewName] = useState("");
+  const [selectedMembers, setSelectedMembers] = useState<TeamMember[]>([]);
 
-  const handleCheckbox = (team: any) => {
+  const handleCheckbox = (team: Team) => {
     setSelectedTeams((prevSelectedTeams) => {
       const isSelected = prevSelectedTeams.some(
         (selected) => selected._id === team._id
@@ -37,18 +45,59 @@ export const EditTeamsAsideDetails = observer(function ({
     });
   };
 
-  const handleDeleteSelectedTeams = async (teamId: string) => {
-    //TODO: Review how teams are deleted
+  const handleDeleteSelectedTeams = async () => {
     try {
-      await Promise.all(
-        selectedTeams.map((team) => TeamServices.deleteTeam(team))
-      );
-      TeamServices.getAllTeams().then((res) => {
-        setTeams(res);
+      const memberUpdates = selectedTeams.map(async (team) => {
+        const membersWithTeam = await Memberservices.getAllMembersByTeam(
+          team._id
+        );
+        const memberUpdates = membersWithTeam.map(async (member) => {
+          member.team = undefined;
+          await Memberservices.updateMember(member._id, member);
+        });
+        await Promise.all(memberUpdates);
       });
+      await Promise.all(memberUpdates);
+
+      await Promise.all(
+        selectedTeams.map((team) => TeamServices.deleteTeam(team._id))
+      );
+
+      const { members: updatedMembers } = await Memberservices.getAllMembers();
+      setMembers(updatedMembers);
+
+      const updatedTeams = await TeamServices.getAllTeams();
+      setTeams(updatedTeams);
+      setAlert("deleteTeam");
       setSelectedTeams([]);
     } catch (error) {
       console.error("Failed to delete teams:", error);
+      setAlert("errorDeleteTeam");
+    }
+  };
+
+  const handleUpdateTeam = async () => {
+    try {
+      const teamToUpdate = selectedTeams[0];
+      const updatedTeam = { ...teamToUpdate, name: newName };
+
+      await TeamServices.updateTeam(updatedTeam._id, updatedTeam);
+      const memberUpdates = selectedMembers.map((member) =>
+        TeamServices.associateTeamToMember(updatedTeam._id, member._id)
+      );
+      await Promise.all(memberUpdates);
+
+      updateTeam(updatedTeam);
+      const updatedTeams = await TeamServices.getAllTeams();
+      setTeams(updatedTeams);
+      const { members: updatedMembers } = await Memberservices.getAllMembers();
+      setMembers(updatedMembers);
+
+      setAlert("updateTeam");
+      setAside(undefined);
+    } catch (error) {
+      console.error("Failed to update team:", error);
+      setAlert("errorUpdateTeam");
     }
   };
 
@@ -61,7 +110,11 @@ export const EditTeamsAsideDetails = observer(function ({
             team={team}
             members={members}
             handleSelectedTeams={handleCheckbox}
-            onDelete={() => handleDeleteSelectedTeams(team._id)}
+            showDetails={selectedTeams.some(
+              (selected) => selected._id === team._id
+            )}
+            setNewName={setNewName}
+            setSelectedMembers={setSelectedMembers}
           />
         ))}
       </div>
@@ -72,11 +125,16 @@ export const EditTeamsAsideDetails = observer(function ({
           disabled={selectedTeams.length === 0}
           size="big"
           className="flex-grow rounded-md"
-          onClick={() => handleDeleteSelectedTeams}
+          onClick={handleDeleteSelectedTeams}
         >
           Delete
         </Button>
-        <Button variant="primary" size="big" className="flex-grow rounded-md">
+        <Button
+          variant="primary"
+          size="big"
+          className="flex-grow rounded-md"
+          onClick={handleUpdateTeam}
+        >
           Save
         </Button>
       </div>

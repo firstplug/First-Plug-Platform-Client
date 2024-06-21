@@ -47,11 +47,17 @@ const membersColumns: (
   {
     accessorKey: "team",
     header: "Team",
-    cell: ({ getValue }) => (
-      <section className="flex justify-center">
-        <TeamCard team={getValue<Team>()} />
-      </section>
-    ),
+    cell: ({ getValue }) => {
+      const team = getValue<Team>();
+      if (!team) {
+        return null;
+      }
+      return (
+        <section className="flex justify-center">
+          <TeamCard team={team} />
+        </section>
+      );
+    },
     meta: {
       filterVariant: "select",
     },
@@ -106,13 +112,15 @@ export function MembersTable({ members }: TableMembersProps) {
     setMemberToEdit(memberId);
     setAside("EditMember");
   };
-  const handleDelete = (memberId: TeamMember["_id"]) => {
-    Memberservices.deleteMember(memberId).then(() => {
-      Memberservices.getAllMembers().then((res) => {
-        setMembers(res.members);
-        alert("Member has been deleted!");
-      });
-    });
+  const handleDelete = async (memberId: TeamMember["_id"]) => {
+    try {
+      await Memberservices.deleteMember(memberId);
+      const res = await Memberservices.getAllMembers();
+      setMembers(res.members);
+      alert("Member has been deleted!");
+    } catch (error) {
+      console.error("Failed to delete member:", error);
+    }
   };
   const handleViewDetail = (memberId: TeamMember["_id"]) => {
     setSelectedMember(memberId);

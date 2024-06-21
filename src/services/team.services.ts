@@ -41,4 +41,33 @@ export class TeamServices {
       data: { ids: teamIds },
     });
   }
+  static async updateTeam(id: string, team: Partial<Team>): Promise<Team> {
+    const response = await HTTPRequests.patch(
+      `${BASE_URL}/api/teams/${id}`,
+      team
+    );
+    return response.data;
+  }
+
+  static async associateTeamToMember(
+    teamId: string,
+    memberId: string
+  ): Promise<Team> {
+    const response = await HTTPRequests.put(
+      `${BASE_URL}/api/teams/${teamId}/members/${memberId}`,
+      {}
+    );
+    return response.data;
+  }
+
+  static async changeTeamForMember(
+    memberId: string,
+    teamId: string
+  ): Promise<Team> {
+    const response = await HTTPRequests.put(
+      `${BASE_URL}/api/teams/${memberId}/change-member/${teamId}`,
+      {}
+    );
+    return response.data;
+  }
 }

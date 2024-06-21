@@ -1,13 +1,26 @@
 "use client";
 import React, { useState } from "react";
-import { AddIcon, Button, IconX } from "@/common";
+import { Button } from "@/common";
 import { Memberservices, TeamServices } from "../services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { Team } from "@/types/teams";
-import { AddMembersToTeamForm } from "./AddMembersToTeamForm";
 import { TeamDetails } from ".";
 import { TeamMember } from "@/types";
+
+function transformData(members, teams) {
+  const teamMap = teams.reduce((acc, team) => {
+    acc[team._id] = team;
+    return acc;
+  }, {});
+
+  const transformedMembers = members.map((member) => ({
+    ...member,
+    team: teamMap[member.team]?._id || undefined,
+  }));
+
+  return { members: transformedMembers, teams };
+}
 
 interface EditTeamsAsideDetailsProps {
   className?: string | "";
@@ -47,27 +60,34 @@ export const EditTeamsAsideDetails = observer(function ({
 
   const handleDeleteSelectedTeams = async () => {
     try {
-      const memberUpdates = selectedTeams.map(async (team) => {
+      console.log("Starting to unassign teams from members...");
+
+      for (const team of selectedTeams) {
         const membersWithTeam = await Memberservices.getAllMembersByTeam(
           team._id
         );
-        const memberUpdates = membersWithTeam.map(async (member) => {
-          member.team = undefined;
+        for (const member of membersWithTeam) {
+          console.log(`Unassigning team from member: ${member._id}`);
+          member.team = null;
           await Memberservices.updateMember(member._id, member);
-        });
-        await Promise.all(memberUpdates);
-      });
-      await Promise.all(memberUpdates);
+        }
+      }
 
-      await Promise.all(
-        selectedTeams.map((team) => TeamServices.deleteTeam(team._id))
-      );
+      console.log("Teams unassigned from members, now deleting teams...");
+
+      await TeamServices.bulkDeleteTeams(selectedTeams.map((team) => team._id));
+
+      console.log("Teams deleted, now fetching updated members and teams...");
 
       const { members: updatedMembers } = await Memberservices.getAllMembers();
-      setMembers(updatedMembers);
-
       const updatedTeams = await TeamServices.getAllTeams();
-      setTeams(updatedTeams);
+      const { members: transformedMembers, teams: transformedTeams } =
+        transformData(updatedMembers, updatedTeams);
+
+      setMembers(transformedMembers);
+      setTeams(transformedTeams);
+
+      console.log("Teams and members updated successfully");
       setAlert("deleteTeam");
       setSelectedTeams([]);
     } catch (error) {
@@ -78,6 +98,7 @@ export const EditTeamsAsideDetails = observer(function ({
 
   const handleUpdateTeam = async () => {
     try {
+      console.log("Starting team update...");
       const teamToUpdate = selectedTeams[0];
       const updatedTeam = { ...teamToUpdate, name: newName };
 
@@ -91,8 +112,11 @@ export const EditTeamsAsideDetails = observer(function ({
       const updatedTeams = await TeamServices.getAllTeams();
       setTeams(updatedTeams);
       const { members: updatedMembers } = await Memberservices.getAllMembers();
-      setMembers(updatedMembers);
-
+      const { members: transformedMembers, teams: transformedTeams } =
+        transformData(updatedMembers, updatedTeams);
+      setMembers(transformedMembers);
+      setTeams(transformedTeams);
+      console.log("Team updated successfully");
       setAlert("updateTeam");
       setAside(undefined);
     } catch (error) {

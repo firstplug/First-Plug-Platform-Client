@@ -34,7 +34,7 @@ export function InputProductForm({
   const formattedToday = (date: string) => {
     const hoy = new Date(date);
     const yyyy = hoy.getFullYear();
-    const mm = String(hoy.getMonth() + 1).padStart(2, "0"); // Meses empiezan desde 0
+    const mm = String(hoy.getMonth() + 1).padStart(2, "0");
     const dd = String(hoy.getDate()).padStart(2, "0");
     return `${yyyy}-${mm}-${dd}`;
   };

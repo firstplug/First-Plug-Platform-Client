@@ -9,9 +9,12 @@ const transformData = (members, teams) => {
 
   const transformedMembers = members.map((member) => ({
     ...member,
-    team: teamMap[member.team._id]
-      ? teamMap[member.team._id].name
-      : member.team.name,
+    team:
+      member.team && member.team._id
+        ? teamMap[member.team._id]
+          ? teamMap[member.team._id].name
+          : member.team
+        : member.team,
   }));
 
   return transformedMembers;

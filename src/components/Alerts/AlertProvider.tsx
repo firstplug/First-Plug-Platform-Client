@@ -23,6 +23,7 @@ interface IConfig {
 export default observer(function AlertProvider() {
   const {
     alerts: { alertType, setAlert },
+    aside: { setAside },
   } = useStore();
   const router = useRouter();
   const { fetchMembers, fetchStock } = useFetch();
@@ -66,6 +67,7 @@ export default observer(function AlertProvider() {
       closeAction: () => {
         fetchMembers().then(() => {
           setAlert(undefined);
+          setAside(undefined);
         });
       },
     },
@@ -95,7 +97,6 @@ export default observer(function AlertProvider() {
       description: " Your Member has been successfully added to your team.",
       closeAction: () => {
         setAlert(undefined);
-        location.reload();
         router.push("/home/my-team");
       },
     },
@@ -151,6 +152,23 @@ export default observer(function AlertProvider() {
       title: " Error",
       type: "error",
       description: " There was an error updating the team. Please try again.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
+      },
+    },
+    errorEmailInUse: {
+      title: " Error",
+      type: "error",
+      description: " Email is already in use.",
+      closeAction: () => {
+        setAlert(undefined);
+      },
+    },
+    errorCreateMember: {
+      title: " Error",
+      type: "error",
+      description: " There was an error creating the member. Please try again.",
       closeAction: () => {
         setAlert(undefined);
         location.reload();

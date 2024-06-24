@@ -4,13 +4,7 @@ import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Memberservices, TeamServices } from "@/services";
 import { useStore } from "@/models/root.store";
-import {
-  TeamMember,
-  TeamMemberModel,
-  TeamModel,
-  zodCreateMembertModel,
-  Team,
-} from "@/types";
+import { TeamMember, zodCreateMembertModel } from "@/types";
 import PersonalData from "./PersonalData";
 import memberImage from "../../../public/member.png";
 import EmployeeData from "./EmployeeData";
@@ -18,7 +12,6 @@ import ShipmentData from "./ShipmentData";
 import AdditionalData from "./AdditionalData";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 
 interface MemberFormProps {
   initialData?: TeamMember;
@@ -47,7 +40,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
 
   const handleSaveMember = async (data: TeamMember) => {
     try {
-      let teamId: string | undefined;
+      let teamId: string | "";
 
       if (data.team && typeof data.team === "object" && data.team._id) {
         teamId = data.team._id;
@@ -76,12 +69,16 @@ const MemberForm: React.FC<MemberFormProps> = ({
         setAlert("createMember");
       }
       methods.reset();
-    } catch (error) {
-      console.error(error.response?.data?.message);
+    } catch (error: any) {
+      console.error(
+        "API Error:",
+        error.response?.data?.message || error.message
+      );
+
       if (error.response?.data?.message === "Email is already in use") {
-        setAlert("errorCreateTeam");
+        setAlert("errorEmailInUse");
       } else {
-        setAlert("errorCreateTeam");
+        setAlert("errorCreateMember");
       }
     }
   };

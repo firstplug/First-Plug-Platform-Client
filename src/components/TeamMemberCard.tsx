@@ -33,7 +33,7 @@ export const TeamMemberCard = observer(function ({
   const handleDeleteMember = () => {
     Memberservices.deleteMember(member._id).then((res) => {
       Memberservices.getAllMembers().then((res) => {
-        setMembers(res.members);
+        setMembers(res);
       });
     });
   };

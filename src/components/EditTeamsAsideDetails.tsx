@@ -72,7 +72,7 @@ export const EditTeamsAsideDetails = observer(function ({
 
       await TeamServices.bulkDeleteTeams(selectedTeams.map((team) => team._id));
 
-      const { members: updatedMembers } = await Memberservices.getAllMembers();
+      const updatedMembers = await Memberservices.getAllMembers();
       const updatedTeams = await TeamServices.getAllTeams();
       const { members: transformedMembers, teams: transformedTeams } =
         transformData(updatedMembers, updatedTeams);
@@ -101,7 +101,7 @@ export const EditTeamsAsideDetails = observer(function ({
       updateTeam(updatedTeam);
       const updatedTeams = await TeamServices.getAllTeams();
       setTeams(updatedTeams);
-      const { members: updatedMembers } = await Memberservices.getAllMembers();
+      const updatedMembers = await Memberservices.getAllMembers();
       const { members: transformedMembers, teams: transformedTeams } =
         transformData(updatedMembers, updatedTeams);
       setMembers(transformedMembers);

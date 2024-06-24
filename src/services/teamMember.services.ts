@@ -1,19 +1,12 @@
-import { TeamMember, Team } from "@/types";
+import { TeamMember } from "@/types";
 import { BASE_URL, HTTPRequests } from "@/config/axios.config";
 
 type CreationMember = Omit<Omit<TeamMember, "_id">, "__v">;
 
 export class Memberservices {
-  static async getAllMembers(): Promise<{
-    members: TeamMember[];
-    teams: Team[];
-  }> {
-    const membersResponse = await HTTPRequests.get(`${BASE_URL}/api/members`);
-    const teamsResponse = await HTTPRequests.get(`${BASE_URL}/api/teams`);
-    return {
-      members: membersResponse.data,
-      teams: teamsResponse.data,
-    };
+  static async getAllMembers(): Promise<TeamMember[]> {
+    const response = await HTTPRequests.get(`${BASE_URL}/api/members`);
+    return response.data;
   }
 
   static async getOneMember(id: TeamMember["_id"]): Promise<TeamMember> {

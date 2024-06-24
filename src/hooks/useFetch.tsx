@@ -1,5 +1,5 @@
 import { useStore } from "@/models";
-import { Memberservices, ProductServices } from "@/services";
+import { Memberservices, ProductServices, TeamServices } from "@/services";
 
 const transformData = (members, teams) => {
   const teamMap = teams.reduce((acc, team) => {
@@ -27,8 +27,9 @@ export default function useFetch() {
   const fetchMembers = async () => {
     setFetchMembers(true);
     try {
-      const { members: membersResponse, teams: teamsResponse } =
-        await Memberservices.getAllMembers();
+      const membersResponse = await Memberservices.getAllMembers();
+      const teamsResponse = await TeamServices.getAllTeams();
+
       const transformedMembers = transformData(membersResponse, teamsResponse);
       setMembers(transformedMembers);
     } catch (error) {

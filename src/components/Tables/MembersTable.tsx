@@ -50,6 +50,7 @@ const membersColumns: (
   {
     accessorKey: "team",
     header: "Team",
+    size: 150,
     cell: ({ getValue }) => {
       const team = getValue<Team>();
       if (!team) {

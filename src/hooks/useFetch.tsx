@@ -12,7 +12,6 @@ const transformData = (members, teams) => {
     team: teamMap[member.team._id]
       ? teamMap[member.team._id].name
       : member.team.name,
-    fullName: `${member.firstName} ${member.lastName}`,
   }));
 
   return transformedMembers;

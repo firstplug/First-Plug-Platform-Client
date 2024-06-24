@@ -79,9 +79,9 @@ const MemberForm: React.FC<MemberFormProps> = ({
     } catch (error) {
       console.error(error.response?.data?.message);
       if (error.response?.data?.message === "Email is already in use") {
-        setAlert("errorDeleteMember");
+        setAlert("errorCreateTeam");
       } else {
-        setAlert("errorDeleteMember");
+        setAlert("errorCreateTeam");
       }
     }
   };

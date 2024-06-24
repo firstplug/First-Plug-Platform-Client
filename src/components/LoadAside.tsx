@@ -94,10 +94,10 @@ export const LoadAside = function () {
             };
           })
           .filter((e) => isCsvCompleted(e));
+
         const parsedMembers: CreateMemberZodModel[] = members.map((member) =>
           parseMembers(member)
         );
-
         const { success, data, error } = csvSquema.safeParse({
           members: parsedMembers,
         });

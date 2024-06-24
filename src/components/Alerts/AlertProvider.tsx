@@ -7,6 +7,8 @@ import { AlertType } from "@/types/alerts";
 import { useRouter } from "next/navigation";
 import { XCircleIcon } from "lucide-react";
 import { CheckIcon } from "@/common";
+import { Memberservices, ProductServices } from "@/services";
+import useFetch from "@/hooks/useFetch";
 
 function XIcon() {
   return <XCircleIcon className="text-white " size={40} />;
@@ -23,7 +25,31 @@ export default observer(function AlertProvider() {
     alerts: { alertType, setAlert },
   } = useStore();
   const router = useRouter();
+  const { fetchMembers, fetchStock } = useFetch();
+
   const Config: Record<AlertType, IConfig> = {
+    assignedProductSuccess: {
+      title: "Success",
+      type: "succes",
+      description: " Product assigned successfully.",
+      closeAction: () => {
+        fetchStock().then(() => {
+          setAlert(undefined);
+          location.reload();
+        });
+        setAlert(undefined);
+        location.reload();
+      },
+    },
+    errorAssignedProduct: {
+      title: "Error",
+      type: "error",
+      description: " An error occurred while assigning product",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
+      },
+    },
     csvSuccess: {
       title: "Congratulations!",
       type: "succes",
@@ -38,8 +64,9 @@ export default observer(function AlertProvider() {
       type: "succes",
       description: " Your Member has been successfully updated to your team.",
       closeAction: () => {
-        setAlert(undefined);
-        location.reload();
+        fetchMembers().then(() => {
+          setAlert(undefined);
+        });
       },
     },
     updateStock: {
@@ -47,8 +74,10 @@ export default observer(function AlertProvider() {
       type: "succes",
       description: " Your product has been successfully updated to your stock.",
       closeAction: () => {
-        setAlert(undefined);
-        location.reload();
+        fetchStock().then(() => {
+          setAlert(undefined);
+          location.reload();
+        });
       },
     },
     updateTeam: {
@@ -75,8 +104,10 @@ export default observer(function AlertProvider() {
       type: "succes",
       description: " Your product has been created successfully.",
       closeAction: () => {
-        setAlert(undefined);
-        router.push("/home/my-stock");
+        fetchStock().then(() => {
+          setAlert(undefined);
+          router.push("/home/my-stock");
+        });
       },
     },
     createTeam: {
@@ -95,7 +126,6 @@ export default observer(function AlertProvider() {
       description: " The member has been successfully deleted.",
       closeAction: () => {
         setAlert(undefined);
-        location.reload();
         router.push("/home/my-team");
       },
     },
@@ -174,6 +204,7 @@ export default observer(function AlertProvider() {
       },
     },
   };
+
   if (!alertType) return null;
   const { description, title, closeAction, type } = Config[alertType];
 

@@ -2,29 +2,31 @@
 import { EmptyCard, EmptyCardLayout, LoaderSpinner } from "@/common";
 import { setAuthInterceptor } from "@/config/axios.config";
 import { useStore } from "@/models";
-import { Memberservices, ProductServices, TeamServices } from "@/services";
+import { TeamServices } from "@/services";
 import { observer } from "mobx-react-lite";
 import { useSession } from "next-auth/react";
 import { ReactNode, useEffect, useState } from "react";
+import useFetch from "@/hooks/useFetch";
+
 interface DataProvidersProps {
   children: ReactNode;
 }
 
-const transformData = (members, teams) => {
-  const teamMap = teams.reduce((acc, team) => {
-    acc[team._id] = team;
-    return acc;
-  }, {});
+// const transformData = (members, teams) => {
+//   const teamMap = teams.reduce((acc, team) => {
+//     acc[team._id] = team;
+//     return acc;
+//   }, {});
 
-  const transformedMembers = members.map((member) => ({
-    ...member,
-    team: teamMap[member.team._id]
-      ? teamMap[member.team._id].name
-      : member.team.name,
-  }));
+//   const transformedMembers = members.map((member) => ({
+//     ...member,
+//     team: teamMap[member.team._id]
+//       ? teamMap[member.team._id].name
+//       : member.team.name,
+//   }));
 
-  return transformedMembers;
-};
+//   return transformedMembers;
+// };
 
 export default observer(function DataProvider({
   children,
@@ -32,11 +34,12 @@ export default observer(function DataProvider({
   const store = useStore();
   const [isLoading, setIsLoading] = useState(true);
   const session = useSession();
+  const { fetchMembers, fetchStock } = useFetch();
 
   const {
     user: { setUser },
-    members: { setMembers, setFetchMembers },
-    products: { setProducts, setTable, setFetchStock },
+    members: { setFetchMembers },
+    products: { setProducts, setFetchStock },
     shipments: { setShipments },
     orders: { setOrders },
     teams: { setTeams },
@@ -62,21 +65,26 @@ export default observer(function DataProvider({
           setAuthInterceptor(sessionStorage.getItem("accessToken"));
           setFetchMembers(true);
 
-          const teamRes = await TeamServices.getAllTeams();
-          setTeams(teamRes);
+          try {
+            const teamRes = await TeamServices.getAllTeams();
+            setTeams(teamRes);
 
-          const res = await Memberservices.getAllMembers();
-          const transformedMembers = transformData(res.members, teamRes);
-          setMembers(transformedMembers);
+            await fetchMembers();
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          } finally {
+            setFetchMembers(false);
+          }
 
-          setFetchMembers(false);
-
-          setFetchStock(true);
-          const tableRes = await ProductServices.getTableFormat();
-          setTable(tableRes);
-          setFetchStock(false);
-
-          setIsLoading(false);
+          try {
+            setFetchStock(true);
+            await fetchStock();
+          } catch (error) {
+            console.error("Error fetching stock:", error);
+          } finally {
+            setFetchStock(false);
+            setIsLoading(false);
+          }
         }
       }
     };
@@ -85,14 +93,14 @@ export default observer(function DataProvider({
   }, [
     session,
     setUser,
-    setMembers,
     setProducts,
     setOrders,
     setShipments,
     setTeams,
-    setTable,
     setFetchMembers,
     setFetchStock,
+    fetchMembers,
+    fetchStock,
   ]);
 
   const tenantNameExists = session.data?.user?.tenantName;
@@ -106,5 +114,6 @@ export default observer(function DataProvider({
       </div>
     );
   }
+
   return <div>{children}</div>;
 });

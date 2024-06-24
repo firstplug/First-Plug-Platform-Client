@@ -15,5 +15,7 @@ export const ALERTS_TYPES = [
   "errorDeleteTeam",
   "updateTeam",
   "errorUpdateTeam",
+  "assignedProductSuccess",
+  "errorAssignedProduct",
 ] as const;
 export type AlertType = (typeof ALERTS_TYPES)[number];

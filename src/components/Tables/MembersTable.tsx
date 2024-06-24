@@ -13,21 +13,23 @@ const membersColumns: (
   handleViewDetail: (memberId: TeamMember["_id"]) => void
 ) => ColumnDef<TeamMember>[] = (handleEdit, handleDelete, handleViewDetail) => [
   {
-    id: "firstName",
-    accessorKey: "firstName",
+    id: "name",
+    accessorKey: "fullName",
+    size: 150,
     header: "Name",
-    cell: ({ row }) => (
+    cell: ({ getValue, row }) => (
       <span
         className="cursor-pointer font-semibold   text-blue-500"
         onClick={() => handleViewDetail(row.original._id)}
       >
-        {row.original.firstName} {row.original.lastName}
+        {getValue<string>()}
       </span>
     ),
   },
   {
     accessorKey: "birthDate",
     header: "Date Of Birth",
+    size: 100,
     cell: ({ getValue }) => (
       <span className="font-normal">
         {" "}
@@ -38,6 +40,7 @@ const membersColumns: (
   {
     accessorKey: "startDate",
     header: "Joining Date",
+    size: 100,
     cell: ({ getValue }) => (
       <span className="font-normal">
         <FormatedDate date={getValue<string>()} />
@@ -65,6 +68,7 @@ const membersColumns: (
   {
     accessorKey: "position",
     header: "Job Position",
+    size: 100,
     cell: ({ getValue }) => (
       <span className="font-semibold">{getValue<string>()}</span>
     ),
@@ -72,6 +76,7 @@ const membersColumns: (
   {
     accessorKey: "products",
     header: "Products",
+    size: 60,
     cell: ({ row }) => (
       <span className="font-semibold text-lg bg-lightPurple/25 rounded-md  h-6 w-6 px-2 grid place-items-center">
         {(row.original.products || []).length}
@@ -81,6 +86,7 @@ const membersColumns: (
   {
     accessorKey: "",
     id: "actions",
+    size: 80,
     header: () => null,
     cell: ({ row }) => (
       <div className="flex gap-1">

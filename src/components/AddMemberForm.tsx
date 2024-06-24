@@ -3,16 +3,11 @@ import React, { useState, useEffect } from "react";
 import { Button, SearchInput } from "@/common";
 import { observer } from "mobx-react-lite";
 import { TeamMember, Product } from "@/types";
-import GenericAlertDialog from "../components/AddProduct/ui/GenericAlertDialog";
 import { useStore } from "@/models";
-import { useRouter } from "next/navigation";
-import { ProductServices } from "@/services";
-
 interface AddMemberFormProps {
   members: TeamMember[];
   selectedMember?: TeamMember | null;
   handleSelectedMembers: (member: TeamMember | null) => void;
-  aside: (value: string | undefined) => void;
   currentProduct?: Product | null;
   currentMember?: TeamMember | null;
   showNoneOption?: boolean;
@@ -22,20 +17,18 @@ export const AddMemberForm = observer(function ({
   members = [],
   selectedMember,
   handleSelectedMembers,
-  aside,
   currentProduct,
   currentMember,
   showNoneOption,
 }: AddMemberFormProps) {
   const [searchedMembers, setSearchedMembers] = useState<TeamMember[]>(members);
-  const [successAlertOpen, setSuccessAlertOpen] = useState(false);
-  const [errorAlertOpen, setErrorAlertOpen] = useState(false);
   const [noneOption, setNoneOption] = useState<string | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
   const {
-    products: { reassignProduct, setTable },
+    products: { reassignProduct },
+    alerts: { setAlert },
+    aside: { setAside },
   } = useStore();
-  const router = useRouter();
 
   useEffect(() => {
     setSearchedMembers(members);
@@ -77,11 +70,10 @@ export const AddMemberForm = observer(function ({
     if (selectedMember === null && noneOption) {
       try {
         await reassignProduct(currentProduct._id, updatedProduct);
-        setSuccessAlertOpen(true);
+        setAside(undefined);
+        setAlert("assignedProductSuccess");
       } catch (error) {
-        setErrorAlertOpen(true);
-        const updatedProducts = await ProductServices.getTableFormat();
-        setTable(updatedProducts);
+        setAlert("errorAssignedProduct");
         console.error("Failed to reassign product", error);
       }
     } else if (selectedMember) {
@@ -101,21 +93,12 @@ export const AddMemberForm = observer(function ({
 
       try {
         await reassignProduct(currentProduct._id, updatedProduct);
-        setSuccessAlertOpen(true);
-        const updatedProducts = await ProductServices.getTableFormat();
-        setTable(updatedProducts);
+        setAside(undefined);
+        setAlert("assignedProductSuccess");
       } catch (error) {
-        setErrorAlertOpen(true);
+        setAlert("errorAssignedProduct");
       }
     }
-  };
-
-  const handleAlertClose = async () => {
-    setSuccessAlertOpen(false);
-    aside(undefined);
-    const updatedProducts = await ProductServices.getTableFormat();
-    setTable(updatedProducts);
-    router.push("/home/my-stock");
   };
 
   const handleSelectNoneOption = (option: string) => {
@@ -205,7 +188,7 @@ export const AddMemberForm = observer(function ({
           variant="secondary"
           size="big"
           className="flex-grow rounded-md"
-          onClick={() => aside(undefined)}
+          onClick={() => setAside(undefined)}
         >
           Cancel
         </Button>
@@ -218,22 +201,6 @@ export const AddMemberForm = observer(function ({
           Save
         </Button>
       </aside>
-      <GenericAlertDialog
-        open={successAlertOpen}
-        onClose={() => setSuccessAlertOpen(false)}
-        title="Success"
-        description="Product assigned successfully"
-        buttonText="OK"
-        onButtonClick={handleAlertClose}
-      />
-      <GenericAlertDialog
-        open={errorAlertOpen}
-        onClose={() => setErrorAlertOpen(false)}
-        title="Error"
-        description="An error occurred while assigning product"
-        buttonText="OK"
-        onButtonClick={() => setErrorAlertOpen(false)}
-      />
     </section>
   );
 });

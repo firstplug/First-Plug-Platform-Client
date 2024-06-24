@@ -1,6 +1,6 @@
 "use client";
 import { Button, SectionTitle, PageLayout } from "@/common";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Memberservices, TeamServices } from "@/services";
 import { useStore } from "@/models/root.store";
@@ -31,11 +31,9 @@ const MemberForm: React.FC<MemberFormProps> = ({
 }) => {
   const {
     members: { addMember, setMembers, updateMember },
-    aside: { setAside },
     alerts: { setAlert },
     teams: { getOrCreateTeam },
   } = useStore();
-  const router = useRouter();
 
   const methods = useForm({
     resolver: zodResolver(zodCreateMembertModel),
@@ -44,7 +42,6 @@ const MemberForm: React.FC<MemberFormProps> = ({
 
   const {
     handleSubmit,
-    setValue,
     formState: { isSubmitting },
   } = methods;
 
@@ -79,7 +76,6 @@ const MemberForm: React.FC<MemberFormProps> = ({
         setAlert("createMember");
       }
       methods.reset();
-      setMembers([]);
     } catch (error) {
       console.error(error.response?.data?.message);
       if (error.response?.data?.message === "Email is already in use") {

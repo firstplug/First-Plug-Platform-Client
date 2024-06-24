@@ -12,6 +12,7 @@ import ShipmentData from "./ShipmentData";
 import AdditionalData from "./AdditionalData";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { transformData } from "@/utils/dataTransformUtil";
 
 interface MemberFormProps {
   initialData?: TeamMember;
@@ -25,7 +26,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
   const {
     members: { addMember, setMembers, updateMember },
     alerts: { setAlert },
-    teams: { getOrCreateTeam },
+    teams: { getOrCreateTeam, setTeams },
   } = useStore();
 
   const methods = useForm({
@@ -68,6 +69,13 @@ const MemberForm: React.FC<MemberFormProps> = ({
         addMember(response);
         setAlert("createMember");
       }
+
+      const updateMembers = await Memberservices.getAllMembers();
+      const updatedTeams = await TeamServices.getAllTeams();
+      const transformedMembers = transformData(updateMembers, updatedTeams);
+
+      setMembers(transformedMembers);
+      setTeams(updatedTeams);
       methods.reset();
     } catch (error: any) {
       console.error(

@@ -7,20 +7,7 @@ import { useStore } from "@/models/root.store";
 import { Team } from "@/types/teams";
 import { TeamDetails } from ".";
 import { TeamMember } from "@/types";
-
-function transformData(members, teams) {
-  const teamMap = teams.reduce((acc, team) => {
-    acc[team._id] = team;
-    return acc;
-  }, {});
-
-  const transformedMembers = members.map((member) => ({
-    ...member,
-    team: teamMap[member.team]?._id || undefined,
-  }));
-
-  return { members: transformedMembers, teams };
-}
+import { transformData } from "@/utils/dataTransformUtil";
 
 interface EditTeamsAsideDetailsProps {
   className?: string | "";
@@ -74,11 +61,10 @@ export const EditTeamsAsideDetails = observer(function ({
 
       const updatedMembers = await Memberservices.getAllMembers();
       const updatedTeams = await TeamServices.getAllTeams();
-      const { members: transformedMembers, teams: transformedTeams } =
-        transformData(updatedMembers, updatedTeams);
+      const transformedMembers = transformData(updatedMembers, updatedTeams);
 
       setMembers(transformedMembers);
-      setTeams(transformedTeams);
+      setTeams(updatedTeams);
 
       setAlert("deleteTeam");
       setSelectedTeams([]);
@@ -102,10 +88,9 @@ export const EditTeamsAsideDetails = observer(function ({
       const updatedTeams = await TeamServices.getAllTeams();
       setTeams(updatedTeams);
       const updatedMembers = await Memberservices.getAllMembers();
-      const { members: transformedMembers, teams: transformedTeams } =
-        transformData(updatedMembers, updatedTeams);
+      const transformedMembers = transformData(updatedMembers, updatedTeams);
       setMembers(transformedMembers);
-      setTeams(transformedTeams);
+      setTeams(updatedTeams);
       setAlert("updateTeam");
       setAside(undefined);
     } catch (error) {

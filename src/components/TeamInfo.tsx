@@ -4,20 +4,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMember, Team } from "@/types";
 import { AddMembersToTeamForm } from "./AddMembersToTeamForm";
-
-const transformData = (members, teams) => {
-  const teamMap = teams.reduce((acc, team) => {
-    acc[team._id] = team;
-    return acc;
-  }, {});
-
-  const transformedMembers = members.map((member) => ({
-    ...member,
-    team: typeof member.team === "object" ? member.team._id : member.team,
-  }));
-
-  return transformedMembers;
-};
+import { transformData } from "@/utils/dataTransformUtil";
 
 interface TeamInfoProps {
   team: Team;

@@ -6,24 +6,11 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMember } from "@/types";
 import { AddMembersToTeamForm } from "./AddMembersToTeamForm";
+import { transformData } from "@/utils/dataTransformUtil";
 
 interface CreateTeamAsideProps {
   className?: string;
 }
-
-const transformData = (members, teams) => {
-  const teamMap = teams.reduce((acc, team) => {
-    acc[team._id] = team;
-    return acc;
-  }, {});
-
-  const transformedMembers = members.map((member) => ({
-    ...member,
-    team: member.team._id,
-  }));
-
-  return transformedMembers;
-};
 
 export const CreateTeamAside = observer(function ({
   className = "",

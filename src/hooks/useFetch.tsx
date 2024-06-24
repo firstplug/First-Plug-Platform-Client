@@ -1,24 +1,6 @@
 import { useStore } from "@/models";
 import { Memberservices, ProductServices, TeamServices } from "@/services";
-
-const transformData = (members, teams) => {
-  const teamMap = teams.reduce((acc, team) => {
-    acc[team._id] = team;
-    return acc;
-  }, {});
-
-  const transformedMembers = members.map((member) => ({
-    ...member,
-    team:
-      member.team && member.team._id
-        ? teamMap[member.team._id]
-          ? teamMap[member.team._id].name
-          : member.team
-        : member.team,
-  }));
-
-  return transformedMembers;
-};
+import { transformData } from "@/utils/dataTransformUtil";
 
 export default function useFetch() {
   const {

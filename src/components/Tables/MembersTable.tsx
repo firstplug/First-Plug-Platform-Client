@@ -1,6 +1,6 @@
 import { useStore } from "@/models";
 import { Memberservices } from "@/services";
-import { TeamMember } from "@/types";
+import { Team, TeamMember } from "@/types";
 import { Button, PenIcon, TeamCard } from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
 import { DeleteAction } from "../Alerts";
@@ -51,11 +51,17 @@ const membersColumns: (
     accessorKey: "team",
     header: "Team",
     size: 150,
-    cell: ({ getValue }) => (
-      <section className="flex justify-center">
-        <TeamCard team={getValue<string>()} />
-      </section>
-    ),
+    cell: ({ getValue }) => {
+      const team = getValue<Team>();
+      if (!team) {
+        return null;
+      }
+      return (
+        <section className="flex justify-center">
+          <TeamCard team={team} />
+        </section>
+      );
+    },
     meta: {
       filterVariant: "select",
     },
@@ -113,13 +119,15 @@ export function MembersTable({ members }: TableMembersProps) {
     setMemberToEdit(memberId);
     setAside("EditMember");
   };
-  const handleDelete = (memberId: TeamMember["_id"]) => {
-    Memberservices.deleteMember(memberId).then(() => {
-      Memberservices.getAllMembers().then((res) => {
-        setMembers(res);
-        alert("Member has been deleted!");
-      });
-    });
+  const handleDelete = async (memberId: TeamMember["_id"]) => {
+    try {
+      await Memberservices.deleteMember(memberId);
+      const res = await Memberservices.getAllMembers();
+      setMembers(res);
+      alert("Member has been deleted!");
+    } catch (error) {
+      console.error("Failed to delete member:", error);
+    }
   };
   const handleViewDetail = (memberId: TeamMember["_id"]) => {
     setSelectedMember(memberId);

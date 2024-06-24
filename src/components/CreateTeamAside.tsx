@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/common";
-import { AddMemberForm } from "./";
-import { TeamServices, Memberservices } from "../services";
+import { Memberservices, TeamServices } from "../services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
-import { TeamMember, TeamModel } from "@/types";
+import { TeamMember } from "@/types";
+import { AddMembersToTeamForm } from "./AddMembersToTeamForm";
+import { transformData } from "@/utils/dataTransformUtil";
 
 interface CreateTeamAsideProps {
   className?: string;
@@ -17,45 +18,39 @@ export const CreateTeamAside = observer(function ({
   const {
     aside: { setAside },
     members: { memberCount, setMembers, members },
-    teams: { setTeams },
-    products: { productToEdit },
+    teams: { setTeams, createTeam, addToTeam },
+    alerts: { setAlert },
   } = useStore();
-  const [name, setName] = useState("");
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
-  const [member, setMember] = useState<TeamMember | null>(null);
 
-  // TODO: REVIEW THE LOGI OF TEAM CREATION, THIS IS AN UPDATE OF MEMBERS!
+  const [name, setName] = useState("");
+  const [selectedMembers, setSelectedMembers] = useState<TeamMember[]>([]);
+
+  const handleSelectedMembers = (selectedMembers: TeamMember[]) => {
+    setSelectedMembers(selectedMembers);
+  };
+
   const handleCreateTeam = async () => {
     try {
-      // TeamServices.createTeam().then((res) => {
-      //   TeamServices.getAllTeams().then((res) => {
-      //     setTeams(res);
-      //   });
-      //   Memberservices.getAllMembers().then((res) => {
-      //     setMembers(res);
-      //   });
-      // });
+      const newTeam = await createTeam({ name });
+      const memberUpdates = selectedMembers.map(async (member) => {
+        return await addToTeam(newTeam._id, member._id);
+      });
+      await Promise.all(memberUpdates);
 
+      const membersResponse = await Memberservices.getAllMembers();
+      const teamsResponse = await TeamServices.getAllTeams();
+
+      const transformedMembers = transformData(membersResponse, teamsResponse);
+
+      setMembers(transformedMembers);
+      setTeams(teamsResponse);
+
+      setAlert("createTeam");
       setAside(undefined);
     } catch (error) {
       console.error("Error creating team:", error);
+      setAlert("errorCreateTeam");
     }
-  };
-
-  const handleSelectedMembers = (member: TeamMember) => {
-    setTeamMembers((prevSelectedMembers) => {
-      const isSelected = prevSelectedMembers.some(
-        (selected) => selected._id === member._id
-      );
-
-      if (isSelected) {
-        return prevSelectedMembers.filter(
-          (selected) => selected._id !== member._id
-        );
-      } else {
-        return [...prevSelectedMembers, member];
-      }
-    });
   };
 
   return (
@@ -78,10 +73,10 @@ export const CreateTeamAside = observer(function ({
             <span>({memberCount})</span>
           </div>
 
-          <AddMemberForm
+          <AddMembersToTeamForm
             handleSelectedMembers={handleSelectedMembers}
             members={members}
-            selectedMember={member}
+            selectedMembers={selectedMembers}
           />
         </div>
       </div>

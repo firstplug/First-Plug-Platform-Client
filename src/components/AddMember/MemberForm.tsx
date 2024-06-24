@@ -2,7 +2,7 @@
 import { Button, SectionTitle, PageLayout } from "@/common";
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
-import { Memberservices } from "@/services/teamMember.services";
+import { Memberservices, TeamServices } from "@/services";
 import { useStore } from "@/models/root.store";
 import { TeamMember, zodCreateMembertModel } from "@/types";
 import PersonalData from "./PersonalData";
@@ -12,6 +12,8 @@ import ShipmentData from "./ShipmentData";
 import AdditionalData from "./AdditionalData";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { transformData } from "@/utils/dataTransformUtil";
+
 interface MemberFormProps {
   initialData?: TeamMember;
   isUpdate?: boolean;
@@ -22,9 +24,9 @@ const MemberForm: React.FC<MemberFormProps> = ({
   isUpdate = false,
 }) => {
   const {
-    members: { setMembers, updateMember, setFetchMembers },
+    members: { addMember, setMembers, updateMember },
     alerts: { setAlert },
-    aside: { setAside },
+    teams: { getOrCreateTeam, setTeams },
   } = useStore();
 
   const methods = useForm({
@@ -37,25 +39,54 @@ const MemberForm: React.FC<MemberFormProps> = ({
     formState: { isSubmitting },
   } = methods;
 
-  const [teams, setTeams] = useState<string[]>([]);
-
   const handleSaveMember = async (data: TeamMember) => {
     try {
+      let teamId: string | "";
+
+      if (data.team && typeof data.team === "object" && data.team._id) {
+        teamId = data.team._id;
+      } else if (
+        data.team &&
+        typeof data.team === "string" &&
+        data.team.trim() !== ""
+      ) {
+        const team = await getOrCreateTeam(data.team);
+        teamId = team._id;
+      }
+
+      const memberData = { ...data, team: teamId };
+
+      let response;
       if (isUpdate && initialData) {
-        await Memberservices.updateMember(initialData._id, data);
-        setAside(undefined);
+        response = await Memberservices.updateMember(
+          initialData._id,
+          memberData
+        );
+        updateMember(response);
         setAlert("updateMember");
       } else {
-        await Memberservices.createMember(data);
+        response = await Memberservices.createMember(memberData);
+        addMember(response);
         setAlert("createMember");
       }
+
+      const updateMembers = await Memberservices.getAllMembers();
+      const updatedTeams = await TeamServices.getAllTeams();
+      const transformedMembers = transformData(updateMembers, updatedTeams);
+
+      setMembers(transformedMembers);
+      setTeams(updatedTeams);
       methods.reset();
-    } catch (error) {
-      console.error(error.response?.data?.message);
+    } catch (error: any) {
+      console.error(
+        "API Error:",
+        error.response?.data?.message || error.message
+      );
+
       if (error.response?.data?.message === "Email is already in use") {
-        setAlert("errorDeleteMember");
+        setAlert("errorEmailInUse");
       } else {
-        setAlert("errorDeleteMember");
+        setAlert("errorCreateMember");
       }
     }
   };
@@ -77,12 +108,7 @@ const MemberForm: React.FC<MemberFormProps> = ({
                   initialData={initialData}
                 />
                 <hr />
-                <EmployeeData
-                  teams={teams}
-                  setTeams={setTeams}
-                  isUpdate={isUpdate}
-                  initialData={initialData}
-                />
+                <EmployeeData isUpdate={isUpdate} initialData={initialData} />
                 <hr />
                 <ShipmentData isUpdate={isUpdate} initialData={initialData} />
 

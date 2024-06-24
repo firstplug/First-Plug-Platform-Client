@@ -1,5 +1,6 @@
 import { useStore } from "@/models";
-import { Memberservices, ProductServices } from "@/services";
+import { Memberservices, ProductServices, TeamServices } from "@/services";
+import { transformData } from "@/utils/dataTransformUtil";
 
 export default function useFetch() {
   const {
@@ -9,19 +10,30 @@ export default function useFetch() {
 
   const fetchMembers = async () => {
     setFetchMembers(true);
-    const response = await Memberservices.getAllMembers();
-    setMembers(response);
-    setFetchMembers(false);
+    try {
+      const membersResponse = await Memberservices.getAllMembers();
+      const teamsResponse = await TeamServices.getAllTeams();
+
+      const transformedMembers = transformData(membersResponse, teamsResponse);
+      setMembers(transformedMembers);
+    } catch (error) {
+      console.error("Error fetching members:", error);
+    } finally {
+      setFetchMembers(false);
+    }
   };
+
   const fetchStock = async () => {
     try {
       setFetchStock(true);
       const response = await ProductServices.getTableFormat();
       setTable(response);
-      setFetchStock(false);
     } catch (error) {
-      console.log(error.response.data);
+      console.log("Error fetching stock:", error);
+    } finally {
+      setFetchStock(false);
     }
   };
+
   return { fetchMembers, fetchStock };
 }

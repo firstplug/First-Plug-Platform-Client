@@ -173,7 +173,11 @@ export const AddMemberForm = observer(function ({
               <p className="text-black font-bold">
                 {member.firstName} {member.lastName}
               </p>
-              <span className="text-dark-grey">{member.team}</span>
+              <span className="text-dark-grey">
+                {typeof member.team === "string"
+                  ? member.team
+                  : member.team?.name}
+              </span>
             </div>
           </div>
         ))}

@@ -57,7 +57,7 @@ export const TeamMemberCard = observer(function ({
             <div className="ml-1 flex flex-col  w-full ">
               <div className="flex items-center gap-1">
                 {!member.team ? (
-                  <TeamCard team={"Assign to team"} key={"no team"} />
+                  <TeamCard team={undefined} key={"no team"} />
                 ) : (
                   Array.isArray(member.team) &&
                   member.team.map((team) => <TeamCard team={team} key={team} />)

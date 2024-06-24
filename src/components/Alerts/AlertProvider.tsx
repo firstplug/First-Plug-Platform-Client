@@ -23,6 +23,7 @@ interface IConfig {
 export default observer(function AlertProvider() {
   const {
     alerts: { alertType, setAlert },
+    aside: { setAside },
   } = useStore();
   const router = useRouter();
   const { fetchMembers, fetchStock } = useFetch();
@@ -66,6 +67,7 @@ export default observer(function AlertProvider() {
       closeAction: () => {
         fetchMembers().then(() => {
           setAlert(undefined);
+          setAside(undefined);
         });
       },
     },
@@ -80,15 +82,22 @@ export default observer(function AlertProvider() {
         });
       },
     },
+    updateTeam: {
+      title: " Success",
+      type: "succes",
+      description: " Your team has been successfully updated.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
+      },
+    },
     createMember: {
       title: " Success",
       type: "succes",
       description: " Your Member has been successfully added to your team.",
       closeAction: () => {
-        fetchMembers().then(() => {
-          setAlert(undefined);
-          router.push("/home/my-team");
-        });
+        setAlert(undefined);
+        router.push("/home/my-team");
       },
     },
     createProduct: {
@@ -102,6 +111,16 @@ export default observer(function AlertProvider() {
         });
       },
     },
+    createTeam: {
+      title: " Success",
+      type: "succes",
+      description: " Your team has been created successfully.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
+        router.push("/home/my-team");
+      },
+    },
     deleteMember: {
       title: " Success",
       type: "succes",
@@ -111,12 +130,66 @@ export default observer(function AlertProvider() {
         router.push("/home/my-team");
       },
     },
+    deleteTeam: {
+      title: " Success",
+      type: "succes",
+      description: " The team has been successfully deleted.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
+        router.push("/home/my-team");
+      },
+    },
     deleteStock: {
       title: " Success",
       type: "succes",
       description: " The product has been successfully deleted.",
       closeAction: () => {
         setAlert(undefined);
+      },
+    },
+    errorUpdateTeam: {
+      title: " Error",
+      type: "error",
+      description: " There was an error updating the team. Please try again.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
+      },
+    },
+    errorEmailInUse: {
+      title: " Error",
+      type: "error",
+      description: " Email is already in use.",
+      closeAction: () => {
+        setAlert(undefined);
+      },
+    },
+    errorCreateMember: {
+      title: " Error",
+      type: "error",
+      description: " There was an error creating the member. Please try again.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
+      },
+    },
+    errorCreateTeam: {
+      title: " Error",
+      type: "error",
+      description: " There was an error creating the team. Please try again.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
+      },
+    },
+    errorDeleteTeam: {
+      title: " Error",
+      type: "error",
+      description: " There was an error deleting the team. Please try again.",
+      closeAction: () => {
+        setAlert(undefined);
+        location.reload();
       },
     },
     errorDeleteStock: {

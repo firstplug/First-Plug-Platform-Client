@@ -8,7 +8,7 @@ import { useFormContext, Controller } from "react-hook-form";
 import { DropdownInputProductForm } from "../AddProduct/DropDownProductForm";
 import { TeamServices } from "@/services/team.services";
 
-const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
+const EmployeeData = function ({ isUpdate, initialData }) {
   const {
     setValue,
     watch,
@@ -20,17 +20,29 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
   const [teamValue, setTeamValue] = useState(initialData?.team || "");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newTeamName, setNewTeamName] = useState("");
+  const [teams, setTeams] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchTeams = async () => {
       try {
         const allTeams = await TeamServices.getAllTeams();
-        setTeams(allTeams);
-      } catch (error) {}
+        setTeams(allTeams.map((team) => team.name));
+
+        if (initialData?.team) {
+          const teamName =
+            typeof initialData.team === "object"
+              ? initialData.team.name
+              : initialData.team;
+          setTeamValue(teamName);
+          setValue("team", teamName);
+        }
+      } catch (error) {
+        throw error;
+      }
     };
 
     fetchTeams();
-  }, [setTeams]);
+  }, [setTeams, setValue, initialData]);
 
   const handleTeamChange = (value: string) => {
     setTeamValue(value);
@@ -54,13 +66,11 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
     <div>
       <SectionTitle>Employee information</SectionTitle>
 
-      <div 
-      className={`grid gap-2 ${
-        isUpdate
-          ? "grid-cols-1 sm:grid-cols-3"
-          : "grid-cols-1 lg:grid-cols-4"
-      }`}
-      // className={"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+      <div
+        className={`grid gap-2 ${
+          isUpdate ? "grid-cols-1 sm:grid-cols-3" : "grid-cols-1 lg:grid-cols-4"
+        }`}
+        // className={"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
       >
         <Controller
           name="team"
@@ -71,7 +81,7 @@ const EmployeeData = function ({ teams, setTeams, isUpdate, initialData }) {
                 name="team"
                 options={teams}
                 placeholder="Team Name"
-                title="Team Name"
+                title="Select a Team"
                 selectedOption={teamValue}
                 onChange={handleTeamChange}
               />

@@ -34,8 +34,8 @@ export default observer(function SelectFilter({
             <SelectGroup>
               <SelectItem value="all">All</SelectItem>
               {teams.map((t) => (
-                <SelectItem value={t} key={t}>
-                  {t}
+                <SelectItem value={t.name} key={t._id}>
+                  {t.name}
                 </SelectItem>
               ))}
             </SelectGroup>

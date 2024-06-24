@@ -69,7 +69,7 @@ export const CreateTeamAside = observer(function ({
         <hr className="my-3" />
         <div className="flex flex-col gap-2">
           <div className="flex justify-between">
-            <span>Members</span>
+            <span>Assign Members to Team</span>
             <span>({memberCount})</span>
           </div>
 

@@ -51,27 +51,37 @@ export const AddMembersToTeamForm = observer(function ({
     <section className="flex flex-col gap-6 h-full">
       <SearchInput placeholder="Search Member" onSearch={handleSearch} />
       <div className="flex flex-col gap-3 mt-3 flex-grow overflow-y-auto">
-        {searchedMembers.map((member) => (
-          <div
-            className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue ${
-              selectedMembers.some((selected) => selected._id === member._id) &&
-              "bg-hoverBlue"
-            }`}
-            key={member._id}
-            onClick={() => toggleMemberSelection(member)}
-          >
-            <div className="flex gap-2">
-              <p className="text-black font-bold">
-                {member.firstName} {member.lastName}
-              </p>
-              <span className="text-dark-grey">
-                {typeof member.team === "string"
-                  ? member.team
-                  : member.team?.name}
-              </span>
+        {searchedMembers.map((member) => {
+          const isSelected = selectedMembers.some(
+            (selected) => selected._id === member._id
+          );
+          return (
+            <div
+              className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue ${
+                isSelected && "bg-hoverBlue"
+              }`}
+              key={member._id}
+              onClick={() => toggleMemberSelection(member)}
+            >
+              <input
+                type="checkbox"
+                checked={isSelected}
+                onChange={() => toggleMemberSelection(member)}
+                className="form-checkbox"
+              />
+              <div className="flex gap-2">
+                <p className="text-black font-bold">
+                  {member.firstName} {member.lastName}
+                </p>
+                <span className="text-dark-grey">
+                  {typeof member.team === "string"
+                    ? member.team
+                    : member.team?.name}
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

@@ -28,6 +28,7 @@ export const EditTeamsAsideDetails = observer(function ({
   const [selectedTeams, setSelectedTeams] = useState<Team[]>([]);
   const [newName, setNewName] = useState("");
   const [selectedMembers, setSelectedMembers] = useState<TeamMember[]>([]);
+  const [expandedTeamId, setExpandedTeamId] = useState<string | null>(null);
 
   const handleCheckbox = (team: Team) => {
     setSelectedTeams((prevSelectedTeams) => {
@@ -43,6 +44,23 @@ export const EditTeamsAsideDetails = observer(function ({
         return [...prevSelectedTeams, team];
       }
     });
+  };
+
+  const handleExpandTeam = (team: Team) => {
+    if (expandedTeamId !== team._id) {
+      setExpandedTeamId(team._id);
+      setNewName(team.name);
+      setSelectedMembers(
+        members?.filter(
+          (member) =>
+            member.team &&
+            typeof member.team === "object" &&
+            member.team._id === team._id
+        ) || []
+      );
+    } else {
+      setExpandedTeamId(null);
+    }
   };
 
   const handleDeleteSelectedTeams = async () => {
@@ -74,8 +92,12 @@ export const EditTeamsAsideDetails = observer(function ({
   };
 
   const handleUpdateTeam = async () => {
+    if (!expandedTeamId) return;
+
     try {
-      const teamToUpdate = selectedTeams[0];
+      const teamToUpdate = teams.find((team) => team._id === expandedTeamId);
+      if (!teamToUpdate) return;
+
       const updatedTeam = { ...teamToUpdate, name: newName };
 
       await TeamServices.updateTeam(updatedTeam._id, updatedTeam);
@@ -106,10 +128,9 @@ export const EditTeamsAsideDetails = observer(function ({
             key={team._id}
             team={team}
             members={members}
-            handleSelectedTeams={handleCheckbox}
-            showDetails={selectedTeams.some(
-              (selected) => selected._id === team._id
-            )}
+            handleCheckbox={handleCheckbox}
+            handleExpandTeam={handleExpandTeam}
+            isExpanded={expandedTeamId === team._id}
             setNewName={setNewName}
             setSelectedMembers={setSelectedMembers}
           />

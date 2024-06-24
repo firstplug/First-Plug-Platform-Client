@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/common";
-import { Memberservices } from "../services";
+import { Memberservices, TeamServices } from "../services";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/models/root.store";
 import { TeamMember } from "@/types";
@@ -50,8 +50,9 @@ export const CreateTeamAside = observer(function ({
       });
       await Promise.all(memberUpdates);
 
-      const { members: membersResponse, teams: teamsResponse } =
-        await Memberservices.getAllMembers();
+      const membersResponse = await Memberservices.getAllMembers();
+      const teamsResponse = await TeamServices.getAllTeams();
+
       const transformedMembers = transformData(membersResponse, teamsResponse);
 
       setMembers(transformedMembers);

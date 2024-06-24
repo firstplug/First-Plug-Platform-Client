@@ -39,8 +39,8 @@ export default observer(function MyTeam() {
       try {
         setFetchMembers(true);
 
-        const { members: membersResponse, teams: teamsResponse } =
-          await Memberservices.getAllMembers();
+        const membersResponse = await Memberservices.getAllMembers();
+        const teamsResponse = await TeamServices.getAllTeams();
 
         const transformedMembers = transformData(
           membersResponse,

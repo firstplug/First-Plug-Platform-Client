@@ -122,7 +122,7 @@ export function MembersTable({ members }: TableMembersProps) {
     try {
       await Memberservices.deleteMember(memberId);
       const res = await Memberservices.getAllMembers();
-      setMembers(res.members);
+      setMembers(res);
       alert("Member has been deleted!");
     } catch (error) {
       console.error("Failed to delete member:", error);

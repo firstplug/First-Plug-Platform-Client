@@ -105,7 +105,7 @@ export const LoadAside = function () {
           try {
             await CsvServices.bulkCreateTeams(data.members);
             const members = await Memberservices.getAllMembers();
-            setMembers(members.members);
+            setMembers(members);
             clearCsvData();
             setAlert("csvSuccess");
           } catch (error) {

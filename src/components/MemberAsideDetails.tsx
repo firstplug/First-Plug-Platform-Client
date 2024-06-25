@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   Button,
   CustomLink,
@@ -14,6 +14,7 @@ import { Product } from "@/types";
 import Image from "next/image";
 import { LinkIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { RelacoteProducts, RemoveProducts } from "./AsideContents";
 
 interface MemberAsideDetailsProps {
   className?: string;
@@ -25,17 +26,22 @@ export const MemberAsideDetails = observer(function ({
   const {
     members: { members, selectedMember },
     aside: { setAside },
+    alerts: { setAlert },
+    products,
   } = useStore();
 
   const router = useRouter();
-  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+  const [productToRemove, setProductToRemove] = useState<Product>();
+  const [relocatePage, setRelocatePage] = useState(false);
+  const [removePage, setRemovePage] = useState(false);
 
-  const handleSelectProducts = (productId: string) => {
-    if (selectedProducts.includes(productId)) {
-      return setSelectedProducts((s) => s.filter((id) => id !== productId));
+  const handleSelectProducts = (product: Product) => {
+    if (selectedProducts.includes(product)) {
+      return setSelectedProducts((s) => s.filter((id) => id !== product));
     }
 
-    setSelectedProducts((s) => [...s, productId]);
+    setSelectedProducts((s) => [...s, product]);
   };
 
   const handleNavtoStock = () => {
@@ -43,81 +49,92 @@ export const MemberAsideDetails = observer(function ({
     router.push("/home/my-stock");
   };
 
+  const handleRealocate = (action: "open" | "close") => {
+    setRelocatePage(!(action === "close"));
+  };
+
   return (
     <article
       className={`${className || ""} flex flex-col justify-between h-full`}
     >
-      <div className="flex flex-col gap-6   h-full   ">
-        <MemberDetail />
-        <div className=" flex-grow p-1">
-          {selectedMember.products.length ? (
-            <div className="flex flex-col gap-2">
-              <div className="flex justify-between">
-                <h1 className="font-semibold text-lg">Products</h1>
-                <p className="border border-black text-black font-bold  rounded-full h-6 w-6  grid place-items-center  text-sm">
-                  {selectedMember.products.length || 0}
-                </p>
-              </div>
+      {relocatePage ? (
+        <Fragment>
+          <RelacoteProducts
+            products={selectedProducts}
+            handleBack={handleRealocate}
+          />
+        </Fragment>
+      ) : (
+        <Fragment>
+          <div className="flex flex-col gap-6   h-full   ">
+            <MemberDetail />
+            <div className=" flex-grow h-[70%]  ">
+              {selectedMember.products.length ? (
+                <div className="flex flex-col gap-2 h-full">
+                  <div className="flex justify-between">
+                    <h1 className="font-semibold text-lg">Products</h1>
+                    <p className="border border-black text-black font-bold  rounded-full h-6 w-6  grid place-items-center  text-sm">
+                      {selectedMember.products.length || 0}
+                    </p>
+                  </div>
 
-              <div className="flex flex-col gap-2 overflow-y-auto  mb-6 ">
-                {selectedMember.products.length
-                  ? selectedMember.products.map((product) => (
-                      <ProductDetail
-                        product={product}
-                        key={product._id}
-                        handleSelect={handleSelectProducts}
-                        isChecked={selectedProducts.includes(product._id)}
-                      />
-                    ))
-                  : null}
-              </div>
-            </div>
-          ) : (
-            <EmptyCardLayout>
-              <section className="flex flex-col gap-2 items-center justify-center">
-                <div className="w-32 aspect-square relative">
-                  <Image src={"/office.svg"} alt={"first plug sv"} fill />
+                  <div className="flex flex-col gap-2 overflow-y-auto   flex-grow max-h-full h-full  mb-6 ">
+                    {selectedMember.products.length
+                      ? selectedMember.products.map((product) => (
+                          <ProductDetail
+                            product={product}
+                            key={product._id}
+                            handleSelect={handleSelectProducts}
+                            isChecked={selectedProducts.includes(product)}
+                            setProductToRemove={setProductToRemove}
+                          />
+                        ))
+                      : null}
+                  </div>
                 </div>
-                <span className="text-md text-dark-grey">
-                  This member doesn&apos;t have any items.
-                </span>
+              ) : (
+                <EmptyCardLayout>
+                  <section className="flex flex-col gap-2 items-center justify-center">
+                    <div className="w-32 aspect-square relative">
+                      <Image src={"/office.svg"} alt={"first plug sv"} fill />
+                    </div>
+                    <span className="text-md text-dark-grey">
+                      This member doesn&apos;t have any items.
+                    </span>
 
-                <Button
-                  variant="text"
-                  size="small"
-                  className="rounded-md flex gap-2 items-center"
-                  onClick={handleNavtoStock}
-                >
-                  <LinkIcon size={14} />
-                  <p>stock</p>
-                </Button>
-              </section>
-            </EmptyCardLayout>
-          )}
-        </div>
-      </div>
-      <aside className=" absolute  bg-white  py-2    bottom-0   left-0 w-full border-t ">
-        <div className="flex    w-5/6 mx-auto gap-2 justify-end">
-          <Button
-            body={"Remove"}
-            variant={"delete"}
-            size={"small"}
-            disabled={selectedProducts.length === 0}
-          />
-          <Button
-            body={"Return"}
-            variant={"secondary"}
-            size={"small"}
-            disabled={selectedProducts.length === 0}
-          />
-          <Button
-            body={"Relocate"}
-            variant={"secondary"}
-            size={"small"}
-            disabled={selectedProducts.length === 0}
-          />
-        </div>
-      </aside>
+                    <Button
+                      variant="text"
+                      size="small"
+                      className="rounded-md flex gap-2 items-center"
+                      onClick={handleNavtoStock}
+                    >
+                      <LinkIcon size={14} />
+                      <p>stock</p>
+                    </Button>
+                  </section>
+                </EmptyCardLayout>
+              )}
+            </div>
+          </div>
+          <aside className=" absolute  bg-white  py-2    bottom-0   left-0 w-full border-t ">
+            <div className="flex    w-5/6 mx-auto gap-2 justify-end">
+              <Button
+                body={"Relocate"}
+                variant={"secondary"}
+                disabled={selectedProducts.length === 0}
+                onClick={() => handleRealocate("open")}
+              />
+            </div>
+          </aside>
+        </Fragment>
+      )}
+
+      {productToRemove && (
+        <RemoveProducts
+          product={productToRemove}
+          closeAciton={() => setProductToRemove(null)}
+        />
+      )}
     </article>
   );
 });

@@ -8,7 +8,11 @@ import {
   OrderAsideDetails,
   EditTeamsAsideDetails,
 } from "./";
-import { AssignProduct, EditProductAside } from "./AsideContents";
+import {
+  AssignProduct,
+  EditProductAside,
+  RelacoteProducts,
+} from "./AsideContents";
 import EditMemberAside from "./EditMemberAside";
 
 export var AsideContent = observer(function () {

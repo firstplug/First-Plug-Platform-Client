@@ -10,20 +10,22 @@ interface ITableStockActions<TData> {
 export default observer(function TableStockActions<TData>({
   table,
 }: ITableStockActions<TData>) {
-  const [filter, setFilter] = useState(false);
   const router = useRouter();
   const {
-    products: { toggleStockToShow },
+    products: { toggleStockToShow, onlyAvaliable },
     aside: { setAside },
   } = useStore();
   const handleFilter = () => {
-    setFilter(!filter);
     toggleStockToShow();
   };
   return (
     <div className=" flex items-center justify-between   h-full w-full ">
       <div className="flex gap-1">
-        <input type="checkbox" checked={filter} onChange={handleFilter} />
+        <input
+          type="checkbox"
+          checked={onlyAvaliable}
+          onChange={handleFilter}
+        />
         <label className=" text-gray-500 text-md">
           Show only avaliable stock
         </label>

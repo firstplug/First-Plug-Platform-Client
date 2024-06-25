@@ -65,15 +65,7 @@ export const EditTeamsAsideDetails = observer(function ({
 
   const handleDeleteSelectedTeams = async () => {
     try {
-      for (const team of selectedTeams) {
-        const membersWithTeam = await Memberservices.getAllMembersByTeam(
-          team._id
-        );
-        for (const member of membersWithTeam) {
-          member.team = null;
-          await Memberservices.updateMember(member._id, member);
-        }
-      }
+      console.log("Deleting selected teams:", selectedTeams);
 
       await TeamServices.bulkDeleteTeams(selectedTeams.map((team) => team._id));
 
@@ -87,6 +79,7 @@ export const EditTeamsAsideDetails = observer(function ({
       setAlert("deleteTeam");
       setSelectedTeams([]);
     } catch (error) {
+      console.error("Error deleting teams:", error);
       setAlert("errorDeleteTeam");
     }
   };

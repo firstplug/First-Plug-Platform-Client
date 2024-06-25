@@ -1,8 +1,7 @@
 "use client";
-import { EmptyCard, EmptyCardLayout, LoaderSpinner } from "@/common";
+import { EmptyCard, EmptyCardLayout } from "@/common";
 import { setAuthInterceptor } from "@/config/axios.config";
 import { useStore } from "@/models";
-import { TeamServices } from "@/services";
 import { observer } from "mobx-react-lite";
 import { useSession } from "next-auth/react";
 import { ReactNode, useEffect, useState } from "react";
@@ -18,16 +17,11 @@ export default observer(function DataProvider({
   const store = useStore();
   const [isLoading, setIsLoading] = useState(true);
   const session = useSession();
-  const { fetchMembers, fetchStock } = useFetch();
-
   const {
     user: { setUser },
-    members: { setFetchMembers },
-    products: { setProducts, setFetchStock },
-    shipments: { setShipments },
-    orders: { setOrders },
-    teams: { setTeams },
+    setMainLoader,
   } = store;
+  const { fetchMembers, fetchStock } = useFetch();
 
   useEffect(() => {
     const setup = async () => {
@@ -47,34 +41,20 @@ export default observer(function DataProvider({
 
         if (sessionStorage.getItem("accessToken")) {
           setAuthInterceptor(sessionStorage.getItem("accessToken"));
-          setFetchMembers(true);
 
           try {
-            const teamRes = await TeamServices.getAllTeams();
-            setTeams(teamRes);
-
             await fetchMembers();
+            await fetchStock();
+            setMainLoader(false);
           } catch (error) {
             console.error("Error fetching data:", error);
-          } finally {
-            setFetchMembers(false);
-          }
-
-          try {
-            setFetchStock(true);
-            await fetchStock();
-          } catch (error) {
-            console.error("Error fetching stock:", error);
-          } finally {
-            setFetchStock(false);
-            setIsLoading(false);
           }
         }
       }
     };
 
     setup();
-  }, []);
+  }, [session]);
 
   const tenantNameExists = session.data?.user?.tenantName;
 

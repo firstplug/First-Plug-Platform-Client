@@ -45,9 +45,10 @@ export default observer(function DataProvider({
           try {
             await fetchMembers();
             await fetchStock();
-            setMainLoader(false);
           } catch (error) {
             console.error("Error fetching data:", error);
+          } finally {
+            setMainLoader(false);
           }
         }
       }

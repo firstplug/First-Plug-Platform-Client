@@ -15,7 +15,6 @@ interface RootLayoutProps {
 
 export default observer(function RootLayout({ children }: RootLayoutProps) {
   const { mainLoader } = useStore();
-  console.log({ mainLoader });
   return (
     <DataProvider>
       <div className="flex h-screen overflow-hidden">

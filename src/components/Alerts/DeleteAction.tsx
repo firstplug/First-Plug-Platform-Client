@@ -13,6 +13,7 @@ import { Memberservices, ProductServices } from "@/services";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 import { Loader } from "../Loader";
+import useFetch from "@/hooks/useFetch";
 
 type DeleteTypes = "product" | "member";
 
@@ -31,11 +32,10 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const {
-      products: { deleteProduct, setFetchStock },
-      members: { deleteMember, setFetchMembers, setMembers },
+      products: { deleteProduct },
       alerts: { setAlert },
     } = useStore();
-
+    const { fetchStock, fetchMembers } = useFetch();
     const checkMemberProducts = async () => {
       try {
         const member = await Memberservices.getOneMember(id);
@@ -60,14 +60,11 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
 
         setLoading(true);
         await ProductServices.deleteProduct(id);
+        await fetchStock();
         deleteProduct(id);
         setOpen(false);
         setLoading(false);
-        // await ProductServices.getAllProducts()
         setAlert("deleteStock");
-        setTimeout(async () => {
-          location.reload();
-        }, 1500);
       } catch (error) {
         setOpen(false);
       }
@@ -85,18 +82,11 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
           return;
         }
         setLoading(true);
-        const result = await Memberservices.deleteMember(id);
-        deleteMember(result);
+        await Memberservices.deleteMember(id);
+        await fetchMembers();
         setOpen(false);
-        setFetchMembers(true);
-        const response = await Memberservices.getAllMembers();
-        setMembers(response);
-        setFetchMembers(false);
         setAlert("deleteMember");
         setLoading(false);
-        // setTimeout(() => {
-        //   location.reload();
-        // }, 1500);
       } catch (error) {
         setOpen(false);
         setLoading(false);

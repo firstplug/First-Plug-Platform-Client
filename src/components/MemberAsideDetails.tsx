@@ -14,7 +14,7 @@ import { Product } from "@/types";
 import Image from "next/image";
 import { LinkIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { RelacoteProducts } from "./AsideContents";
+import { RelacoteProducts, RemoveProducts } from "./AsideContents";
 
 interface MemberAsideDetailsProps {
   className?: string;
@@ -26,12 +26,15 @@ export const MemberAsideDetails = observer(function ({
   const {
     members: { members, selectedMember },
     aside: { setAside },
+    alerts: { setAlert },
     products,
   } = useStore();
 
   const router = useRouter();
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+  const [productToRemove, setProductToRemove] = useState<Product>();
   const [relocatePage, setRelocatePage] = useState(false);
+  const [removePage, setRemovePage] = useState(false);
 
   const handleSelectProducts = (product: Product) => {
     if (selectedProducts.includes(product)) {
@@ -45,21 +48,11 @@ export const MemberAsideDetails = observer(function ({
     setAside(undefined);
     router.push("/home/my-stock");
   };
-  const handleAssignAction = async (product) => {
-    setAside("AssignProduct");
-    // setSelectedMemberEmail("");
-    await products.getProductForAssign(product._id);
+
+  const handleRealocate = (action: "open" | "close") => {
+    setRelocatePage(!(action === "close"));
   };
 
-  const handleReassignAction = async (product) => {
-    setAside("ReassignProduct");
-    // setSelectedMemberEmail(product.assignedEmail);
-    await products.getProductForReassign(product._id);
-  };
-
-  const handleRealocate = () => {
-    setRelocatePage(true);
-  };
   return (
     <article
       className={`${className || ""} flex flex-col justify-between h-full`}
@@ -68,7 +61,7 @@ export const MemberAsideDetails = observer(function ({
         <Fragment>
           <RelacoteProducts
             products={selectedProducts}
-            handleBack={() => setRelocatePage(false)}
+            handleBack={handleRealocate}
           />
         </Fragment>
       ) : (
@@ -93,6 +86,7 @@ export const MemberAsideDetails = observer(function ({
                             key={product._id}
                             handleSelect={handleSelectProducts}
                             isChecked={selectedProducts.includes(product)}
+                            setProductToRemove={setProductToRemove}
                           />
                         ))
                       : null}
@@ -125,27 +119,21 @@ export const MemberAsideDetails = observer(function ({
           <aside className=" absolute  bg-white  py-2    bottom-0   left-0 w-full border-t ">
             <div className="flex    w-5/6 mx-auto gap-2 justify-end">
               <Button
-                body={"Remove"}
-                variant={"delete"}
-                size={"small"}
-                disabled={selectedProducts.length === 0}
-              />
-              <Button
-                body={"Return"}
-                variant={"secondary"}
-                size={"small"}
-                disabled={selectedProducts.length === 0}
-              />
-              <Button
                 body={"Relocate"}
                 variant={"secondary"}
-                size={"small"}
                 disabled={selectedProducts.length === 0}
-                onClick={handleRealocate}
+                onClick={() => handleRealocate("open")}
               />
             </div>
           </aside>
         </Fragment>
+      )}
+
+      {productToRemove && (
+        <RemoveProducts
+          product={productToRemove}
+          closeAciton={() => setProductToRemove(null)}
+        />
       )}
     </article>
   );

@@ -74,18 +74,7 @@ export default observer(function DataProvider({
     };
 
     setup();
-  }, [
-    session,
-    setUser,
-    setProducts,
-    setOrders,
-    setShipments,
-    setTeams,
-    setFetchMembers,
-    setFetchStock,
-    fetchMembers,
-    fetchStock,
-  ]);
+  }, []);
 
   const tenantNameExists = session.data?.user?.tenantName;
 

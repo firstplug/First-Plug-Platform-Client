@@ -1,87 +1,150 @@
 "use client";
-import React, { useState } from "react";
-import { Product, TeamMember } from "@/types";
+import React, { useEffect, useState } from "react";
+import { Product, Team, TeamMember } from "@/types";
 import { ProductImage } from "./ProductImage";
 import PrdouctModelDetail from "./PrdouctModelDetail";
 import { useStore } from "@/models";
 import { SearchInput } from "./SearchInput";
 import { Button } from "./Button";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, XIcon } from "lucide-react";
+import { ArrowLeft, TrashIcon } from "./Icons";
+import { observer } from "mobx-react-lite";
+import { LoaderSpinner } from "./LoaderSpinner";
+import { Badge, badgeVariants } from "@/components/ui/badge";
+import useActions from "@/hooks/useActions";
+import useFetch from "@/hooks/useFetch";
+export type RelocateStatus = "success" | "error" | undefined;
+const MembersList = observer(function MembersList({
+  product,
+  setRelocateStauts,
+}: {
+  product: Product;
+  setRelocateStauts: (status: RelocateStatus) => void;
+}) {
+  const {
+    members: { members, selectedMember: currentMember, setRelocateChange },
+  } = useStore();
+  const [isRelocating, setRelocating] = useState(false);
+  const [relocateResult, setRelocateResult] =
+    useState<RelocateStatus>(undefined);
+  const [selectedMember, setSelectedMember] = useState<TeamMember>();
+  const { handleReassignProduct } = useActions();
+  const handleSelectMember = (member: TeamMember) => {
+    setSelectedMember(member);
+  };
+  const { fetchMembers } = useFetch();
+  const handleRelocateProduct = async () => {
+    setRelocating(true);
+    try {
+      await handleReassignProduct({ currentMember, selectedMember, product });
+      await fetchMembers();
+      setRelocateResult("success");
+      setRelocateStauts("success");
+    } catch (error) {
+      setRelocateResult("error");
+      setRelocateStauts("error");
+    } finally {
+      setRelocating(false);
+    }
+  };
+  return (
+    <section>
+      {selectedMember ? (
+        <section className="flex justify-between w-full py-2">
+          <div className="flex items-center gap-2">
+            <span className="font-extralight">Relocate To:</span>
+            <div className="border border-light-grey rounded-md px-2 py-1 bg-hoverBlue flex items-center gap-2 ">
+              <p className="font-semibold text-black">
+                {selectedMember.fullName}
+              </p>
 
+              <button onClick={() => setSelectedMember(null)}>
+                <XIcon size={14} />
+              </button>
+            </div>
+          </div>
+
+          {!relocateResult ? (
+            <Button
+              variant="text"
+              onClick={handleRelocateProduct}
+              disabled={
+                isRelocating || relocateResult === "success" || !selectedMember
+              }
+            >
+              {!isRelocating ? <span>Confirm ✔️</span> : <LoaderSpinner />}
+            </Button>
+          ) : (
+            <Badge className={badgeVariants({ variant: relocateResult })}>
+              Relotcated Succesfully ✅
+            </Badge>
+          )}
+        </section>
+      ) : (
+        <div className="flex flex-col gap-2 ">
+          <div className="flex flex-col gap-2">
+            {members
+              .filter((m) => m._id !== currentMember._id)
+              .map((member) => (
+                <div
+                  className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue `}
+                  key={member._id}
+                  onClick={() => handleSelectMember(member)}
+                >
+                  <input
+                    type="checkbox"
+                    checked={member._id === selectedMember?._id}
+                  />
+                  <div className="flex gap-2">
+                    <p className="text-black font-bold">
+                      {member.firstName} {member.lastName}
+                    </p>
+                    <span className="text-dark-grey">
+                      {typeof member.team === "string"
+                        ? member.team
+                        : member.team?.name}
+                    </span>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+});
 interface ProductDetailProps {
   product: Product;
   className?: string;
   isChecked?: boolean;
   isRelocating?: boolean;
   handleSelect?: (productId: Product) => void;
+  setProductToRemove?: (product: Product) => void;
 }
-function MembersList({ product }: { product: Product }) {
-  const {
-    members: { members },
-  } = useStore();
-  const [selectedMember, setSelectedMember] = useState<TeamMember>();
-  const [searchedMembers, setSearchedMembers] = useState<TeamMember[]>(members);
-  const handleSearch = (query: string) => {
-    setSearchedMembers(
-      members.filter(
-        (member) =>
-          member.firstName.toLowerCase().includes(query.toLowerCase()) ||
-          member.lastName.toLowerCase().includes(query.toLowerCase()) ||
-          member.email.toLowerCase().includes(query.toLowerCase())
-      )
-    );
-  };
-
-  const handleRelocate = () => {};
-  return (
-    <section className="flex flex-col gap-2 ">
-      <SearchInput placeholder="Search Member" onSearch={handleSearch} />
-
-      <div className="flex flex-col gap-2 ">
-        {members.map((member) => (
-          <div
-            className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue `}
-            key={member._id}
-            onClick={handleRelocate}
-          >
-            <div className="flex gap-2">
-              <p className="text-black font-bold">
-                {member.firstName} {member.lastName}
-              </p>
-              <span className="text-dark-grey">
-                {typeof member.team === "string"
-                  ? member.team
-                  : member.team?.name}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 export default function ProductDetail({
   product,
   className = "",
   handleSelect,
   isChecked = false,
+  setProductToRemove,
   isRelocating = false,
 }: ProductDetailProps) {
   const [showList, setShowList] = useState(false);
+  const [relocateStatus, setRelocateStauts] =
+    useState<RelocateStatus>(undefined);
   const toggleList = () => setShowList(!showList);
+
   return (
     <div
-      className={`relative flex flex-col gap-2 border rounded-sm p-2 mr-2 text-black mb-2 ${className} `}
+      className={`relative flex flex-col gap-2 border rounded-md p-2 mr-2 text-black mb-2 transition-all duration-300  ${className} ${
+        handleSelect || isRelocating
+          ? "cursor-pointer hover:border-black/40 "
+          : ""
+      } `}
+      onClick={handleSelect ? () => handleSelect(product) : null}
     >
       <div className="flex items-center  gap-2 ">
-        {handleSelect && (
-          <input
-            type="checkbox"
-            onChange={() => handleSelect(product)}
-            checked={isChecked}
-          />
-        )}
+        {handleSelect && <input type="checkbox" checked={isChecked} />}
         <section className="flex gap-2 items-start">
           <div className="flex gap-2 items-start">
             <ProductImage category={product.category} />
@@ -94,21 +157,36 @@ export default function ProductDetail({
             <PrdouctModelDetail product={product} />
           </div>
         </section>
+
         {isRelocating && (
           <Button
             variant="outline"
+            className="text-black absolute right-0 hover:bg-hoverBlue/50 rounded-sm"
             onClick={toggleList}
-            className="text-black absolute right-0"
+            disabled={relocateStatus === "success"}
           >
-            <ArrowDown
-              className={`${
-                showList ? "rotate-180" : "rotate-0"
+            <p className="text-sm">Select Member</p>
+            <ArrowLeft
+              className={`w-6 ${
+                showList ? "rotate-[270deg]" : "rotate-180"
               } transition-all duration-300`}
             />
           </Button>
         )}
       </div>
-      {isRelocating && showList && <MembersList product={product} />}
+      {isRelocating && showList && <hr />}
+      {isRelocating && showList && (
+        <MembersList product={product} setRelocateStauts={setRelocateStauts} />
+      )}
+      {setProductToRemove && (
+        <Button
+          onClick={() => setProductToRemove(product)}
+          className="absolute right-0 text-error"
+          variant="outline"
+        >
+          <TrashIcon className="w-4" />
+        </Button>
+      )}
     </div>
   );
 }

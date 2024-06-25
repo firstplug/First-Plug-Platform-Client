@@ -63,7 +63,9 @@ export function RemoveProducts({ product, closeAciton }: IRemoveItems) {
                   onChange={(e) => setNewLocation(e.target.value as Location)}
                 >
                   {LOCATION.filter((e) => e !== "Employee").map((location) => (
-                    <option value={location}>{location}</option>
+                    <option value={location} key={location}>
+                      {location}
+                    </option>
                   ))}
                 </select>
               </section>

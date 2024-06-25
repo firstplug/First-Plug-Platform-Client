@@ -17,7 +17,7 @@ export function RelacoteProducts({ products, handleBack }: IRelacoteProducts) {
         <p>Back</p>
       </div>
       {products.map((product) => (
-        <ProductDetail product={product} isRelocating />
+        <ProductDetail product={product} isRelocating key={product._id} />
       ))}
     </div>
   );

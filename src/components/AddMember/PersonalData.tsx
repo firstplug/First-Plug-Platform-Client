@@ -16,7 +16,11 @@ const PersonalData = function ({ memberImage, isUpdate, initialData }) {
   useEffect(() => {
     if (isUpdate) {
       Object.keys(initialData).forEach((key) => {
-        setValue(key, initialData[key]);
+        if (key === "birthDate" && initialData[key]) {
+          setValue(key, initialData[key].split("T")[0]);
+        } else {
+          setValue(key, initialData[key]);
+        }
       });
     }
   }, [isUpdate, initialData, setValue]);

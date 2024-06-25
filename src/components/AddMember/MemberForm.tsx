@@ -1,6 +1,6 @@
 "use client";
 import { Button, SectionTitle, PageLayout } from "@/common";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Memberservices, TeamServices } from "@/services";
 import { useStore } from "@/models/root.store";
@@ -39,6 +39,12 @@ const MemberForm: React.FC<MemberFormProps> = ({
     formState: { isSubmitting },
   } = methods;
 
+  const formatAcquisitionDate = (date: string) => {
+    if (!date) return "";
+    const d = new Date(date);
+    return isNaN(d.getTime()) ? "" : d.toISOString().split("T")[0];
+  };
+
   const handleSaveMember = async (data: TeamMember) => {
     try {
       let teamId: string | "";
@@ -52,20 +58,38 @@ const MemberForm: React.FC<MemberFormProps> = ({
       ) {
         const team = await getOrCreateTeam(data.team);
         teamId = team._id;
+      } else {
+        teamId = undefined;
       }
 
-      const memberData = { ...data, team: teamId };
+      const changes: Partial<TeamMember> = {};
+      Object.keys(data).forEach((key) => {
+        if (data[key] !== initialData?.[key]) {
+          if (key === "acquisitionDate") {
+            changes[key] = formatAcquisitionDate(data[key]);
+          } else {
+            changes[key] = data[key];
+          }
+        }
+      });
+
+      if (Array.isArray(changes.products) && changes.products.length === 0) {
+        delete changes.products;
+      }
 
       let response;
       if (isUpdate && initialData) {
-        response = await Memberservices.updateMember(
-          initialData._id,
-          memberData
-        );
+        response = await Memberservices.updateMember(initialData._id, {
+          ...changes,
+          ...(teamId && { team: teamId }),
+        });
         updateMember(response);
         setAlert("updateMember");
       } else {
-        response = await Memberservices.createMember(memberData);
+        response = await Memberservices.createMember({
+          ...data,
+          ...(teamId && { team: teamId }),
+        });
         addMember(response);
         setAlert("createMember");
       }

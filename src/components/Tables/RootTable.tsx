@@ -75,13 +75,13 @@ export function RootTable<TData, TValue>({
           <TableActions table={table} type={tableType} />
         </div>
       )}
-      <div className="rounded-md border   w-full  mx-auto max-h-[85%] overflow-y-auto ">
-        <Table className="table">
+      <div className="rounded-md border     w-full  mx-auto max-h-[95%] overflow-y-auto ">
+        <Table className="table ">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 key={headerGroup.id}
-                className=" border-gray-200 bg-light-grey rounded-md "
+                className=" border-gray-200 bg-light-grey rounded-md  "
               >
                 {headerGroup.headers.map((header) => (
                   <TableHead

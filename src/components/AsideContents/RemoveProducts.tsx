@@ -6,6 +6,15 @@ import { Button, LoaderSpinner } from "@/common";
 import useActions from "@/hooks/useActions";
 import { useStore } from "@/models";
 import useFetch from "@/hooks/useFetch";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface IRemoveItems {
   product: Product;
@@ -17,7 +26,7 @@ export function RemoveProducts({ product, closeAciton }: IRemoveItems) {
     aside: { setAside },
   } = useStore();
   const [isRemoving, setIsRemoving] = useState(false);
-  const [newLocation, setNewLocation] = useState<Location>("Our office");
+  const [newLocation, setNewLocation] = useState<Location>(null);
 
   const { unassignProduct } = useActions();
   const { fetchMembers } = useFetch();
@@ -48,7 +57,7 @@ export function RemoveProducts({ product, closeAciton }: IRemoveItems) {
           <Dialog.Title className="text-center flex justify-center flex-col items-start">
             <h2 className="font-semibold text-black text-xl">Remove Items</h2>
             <h2 className="font-normal text-black text-md">
-              Are you sure you want to remove this items from{" "}
+              Are you sure you want to remove this product from{" "}
               <strong>{product.assignedMember}</strong>?
             </h2>
           </Dialog.Title>
@@ -57,17 +66,27 @@ export function RemoveProducts({ product, closeAciton }: IRemoveItems) {
               <div className="w-3/4">
                 <ProductDetail product={product} />
               </div>
-              <section className="space-y-2 w-1/4 text-sm">
-                <p>Please select the Location:</p>
-                <select
-                  onChange={(e) => setNewLocation(e.target.value as Location)}
+
+              <section className="space-y-2 w-1/4 ">
+                <Select
+                  onValueChange={(value) => setNewLocation(value as Location)}
                 >
-                  {LOCATION.filter((e) => e !== "Employee").map((location) => (
-                    <option value={location} key={location}>
-                      {location}
-                    </option>
-                  ))}
-                </select>
+                  <SelectTrigger className="">
+                    <SelectValue placeholder="Please select the new location" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white">
+                    <SelectGroup>
+                      <SelectLabel>Fruits</SelectLabel>
+                      {LOCATION.filter((e) => e !== "Employee").map(
+                        (location) => (
+                          <SelectItem value={location} key={location}>
+                            {location}
+                          </SelectItem>
+                        )
+                      )}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </section>
             </div>
           </Dialog.Description>
@@ -85,7 +104,7 @@ export function RemoveProducts({ product, closeAciton }: IRemoveItems) {
               onClick={handleRemoveItems}
               variant="delete"
               size="small"
-              disabled={isRemoving}
+              disabled={isRemoving || !newLocation}
             >
               Remove
             </Button>

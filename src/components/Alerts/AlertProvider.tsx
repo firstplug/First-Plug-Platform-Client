@@ -58,7 +58,7 @@ export default observer(function AlertProvider() {
       title: "Congratulations!",
       type: "succes",
       description: " The csv file has been uploaded successfully.",
-      closeAction: () => {
+      closeAction: async () => {
         setAlert(undefined);
       },
     },

@@ -20,6 +20,7 @@ import { isCsvCompleted, parseProduct } from "@/utils";
 import { useToast } from "./ui/use-toast";
 import { DownloadStock } from "./Download";
 import { parseMembers } from "@/utils/parseMembers";
+import useFetch from "@/hooks/useFetch";
 
 export const LoadAside = function () {
   const [csvInfo, setCsvInfo] = useState(EMPTY_FILE_INFO);
@@ -28,11 +29,10 @@ export const LoadAside = function () {
   const { toast } = useToast();
   const {
     aside: { type, setAside },
-    products: { setTable },
-    members: { setMembers },
     alerts: { setAlert },
   } = useStore();
 
+  const { fetchMembers, fetchStock } = useFetch();
   const clearCsvData = () => {
     setCsvInfo(EMPTY_FILE_INFO);
     setCsvFile(null);
@@ -63,11 +63,11 @@ export const LoadAside = function () {
         if (success) {
           try {
             await CsvServices.bulkCreateProducts(data.prdoucts);
-            clearCsvData();
-            const prodcuts = await ProductServices.getTableFormat();
-            setTable(prodcuts);
+            await fetchStock();
+            await fetchMembers();
             setAside(undefined);
             setAlert("csvSuccess");
+            clearCsvData();
           } catch (error) {
             toast({
               title:
@@ -104,8 +104,8 @@ export const LoadAside = function () {
         if (success) {
           try {
             await CsvServices.bulkCreateTeams(data.members);
-            const members = await Memberservices.getAllMembers();
-            setMembers(members);
+            await fetchStock();
+            await fetchMembers();
             clearCsvData();
             setAlert("csvSuccess");
           } catch (error) {

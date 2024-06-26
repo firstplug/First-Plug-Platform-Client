@@ -79,12 +79,14 @@ export const AddMembersToTeamForm = observer(function ({
                   <p className="text-black font-bold">
                     {member.firstName} {member.lastName}
                   </p>
-                  <span className="text-dark-grey">
-                    Current Team:{" "}
-                    {typeof member.team === "string"
-                      ? member.team
-                      : member.team?.name}
-                  </span>
+                  {member.team && (
+                    <span className="text-dark-grey">
+                      Current Team:{" "}
+                      {typeof member.team === "string"
+                        ? member.team
+                        : member.team?.name}
+                    </span>
+                  )}
                 </div>
               </div>
               {isEditFlow && member.team && (

@@ -11,7 +11,7 @@ export const AsideTitle = observer(function AsideTitle() {
         ? `${selectedMember.firstName} ${selectedMember.lastName}`
         : "Team Member Details";
     case "EditMember":
-      return "Edit Teams";
+      return "Edit Member";
     case "AssignProduct":
       return "Assign To";
     case "ReassignProduct":

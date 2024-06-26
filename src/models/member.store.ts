@@ -9,6 +9,7 @@ export const MemberStore = types
     teamFilterItems: types.array(types.string),
     memberToEdit: types.maybe(types.string),
     aside: types.optional(types.enumeration(["EditMember", "None"]), "None"),
+    relocateChange: types.optional(types.boolean, false),
     fetchingMembers: types.optional(types.boolean, false),
   })
   .views((store) => ({
@@ -48,6 +49,9 @@ export const MemberStore = types
     },
   }))
   .actions((store) => ({
+    setRelocateChange(relocateChange: boolean) {
+      store.relocateChange = relocateChange;
+    },
     setFetchMembers(fetchValue: boolean) {
       store.fetchingMembers = fetchValue;
     },

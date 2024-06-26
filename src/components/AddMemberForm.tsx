@@ -4,6 +4,7 @@ import { Button, SearchInput } from "@/common";
 import { observer } from "mobx-react-lite";
 import { TeamMember, Product } from "@/types";
 import { useStore } from "@/models";
+import useFetch from "@/hooks/useFetch";
 interface AddMemberFormProps {
   members: TeamMember[];
   selectedMember?: TeamMember | null;
@@ -29,6 +30,8 @@ export const AddMemberForm = observer(function ({
     alerts: { setAlert },
     aside: { setAside },
   } = useStore();
+
+  const { fetchMembers, fetchStock } = useFetch();
 
   useEffect(() => {
     setSearchedMembers(members);
@@ -70,6 +73,8 @@ export const AddMemberForm = observer(function ({
     if (selectedMember === null && noneOption) {
       try {
         await reassignProduct(currentProduct._id, updatedProduct);
+        await fetchMembers();
+        await fetchStock();
         setAside(undefined);
         setAlert("assignedProductSuccess");
       } catch (error) {
@@ -93,6 +98,8 @@ export const AddMemberForm = observer(function ({
 
       try {
         await reassignProduct(currentProduct._id, updatedProduct);
+        await fetchMembers();
+        await fetchStock();
         setAside(undefined);
         setAlert("assignedProductSuccess");
       } catch (error) {

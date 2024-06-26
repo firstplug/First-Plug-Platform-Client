@@ -1,7 +1,7 @@
 import { useStore } from "@/models";
 import { Memberservices } from "@/services";
 import { Team, TeamMember } from "@/types";
-import { Button, PenIcon, TeamCard } from "@/common";
+import { Button, ElipsisVertical, PenIcon, TeamCard } from "@/common";
 import { ColumnDef } from "@tanstack/react-table";
 import { DeleteAction } from "../Alerts";
 import { RootTable } from "./RootTable";
@@ -17,11 +17,8 @@ const membersColumns: (
     accessorKey: "fullName",
     size: 150,
     header: "Name",
-    cell: ({ getValue, row }) => (
-      <span
-        className="cursor-pointer font-semibold   text-blue-500"
-        onClick={() => handleViewDetail(row.original._id)}
-      >
+    cell: ({ getValue }) => (
+      <span className="font-semibold   text-blue-500">
         {getValue<string>()}
       </span>
     ),
@@ -102,6 +99,16 @@ const membersColumns: (
           }
         />
         <DeleteAction type="member" id={row.original._id} />
+        <Button
+          variant="text"
+          onClick={() => handleViewDetail(row.original._id)}
+          icon={
+            <ElipsisVertical
+              strokeWidth={2}
+              className="text-dark-grey w-[1.2rem] h-[1.2rem]"
+            />
+          }
+        />
       </div>
     ),
   },

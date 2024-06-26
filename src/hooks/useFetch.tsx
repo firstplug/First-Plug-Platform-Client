@@ -6,6 +6,7 @@ export default function useFetch() {
   const {
     members: { setMembers, setFetchMembers },
     products: { setTable, setFetchStock },
+    teams: { setTeams },
   } = useStore();
 
   const fetchMembers = async () => {
@@ -13,7 +14,7 @@ export default function useFetch() {
     try {
       const membersResponse = await Memberservices.getAllMembers();
       const teamsResponse = await TeamServices.getAllTeams();
-
+      setTeams(teamsResponse);
       const transformedMembers = transformData(membersResponse, teamsResponse);
       setMembers(transformedMembers);
     } catch (error) {
@@ -24,8 +25,8 @@ export default function useFetch() {
   };
 
   const fetchStock = async () => {
+    setFetchStock(true);
     try {
-      setFetchStock(true);
       const response = await ProductServices.getTableFormat();
       setTable(response);
     } catch (error) {
@@ -35,5 +36,11 @@ export default function useFetch() {
     }
   };
 
-  return { fetchMembers, fetchStock };
+  const fetchTeams = async () => {
+    try {
+      const response = await TeamServices.getAllTeams();
+      setTeams(response);
+    } catch (error) {}
+  };
+  return { fetchMembers, fetchStock, fetchTeams };
 }

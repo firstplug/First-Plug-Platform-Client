@@ -29,17 +29,21 @@ export default observer(function AlertProvider() {
   const { fetchMembers, fetchStock } = useFetch();
 
   const Config: Record<AlertType, IConfig> = {
+    removeItemSuccesfully: {
+      title: "Success",
+      type: "succes",
+      description: " Product has been removed  successfully.",
+      closeAction: () => {
+        setAlert(undefined);
+        router.push("/home/my-stock");
+      },
+    },
     assignedProductSuccess: {
       title: "Success",
       type: "succes",
       description: " Product assigned successfully.",
       closeAction: () => {
-        fetchStock().then(() => {
-          setAlert(undefined);
-          location.reload();
-        });
         setAlert(undefined);
-        location.reload();
       },
     },
     errorAssignedProduct: {
@@ -48,38 +52,34 @@ export default observer(function AlertProvider() {
       description: " An error occurred while assigning product",
       closeAction: () => {
         setAlert(undefined);
-        location.reload();
       },
     },
     csvSuccess: {
       title: "Congratulations!",
       type: "succes",
       description: " The csv file has been uploaded successfully.",
-      closeAction: () => {
+      closeAction: async () => {
         setAlert(undefined);
-        location.reload();
       },
     },
     updateMember: {
       title: " Success",
       type: "succes",
       description: " Your Member has been successfully updated to your team.",
-      closeAction: () => {
-        fetchMembers().then(() => {
-          setAlert(undefined);
-          setAside(undefined);
-        });
+      closeAction: async () => {
+        await fetchMembers();
+        await fetchStock();
+        setAlert(undefined);
+        setAside(undefined);
       },
     },
     updateStock: {
       title: " Success",
       type: "succes",
       description: " Your product has been successfully updated to your stock.",
-      closeAction: () => {
-        fetchStock().then(() => {
-          setAlert(undefined);
-          location.reload();
-        });
+      closeAction: async () => {
+        await fetchStock();
+        setAlert(undefined);
       },
     },
     updateTeam: {
@@ -88,14 +88,14 @@ export default observer(function AlertProvider() {
       description: " Your team has been successfully updated.",
       closeAction: () => {
         setAlert(undefined);
-        location.reload();
       },
     },
     createMember: {
       title: " Success",
       type: "succes",
       description: " Your Member has been successfully added to your team.",
-      closeAction: () => {
+      closeAction: async () => {
+        await fetchMembers();
         setAlert(undefined);
         router.push("/home/my-team");
       },
@@ -104,11 +104,10 @@ export default observer(function AlertProvider() {
       title: " Success",
       type: "succes",
       description: " Your product has been created successfully.",
-      closeAction: () => {
-        fetchStock().then(() => {
-          setAlert(undefined);
-          router.push("/home/my-stock");
-        });
+      closeAction: async () => {
+        await fetchStock();
+        setAlert(undefined);
+        router.push("/home/my-stock");
       },
     },
     createTeam: {
@@ -117,7 +116,6 @@ export default observer(function AlertProvider() {
       description: " Your team has been created successfully.",
       closeAction: () => {
         setAlert(undefined);
-        location.reload();
         router.push("/home/my-team");
       },
     },
@@ -136,7 +134,6 @@ export default observer(function AlertProvider() {
       description: " The team has been successfully deleted.",
       closeAction: () => {
         setAlert(undefined);
-        location.reload();
         router.push("/home/my-team");
       },
     },
@@ -154,7 +151,6 @@ export default observer(function AlertProvider() {
       description: " There was an error updating the team. Please try again.",
       closeAction: () => {
         setAlert(undefined);
-        location.reload();
       },
     },
     errorEmailInUse: {
@@ -171,7 +167,6 @@ export default observer(function AlertProvider() {
       description: " There was an error creating the member. Please try again.",
       closeAction: () => {
         setAlert(undefined);
-        location.reload();
       },
     },
     errorCreateTeam: {
@@ -180,7 +175,6 @@ export default observer(function AlertProvider() {
       description: " There was an error creating the team. Please try again.",
       closeAction: () => {
         setAlert(undefined);
-        location.reload();
       },
     },
     errorDeleteTeam: {
@@ -189,7 +183,6 @@ export default observer(function AlertProvider() {
       description: " There was an error deleting the team. Please try again.",
       closeAction: () => {
         setAlert(undefined);
-        location.reload();
       },
     },
     errorDeleteStock: {
@@ -209,7 +202,6 @@ export default observer(function AlertProvider() {
         "There was an error deleting this memeber. Please try again.",
       closeAction: () => {
         setAlert(undefined);
-        location.reload();
       },
     },
     errorRecoverableStock: {

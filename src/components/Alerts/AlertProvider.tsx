@@ -9,6 +9,7 @@ import { XCircleIcon } from "lucide-react";
 import { CheckIcon } from "@/common";
 import { Memberservices, ProductServices } from "@/services";
 import useFetch from "@/hooks/useFetch";
+import { set } from "zod";
 
 function XIcon() {
   return <XCircleIcon className="text-white " size={40} />;
@@ -42,7 +43,8 @@ export default observer(function AlertProvider() {
       title: "Success",
       type: "succes",
       description: " Member unassigned successfully.",
-      closeAction: () => {
+      closeAction: async () => {
+        await fetchMembers();
         setAlert(undefined);
       },
     },
@@ -50,7 +52,8 @@ export default observer(function AlertProvider() {
       title: "Success",
       type: "succes",
       description: " Product assigned successfully.",
-      closeAction: () => {
+      closeAction: async () => {
+        await fetchStock();
         setAlert(undefined);
       },
     },
@@ -94,7 +97,8 @@ export default observer(function AlertProvider() {
       title: " Success",
       type: "succes",
       description: " Your team has been successfully updated.",
-      closeAction: () => {
+      closeAction: async () => {
+        await fetchMembers();
         setAlert(undefined);
       },
     },
@@ -122,7 +126,8 @@ export default observer(function AlertProvider() {
       title: " Success",
       type: "succes",
       description: " Your team has been created successfully.",
-      closeAction: () => {
+      closeAction: async () => {
+        await fetchMembers();
         setAlert(undefined);
         router.push("/home/my-team");
       },
@@ -131,8 +136,11 @@ export default observer(function AlertProvider() {
       title: " Success",
       type: "succes",
       description: " The member has been successfully deleted.",
-      closeAction: () => {
+      closeAction: async () => {
+        await fetchMembers();
+        setAside(undefined);
         setAlert(undefined);
+
         router.push("/home/my-team");
       },
     },
@@ -140,7 +148,8 @@ export default observer(function AlertProvider() {
       title: " Success",
       type: "succes",
       description: " The team has been successfully deleted.",
-      closeAction: () => {
+      closeAction: async () => {
+        await fetchMembers();
         setAlert(undefined);
         router.push("/home/my-team");
       },

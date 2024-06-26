@@ -8,6 +8,7 @@ import { Team } from "@/types/teams";
 import { TeamDetails } from ".";
 import { TeamMember } from "@/types";
 import { transformData } from "@/utils/dataTransformUtil";
+import { DeleteAction } from "./Alerts";
 
 interface EditTeamsAsideDetailsProps {
   className?: string | "";
@@ -28,6 +29,7 @@ export const EditTeamsAsideDetails = observer(function ({
   const [selectedTeams, setSelectedTeams] = useState<Team[]>([]);
   const [newName, setNewName] = useState("");
   const [selectedMembers, setSelectedMembers] = useState<TeamMember[]>([]);
+  const [expandedTeamId, setExpandedTeamId] = useState<string | null>(null);
 
   const handleCheckbox = (team: Team) => {
     setSelectedTeams((prevSelectedTeams) => {
@@ -45,18 +47,25 @@ export const EditTeamsAsideDetails = observer(function ({
     });
   };
 
+  const handleExpandTeam = (team: Team) => {
+    if (expandedTeamId !== team._id) {
+      setExpandedTeamId(team._id);
+      setNewName(team.name);
+      setSelectedMembers(
+        members?.filter(
+          (member) =>
+            member.team &&
+            typeof member.team === "object" &&
+            member.team._id === team._id
+        ) || []
+      );
+    } else {
+      setExpandedTeamId(null);
+    }
+  };
+
   const handleDeleteSelectedTeams = async () => {
     try {
-      for (const team of selectedTeams) {
-        const membersWithTeam = await Memberservices.getAllMembersByTeam(
-          team._id
-        );
-        for (const member of membersWithTeam) {
-          member.team = null;
-          await Memberservices.updateMember(member._id, member);
-        }
-      }
-
       await TeamServices.bulkDeleteTeams(selectedTeams.map((team) => team._id));
 
       const updatedMembers = await Memberservices.getAllMembers();
@@ -69,13 +78,18 @@ export const EditTeamsAsideDetails = observer(function ({
       setAlert("deleteTeam");
       setSelectedTeams([]);
     } catch (error) {
+      console.error("Error deleting teams:", error);
       setAlert("errorDeleteTeam");
     }
   };
 
   const handleUpdateTeam = async () => {
+    if (!expandedTeamId) return;
+
     try {
-      const teamToUpdate = selectedTeams[0];
+      const teamToUpdate = teams.find((team) => team._id === expandedTeamId);
+      if (!teamToUpdate) return;
+
       const updatedTeam = { ...teamToUpdate, name: newName };
 
       await TeamServices.updateTeam(updatedTeam._id, updatedTeam);
@@ -106,30 +120,35 @@ export const EditTeamsAsideDetails = observer(function ({
             key={team._id}
             team={team}
             members={members}
-            handleSelectedTeams={handleCheckbox}
-            showDetails={selectedTeams.some(
-              (selected) => selected._id === team._id
-            )}
+            handleCheckbox={handleCheckbox}
+            handleExpandTeam={handleExpandTeam}
+            isExpanded={expandedTeamId === team._id}
             setNewName={setNewName}
             setSelectedMembers={setSelectedMembers}
           />
         ))}
       </div>
 
-      <div className="flex gap-2">
-        <Button
-          variant="delete"
-          disabled={selectedTeams.length === 0}
-          size="big"
-          className="flex-grow rounded-md"
-          onClick={handleDeleteSelectedTeams}
-        >
-          Delete
-        </Button>
+      <div className="flex gap-2 w-full">
+        <DeleteAction
+          type="team"
+          id={selectedTeams.map((team) => team._id).join(",")}
+          onConfirm={handleDeleteSelectedTeams}
+          trigger={
+            <Button
+              variant="delete"
+              disabled={selectedTeams.length === 0}
+              size="big"
+              className="flex-grow w-full rounded-md"
+            >
+              Delete
+            </Button>
+          }
+        />
         <Button
           variant="primary"
           size="big"
-          className="flex-grow rounded-md"
+          className="flex-grow w-full rounded-md"
           onClick={handleUpdateTeam}
         >
           Save

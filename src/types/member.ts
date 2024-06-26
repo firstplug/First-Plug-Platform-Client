@@ -22,7 +22,7 @@ export const TeamMemberModel = types.model({
   startDate: types.optional(types.string, ""),
   birthDate: types.optional(types.string, ""),
   products: types.optional(types.array(ProductModel), []),
-  team: types.union(types.string, types.maybe(types.reference(TeamModel))),
+  team: types.maybeNull(types.union(types.string, types.reference(TeamModel))),
   isDeleted: types.optional(types.boolean, false),
 });
 

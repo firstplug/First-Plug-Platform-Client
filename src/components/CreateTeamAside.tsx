@@ -69,7 +69,7 @@ export const CreateTeamAside = observer(function ({
         <hr className="my-3" />
         <div className="flex flex-col gap-2">
           <div className="flex justify-between">
-            <span>Members</span>
+            <span>Assign Members to Team</span>
             <span>({memberCount})</span>
           </div>
 
@@ -77,6 +77,7 @@ export const CreateTeamAside = observer(function ({
             handleSelectedMembers={handleSelectedMembers}
             members={members}
             selectedMembers={selectedMembers}
+            teamId="createTeam"
           />
         </div>
       </div>
@@ -94,6 +95,7 @@ export const CreateTeamAside = observer(function ({
           variant="primary"
           size="big"
           className="flex-grow rounded-md"
+          disabled={!name}
           onClick={handleCreateTeam}
         >
           Save

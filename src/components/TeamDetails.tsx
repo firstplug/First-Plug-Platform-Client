@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Button, TeamCard } from "@/common";
 import { DropDownArrow } from "@/common/Icons";
 import { TeamInfo } from ".";
@@ -8,9 +8,10 @@ import { Team, TeamMember } from "@/types";
 interface TeamDetailsProps {
   team: Team;
   className?: string;
-  handleSelectedTeams: (selectedTeam: Team) => void;
+  handleCheckbox: (team: Team) => void;
+  handleExpandTeam: (team: Team) => void;
   members: TeamMember[];
-  showDetails: boolean;
+  isExpanded: boolean;
   setNewName: (name: string) => void;
   setSelectedMembers: (members: TeamMember[]) => void;
 }
@@ -18,20 +19,20 @@ interface TeamDetailsProps {
 export const TeamDetails = function ({
   team,
   className,
-  handleSelectedTeams,
-  showDetails,
+  handleCheckbox,
+  handleExpandTeam,
+  members,
+  isExpanded,
   setNewName,
   setSelectedMembers,
 }: TeamDetailsProps) {
-  const [detailsVisible, setDetailsVisible] = useState(showDetails);
-
   return (
     <section className={` ${className} border rounded-md p-3 `}>
       <div className="flex justify-between items-center">
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <input
             type="checkbox"
-            onChange={() => handleSelectedTeams(team)}
+            onChange={() => handleCheckbox(team)}
             onClick={(e) => e.stopPropagation()}
           />
           <TeamCard team={team} />
@@ -39,17 +40,17 @@ export const TeamDetails = function ({
 
         <Button
           className="cursor-pointer"
-          onClick={() => setDetailsVisible(!detailsVisible)}
+          onClick={() => handleExpandTeam(team)}
         >
           <DropDownArrow
             className={`${
-              detailsVisible ? "rotate-180 " : " rotate-360"
+              isExpanded ? "rotate-180 " : " rotate-360"
             } transition-all duration-300`}
           />
         </Button>
       </div>
 
-      {detailsVisible && (
+      {isExpanded && (
         <TeamInfo
           team={team}
           setNewName={setNewName}

@@ -31,11 +31,12 @@ export class TeamServices {
 
   static async removeFromTeam(teamId: string, memberId: string): Promise<Team> {
     const response = await HTTPRequests.put(
-      `${BASE_URL}/api/teams/change-member/${memberId}`,
-      { teamId: null }
+      `${BASE_URL}/api/teams/${memberId}/unassign-member`,
+      { teamId }
     );
     return response.data;
   }
+
   static async bulkDeleteTeams(teamIds: string[]): Promise<void> {
     await HTTPRequests.delete(`${BASE_URL}/api/teams/bulk-delete`, {
       data: { ids: teamIds },

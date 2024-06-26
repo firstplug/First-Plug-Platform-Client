@@ -94,6 +94,7 @@ export const CreateTeamAside = observer(function ({
           variant="primary"
           size="big"
           className="flex-grow rounded-md"
+          disabled={!name}
           onClick={handleCreateTeam}
         >
           Save

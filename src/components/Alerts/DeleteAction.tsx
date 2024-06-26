@@ -15,7 +15,7 @@ import { observer } from "mobx-react-lite";
 import { Loader } from "../Loader";
 import useFetch from "@/hooks/useFetch";
 
-type DeleteTypes = "product" | "member";
+type DeleteTypes = "product" | "member" | "team";
 
 type ConfigType = {
   title: string;
@@ -26,16 +26,18 @@ type ConfigType = {
 interface DeleteAlertProps {
   type: DeleteTypes;
   id: string;
+  onConfirm?: () => void;
+  trigger?: React.ReactNode;
 }
 export const DeleteAction: React.FC<DeleteAlertProps> = observer(
-  ({ type, id }) => {
+  ({ type, id, onConfirm, trigger }) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const {
       products: { deleteProduct },
       alerts: { setAlert },
     } = useStore();
-    const { fetchStock, fetchMembers } = useFetch();
+    const { fetchStock, fetchMembers, fetchTeams } = useFetch();
     const checkMemberProducts = async () => {
       try {
         const member = await Memberservices.getOneMember(id);
@@ -93,6 +95,13 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
       }
     };
 
+    const handleDeleteTeam = async () => {
+      if (onConfirm) {
+        onConfirm();
+        setOpen(false);
+      }
+    };
+
     const DeleteConfig: Record<DeleteTypes, ConfigType> = {
       product: {
         title: " Are you sure you want to delete this product? 🗑️",
@@ -105,16 +114,29 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
         description: " This member will be permanetly deleted",
         deleteAction: handleDeleteMember,
       },
+      team: {
+        title: "Are you sure you want to delete this team? 🗑️",
+        description: "This team will be permanently deleted",
+        deleteAction: handleDeleteTeam,
+      },
     };
     const { title, description, deleteAction } = DeleteConfig[type];
     return (
       <>
         <Dialog open={open}>
           <DialogTrigger onClick={() => setOpen(true)}>
-            <TrashIcon
+            {trigger ? (
+              trigger
+            ) : (
+              <TrashIcon
+                className="text-dark-grey w-[1.2rem] h-[1.2rem] hover:text-error"
+                strokeWidth={2}
+              />
+            )}
+            {/* <TrashIcon
               className=" text-dark-grey w-[1.2rem] h-[1.2rem] hover:text-error"
               strokeWidth={2}
-            />
+            /> */}
           </DialogTrigger>
           {!loading ? (
             <DialogContent>

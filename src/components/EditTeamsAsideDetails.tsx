@@ -8,6 +8,7 @@ import { Team } from "@/types/teams";
 import { TeamDetails } from ".";
 import { TeamMember } from "@/types";
 import { transformData } from "@/utils/dataTransformUtil";
+import { DeleteAction } from "./Alerts";
 
 interface EditTeamsAsideDetailsProps {
   className?: string | "";
@@ -65,8 +66,6 @@ export const EditTeamsAsideDetails = observer(function ({
 
   const handleDeleteSelectedTeams = async () => {
     try {
-      console.log("Deleting selected teams:", selectedTeams);
-
       await TeamServices.bulkDeleteTeams(selectedTeams.map((team) => team._id));
 
       const updatedMembers = await Memberservices.getAllMembers();
@@ -130,20 +129,26 @@ export const EditTeamsAsideDetails = observer(function ({
         ))}
       </div>
 
-      <div className="flex gap-2">
-        <Button
-          variant="delete"
-          disabled={selectedTeams.length === 0}
-          size="big"
-          className="flex-grow rounded-md"
-          onClick={handleDeleteSelectedTeams}
-        >
-          Delete
-        </Button>
+      <div className="flex gap-2 w-full">
+        <DeleteAction
+          type="team"
+          id={selectedTeams.map((team) => team._id).join(",")}
+          onConfirm={handleDeleteSelectedTeams}
+          trigger={
+            <Button
+              variant="delete"
+              disabled={selectedTeams.length === 0}
+              size="big"
+              className="flex-grow w-full rounded-md"
+            >
+              Delete
+            </Button>
+          }
+        />
         <Button
           variant="primary"
           size="big"
-          className="flex-grow rounded-md"
+          className="flex-grow w-full rounded-md"
           onClick={handleUpdateTeam}
         >
           Save

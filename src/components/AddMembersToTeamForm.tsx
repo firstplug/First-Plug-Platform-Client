@@ -80,6 +80,7 @@ export const AddMembersToTeamForm = observer(function ({
                     {member.firstName} {member.lastName}
                   </p>
                   <span className="text-dark-grey">
+                    Current Team:{" "}
                     {typeof member.team === "string"
                       ? member.team
                       : member.team?.name}

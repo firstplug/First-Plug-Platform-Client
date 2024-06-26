@@ -9,13 +9,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
-import { Memberservices, ProductServices } from "@/services";
+import { Memberservices, ProductServices, TeamServices } from "@/services";
 import { useStore } from "@/models/root.store";
 import { observer } from "mobx-react-lite";
 import { Loader } from "../Loader";
 import useFetch from "@/hooks/useFetch";
 
-type DeleteTypes = "product" | "member" | "team";
+type DeleteTypes = "product" | "member" | "team" | "memberUnassign";
 
 type ConfigType = {
   title: string;
@@ -26,11 +26,12 @@ type ConfigType = {
 interface DeleteAlertProps {
   type: DeleteTypes;
   id: string;
+  teamId?: string;
   onConfirm?: () => void;
   trigger?: React.ReactNode;
 }
 export const DeleteAction: React.FC<DeleteAlertProps> = observer(
-  ({ type, id, onConfirm, trigger }) => {
+  ({ type, id, onConfirm, trigger, teamId }) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const {
@@ -102,6 +103,24 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
       }
     };
 
+    const handleUnassignMember = async () => {
+      try {
+        if (!id || !teamId) {
+          throw new Error("Member ID or Team ID is undefined");
+        }
+        setLoading(true);
+        await TeamServices.removeFromTeam(teamId, id);
+        await fetchMembers();
+        await fetchTeams();
+        setOpen(false);
+        setAlert("memberUnassigned");
+        setLoading(false);
+      } catch (error) {
+        setOpen(false);
+        setLoading(false);
+      }
+    };
+
     const DeleteConfig: Record<DeleteTypes, ConfigType> = {
       product: {
         title: " Are you sure you want to delete this product? 🗑️",
@@ -118,6 +137,11 @@ export const DeleteAction: React.FC<DeleteAlertProps> = observer(
         title: "Are you sure you want to delete this team? 🗑️",
         description: "This team will be permanently deleted",
         deleteAction: handleDeleteTeam,
+      },
+      memberUnassign: {
+        title: "Are you sure you want to unassign this member? 🗑️",
+        description: "This member will be unassigned from the team",
+        deleteAction: handleUnassignMember,
       },
     };
     const { title, description, deleteAction } = DeleteConfig[type];

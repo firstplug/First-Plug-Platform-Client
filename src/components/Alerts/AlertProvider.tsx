@@ -38,6 +38,14 @@ export default observer(function AlertProvider() {
         router.push("/home/my-stock");
       },
     },
+    memberUnassigned: {
+      title: "Success",
+      type: "succes",
+      description: " Member unassigned successfully.",
+      closeAction: () => {
+        setAlert(undefined);
+      },
+    },
     assignedProductSuccess: {
       title: "Success",
       type: "succes",

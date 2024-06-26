@@ -65,6 +65,8 @@ export const TeamInfo = observer(function ({
         handleSelectedMembers={handleSelectedMembersChange}
         members={members}
         selectedMembers={selectedMembers}
+        isEditFlow={true}
+        teamId={team._id.toString()}
       />
     </article>
   );

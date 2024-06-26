@@ -3,6 +3,8 @@ import { ChangeEvent, FocusEvent, useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@/common/Icons";
 
 type InputProps = {
+  id: string;
+  name: string;
   title: string;
   placeholder?: string;
   type?: string;
@@ -16,9 +18,12 @@ type InputProps = {
   touched?: boolean;
   required?: boolean;
   isLogin?: boolean;
+  autocomplete?: string;
 };
 
 export function Input({
+  id,
+  name,
   title,
   placeholder,
   type,
@@ -32,6 +37,7 @@ export function Input({
   touched,
   required,
   isLogin = false,
+  autocomplete,
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -41,16 +47,20 @@ export function Input({
     <div className={`relative   h-24  font-inter  ${className}`}>
       <label className="block text-dark-grey ml-2 font-sans">{title}</label>
       <input
+        id={id}
+        name={name}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
         onFocus={onFocus}
         type={inputType}
         placeholder={placeholder}
-        defaultValue={value}
+        // defaultValue={value}
         className={`w-full  h-14 py-2 rounded-xl border ${
           value.length && touched && error && !isLogin ? "border-error" : ""
         } text-black p-4  font-sans focus:outline-none`}
+        required={required}
+        autoComplete={autocomplete}
       />
 
       {type === "password" && (

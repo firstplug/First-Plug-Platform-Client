@@ -65,6 +65,8 @@ export default function Login() {
         <Form title="Welcome Back!" login onSubmit={handleSumbit}>
           <div>
             <Input
+              id="email"
+              name="email"
               title="Email"
               placeholder="user@mail.com"
               {...emailInput}
@@ -72,6 +74,8 @@ export default function Login() {
             />
 
             <Input
+              id="password"
+              name="password"
               isLogin
               title="Password"
               type="password"
@@ -83,8 +87,8 @@ export default function Login() {
 
           <div className=" flex justify-end">
             <AlertDialog>
-              <AlertDialogTrigger className=" w-1/3">
-                <Button variant="text">Forgot Password ?</Button>
+              <AlertDialogTrigger className="w-1/3 text-blue font-bold leading-5 capitalize transition-all duration-150 ease-in  hover:bg-hoverBlue rounded-full p-2">
+                Forgot Password ?
               </AlertDialogTrigger>
               <AlertDialogContent className="font-inter">
                 <AlertDialogHeader>

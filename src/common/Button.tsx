@@ -62,8 +62,8 @@ export function Button({
           ? `${btnStyle.disabled[variant]} ${btnStyle.size[size]}`
           : `${btnStyle.variant[variant]} ${btnStyle.size[size]}`
       } ${className} `}
-      {...buttonProps}
       disabled={disabled}
+      {...buttonProps}
     >
       {children ? (
         children

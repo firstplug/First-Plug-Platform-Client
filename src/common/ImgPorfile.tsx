@@ -17,6 +17,7 @@ export function ImgPorfile() {
       alt="userPhoto"
       className="object-cover rounded-full"
       fill
+      sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
       priority
     />
   );

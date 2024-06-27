@@ -71,12 +71,12 @@ export function RemoveProducts({ product, closeAciton }: IRemoveItems) {
                 <Select
                   onValueChange={(value) => setNewLocation(value as Location)}
                 >
-                  <SelectTrigger className="">
+                  <SelectTrigger className="font-semibold text-md">
                     <SelectValue placeholder="Please select the new location" />
                   </SelectTrigger>
                   <SelectContent className="bg-white">
                     <SelectGroup>
-                      <SelectLabel>Fruits</SelectLabel>
+                      <SelectLabel>Location</SelectLabel>
                       {LOCATION.filter((e) => e !== "Employee").map(
                         (location) => (
                           <SelectItem value={location} key={location}>

@@ -96,7 +96,7 @@ const MembersList = observer(function MembersList({
             </Button>
           ) : (
             <Badge className={badgeVariants({ variant: relocateResult })}>
-              Relotcated Succesfully ✅
+              Successfully relocated ✅
             </Badge>
           )}
         </section>
@@ -118,10 +118,12 @@ const MembersList = observer(function MembersList({
                   key={member._id}
                   onClick={() => handleSelectMember(member)}
                 >
-                  <input
-                    type="checkbox"
-                    checked={member._id === selectedMember?._id}
-                  />
+                  {selectedMember && (
+                    <input
+                      type="checkbox"
+                      checked={member._id === selectedMember._id}
+                    />
+                  )}
                   <div className="flex gap-2">
                     <p className="text-black font-bold">
                       {member.firstName} {member.lastName}

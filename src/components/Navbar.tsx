@@ -1,6 +1,11 @@
 "use client";
 import React from "react";
-import { Button, SearchInput, DropdownButton, ImgPorfile } from "@/common";
+import {
+  Button,
+  SearchInput,
+  SessionDropdownButton,
+  ImgPorfile,
+} from "@/common";
 import Image from "next/image";
 import Logo from "../../public/logo1.png";
 import { ShopIcon } from "@/common/Icons";
@@ -58,7 +63,7 @@ export const Navbar = function ({
             <div className="relative w-10 h-10 ">
               <ImgPorfile />
             </div>
-            <DropdownButton />
+            <SessionDropdownButton />
           </div>
         </div>
       )}

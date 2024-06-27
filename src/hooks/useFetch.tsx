@@ -17,6 +17,8 @@ export default function useFetch() {
       setTeams(teamsResponse);
       const transformedMembers = transformData(membersResponse, teamsResponse);
       setMembers(transformedMembers);
+
+      return transformedMembers;
     } catch (error) {
       console.error("Error fetching members:", error);
     } finally {
@@ -29,6 +31,8 @@ export default function useFetch() {
     try {
       const response = await ProductServices.getTableFormat();
       setTable(response);
+
+      return response;
     } catch (error) {
       console.log("Error fetching stock:", error);
     } finally {
@@ -40,6 +44,7 @@ export default function useFetch() {
     try {
       const response = await TeamServices.getAllTeams();
       setTeams(response);
+      return response;
     } catch (error) {}
   };
   return { fetchMembers, fetchStock, fetchTeams };

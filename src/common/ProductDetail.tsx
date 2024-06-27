@@ -181,9 +181,7 @@ export default function ProductDetail({
 
             <hr />
 
-            <div className="flex gap-2 items-center">
-              <PrdouctModelDetail product={product} />
-            </div>
+            <PrdouctModelDetail product={product} />
           </section>
           {isRelocating && (
             <Button
@@ -201,19 +199,6 @@ export default function ProductDetail({
             </Button>
           )}
         </section>
-
-        {setProductToRemove && (
-          <Button
-            onClick={() => setProductToRemove(product)}
-            className={` p-1 ${
-              isChecked
-                ? "bg-white text-blue/80 border border-blue/80 "
-                : "bg-hoverBlue text-blue/80  "
-            }`}
-          >
-            Return
-          </Button>
-        )}
       </div>
       {isRelocating && showList && <hr />}
       {isRelocating && showList && (

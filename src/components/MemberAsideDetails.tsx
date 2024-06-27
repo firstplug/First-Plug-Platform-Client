@@ -14,7 +14,7 @@ import { Product } from "@/types";
 import Image from "next/image";
 import { LinkIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { RelacoteProducts, RemoveProducts } from "./AsideContents";
+import { RelacoteProducts, ReturnPage } from "./AsideContents";
 
 interface MemberAsideDetailsProps {
   className?: string;
@@ -34,7 +34,7 @@ export const MemberAsideDetails = observer(function ({
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const [productToRemove, setProductToRemove] = useState<Product>();
   const [relocatePage, setRelocatePage] = useState(false);
-  const [removePage, setRemovePage] = useState(false);
+  const [returnPage, setReturnPage] = useState(false);
 
   const handleSelectProducts = (product: Product) => {
     if (selectedProducts.includes(product)) {
@@ -52,18 +52,21 @@ export const MemberAsideDetails = observer(function ({
   const handleRealocate = (action: "open" | "close") => {
     setRelocatePage(!(action === "close"));
   };
+  const handleReturn = (action: "open" | "close") => {
+    setReturnPage(!(action === "close"));
+  };
 
   return (
     <article
       className={`${className || ""} flex flex-col justify-between h-full`}
     >
       {relocatePage ? (
-        <Fragment>
-          <RelacoteProducts
-            products={selectedProducts}
-            handleBack={handleRealocate}
-          />
-        </Fragment>
+        <RelacoteProducts
+          products={selectedProducts}
+          handleBack={handleRealocate}
+        />
+      ) : returnPage ? (
+        <ReturnPage products={selectedProducts} handleBack={handleReturn} />
       ) : (
         <Fragment>
           <div className="flex flex-col gap-6   h-full   ">
@@ -119,21 +122,22 @@ export const MemberAsideDetails = observer(function ({
           <aside className=" absolute  bg-white  py-2    bottom-0   left-0 w-full border-t ">
             <div className="flex    w-5/6 mx-auto gap-2 justify-end">
               <Button
+                body={"Return"}
+                variant={"secondary"}
+                disabled={selectedProducts.length === 0}
+                onClick={() => handleReturn("open")}
+                className="px-6"
+              />
+              <Button
                 body={"Relocate"}
                 variant={"secondary"}
                 disabled={selectedProducts.length === 0}
                 onClick={() => handleRealocate("open")}
+                className="px-6"
               />
             </div>
           </aside>
         </Fragment>
-      )}
-
-      {productToRemove && (
-        <RemoveProducts
-          product={productToRemove}
-          closeAciton={() => setProductToRemove(null)}
-        />
       )}
     </article>
   );

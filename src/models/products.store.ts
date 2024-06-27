@@ -122,19 +122,14 @@ export const ProductsStore = types
       data: Partial<Product>,
       fetchValue: boolean = true
     ) {
-      store.fetchingStock = fetchValue;
       try {
         const response = yield ProductServices.reassignProduct(productId, data);
         const index = store.products.findIndex((p) => p._id === response._id);
         if (index > -1) {
           store.products[index] = response;
         }
-        const updatedTable = yield ProductServices.getTableFormat();
-        store.tableProducts.replace(updatedTable);
       } catch (error) {
         console.error("Failed to reassign product", error);
-      } finally {
-        store.fetchingStock = false;
       }
     }),
   }));

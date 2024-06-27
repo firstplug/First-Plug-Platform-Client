@@ -46,9 +46,7 @@ export default function PrdouctModelDetail({
           .map((cat) => (
             <div className="flex flex-col gap-1  font-normal  " key={cat}>
               <span className="">{cat} </span>
-              <span className=" text-dark-grey -mt-1">
-                {getValue(cat) || "-"}
-              </span>
+              <span className=" -mt-1">{getValue(cat) || "-"}</span>
             </div>
           ))}
       </div>

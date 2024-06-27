@@ -33,30 +33,45 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
   const [selectedAssignedMember, setSelectedAssignedMember] =
     useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
+  const [assignedEmailOptions, setAssignedEmailOptions] = useState<string[]>(
+    []
+  );
 
   useEffect(() => {
     if (isUpdate) {
       const assignedMember = formState.assignedMember as string;
-      setSelectedAssignedMember(assignedMember || "None");
-      setValue("assignedMember", assignedMember);
+      const assignedEmail = formState.assignedEmail as string;
 
       const selectedMember = members.members.find(
         (member) => `${member.firstName} ${member.lastName}` === assignedMember
       );
-      setAssignedEmail(selectedMember?.email || "");
+
+      setSelectedAssignedMember(
+        selectedMember ? assignedMember : assignedEmail ? assignedEmail : "None"
+      );
+      setValue("assignedMember", assignedMember);
+
+      setAssignedEmail(selectedMember?.email || assignedEmail || "");
 
       const location = formState.location as string;
       setSelectedLocation(location);
       setValue("location", location);
+
+      const memberFullNames = [
+        "None",
+        ...members.members.map(
+          (member) => `${member.firstName} ${member.lastName}`
+        ),
+      ];
+
+      if (assignedEmail && !memberFullNames.includes(assignedEmail)) {
+        memberFullNames.push(assignedEmail);
+      }
+
+      setAssignedEmailOptions(memberFullNames);
     }
   }, [isUpdate, formState, members.members, setValue, setAssignedEmail]);
 
-  const memberFullNames = [
-    "None",
-    ...members.members.map(
-      (member) => `${member.firstName} ${member.lastName}`
-    ),
-  ];
   const handleInputChange = (name: keyof FieldValues, value: string) => {
     setValue(name, value);
     clearErrors(name);
@@ -115,7 +130,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
         </div>
         <div className="w-full">
           <DropdownInputProductForm
-            options={memberFullNames}
+            options={assignedEmailOptions}
             placeholder="Assigned Email"
             title="Assigned Member*"
             name="assignedMember"

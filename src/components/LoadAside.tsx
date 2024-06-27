@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { ChangeEvent, useState } from "react";
-import { AddStockCard, Button } from "@/common";
+import { AddStockCard, Button, LoaderSpinner } from "@/common";
 import Papa from "papaparse";
 import { useStore } from "@/models";
 import {
@@ -107,6 +107,7 @@ export const LoadAside = function () {
             await fetchStock();
             await fetchMembers();
             clearCsvData();
+            setAside(undefined);
             setAlert("csvSuccess");
           } catch (error) {
             console.error({ error: error.response.data });
@@ -269,14 +270,15 @@ export const LoadAside = function () {
       <div className="fixed bottom-5 w-[85%] flex">
         <Button
           disabled={csvFile === null}
-          variant="primary"
-          body="Upload File"
+          variant={isLoading ? "secondary" : "primary"}
           size="big"
           className="p-3 rounded-md w-full"
           onClick={() => {
             handleAttachFileClick();
           }}
-        />
+        >
+          {isLoading ? <LoaderSpinner /> : "Upload file"}
+        </Button>
       </div>
     </div>
   );

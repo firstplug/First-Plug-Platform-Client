@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-export function DropdownButton() {
+export function SessionDropdownButton() {
   const router = useRouter();
   const session = useSession();
 

@@ -6,6 +6,7 @@
     "dev": "next dev ",
     "build": "next build",
     "start": "next start",
+    "start2": "npm run build && npm start",
     "lint": "next lint",
     "start:prod": "cross-env NODE_ENV=production next start"
   },
@@ -36,6 +37,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.51.4",
+    "swr": "^2.2.5",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"

@@ -11,6 +11,12 @@ export const middleware: NextMiddleware = async (req) => {
 
       return NextResponse.redirect(url);
     }
+    if (!session.user.tenantName) {
+      const url = req.nextUrl.clone();
+      url.pathname = `/waiting`;
+
+      return NextResponse.redirect(url);
+    }
   } else {
     if (session) {
       const url = req.nextUrl.clone();
@@ -24,5 +30,5 @@ export const middleware: NextMiddleware = async (req) => {
 };
 
 export const config = {
-  matcher: ["/home/:path*", "/login"],
+  matcher: ["/home/:path*", "/login", "/"],
 };

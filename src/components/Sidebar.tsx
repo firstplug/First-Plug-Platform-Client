@@ -4,11 +4,8 @@ import Image from "next/image";
 import { Button, SidebarLink } from "@/common";
 import {
   ComputerIcon,
-  DashboardIcon,
-  NotebookOrdersIcon,
   PersonsGroupIcon,
   SettingsIcon,
-  TruckIcon,
   ArrowLeft,
   ArrowRight,
 } from "@/common/Icons";

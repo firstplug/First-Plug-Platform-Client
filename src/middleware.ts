@@ -11,12 +11,6 @@ export const middleware: NextMiddleware = async (req) => {
 
       return NextResponse.redirect(url);
     }
-    if (session.user && !session.user.tenantName) {
-      const url = req.nextUrl.clone();
-      url.pathname = `/waiting`;
-
-      return NextResponse.redirect(url);
-    }
   } else {
     if (session) {
       const url = req.nextUrl.clone();

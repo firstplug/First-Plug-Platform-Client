@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import { useSession } from "next-auth/react";
 import { Fragment, ReactNode, useEffect } from "react";
 import useFetch from "@/hooks/useFetch";
+import { useRouter } from "next/navigation";
 interface DataProvidersProps {
   children: ReactNode;
 }
@@ -32,6 +33,7 @@ export default function DataProvider({ children }: DataProvidersProps) {
       setMainLoader(false);
     }
   };
+  const router = useRouter();
   useEffect(() => {
     if (session.data) {
       sessionStorage.setItem(
@@ -46,6 +48,10 @@ export default function DataProvider({ children }: DataProvidersProps) {
         email: session.data.user.email,
         tenantName: session.data.user.tenantName,
       });
+
+      if (!session.data.user.tenantName) {
+        return router.push("/waiting");
+      }
 
       if (sessionStorage.getItem("accessToken")) {
         setAuthInterceptor(sessionStorage.getItem("accessToken"));

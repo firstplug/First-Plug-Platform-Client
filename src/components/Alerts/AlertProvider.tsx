@@ -43,8 +43,7 @@ export default observer(function AlertProvider() {
       title: "Success",
       type: "succes",
       description: " Member unassigned successfully.",
-      closeAction: async () => {
-        await fetchMembers();
+      closeAction: () => {
         setAlert(undefined);
       },
     },
@@ -52,8 +51,7 @@ export default observer(function AlertProvider() {
       title: "Success",
       type: "succes",
       description: " Product assigned successfully.",
-      closeAction: async () => {
-        await fetchStock();
+      closeAction: () => {
         setAlert(undefined);
       },
     },

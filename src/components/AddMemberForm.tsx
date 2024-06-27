@@ -1,10 +1,19 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Button, SearchInput } from "@/common";
+import { Button, LoaderSpinner, SearchInput } from "@/common";
 import { observer } from "mobx-react-lite";
-import { TeamMember, Product } from "@/types";
+import { TeamMember, Product, LOCATION, Location } from "@/types";
 import { useStore } from "@/models";
 import useFetch from "@/hooks/useFetch";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 interface AddMemberFormProps {
   members: TeamMember[];
   selectedMember?: TeamMember | null;
@@ -25,6 +34,8 @@ export const AddMemberForm = observer(function ({
   const [searchedMembers, setSearchedMembers] = useState<TeamMember[]>(members);
   const [noneOption, setNoneOption] = useState<string | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
+
+  const [isAssigning, setIsAssigning] = useState(false);
   const {
     products: { reassignProduct },
     alerts: { setAlert },
@@ -69,46 +80,45 @@ export const AddMemberForm = observer(function ({
       attributes: currentProduct.attributes,
       name: currentProduct.name,
     };
-
-    if (selectedMember === null && noneOption) {
-      try {
+    setIsAssigning(true);
+    try {
+      if (selectedMember === null && noneOption) {
         await reassignProduct(currentProduct._id, updatedProduct);
         await fetchMembers();
         await fetchStock();
         setAside(undefined);
         setAlert("assignedProductSuccess");
-      } catch (error) {
-        setAlert("errorAssignedProduct");
-        console.error("Failed to reassign product", error);
-      }
-    } else if (selectedMember) {
-      updatedProduct = {
-        ...updatedProduct,
-        assignedEmail: selectedMember.email,
-        assignedMember:
-          selectedMember.firstName + " " + selectedMember.lastName,
-        status: "Delivered",
-        location: "Employee",
-      };
+      } else if (selectedMember) {
+        updatedProduct = {
+          ...updatedProduct,
+          assignedEmail: selectedMember.email,
+          assignedMember:
+            selectedMember.firstName + " " + selectedMember.lastName,
+          status: "Delivered",
+          location: "Employee",
+        };
 
-      if (currentProduct.assignedMember) {
-        updatedProduct.lastAssigned =
-          currentMember?.firstName + " " + currentMember?.lastName || "";
-      }
+        if (currentProduct.assignedMember) {
+          updatedProduct.lastAssigned =
+            currentMember?.firstName + " " + currentMember?.lastName || "";
+        }
 
-      try {
         await reassignProduct(currentProduct._id, updatedProduct);
         await fetchMembers();
         await fetchStock();
         setAside(undefined);
         setAlert("assignedProductSuccess");
-      } catch (error) {
-        setAlert("errorAssignedProduct");
       }
+    } catch (error) {
+      setAlert("errorAssignedProduct");
+      console.error("Failed to reassign product", error);
+    } finally {
+      setIsAssigning(false);
     }
   };
 
   const handleSelectNoneOption = (option: string) => {
+    handleSelectedMembers(null);
     setNoneOption(option);
     setValidationError(null);
   };
@@ -121,92 +131,97 @@ export const AddMemberForm = observer(function ({
 
   return (
     <section className="flex flex-col gap-6 h-full">
-      <SearchInput placeholder="Search Member" onSearch={handleSearch} />
       <div className="flex flex-col gap-3 mt-3 flex-grow overflow-y-auto">
         {showNoneOption && (
-          <>
-            <div
-              className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue ${
-                selectedMember === null ? "bg-hoverBlue" : ""
-              }`}
-              onClick={() => {
-                handleSelectMember(null);
-              }}
+          <section className="flex flex-col gap-2">
+            <span className="text-dark-grey font-medium">
+              If you want to <strong>return</strong> this prouct, please select
+              the new Loaction.
+            </span>
+            <Select
+              onValueChange={(value) =>
+                handleSelectNoneOption(value as Location)
+              }
+              value={noneOption || ""}
             >
-              <div className="flex gap-2">
-                <p className="text-black font-bold">None</p>
-              </div>
-            </div>
-            {selectedMember === null && (
-              <div className="flex flex-col gap-2 ml-6">
-                <div
-                  className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue ${
-                    noneOption === "FP warehouse" ? "bg-hoverBlue" : ""
-                  }`}
-                  onClick={() => handleSelectNoneOption("FP warehouse")}
-                >
-                  <div className="flex gap-2">
-                    <p className="text-black font-bold">FP warehouse</p>
-                  </div>
-                </div>
-                <div
-                  className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue ${
-                    noneOption === "Our office" ? "bg-hoverBlue" : ""
-                  }`}
-                  onClick={() => handleSelectNoneOption("Our office")}
-                >
-                  <div className="flex gap-2">
-                    <p className="text-black font-bold">Our office</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </>
+              <SelectTrigger className="font-semibold text-md w-1/2">
+                <SelectValue placeholder="Select Location" />
+              </SelectTrigger>
+              <SelectContent className="bg-white">
+                <SelectGroup>
+                  <SelectLabel>Location</SelectLabel>
+                  {LOCATION.filter((e) => e !== "Employee").map((location) => (
+                    <SelectItem value={location} key={location}>
+                      {location}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
+            <hr />
+          </section>
         )}
         {validationError && (
           <p className="text-red-500 text-md">{validationError}</p>
         )}
-        {displayedMembers.map((member) => (
-          <div
-            className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue ${
-              member.email === selectedMember?.email ? "bg-hoverBlue" : ""
-            }`}
-            key={member._id}
-            onClick={() => {
-              handleSelectedMembers(member);
-            }}
-          >
-            <div className="flex gap-2">
-              <p className="text-black font-bold">
-                {member.firstName} {member.lastName}
-              </p>
-              <span className="text-dark-grey">
-                {typeof member.team === "string"
-                  ? member.team
-                  : member.team?.name}
-              </span>
-            </div>
+        <div className="flex flex-col gap-4 items-start ">
+          {showNoneOption && (
+            <p className="text-dark-grey font-medium">
+              If you want to <strong>relocate</strong> this product, please
+              select the <strong>employee</strong> to whom this item will be
+              assigned.
+            </p>
+          )}
+
+          <div className="w-full">
+            <SearchInput placeholder="Search Member" onSearch={handleSearch} />
           </div>
-        ))}
+          <div className="flex flex-col gap-2 w-full">
+            {displayedMembers.map((member) => (
+              <div
+                className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue `}
+                key={member._id}
+                onClick={() => handleSelectMember(member)}
+              >
+                <input
+                  type="checkbox"
+                  checked={member._id === selectedMember?._id}
+                />
+                <div className="flex gap-2">
+                  <p className="text-black font-bold">
+                    {member.firstName} {member.lastName}
+                  </p>
+                  <span className="text-dark-grey">
+                    {typeof member.team === "string"
+                      ? member.team
+                      : member.team?.name}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      <aside className="absolute flex justify-end bg-white w-[80%] bottom-0 p-2 h-[10%] border-t space-x-4">
-        <Button
-          variant="secondary"
-          size="big"
-          className="flex-grow rounded-md"
-          onClick={() => setAside(undefined)}
-        >
-          Cancel
-        </Button>
-        <Button
-          variant="primary"
-          size="big"
-          className="flex-grow rounded-md"
-          onClick={handleSaveClick}
-        >
-          Save
-        </Button>
+      <aside className=" absolute  bg-white  py-2    bottom-0   left-0 w-full border-t ">
+        <div className="flex    w-5/6 mx-auto gap-2 justify-end">
+          <Button
+            variant="secondary"
+            className="px-8"
+            onClick={() => setAside(undefined)}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            className="px-8"
+            onClick={handleSaveClick}
+            disabled={(!selectedMember && !noneOption) || isAssigning}
+          >
+            {isAssigning ? <LoaderSpinner /> : "Save"}
+          </Button>
+        </div>
       </aside>
     </section>
   );

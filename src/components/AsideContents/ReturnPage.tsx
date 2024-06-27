@@ -1,20 +1,6 @@
-import { ArrowLeft, Button, LoaderSpinner } from "@/common";
-import ProductDetail, { RelocateStatus } from "@/common/ProductDetail";
-import { LOCATION, Location, Product, TeamMember } from "@/types";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useState } from "react";
-import useActions from "@/hooks/useActions";
-import useFetch from "@/hooks/useFetch";
-import { useStore } from "@/models";
-import { Badge, badgeVariants } from "../ui/badge";
+import { ArrowLeft } from "@/common";
+import { Product } from "@/types";
+
 import { ReturnProduct } from "./ReturnProduct";
 
 interface IReturnPage {
@@ -40,7 +26,7 @@ export function ReturnPage({ handleBack, products }: IReturnPage) {
         </h2>
       </div>
       {products.map((product) => (
-        <ReturnProduct product={product} />
+        <ReturnProduct product={product} key={product._id} />
       ))}
     </div>
   );

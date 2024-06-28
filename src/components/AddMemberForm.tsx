@@ -130,8 +130,8 @@ export const AddMemberForm = observer(function ({
   };
 
   return (
-    <section className="flex flex-col gap-6 h-full">
-      <div className="flex flex-col gap-3 mt-3 flex-grow overflow-y-auto">
+    <section className="flex flex-col gap-6 h-full ">
+      <div className="h-[90%] w-full ">
         {showNoneOption && (
           <section className="flex flex-col gap-2">
             <span className="text-dark-grey font-medium">
@@ -165,7 +165,7 @@ export const AddMemberForm = observer(function ({
         {validationError && (
           <p className="text-red-500 text-md">{validationError}</p>
         )}
-        <div className="flex flex-col gap-4 items-start ">
+        <div className="flex flex-col gap-4 items-start h-[92%]  ">
           {showNoneOption && (
             <p className="text-dark-grey font-medium">
               If you want to <strong>relocate</strong> this product, please
@@ -177,7 +177,7 @@ export const AddMemberForm = observer(function ({
           <div className="w-full">
             <SearchInput placeholder="Search Member" onSearch={handleSearch} />
           </div>
-          <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full h-[95%] max-h-[95%] overflow-y-auto  ">
             {displayedMembers.map((member) => (
               <div
                 className={`flex gap-2 items-center py-2 px-4 border cursor-pointer rounded-md transition-all duration-300 hover:bg-hoverBlue `}

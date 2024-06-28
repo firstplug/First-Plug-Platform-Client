@@ -39,7 +39,7 @@ export const AssignProduct = observer(() => {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 h-full">
       <AddMemberForm
         selectedMember={member}
         handleSelectedMembers={handleSelectedMembers}

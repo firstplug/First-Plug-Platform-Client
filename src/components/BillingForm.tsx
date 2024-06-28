@@ -1,7 +1,7 @@
 "use client";
 import { observer } from "mobx-react-lite";
 import { FormInput, Card } from "./";
-import { fields } from "./AddMember/JSON/shipmentdata.json";
+import fields from "./AddMember/JSON/shipmentdata.json";
 import { useStore } from "@/models";
 import { BarLoader } from "./Loader/BarLoader";
 interface Props {
@@ -12,6 +12,7 @@ export var BillingForm = observer(function BillingForm({ handleInput }: Props) {
     user: { user },
   } = useStore();
 
+  const countries = fields.fields[0].options;
   return user ? (
     <section className="w-full flex flex-col gap-5  border rounded-md p-4  ">
       <h2 className="text-xl font-montserrat font-bold text-black">
@@ -20,7 +21,7 @@ export var BillingForm = observer(function BillingForm({ handleInput }: Props) {
       <div className="grid grid-cols-4 gap-4">
         <FormInput
           type="options"
-          options={fields[0].options}
+          options={countries}
           prop="country"
           placeholder="Country"
           handleInput={handleInput}

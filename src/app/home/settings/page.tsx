@@ -33,7 +33,7 @@ export default function Settings() {
 
   return (
     <PageLayout>
-      <section className="h-full flex flex-col ">
+      <section className="h-full flex flex-col gap-2">
         <div className="flex flex-col gap-4  h-[90%] max-h-[90%] overflow-y-auto">
           <div className="flex w-full gap-4 ">
             <CompanyForm handleInput={handleInput} />
@@ -42,7 +42,7 @@ export default function Settings() {
           <BillingForm handleInput={handleInput} />
         </div>
 
-        <section className="flex h-[10%] items-center justify-end py-4 border-t">
+        <section className="flex h-[10%] py-6 items-center justify-end border-t">
           <Button
             body="Cancel"
             variant="secondary"

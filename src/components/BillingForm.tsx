@@ -1,5 +1,5 @@
 import { FormInput, Card } from "./";
-import fields from "./AddMember/JSON/shipmentdata.json";
+// import fields from "./AddMember/JSON/shipmentdata.json";
 interface Props {
   handleInput: (prop: string, value: unknown) => void;
 }
@@ -12,7 +12,7 @@ export const BillingForm = function ({ handleInput }: Props) {
       <div className="grid grid-cols-4 gap-4">
         <FormInput
           type="options"
-          options={fields[0].options}
+          options={[]}
           prop="country"
           placeholder="Country"
           handleInput={handleInput}

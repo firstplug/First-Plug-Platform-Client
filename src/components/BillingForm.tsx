@@ -1,5 +1,5 @@
 import { FormInput, Card } from "./";
-import { fields } from "./AddMember/JSON/shipmentdata.json";
+import fields from "./AddMember/JSON/shipmentdata.json";
 interface Props {
   handleInput: (prop: string, value: unknown) => void;
 }

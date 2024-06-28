@@ -73,7 +73,7 @@ export function DropdownInputProductForm({
           placeholder={placeholder}
           readOnly
           onClick={toggleDropdown}
-          className={`w-full h-14 py-2 pl-4 pr-12 rounded-xl border text-black p-4 font-sans focus:outline-none`}
+          className={`w-full h-14 cursor-pointer py-2 pl-4 pr-12 rounded-xl border text-black p-4 font-sans focus:outline-none`}
           name={name}
           disabled={disabled}
         />

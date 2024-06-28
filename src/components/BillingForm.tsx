@@ -1,14 +1,18 @@
 import { FormInput, Card } from "./";
+import { fields } from "./AddMember/JSON/shipmentdata.json";
 interface Props {
   handleInput: (prop: string, value: unknown) => void;
 }
 export const BillingForm = function ({ handleInput }: Props) {
   return (
     <section className="w-full flex flex-col gap-5  border rounded-md p-4 ">
-      <h2 className="text-xl font-montserrat font-bold text-black">User</h2>
+      <h2 className="text-xl font-montserrat font-bold text-black">
+        Billing Inofrmation
+      </h2>
       <div className="grid grid-cols-4 gap-4">
         <FormInput
-          type="text"
+          type="options"
+          options={fields[0].options}
           prop="country"
           placeholder="Country"
           handleInput={handleInput}

@@ -33,7 +33,7 @@ export default function Settings() {
 
   return (
     <PageLayout>
-      <section className="max-h-[96%] h-[96%]  overflow-auto ">
+      <section className="h-full">
         <div className="flex flex-col gap-4">
           <div className="flex w-full gap-4 ">
             <CompanyForm handleInput={handleInput} />

@@ -21,5 +21,6 @@ export const ALERTS_TYPES = [
   "errorEmailInUse",
   "removeItemSuccesfully",
   "memberUnassigned",
+  "userUpdatedSuccesfully",
 ] as const;
 export type AlertType = (typeof ALERTS_TYPES)[number];

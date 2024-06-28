@@ -24,7 +24,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
   clearErrors,
   isUpdate,
 }) {
-  const { members } = useStore();
+  const { members, products } = useStore();
   const {
     setValue,
     watch,
@@ -37,13 +37,23 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
   useEffect(() => {
     if (isUpdate) {
       const assignedMember = formState.assignedMember as string;
-      setSelectedAssignedMember(assignedMember || "None");
+      const assignedEmail = formState.assignedEmail as string;
+
+      if (
+        assignedEmail &&
+        !members.members.some((member) => member.email === assignedEmail)
+      ) {
+        setSelectedAssignedMember(assignedEmail);
+      } else {
+        setSelectedAssignedMember(assignedMember || "None");
+      }
+
       setValue("assignedMember", assignedMember);
 
       const selectedMember = members.members.find(
         (member) => `${member.firstName} ${member.lastName}` === assignedMember
       );
-      setAssignedEmail(selectedMember?.email || "");
+      setAssignedEmail(selectedMember?.email || assignedEmail || "");
 
       const location = formState.location as string;
       setSelectedLocation(location);
@@ -57,6 +67,14 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
       (member) => `${member.firstName} ${member.lastName}`
     ),
   ];
+
+  const unknownAssignedEmails = products.products
+    .map((product) => product.assignedEmail)
+    .filter(
+      (email) =>
+        email && !members.members.some((member) => member.email === email)
+    );
+
   const handleInputChange = (name: keyof FieldValues, value: string) => {
     setValue(name, value);
     clearErrors(name);
@@ -85,6 +103,14 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
     clearErrors("assignedMember");
     clearErrors("assignedEmail");
   };
+
+  const dropdownOptions = [
+    "None",
+    ...members.members.map(
+      (member) => `${member.firstName} ${member.lastName}`
+    ),
+    ...unknownAssignedEmails,
+  ];
 
   return (
     <div className="w-full">
@@ -115,7 +141,7 @@ const CategoryForm: React.FC<CategoryFormProps> = function ({
         </div>
         <div className="w-full">
           <DropdownInputProductForm
-            options={memberFullNames}
+            options={dropdownOptions as string[]}
             placeholder="Assigned Email"
             title="Assigned Member*"
             name="assignedMember"

@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 interface Props {
   handleInput: (prop: string, value: unknown) => void;
 }
-export const AccessForm = observer(function AccessForm({ handleInput }: Props) {
+export var AccessForm = observer(function AccessForm({ handleInput }: Props) {
   const {
     user: { user },
   } = useStore();

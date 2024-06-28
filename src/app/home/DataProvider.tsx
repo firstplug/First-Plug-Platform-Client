@@ -41,13 +41,7 @@ export default function DataProvider({ children }: DataProvidersProps) {
         session.data.backendTokens.accessToken
       );
 
-      setUser({
-        _id: session.data.user._id,
-        name: session.data.user.name,
-        image: session.data.user.image,
-        email: session.data.user.email,
-        tenantName: session.data.user.tenantName,
-      });
+      setUser(session.data.user);
 
       if (!session.data.user.tenantName) {
         return router.push("/waiting");

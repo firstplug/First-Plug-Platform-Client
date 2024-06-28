@@ -30,6 +30,14 @@ export default observer(function AlertProvider() {
   const { fetchMembers, fetchStock } = useFetch();
 
   const Config: Record<AlertType, IConfig> = {
+    userUpdatedSuccesfully: {
+      title: "Success",
+      type: "succes",
+      description: " User has been updated  successfully.",
+      closeAction: () => {
+        setAlert(undefined);
+      },
+    },
     removeItemSuccesfully: {
       title: "Success",
       type: "succes",

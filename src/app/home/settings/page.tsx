@@ -42,7 +42,7 @@ export default function Settings() {
           <BillingForm handleInput={handleInput} />
         </div>
 
-        <section className="flex h-[10%] items-center justify-end py-4">
+        <section className="flex h-[10%] items-center justify-end py-4 border-t">
           <Button
             body="Cancel"
             variant="secondary"

@@ -46,12 +46,14 @@ export const FormInput = function ({
           options={options}
           placeholder={placeholder}
           title={title}
+          defaultValue={value}
           className="w-full"
           {...input}
         />
       ) : (
         <Input
           type={type}
+          defaultValue={value}
           value={input.value}
           className={` w-full ${className}`}
           placeholder={placeholder}

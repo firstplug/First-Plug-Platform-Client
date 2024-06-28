@@ -5,7 +5,7 @@ interface Props {
 }
 export const BillingForm = function ({ handleInput }: Props) {
   return (
-    <section className="w-full flex flex-col gap-5  border rounded-md p-4 ">
+    <section className="w-full flex flex-col gap-5  border rounded-md p-4  ">
       <h2 className="text-xl font-montserrat font-bold text-black">
         Billing Inofrmation
       </h2>

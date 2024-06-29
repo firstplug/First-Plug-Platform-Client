@@ -60,3 +60,67 @@ export const UserZodSchema = z.object({
 });
 
 export type UserZod = z.infer<typeof UserZodSchema>;
+export type SettingsFormKeys = keyof Omit<
+  UserZod,
+  "_id" | "name" | "email" | "image" | "tenantName"
+>;
+export const SETTINGS_ARRAY_KEYS: SettingsFormKeys[] = [
+  "phone",
+  "city",
+  "state",
+  "country",
+  "zipCode",
+  "address",
+  "apartment",
+];
+
+type SettingsFormInput = {
+  label: string;
+  placeholder: string;
+  error: string;
+  name: SettingsFormKeys;
+};
+export const SettingsFormConfig: Record<SettingsFormKeys, SettingsFormInput> = {
+  address: {
+    error: "errore",
+    label: "Address",
+    name: "address",
+    placeholder: "address",
+  },
+  apartment: {
+    error: "",
+    label: "",
+    name: "apartment",
+    placeholder: "",
+  },
+  city: {
+    error: "",
+    label: "",
+    name: "city",
+    placeholder: "",
+  },
+  country: {
+    error: "",
+    label: "",
+    name: "country",
+    placeholder: "",
+  },
+  phone: {
+    error: "",
+    label: "Contact Phone Number",
+    name: "phone",
+    placeholder: "+54 11 111111",
+  },
+  state: {
+    error: "",
+    label: "",
+    name: "state",
+    placeholder: "",
+  },
+  zipCode: {
+    error: "",
+    label: "",
+    name: "zipCode",
+    placeholder: "",
+  },
+};

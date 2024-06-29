@@ -7,9 +7,7 @@ import { AlertType } from "@/types/alerts";
 import { useRouter } from "next/navigation";
 import { XCircleIcon } from "lucide-react";
 import { CheckIcon } from "@/common";
-import { Memberservices, ProductServices } from "@/services";
 import useFetch from "@/hooks/useFetch";
-import { set } from "zod";
 
 function XIcon() {
   return <XCircleIcon className="text-white " size={40} />;

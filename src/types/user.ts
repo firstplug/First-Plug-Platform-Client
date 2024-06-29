@@ -1,6 +1,6 @@
 import { Instance, types } from "mobx-state-tree";
 import { z } from "zod";
-
+import fields from "@/components/AddMember/JSON/shipmentdata.json";
 export const LoggedInUserModel = types.model({
   _id: types.string,
   name: types.string,
@@ -36,8 +36,9 @@ export type RegisterUserPlatforms = Pick<
 >;
 
 export type LoginUser = Pick<User, "email" | "password">;
-const phoneRegex = /^\+?[0-9\s]*$/;
 
+const onlyLetters = /^[A-Za-z\s]+$/;
+const phoneRegex = /^\+?[0-9\s]*$/;
 export const UserZodSchema = z.object({
   _id: z.string(),
   name: z.string(),
@@ -51,7 +52,13 @@ export const UserZodSchema = z.object({
       message: "Phone number is invalid",
     })
     .optional(),
-  city: z.string().trim().optional(),
+  city: z
+    .string()
+    .trim()
+    .regex(onlyLetters, {
+      message: "This fiel might be completed only with lettes",
+    })
+    .optional(),
   state: z.string().trim().optional(),
   country: z.string().trim().optional(),
   zipCode: z.string().trim().optional(),
@@ -79,6 +86,8 @@ type SettingsFormInput = {
   subMessage: string;
   name: SettingsFormKeys;
   readonly: boolean;
+  tpye?: "select" | "input";
+  options?: string[];
 };
 export const SettingsFormConfig: Record<SettingsFormKeys, SettingsFormInput> = {
   address: {
@@ -108,6 +117,8 @@ export const SettingsFormConfig: Record<SettingsFormKeys, SettingsFormInput> = {
     name: "country",
     placeholder: "",
     readonly: false,
+    tpye: "select",
+    options: fields.fields[0].options,
   },
   phone: {
     subMessage: "",

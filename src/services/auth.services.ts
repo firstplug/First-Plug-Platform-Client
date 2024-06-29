@@ -35,18 +35,18 @@ export class AuthServices {
     }
   }
 
-  static async refreshToken(token: JWT): Promise<JWT> {
+  static async refreshToken(refreshToken: string): Promise<JWT> {
     try {
       const response = await axios.post(
         `${BASE_URL}/api/auth/refresh`,
         {},
         {
           headers: {
-            authorization: `Refresh ${token.backendTokens.refreshToken}`,
+            authorization: `Refresh ${refreshToken}`,
           },
         }
       );
-      return { ...token, backendTokens: response.data };
+      return response.data;
     } catch (error) {
       throw error;
     }

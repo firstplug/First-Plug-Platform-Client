@@ -1,3 +1,4 @@
+import { DropdownInputProductForm } from "@/components/AddProduct/DropDownProductForm";
 import {
   FormControl,
   FormDescription,
@@ -7,6 +8,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectItem,
+  SelectContent,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup,
+} from "@/components/ui/select";
 import { SettingsFormConfig, SettingsFormKeys } from "@/types";
 import { UseFormReturn } from "react-hook-form";
 export function SettingsSubForm({
@@ -25,16 +35,36 @@ export function SettingsSubForm({
         <FormItem>
           <FormLabel>{data?.label}</FormLabel>
           <FormControl>
-            <Input
-              placeholder={data?.placeholder}
-              {...field}
-              readOnly={data.readonly}
-              className={`w-full  h-14 py-2 text-lg ${
-                data.readonly
-                  ? " rounded-xl border  text-black p-4 bg-disabled/50 select-none cursor-default  focus:outline-none"
-                  : ""
-              }`}
-            />
+            {data.tpye === "select" ? (
+              <Select onValueChange={field.onChange} value={field.value}>
+                <FormControl>
+                  <SelectTrigger className=" w-full  h-14 py-2 text-lg ">
+                    <SelectValue placeholder="Select a verified email to display" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent className="bg-white">
+                  <SelectGroup>
+                    <SelectLabel>Location</SelectLabel>
+                    {data.options?.map((option) => (
+                      <SelectItem value={option} key={option}>
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            ) : (
+              <Input
+                placeholder={data?.placeholder}
+                {...field}
+                readOnly={data.readonly}
+                className={`w-full  h-14 py-2 text-lg ${
+                  data.readonly
+                    ? " rounded-xl border  text-black p-4 bg-disabled/50 select-none cursor-default  focus:outline-none"
+                    : ""
+                }`}
+              />
+            )}
           </FormControl>
           <FormDescription>{data?.subMessage}</FormDescription>
           <FormMessage />

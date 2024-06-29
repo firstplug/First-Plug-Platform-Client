@@ -60,10 +60,7 @@ export const UserZodSchema = z.object({
 });
 
 export type UserZod = z.infer<typeof UserZodSchema>;
-export type SettingsFormKeys = keyof Omit<
-  UserZod,
-  "_id" | "name" | "email" | "image" | "tenantName"
->;
+export type SettingsFormKeys = keyof Omit<UserZod, "_id" | "name" | "image">;
 export const SETTINGS_ARRAY_KEYS: SettingsFormKeys[] = [
   "phone",
   "city",
@@ -72,55 +69,80 @@ export const SETTINGS_ARRAY_KEYS: SettingsFormKeys[] = [
   "zipCode",
   "address",
   "apartment",
+  "tenantName",
+  "email",
 ];
 
 type SettingsFormInput = {
   label: string;
   placeholder: string;
-  error: string;
+  subMessage: string;
   name: SettingsFormKeys;
+  readonly: boolean;
 };
 export const SettingsFormConfig: Record<SettingsFormKeys, SettingsFormInput> = {
   address: {
-    error: "errore",
+    subMessage: "errore",
     label: "Address",
     name: "address",
     placeholder: "address",
+    readonly: false,
   },
   apartment: {
-    error: "",
-    label: "",
+    subMessage: "",
+    label: "Appartment, Suite, etc.",
     name: "apartment",
     placeholder: "",
+    readonly: false,
   },
   city: {
-    error: "",
-    label: "",
+    subMessage: "",
+    label: "City",
     name: "city",
     placeholder: "",
+    readonly: false,
   },
   country: {
-    error: "",
-    label: "",
+    subMessage: "",
+    label: "Country",
     name: "country",
     placeholder: "",
+    readonly: false,
   },
   phone: {
-    error: "",
+    subMessage: "",
     label: "Contact Phone Number",
     name: "phone",
     placeholder: "+54 11 111111",
+    readonly: false,
   },
   state: {
-    error: "",
-    label: "",
+    subMessage: "",
+    label: "State",
     name: "state",
     placeholder: "",
+    readonly: false,
   },
   zipCode: {
-    error: "",
-    label: "",
+    subMessage: "",
+    label: "Zip Code",
     name: "zipCode",
     placeholder: "",
+    readonly: false,
+  },
+  //READ ONLY INPUTS
+  email: {
+    subMessage: "",
+    label: "Email Address",
+    name: "email",
+    placeholder: "",
+    readonly: true,
+  },
+  tenantName: {
+    subMessage: "",
+    label: "Company Name",
+    name: "tenantName",
+    placeholder: "",
+    readonly: true,
   },
 };

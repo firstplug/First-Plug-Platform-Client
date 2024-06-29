@@ -1,51 +1,10 @@
-import { Button, LoaderSpinner } from "@/common";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { BillingForm, CompanyForm, AccessForm } from "@/components";
+import { Button } from "@/common";
+import { Form } from "@/components/ui/form";
 import { useStore } from "@/models";
-import {
-  SETTINGS_ARRAY_KEYS,
-  SettingsFormConfig,
-  SettingsFormKeys,
-  UserZod,
-  UserZodSchema,
-} from "@/types";
+import { UserZod, UserZodSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UseFormReturn, useForm } from "react-hook-form";
-
-function SubForm({
-  pepe,
-  form,
-}: {
-  pepe: SettingsFormKeys;
-  form: UseFormReturn;
-}) {
-  console.log({ pepe });
-  const data = SettingsFormConfig[pepe];
-  return (
-    <FormField
-      control={form.control}
-      name={data?.name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>{data?.label}</FormLabel>
-          <FormControl>
-            <Input placeholder={data?.placeholder} {...field} />
-          </FormControl>
-          <FormDescription>{data?.error}</FormDescription>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-}
+import { useForm } from "react-hook-form";
 
 export default function SettingsForm() {
   const {
@@ -65,10 +24,17 @@ export default function SettingsForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        {SETTINGS_ARRAY_KEYS.map((k) => (
-          <SubForm pepe={k} form={form} />
-        ))}
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="h-full flex flex-col gap-2"
+      >
+        <div className="flex flex-col gap-4  h-[90%] max-h-[90%] overflow-y-auto">
+          <div className="flex w-full gap-4 ">
+            <CompanyForm form={form} />
+            <AccessForm form={form} />
+          </div>
+          <BillingForm form={form} />
+        </div>
 
         <section className="flex h-[10%] py-6 items-center justify-end border-t">
           <Button

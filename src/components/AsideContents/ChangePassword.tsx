@@ -44,10 +44,6 @@ export function ChangePassword() {
   const onSubmit = async (values: ChangePassword) => {
     setIsLoading(true);
     try {
-      console.log({
-        newPassword: values.newPassword,
-        oldPassword: values.oldPassword,
-      });
       await AuthServices.cahngePassword({
         newPassword: values.newPassword,
         oldPassword: values.oldPassword,

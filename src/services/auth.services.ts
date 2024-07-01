@@ -1,4 +1,4 @@
-import { BASE_URL } from "@/config/axios.config";
+import { BASE_URL, HTTPRequests } from "@/config/axios.config";
 import {
   LoggedInUser,
   LoginUser,
@@ -11,6 +11,16 @@ import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
 export class AuthServices {
+  static async cahngePassword(data: {
+    oldPassword: string;
+    newPassword: string;
+  }): Promise<LoggedInUser> {
+    const res = await HTTPRequests.post(
+      `${BASE_URL}/api/auth/change-password`,
+      data
+    );
+    return res.data;
+  }
   static async getUserInfro(id: string): Promise<LoggedInUser> {
     const res = await axios.post(`${BASE_URL}/api/auth/user`, { id });
     return res.data;

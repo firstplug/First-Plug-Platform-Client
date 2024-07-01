@@ -28,6 +28,22 @@ export default observer(function AlertProvider() {
   const { fetchMembers, fetchStock } = useFetch();
 
   const Config: Record<AlertType, IConfig> = {
+    ErorPasswordChange: {
+      title: "Error",
+      type: "error",
+      description: "Please verify your credentials.",
+      closeAction: () => {
+        setAlert(undefined);
+      },
+    },
+    passwordChange: {
+      title: "Success",
+      type: "succes",
+      description: "Password has been changed successfully.",
+      closeAction: () => {
+        setAlert(undefined);
+      },
+    },
     userUpdatedSuccesfully: {
       title: "Success",
       type: "succes",

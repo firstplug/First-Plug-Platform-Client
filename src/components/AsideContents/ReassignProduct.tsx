@@ -2,17 +2,17 @@
 import { useStore } from "@/models";
 import { AddMemberForm } from "../AddMemberForm";
 import { useEffect, useState } from "react";
-import { TeamMember } from "@/types";
+import { TeamMember, Product } from "@/types";
 import { observer } from "mobx-react-lite";
-import ProductDetail from "@/common/ProductDetail";
 
-export const AssignProduct = observer(() => {
+export const ReassignProduct = observer(() => {
   const {
     members: { members },
-    products: { currentProduct, getProductForAssign },
+    products: { currentProduct, currentMember, getProductForReassign },
   } = useStore();
   const [member, setMember] = useState<TeamMember | null>(null);
   const [filteredMembers, setFilteredMembers] = useState<TeamMember[]>([]);
+  const [showNoneOption, setShowNoneOption] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -22,9 +22,9 @@ export const AssignProduct = observer(() => {
       setLoading(true);
       setError(null);
       try {
-        await getProductForAssign(currentProduct._id);
+        await getProductForReassign(currentProduct._id);
       } catch (err) {
-        console.error("Failed to get product for assign", err);
+        console.error("Failed to get product for reassign", err);
         setError("Failed to load product data. Please try again.");
       } finally {
         setLoading(false);
@@ -32,18 +32,22 @@ export const AssignProduct = observer(() => {
     };
 
     fetchProduct();
-  }, [getProductForAssign, currentProduct]);
+  }, [getProductForReassign, currentProduct]);
 
   useEffect(() => {
     if (members.length > 0 && currentProduct) {
-      if (
-        currentProduct.assignedEmail === "" &&
-        currentProduct.assignedMember === ""
-      ) {
+      if (currentProduct.assignedEmail && !currentMember) {
         setFilteredMembers(members);
+        setShowNoneOption(true);
+      } else {
+        const reassignFilteredMembers = members.filter(
+          (member) => member.email !== currentMember?.email
+        );
+        setFilteredMembers(reassignFilteredMembers);
+        setShowNoneOption(true);
       }
     }
-  }, [members, currentProduct]);
+  }, [members, currentMember, currentProduct]);
 
   const handleSelectedMembers = (selectedMember: TeamMember | null) => {
     setMember(selectedMember);
@@ -55,7 +59,6 @@ export const AssignProduct = observer(() => {
 
   return (
     <div className="flex flex-col gap-2 h-full">
-      {/* <ProductDetail product={currentProduct} /> */}
       {error ? (
         <div className="text-red-500">{error}</div>
       ) : (
@@ -64,6 +67,8 @@ export const AssignProduct = observer(() => {
           handleSelectedMembers={handleSelectedMembers}
           members={filteredMembers}
           currentProduct={currentProduct}
+          currentMember={currentMember}
+          showNoneOption={showNoneOption}
         />
       )}
     </div>

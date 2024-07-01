@@ -14,7 +14,7 @@ interface ActionButtonProps {
 export function ActionButton({ product }: ActionButtonProps) {
   const {
     aside: { setAside },
-    members: { setSelectedMemberEmail, setMembers },
+    members: { setSelectedMemberEmail },
     products,
   } = useStore();
 

@@ -14,6 +14,7 @@ import {
   RelacoteProducts,
 } from "./AsideContents";
 import EditMemberAside from "./EditMemberAside";
+import { ReassignProduct } from "./AsideContents/ReassignProduct";
 
 export var AsideContent = observer(function () {
   const { aside } = useStore();
@@ -31,7 +32,7 @@ export var AsideContent = observer(function () {
     case "AssignProduct":
       return <AssignProduct />;
     case "ReassignProduct":
-      return <AssignProduct />;
+      return <ReassignProduct />;
     case "LoadStock":
       return <LoadAside />;
     case "LoadMembers":

@@ -39,7 +39,7 @@ export function SettingsSubForm({
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger className=" w-full  h-14 py-2 text-lg ">
-                    <SelectValue placeholder="Select a verified email to display" />
+                    <SelectValue placeholder="Select Country" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="bg-white">

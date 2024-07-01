@@ -42,10 +42,6 @@ export default function DataProvider({ children }: DataProvidersProps) {
         session.data.backendTokens.accessToken
       );
 
-      AuthServices.getUserInfro(session.data.user._id).then((res) => {
-        setUser(res);
-      });
-
       if (!session.data.user.tenantName) {
         return router.push("/waiting");
       }
@@ -53,6 +49,10 @@ export default function DataProvider({ children }: DataProvidersProps) {
       if (sessionStorage.getItem("accessToken")) {
         setAuthInterceptor(sessionStorage.getItem("accessToken"));
         fetchAllDAta();
+
+        AuthServices.getUserInfro(session.data.user._id).then((res) => {
+          setUser(res);
+        });
       }
     }
   }, [session.data]);

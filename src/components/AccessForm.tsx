@@ -16,17 +16,11 @@ export var AccessForm = function AccessForm({ form }: Props) {
       <h2 className="text-xl font-montserrat font-bold text-black">Access</h2>
       <SettingsSubForm form={form} keyValue="email" />
 
-      <div className="flex items-center gap-8">
-        <Input
-          type="password"
-          title="Change Password"
-          value="sdasdasda"
-          readonly
-        />
+      <div className="flex items-center gap-8  h-24">
         <Button
           type="button"
-          variant="text"
-          className="rounded-none"
+          variant="secondary"
+          className="rounded-xs"
           onClick={() => setAside("ChangePassword")}
         >
           Change Password

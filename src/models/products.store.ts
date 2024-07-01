@@ -1,4 +1,4 @@
-import { types, flow } from "mobx-state-tree";
+import { types, flow, applySnapshot } from "mobx-state-tree";
 import {
   Product,
   ProductModel,
@@ -16,8 +16,8 @@ export const ProductsStore = types
     fetchingStock: types.optional(types.boolean, false),
     onlyAvaliable: types.optional(types.boolean, false),
     members: types.array(types.frozen()),
-    currentProduct: types.maybe(ProductModel),
-    currentMember: types.maybe(types.frozen()),
+    currentProduct: types.maybeNull(ProductModel),
+    currentMember: types.maybeNull(types.frozen()),
   })
   .views((store) => ({
     get availableProducts() {
@@ -85,6 +85,11 @@ export const ProductsStore = types
         store.products[index] = product;
       }
     },
+    clearCurrentProduct() {
+      store.currentProduct = null;
+      store.currentMember = null;
+      store.members.clear();
+    },
     getProductForAssign: flow(function* (
       productId: string,
       fetchValue: boolean = true
@@ -92,7 +97,8 @@ export const ProductsStore = types
       store.fetchingStock = fetchValue;
       try {
         const response = yield ProductServices.getProductForAssign(productId);
-        store.members.replace(response.options);
+
+        applySnapshot(store.members, response.options);
         store.currentProduct = response.product;
         store.currentMember = null;
       } catch (error) {
@@ -108,7 +114,7 @@ export const ProductsStore = types
       store.fetchingStock = fetchValue;
       try {
         const response = yield ProductServices.getProductForReassign(productId);
-        store.members.replace(response.options);
+        applySnapshot(store.members, response.options);
         store.currentProduct = response.product;
         store.currentMember = response.currentMember;
       } catch (error) {
@@ -123,7 +129,7 @@ export const ProductsStore = types
       fetchValue: boolean = true
     ) {
       try {
-        const response = yield ProductServices.reassignProduct(productId, data);
+        const response = yield ProductServices.updateProduct(productId, data);
         const index = store.products.findIndex((p) => p._id === response._id);
         if (index > -1) {
           store.products[index] = response;

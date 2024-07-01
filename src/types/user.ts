@@ -136,7 +136,7 @@ export const SettingsFormConfig: Record<SettingsFormKeys, SettingsFormInput> = {
     subMessage: "",
     label: "Contact Phone Number",
     name: "phone",
-    placeholder: "+54 11 111111",
+    placeholder: "+54 11 15466052",
     readonly: false,
   },
   state: {

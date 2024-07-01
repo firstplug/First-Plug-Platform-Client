@@ -1,4 +1,5 @@
 "use client";
+/*global.css*/
 import React, { useState } from "react";
 import { Button } from "@/common";
 import { Memberservices, TeamServices } from "../services";
@@ -55,7 +56,7 @@ export const CreateTeamAside = observer(function ({
 
   return (
     <div className={` ${className} flex flex-col justify-between h-full `}>
-      <div className="flex flex-col gap-2 h-[60vh] overflow-y-auto">
+      <div className="flex flex-col gap-2 h-[60vh] overflow-y-auto scrollbar-custom">
         <div className="flex flex-col">
           <span className="text-dark-grey">Team Name</span>
 

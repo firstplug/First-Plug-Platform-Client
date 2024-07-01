@@ -17,15 +17,17 @@ import { useState } from "react";
 import { AuthServices } from "@/services";
 import { useSession } from "next-auth/react";
 import { setAuthInterceptor } from "@/config/axios.config";
+import { z } from "zod";
 
 export default function SettingsForm() {
   const {
-    user: { user, setUser },
+    user: { user },
     alerts: { setAlert },
   } = useStore();
-  const form = useForm<UserZod>({
+  const form = useForm<z.infer<typeof UserZodSchema>>({
     resolver: zodResolver(UserZodSchema),
-    defaultValues: user,
+    mode: "onChange",
+    defaultValues: { ...user },
   });
   const [isLoading, setIsLoading] = useState(false);
   const session = useSession();
@@ -38,7 +40,6 @@ export default function SettingsForm() {
           session.data.backendTokens.refreshToken
         );
         setAuthInterceptor(refreshData.backendTokens.accessToken);
-        session.data.user = refreshData.user;
 
         setAlert("userUpdatedSuccesfully");
       } catch (error) {
@@ -52,6 +53,7 @@ export default function SettingsForm() {
 
   const noChanges = Object.keys(form.formState.dirtyFields).length === 0;
   const isAble = noChanges || !form.formState.isValid;
+  console.log(form.formState.errors);
   return (
     <Form {...form}>
       <form

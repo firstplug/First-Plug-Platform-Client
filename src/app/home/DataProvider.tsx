@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { Fragment, ReactNode, useEffect } from "react";
 import useFetch from "@/hooks/useFetch";
 import { useRouter } from "next/navigation";
+import { AuthServices } from "@/services";
 interface DataProvidersProps {
   children: ReactNode;
 }
@@ -41,7 +42,9 @@ export default function DataProvider({ children }: DataProvidersProps) {
         session.data.backendTokens.accessToken
       );
 
-      setUser(session.data.user);
+      AuthServices.getUserInfro(session.data.user._id).then((res) => {
+        setUser(res);
+      });
 
       if (!session.data.user.tenantName) {
         return router.push("/waiting");

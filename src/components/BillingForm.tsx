@@ -14,7 +14,6 @@ export var BillingForm = observer(function BillingForm({ form }: Props) {
     user: { user },
   } = useStore();
 
-  const countries = fields.fields[0].options;
   return user ? (
     <section className="w-full flex flex-col gap-5  border rounded-md p-4  ">
       <h2 className="text-xl font-montserrat font-bold text-black">

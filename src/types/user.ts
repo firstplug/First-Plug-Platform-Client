@@ -37,7 +37,7 @@ export type RegisterUserPlatforms = Pick<
 
 export type LoginUser = Pick<User, "email" | "password">;
 
-const onlyLetters = /^[A-Za-z\s]+$/;
+const onlyLetters = /^[A-Za-z\s\u00C0-\u00FF]+$/;
 const phoneRegex = /^\+?[0-9\s]*$/;
 export const UserZodSchema = z.object({
   _id: z.string(),
@@ -55,12 +55,24 @@ export const UserZodSchema = z.object({
   city: z
     .string()
     .trim()
-    .regex(onlyLetters, {
-      message: "This fiel might be completed only with lettes",
+    .refine((value) => value.length === 0 || onlyLetters.test(value), {
+      message: "This field might be completed only with letters",
     })
     .optional(),
-  state: z.string().trim().optional(),
-  country: z.string().trim().optional(),
+  state: z
+    .string()
+    .trim()
+    .refine((value) => value.length === 0 || onlyLetters.test(value), {
+      message: "This field might be completed only with letters",
+    })
+    .optional(),
+  country: z
+    .string()
+    .trim()
+    .refine((value) => value.length === 0 || onlyLetters.test(value), {
+      message: "This field might be completed only with letters",
+    })
+    .optional(),
   zipCode: z.string().trim().optional(),
   address: z.string().trim().optional(),
   apartment: z.string().trim().optional(),
@@ -91,7 +103,7 @@ type SettingsFormInput = {
 };
 export const SettingsFormConfig: Record<SettingsFormKeys, SettingsFormInput> = {
   address: {
-    subMessage: "errore",
+    subMessage: "",
     label: "Address",
     name: "address",
     placeholder: "address",
